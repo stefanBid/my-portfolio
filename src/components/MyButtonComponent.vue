@@ -1,41 +1,23 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
+    name:"MyButton",
     props:{
         btnClass:{
             type:String,
             required:false
         },
-        btnHidden:{
+        disabled:{
             type:Boolean,
-            required:false
-        },
-        btnDisabled:{
-            type:Boolean,
-            required:false
-        }
-    },
-    computed:{
-        isHidden(){
-            if(this.btnHidden === undefined){
-                return false
-            }else{
-                return this.btnHidden
-            }
-        },
-        isDisabled(){
-            if(this.btnDisabled === undefined){
-                return false
-            }else{
-                return this.btnDisabled
-            }
+            required:false,
+            default:false
         }
     }
 })
 </script>
 
 <template>
-<button :class="btnClass" :hidden="isHidden" :disabled="isDisabled">
+<button :class="btnClass" :disabled="disabled">
     <slot></slot>
 </button>
 </template>

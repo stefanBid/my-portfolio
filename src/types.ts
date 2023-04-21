@@ -7,6 +7,15 @@
  */
 export interface HeaderType{
     path?:string,
-    name?: string;
-    label:string;
+    name?: string,
+    label:string
+}
+
+/**
+ * This interface describe the structure of an item on About me page
+ * 
+ */
+export interface AboutMeItem{
+    head:string,
+    content:string
 }

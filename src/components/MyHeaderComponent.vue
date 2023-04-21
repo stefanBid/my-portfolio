@@ -88,7 +88,7 @@ export default defineComponent({
     color: var(--text-color);
     text-decoration: none;
     margin-left: 4rem;
-    transition: .3s ease;
+    transition: .3s ease-in-out;
 }
 
 .navbar a:hover{

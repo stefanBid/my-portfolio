@@ -1,10 +1,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MyButton from '../components/MyButtonComponent.vue'
+import MySection from '../components/MySectionComponent.vue'
 
 export default defineComponent({
     name:'HomeView',
-    components:{MyButton},
+    components:{MyButton, MySection},
     data(){
         return{
         
@@ -22,58 +23,49 @@ export default defineComponent({
 
 <template>
     <!--Home Section-->
-    <section class="home">
-        <div class="home-content">
-            <h3>Hello It's Me</h3>
+    <MySection>
+            <h3 slot="rside">Hello It's Me</h3>
             <h1>Stefano Biddau</h1>
             <h3>And I'm a <span>Frontend Developer</span></h3>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint quasi perferendis inventore non quaerat ipsa!</p>
             <div class="social-media">
-                <a href="http://" target="_blank" rel="instagram"><i class='bx bxl-instagram-alt' ></i></a>
-                <a href="http://" target="_blank" rel="linkedin"><i class='bx bxl-linkedin' ></i></a>
+                <a href="https://www.linkedin.com/in/stefano-biddau-669149214/" target="_blank" rel="linkedin"><i class='bx bxl-linkedin' ></i></a>
+                <a href="https://github.com/stefanBid" target="_blank" rel="github"><i class='bx bxl-github'></i></a>
+                <a href="https://www.instagram.com/stefano_bid/" target="_blank" rel="instagram"><i class='bx bxl-instagram-alt' ></i></a>
             </div>
             <MyButton @click="goToDownload" :btn-class="'btn'">Download CV <i class='bx bx-download'></i></MyButton>
-        </div>
-        <div class="home-img">
-            <img src="../assets/myPhoto.jpg">
-        </div>
-        
-    </section>
+            <template #next>
+                <img src="../assets/myPhoto.jpg">
+            </template>
+    </MySection>
 </template>
 
 <style scoped>
-.home{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.home-content{
-    padding-right: 5rem ;
-}
-.home-content h3{
+
+h3{
     font-size: 3.2rem;
     font-weight: 700;
 }
 
-.home-content h3:nth-of-type(2){
+h3:nth-of-type(2){
     margin-bottom: 30px;
 }
 
-.home-content h3 span{
+h3 span{
     color: var(--main-color);
 }
 
-.home-content h1{
+h1{
     font-size: 5.6rem;
     font-weight: 700;
     line-height: 1.3;
 }
 
-.home-content p{
+p{
     font-size: 1.6rem;
 }
 
-.home-img img{
+img{
     zoom: 70%;
     width: 35vw;
 }
@@ -90,7 +82,7 @@ export default defineComponent({
     font-size: 3rem;
     margin: 3rem 1.5rem 3rem 0;
     color: var(--main-color);
-    transition: .5s ease;
+    transition: .3s ease-in-out;
 }
 
 .social-media a:hover{
@@ -102,6 +94,7 @@ export default defineComponent({
 .btn{
     display: inline-flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem 2.8rem;
     background: var(--main-color);
     border-radius: 4rem;
@@ -111,7 +104,7 @@ export default defineComponent({
     font-weight: 600;
     letter-spacing: .1rem;
     color: var(--second-bg-color);
-    transition: .5s ease;
+    transition: .3s ease-in-out;
     cursor: pointer;
 }
 
@@ -125,6 +118,10 @@ export default defineComponent({
     box-shadow: none;
     background: var(--second-bg-color);
     color: var(--main-color);
+}
+
+.btn:disabled{
+    cursor: none;
 }
 
 </style>
