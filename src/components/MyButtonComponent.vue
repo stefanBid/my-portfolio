@@ -3,10 +3,6 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name:"MyButton",
     props:{
-        btnClass:{
-            type:String,
-            required:false
-        },
         disabled:{
             type:Boolean,
             required:false,
@@ -17,7 +13,7 @@ export default defineComponent({
 </script>
 
 <template>
-<button :class="btnClass" :disabled="disabled">
+<button :class="$attrs.class" :disabled="disabled">
     <slot></slot>
 </button>
 </template>

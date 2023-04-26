@@ -55,7 +55,7 @@ export default defineComponent({
                 <h3 :style="{paddingTop: (index==0)?'2rem':'0'}">{{item.head}}</h3>
                 <p>{{item.content}}</p>
             </template>
-            <MyButton @click="$event =>{isMore = !isMore}" :btn-class="'btn'">{{btnTextContent}}<i :class="btnIconContent"></i></MyButton>
+            <MyButton @click="$event =>{isMore = !isMore}" class="btn">{{btnTextContent}}<i :class="btnIconContent"></i></MyButton>
         <template #next>
             <img src="../assets/myPhoto.jpg" alt="profile">
         </template>
@@ -67,10 +67,6 @@ export default defineComponent({
 img{
     width: 35vw;
     zoom: 70%;
-}
-
-.about-content{
-    text-align: left;
 }
 
 h2{
@@ -119,5 +115,21 @@ p{
     box-shadow: none;
     background: var(--second-bg-color);
     color: var(--main-color);
+}
+
+/*--- BREAK POINT ---*/
+@media (max-width: 768px){
+    img{
+        zoom: 90%;
+        width: 50vw;
+    }
+
+    h2{
+        font-size: 5rem;
+    }
+
+    h3{
+        font-size: 2.6rem;
+    }
 }
 </style>
