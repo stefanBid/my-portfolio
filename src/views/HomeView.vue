@@ -33,7 +33,7 @@ export default defineComponent({
                 <a href="https://github.com/stefanBid" target="_blank" rel="github"><i class='bx bxl-github'></i></a>
                 <a href="https://www.instagram.com/stefano_bid/" target="_blank" rel="instagram"><i class='bx bxl-instagram-alt' ></i></a>
             </div>
-            <MyButton @click="goToDownload" :btn-class="'btn'">Download CV <i class='bx bx-download'></i></MyButton>
+            <MyButton @click="goToDownload" class="btn">Download CV <i class='bx bx-download'></i></MyButton>
             <template #next>
                 <img src="../assets/myPhoto.jpg">
             </template>
@@ -120,8 +120,20 @@ img{
     color: var(--main-color);
 }
 
-.btn:disabled{
-    cursor: none;
+/*--- BREAK POINT ---*/
+@media (max-width: 768px){
+    img{
+        zoom: 90%;
+        width: 50vw;
+    }
+
+    h1{
+        font-size: 5rem;
+    }
+
+    h3{
+        font-size: 2.6rem;
+    }
 }
 
 </style>

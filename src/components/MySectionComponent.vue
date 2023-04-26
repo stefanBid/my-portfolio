@@ -34,9 +34,11 @@
 .sec{
     display: flex;
     justify-content: center;
+    flex-direction: row;
     align-items: center;
     padding: 10rem 9% 2rem;
     min-height:  100vh;
+    transition: .3s ease-in-out;
 }
 
 .invert{
@@ -49,6 +51,26 @@
 
 .gap10{
     gap: 10rem;
+}
+
+/*--- BREAK POINT ---*/
+
+@media (max-width: 1200px){
+    .sec{
+      padding: 10rem 3% 2rem;
+    }
+}
+
+@media (max-width: 768px){
+    .sec{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .invert{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
 }
 
 </style>

@@ -8,7 +8,9 @@ export default defineComponent({
         return{
             headerLogo:{} as HeaderType,
             headerItems: [] as HeaderType[],
-            changeHamburgerIcon:false
+            changeHamburgerIcon:false,
+            changeNavbar:false,
+            windowWidth:0
         }
     },
     computed:{
@@ -18,6 +20,13 @@ export default defineComponent({
             }else{
                 return 'bx bx-x'
             }
+        },
+        openCloseNavbar(){
+            if(!this.changeNavbar){
+                return 'close'
+            }else{
+                return 'open'
+            }
         }
     },
     mounted(){
@@ -25,19 +34,40 @@ export default defineComponent({
         this.headerItems = [
             {name:'home', label:'Home'},
             {name:'about', label:'About'},
-            {name:'services', label:'Services'},
+            {name:'skils', label:'Skils'},
             {name:'portfolio', label:'Portfolio'},
             {name:'contact', label:'Contact'},
         ]
+        window.addEventListener('resize',()  =>{
+            this.windowWidth = window.innerWidth
+            if(this.windowWidth >768){
+                this.changeHamburgerIcon=false
+                this.changeNavbar=false
+            }
+        })
+    },
+    created() {
+        this.windowWidth = window.innerWidth
+    },
+    methods:{
+        change(isLogo?:any){
+            if(isLogo){
+                this.changeHamburgerIcon = false
+                this.changeNavbar = false
+            }else{
+                this.changeHamburgerIcon = !this.changeHamburgerIcon
+                this.changeNavbar = !this.changeNavbar
+            }
+        }
     }
 })
 </script>
 <template>
     <header class="header">
-        <RouterLink :to="{name:headerLogo.name}" class="logo"><i class="bx bxs-terminal"></i> {{ headerLogo.label }}</RouterLink>
-        <i :class="hamburgerIcon" id="menu-icon" @click="$event=>{changeHamburgerIcon = !changeHamburgerIcon}"></i>
-        <nav class="navbar">
-           <RouterLink v-for="item of headerItems" :to="{name:item.name}">{{ item.label }}</RouterLink>
+        <RouterLink :to="{name:headerLogo.name}" class="logo" @click="change('logo')" ><i class="bx bxs-terminal"></i> {{ headerLogo.label }}</RouterLink>
+        <i :class="hamburgerIcon" id="menu-icon" @click="change()"></i>
+        <nav :class="[openCloseNavbar, 'navbar']">
+           <RouterLink v-for="item of headerItems" :to="{name:item.name}" @click="change()">{{ item.label }}</RouterLink>
         </nav>
     </header>
 </template>
@@ -55,6 +85,10 @@ export default defineComponent({
     justify-content: space-between;
     align-items: center;
     z-index:100;
+}
+
+.navbar{
+    transition: .3s ease-in-out;
 }
 
 .logo{
@@ -99,6 +133,45 @@ export default defineComponent({
 .navbar a.router-link-exact-active{
     color:var(--main-color);
     text-shadow: 0 0 1rem var(--main-color);
-    font-size: 20px;
+    font-size: 2rem;
+}
+/*--- BREAK POINT ---*/
+
+@media (max-width: 991px){
+    .header{
+      padding: 2rem 3%;
+    }
+}
+
+@media (max-width: 768px){
+    #menu-icon{
+        display: block;
+    }
+
+    .navbar{
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        padding: 1rem 3%;
+        background: var(--bg-color);
+        border-top: .1rem solid var(--second-bg-color);
+    }
+
+    .navbar a{
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    .open{
+        left: 0;
+        box-shadow: 0 .5rem 1rem var(--second-bg-color);
+    }
+
+    .close{
+        left: -100%;
+        box-shadow: none;
+    }
 }
 </style>
