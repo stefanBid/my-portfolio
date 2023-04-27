@@ -4,6 +4,7 @@ import MyButton from '../components/MyButtonComponent.vue'
 import MyGrid from '../components/MyGridComponent.vue'
 import MyCard from '@/components/MyCardComponent.vue'
 import {useSkillStore} from '../stores/skill'
+import {RequestError} from '../types'
 
 export default defineComponent({
     name:"SkilsView",
@@ -11,7 +12,8 @@ export default defineComponent({
     data() {
         return{
             searchKey:'',
-            activeItem:{}
+            activeItem:{},
+            RequestError
         }
         
     },
@@ -46,7 +48,22 @@ export default defineComponent({
             <h2 class="heading">My <span>Skils</span></h2>
             <p id="info">Tap the cards to see Skill level</p>
         </template>
-        <template v-if="getSkillToView.length !=0">
+        <template v-if="storeSkill.error === RequestError[RequestError.ERR_NETWORK]">
+            <div class="msg">
+                <h1>Missing connection <i class='bx bx-wifi-off'></i></h1>
+                <h4>Check your internet connection and try again...</h4>
+            </div>
+        </template>
+        <template v-else-if="storeSkill.error === RequestError[RequestError.ERR_REQUEST]">
+            <div class="msg">
+                <div class="msg">
+                <h1>Unable to load data <i class='bx bx-server' ></i></h1>
+                <h4>Server problems please try again later...</h4>
+            </div>
+            </div>
+        </template>
+        <template v-else-if="!storeSkill.error">
+            <template v-if="getSkillToView.length !=0">
             <MyCard :type-card="'flex'" v-for="skill of getSkillToView" @click="seeLevel(skill)">
                 <template #header>
                     <i :class=skill.icon></i>
@@ -64,6 +81,7 @@ export default defineComponent({
             <div class="msg">
                 <h1>No match found <i class='bx bxs-confused'></i></h1>
             </div>
+        </template>
         </template>
     </MyGrid>
 </template>

@@ -53,6 +53,27 @@
     gap: 10rem;
 }
 
+:slotted(.sec h3){
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+:slotted(.sec h1){
+    font-size: 5.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+:slotted(.sec p){
+    font-size: 1.6rem;
+}
+
+:slotted(.sec img){
+    zoom: 70%;
+    width: 35vw;
+}
+
+
 /*--- BREAK POINT ---*/
 
 @media (max-width: 1200px){
@@ -70,6 +91,11 @@
     .invert{
         flex-direction: column-reverse;
         text-align: center;
+    }
+
+    :slotted(.sec img){
+        zoom:90%;
+        width: 50vh;
     }
 }
 

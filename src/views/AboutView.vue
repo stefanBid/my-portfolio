@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import MyButton from '@/components/MyButtonComponent.vue'
 import MySection from '../components/MySectionComponent.vue'
 import type {AboutMeItem} from '../types'
+import {ButtonType} from '../types'
 export default defineComponent({
     name:"AboutView",
     components:{MyButton, MySection},
@@ -10,6 +11,7 @@ export default defineComponent({
         return{
             aboutMeArray: [] as AboutMeItem[],
             isMore:false,
+            ButtonType
         }
     },
     computed:{
@@ -55,7 +57,7 @@ export default defineComponent({
                 <h3 :style="{paddingTop: (index==0)?'2rem':'0'}">{{item.head}}</h3>
                 <p>{{item.content}}</p>
             </template>
-            <MyButton @click="$event =>{isMore = !isMore}" class="btn">{{btnTextContent}}<i :class="btnIconContent"></i></MyButton>
+            <MyButton @click="$event =>{isMore = !isMore}" :type="ButtonType.CLASSIC">{{btnTextContent}}<i :class="btnIconContent"></i></MyButton>
         <template #next>
             <img src="../assets/myPhoto.jpg" alt="profile">
         </template>
@@ -85,36 +87,6 @@ h3{
 p{
     font-size: 1.6rem;
     margin: 2rem 0 3rem;
-}
-
-
-.btn{
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2.8rem;
-    background: var(--main-color);
-    border-radius: 4rem;
-    border: 1px solid var(--main-color);
-    box-shadow: 0 0 1rem var(--main-color);
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    color: var(--second-bg-color);
-    transition: .3s ease-in-out;
-    cursor: pointer;
-}
-
-.btn i{
-    font-size: 2rem;
-    padding: 0 0 0 1.2rem;
-    font-weight: 900;
-}
-
-.btn:hover{
-    box-shadow: none;
-    background: var(--second-bg-color);
-    color: var(--main-color);
 }
 
 /*--- BREAK POINT ---*/

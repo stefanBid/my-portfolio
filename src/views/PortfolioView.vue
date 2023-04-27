@@ -2,14 +2,16 @@
 import { defineComponent } from 'vue';
 import MyGrid from '../components/MyGridComponent.vue'
 import MyCard from '@/components/MyCardComponent.vue';
+import MyButton from '../components/MyButtonComponent.vue';
 import {useProjectStore} from '../stores/project'
+import { ButtonType } from '@/types';
 
 export default defineComponent({
     name:'PortfolioView',
-    components:{MyGrid, MyCard},
-    data(){
+    components:{MyGrid, MyCard, MyButton},
+    data() {
         return{
-            path: 'https://www.deepl.com/translator'
+            ButtonType
         }
     },
     setup(){
@@ -37,8 +39,8 @@ export default defineComponent({
             <h4>{{project.name}}</h4>
             <p>{{ project.description }}</p>
             <div class="links">
-                <a :href="project.code_path" target="_blank"><i class='bx bx-link-external'></i></a>
-                <a v-if="project.play_path !=undefined" :href="project.play_path" target="_blank"><i class='bx bx-play'></i></a>
+                <MyButton :type="ButtonType.ROUNDED_MINIMAL"><i class='bx bx-link-external'></i></MyButton>
+                <MyButton v-if="project.playPath" :type="ButtonType.ROUNDED_MINIMAL"><i class='bx bx-joystick'></i></MyButton>
             </div>
         </MyCard>
     </MyGrid>
