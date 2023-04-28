@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const dbName = '/skills'
+const dbName = 'skills'
+const dbPath = 'https://my-json-server.typicode.com/stefanBid/skillsDB'
+
 const skillClient = axios.create({
-    baseURL:'https://my-json-server.typicode.com/stefanBid/skillsDB',
+    baseURL:dbPath,
     withCredentials:false,
     headers:{
         Accept:'application/json',
@@ -12,6 +14,6 @@ const skillClient = axios.create({
 
 export default{
     async getAllSkills(){
-        return await skillClient.get(dbName)
+        return await skillClient.get(`/${dbName}`)
     }
 }

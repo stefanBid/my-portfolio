@@ -87,10 +87,6 @@ export default defineComponent({
 </template>
 
 <style scoped>
-h2{
-    font-size: 4.5rem;
-    line-height: 1.2;
-}
 
 h2 span{
     color: var(--main-color);
@@ -103,26 +99,12 @@ h2 span{
 100% {opacity:1;}
 }
 
-i{
-    font-size: 7rem;
-    color: var(--main-color);
-}
-
-h3{
-    font-size: 2.6rem;
-}
-
-h4{
-    font-size: 2rem;
-}
 
 h4 span{
     color: var(--main-color);
 }
 
-p{
-    font-size: 1.6rem;
-}
+
 .level{
     display: inline-flex;
     justify-content: center;

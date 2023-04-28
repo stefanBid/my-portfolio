@@ -83,14 +83,6 @@ h3 span{
 
 /*--- BREAK POINT ---*/
 @media (max-width: 768px){
-   
-    h1{
-        font-size: 5rem;
-    }
-
-    h3{
-        font-size: 2.6rem;
-    }
     .social-media{
         justify-content: center;
     }

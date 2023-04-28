@@ -14,7 +14,7 @@
                 default:5
             }
             
-        }    
+        } 
     })
 </script>
 
@@ -53,19 +53,23 @@
     gap: 10rem;
 }
 
-:slotted(.sec h3){
-    font-size: 3.2rem;
-    font-weight: 700;
-}
-
 :slotted(.sec h1){
     font-size: 5.6rem;
     font-weight: 700;
     line-height: 1.3;
 }
+:slotted(.sec h2){
+    font-size: 4.5rem;
+    line-height: 1.2;
+}
 
+:slotted(.sec h3){
+    font-size: 3.2rem;
+    font-weight: 700;
+}
 :slotted(.sec p){
     font-size: 1.6rem;
+    margin: 2rem 0 3rem;
 }
 
 :slotted(.sec img){
@@ -88,6 +92,10 @@
         text-align: center;
     }
 
+    .gap10{
+        gap: 5rem;
+    }
+
     .invert{
         flex-direction: column-reverse;
         text-align: center;
@@ -96,6 +104,18 @@
     :slotted(.sec img){
         zoom:90%;
         width: 50vh;
+    }
+
+    :slotted(.sec h1){
+        font-size: 5rem;
+    }
+
+    :slotted(.sec h2){
+        font-size: 5rem;
+    }
+
+    :slotted(.sec h3){
+        font-size: 2.6;
     }
 }
 

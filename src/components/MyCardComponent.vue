@@ -84,6 +84,27 @@
     transform: translateY(0);
 }
 
+:slotted(.card i){
+    font-size: 7rem;
+    color: var(--main-color);
+}
+
+:slotted(.card h3){
+    font-size: 2.6rem;
+}
+
+:slotted(.card h4){
+    font-size: 2rem;
+}
+
+:slotted(.card p){
+    font-size: 1.6rem;
+}
+
+:slotted(.card img){
+    width: 100%;
+}
+
 /*--- BREAK POINT ---*/
 @media (max-width: 768px){
     h2{
@@ -93,6 +114,11 @@
     .card-grid{
         height: 80%;
     }
+
+    :slotted(.card img){
+        zoom: 30%;
+    }
+
 }
 
 

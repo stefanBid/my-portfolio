@@ -112,7 +112,27 @@
 
 }
 
+:slotted(.grid h2){
+    font-size: 4.5rem;
+    line-height: 1.2;
+}
 
+:slotted(.grid i){
+    font-size: 7rem;
+    color: var(--main-color);
+}
+
+:slotted(.grid h3){
+    font-size: 2.6rem;
+}
+
+:slotted(.grid h4){
+    font-size: 2rem;
+}
+
+:slotted(.grid p){
+    font-size: 1.6rem;
+}
 
 /*--- BREAK POINT ---*/
 

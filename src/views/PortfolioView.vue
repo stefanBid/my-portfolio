@@ -36,7 +36,7 @@ export default defineComponent({
                 <img v-else-if="index === 1" src="../assets/pg.jpg" alt="">
                 <img v-else src="../assets/ai.jpg" alt="">
             </template>
-            <h4>{{project.name}}</h4>
+            <h3>{{project.name}}</h3>
             <p>{{ project.description }}</p>
             <div class="links">
                 <MyButton :type="ButtonType.ROUNDED_MINIMAL"><i class='bx bx-link-external'></i></MyButton>
@@ -49,22 +49,13 @@ export default defineComponent({
 
 <style scoped>
 
-h2{
-    font-size: 4.5rem;
-    line-height: 1.2;
-    text-align: center;
-}
 
 h2 span{
     color: var(--main-color);
 }
 
-h4 {
-    font-size: 3rem;
-}
 
 p{
-    font-size: 1.6rem;
     margin: .3rem 0 1rem;
 }
 
@@ -73,36 +64,6 @@ p{
     justify-content: center;
     align-items: center;
     gap: 2rem;
-}
-
-.links a{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 5rem;
-    height: 5rem;
-    background: var(--text-color);
-    border-radius: 50%;
-}
-
-.links a i{
-    font-size: 3rem;
-    color: var(--second-bg-color);
-}
-
-img{
-    width: 100%;
-}
-
-/*--- BREAK POINT ---*/
-@media (max-width: 768px){
-    h2{
-        margin-bottom: 3rem;
-    }
-
-    img{
-        zoom: 30%
-    };
 }
 
 </style>

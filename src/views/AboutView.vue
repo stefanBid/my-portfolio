@@ -66,42 +66,8 @@ export default defineComponent({
 
 <style scoped>
 
-img{
-    width: 35vw;
-    zoom: 70%;
-}
-
-h2{
-    font-size: 4.5rem;
-    line-height: 1.2;
-}
-
 h2 span{
     color: var(--main-color);
 }
 
-h3{
-    font-size: 2.6rem;
-}
-
-p{
-    font-size: 1.6rem;
-    margin: 2rem 0 3rem;
-}
-
-/*--- BREAK POINT ---*/
-@media (max-width: 768px){
-    img{
-        zoom: 90%;
-        width: 50vw;
-    }
-
-    h2{
-        font-size: 5rem;
-    }
-
-    h3{
-        font-size: 2.6rem;
-    }
-}
 </style>
