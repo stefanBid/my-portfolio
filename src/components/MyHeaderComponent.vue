@@ -1,76 +1,65 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { RouterLink } from 'vue-router';
-import type {HeaderType} from '../types'
-export default defineComponent({
-    name:"MyHeader",
-    data(){
-        return{
-            headerLogo:{} as HeaderType,
-            headerItems: [] as HeaderType[],
-            changeHamburgerIcon:false,
-            changeNavbar:false,
-            windowWidth:0
-        }
-    },
-    computed:{
-        hamburgerIcon(){
-            if(!this.changeHamburgerIcon){
-                return 'bx bx-menu-alt-right'
-            }else{
-                return 'bx bx-x'
-            }
-        },
-        openCloseNavbar(){
-            if(!this.changeNavbar){
-                return 'close'
-            }else{
-                return 'open'
-            }
-        }
-    },
-    mounted(){
-        this.headerLogo = {name:'home', label:'My Portfolio.'},
-        this.headerItems = [
-            {name:'home', label:'Home'},
-            {name:'about', label:'About'},
-            {name:'skils', label:'Skils'},
-            {name:'portfolio', label:'Portfolio'},
-            {name:'contact', label:'Contact'},
-        ]
-        window.addEventListener('resize',()  =>{
-            this.windowWidth = window.innerWidth
-            if(this.windowWidth >768){
-                this.changeHamburgerIcon=false
-                this.changeNavbar=false
-            }
-        })
-    },
-    created() {
-        this.windowWidth = window.innerWidth
-    },
-    methods:{
-        change(isLogo?:any){
-            if(isLogo){
-                this.changeHamburgerIcon = false
-                this.changeNavbar = false
-            }else{
-                this.changeHamburgerIcon = !this.changeHamburgerIcon
-                this.changeNavbar = !this.changeNavbar
-            }
-        }
-    }
-})
-</script>
 <template>
     <header class="header">
-        <RouterLink :to="{name:headerLogo.name}" class="logo" @click="change('logo')" ><i class="bx bxs-terminal"></i> {{ headerLogo.label }}</RouterLink>
+        <RouterLink :to="{name:headerLogo?.name}" class="logo" @click="change(false)" ><i class="bx bxs-terminal"></i> {{ headerLogo?.label }}</RouterLink>
         <i :class="hamburgerIcon" id="menu-icon" @click="change()"></i>
         <nav :class="[openCloseNavbar, 'navbar']">
            <RouterLink v-for="item of headerItems" :to="{name:item.name}" @click="change()">{{ item.label }}</RouterLink>
         </nav>
     </header>
 </template>
+
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
+import { onMounted, ref, computed } from 'vue';
+import type{ HeaderType } from '@/types';
+
+const headerLogo = ref<HeaderType>({name:'home', label:'My Portfolio.'});
+const headerItems = ref<HeaderType[]>([]);
+const changeHamburgerIcon = ref<boolean>(false);
+const changeNavbar = ref<boolean>(false);
+const windowWidth = ref<number>(0);
+const breakPoint = ref<number>(768);
+
+const addResizeEvent = function(){
+    window.addEventListener('resize', ()=>{
+        windowWidth.value = window.innerWidth;
+        if(windowWidth.value>breakPoint.value){
+            changeHamburgerIcon.value = false;
+            changeNavbar.value = false;
+        }
+    });
+};
+
+const change = function(isLogo:boolean = true){
+    if(!isLogo){
+        changeHamburgerIcon.value = false;
+        changeNavbar.value = false;
+    }else{
+        changeHamburgerIcon.value = !changeHamburgerIcon.value;
+        changeNavbar.value = !changeNavbar.value;
+    }
+};
+
+const hamburgerIcon = computed(()=>{
+    return changeHamburgerIcon.value?'bx bx-x':'bx bx-menu-alt-right';
+});
+
+const openCloseNavbar = computed(()=>{
+    return changeNavbar.value?'open':'close';
+})
+
+onMounted(()=>{
+    headerItems.value = [
+            {name:'home', label:'Home'},
+            {name:'about', label:'About'},
+            {name:'skils', label:'Skils'},
+            {name:'portfolio', label:'Portfolio'},
+            {name:'contact', label:'Contact'},
+    ];
+    windowWidth.value = window.innerWidth;
+    addResizeEvent();
+});
+</script>
 
 <style scoped>
 .header{
@@ -86,11 +75,9 @@ export default defineComponent({
     align-items: center;
     z-index:100;
 }
-
 .navbar{
     transition: .3s ease-in-out;
 }
-
 .logo{
     font-size: 25px;
     color: var(--text-color);
@@ -106,7 +93,6 @@ export default defineComponent({
     font-size: 3.6rem;
     padding-right: 10px;
 }
-
 #menu-icon{
     font-size: 3.6rem;
     transition: .3s;
@@ -115,7 +101,6 @@ export default defineComponent({
 #menu-icon:hover{
     color: var(--main-color);
 }
-
 /* Router Link style is tag <a> */
 .navbar a{
     font-size: 1.7rem;
@@ -124,30 +109,25 @@ export default defineComponent({
     margin-left: 4rem;
     transition: .3s ease-in-out;
 }
-
 .navbar a:hover{
     color:var(--main-color);
     text-shadow: 0 0 1rem var(--main-color);
 }
-
 .navbar a.router-link-exact-active{
     color:var(--main-color);
     text-shadow: 0 0 1rem var(--main-color);
     font-size: 2rem;
 }
 /*--- BREAK POINT ---*/
-
 @media (max-width: 991px){
     .header{
       padding: 2rem 3%;
     }
 }
-
 @media (max-width: 768px){
     #menu-icon{
         display: block;
     }
-
     .navbar{
         position: absolute;
         left: 0;
@@ -157,18 +137,15 @@ export default defineComponent({
         background: var(--bg-color);
         border-top: .1rem solid var(--second-bg-color);
     }
-
     .navbar a{
         display: block;
         font-size: 2rem;
         margin: 3rem 0;
     }
-
     .open{
         left: 0;
         box-shadow: 0 .5rem 1rem var(--second-bg-color);
     }
-
     .close{
         left: -100%;
         box-shadow: none;
