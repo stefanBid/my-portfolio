@@ -1,90 +1,76 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import MyButton from '../components/MyButtonComponent.vue'
-import MyGrid from '../components/MyGridComponent.vue'
-import MyCard from '@/components/MyCardComponent.vue'
-import {useSkillStore} from '../stores/skill'
-import {RequestError} from '../types'
-
-export default defineComponent({
-    name:"SkilsView",
-    components:{MyButton, MyGrid, MyCard},
-    data() {
-        return{
-            searchKey:'',
-            activeItem:{},
-            RequestError
-        }
-        
-    },
-    setup() {
-        const storeSkill = useSkillStore()
-        return {storeSkill}
-    },
-    created() {
-        this.storeSkill.getAllSkills();
-    },
-    methods:{
-        seeLevel(index:Object){
-            this.activeItem = index
-        },
-    },
-    computed:{
-        getSkillToView(){
-            if(this.searchKey === ''){
-                return this.storeSkill.skills
-            }else{
-                return this.storeSkill.skills.filter(skill=>skill.name.toUpperCase().includes(this.searchKey.toUpperCase()))
-            }
-        }
-    }
-
-})
-</script>
-
 <template>
-    <MyGrid search-bar v-model:search-key="searchKey" :type-grid="'flex'">
+    <MyGrid search-bar v-model:search-key="searchKey" :type="GridType.FLEX">
         <template #title>
             <h2 class="heading">My <span>Skils</span></h2>
             <p id="info">Tap the cards to see Skill level</p>
         </template>
-        <template v-if="storeSkill.error === RequestError[RequestError.ERR_NETWORK]">
-            <div class="msg">
-                <h1>Missing connection <i class='bx bx-wifi-off'></i></h1>
-                <h4>Check your internet connection and try again...</h4>
-            </div>
-        </template>
-        <template v-else-if="storeSkill.error === RequestError[RequestError.ERR_REQUEST]">
-            <div class="msg">
-                <div class="msg">
-                <h1>Unable to load data <i class='bx bx-server' ></i></h1>
-                <h4>Server problems please try again later...</h4>
-            </div>
-            </div>
-        </template>
-        <template v-else-if="!storeSkill.error">
-            <template v-if="getSkillToView.length !=0">
-            <MyCard :type-card="'flex'" v-for="skill of getSkillToView" @click="seeLevel(skill)">
-                <template #header>
-                    <i :class=skill.icon></i>
-                    <h3>{{skill.name}}</h3>
-                </template>
-                <h4>Type: <span>{{ skill.category }}</span></h4>
-                <p>{{ skill.description }}</p>
-                <template #footer>
-                    <p class="level" :style="{opacity: skill === activeItem?1:0}">Skill Level: <span v-for="x of 5" :class="{fill:(x<=skill.level)}"></span></p>
-                </template>
+        <!--Case 1 NO CONNECTION-->
+        <div class="msg" v-if="error === RequestError[RequestError.ERR_NETWORK]">
+            <h1>Missing connection <i class='bx bx-wifi-off'></i></h1>
+            <h4>Check your internet connection and try again...</h4>
+        </div>
+        <!--Case 2 INTERNAL SERVER PROBLEMS-->
+        <div class="msg" v-else-if="error === RequestError[RequestError.ERR_REQUEST]">
+            <h1>Unable to load data <i class='bx bx-server' ></i></h1>
+            <h4>Server problems please try again later...</h4>
+        </div>
+        <!--CASE 3 STATUS OK-->
+        <template v-else-if="!error">
+            <template v-if="skillsToView.length !=0">
+                <MyCard :type="CardType.FLEX" v-for="skill of skillsToView" @click="seeLevel(skill)">
+                    <template #header>
+                        <i :class=skill.icon></i>
+                        <h3>{{skill.name}}</h3>
+                    </template>
+                    <h4>Type: <span>{{ skill.category }}</span></h4>
+                    <p>{{ skill.description }}</p>
+                    <template #footer>
+                        <p class="level" :style="{opacity: skill === skillActive?1:0}">Skill Level: <span v-for="x of 5" :class="{fill:(x<=skill.level)}"></span></p>
+                    </template>
 
-            </MyCard>
-        </template>
-        <template v-else>
-            <div class="msg">
-                <h1>No match found <i class='bx bxs-confused'></i></h1>
-            </div>
-        </template>
+                </MyCard>
+            </template>
+            <template v-else>
+                <div class="msg">
+                    <h1>No match found <i class='bx bxs-confused'></i></h1>
+                </div>
+            </template>
         </template>
     </MyGrid>
 </template>
+
+<script setup lang="ts">
+import MyGrid from '@/components/MyGridComponent.vue';
+import MyCard from '@/components/MyCardComponent.vue';
+import { useSkillStore } from '@/stores/skill';
+import { RequestError, GridType, CardType} from '@/types';
+import { storeToRefs } from 'pinia';
+import { computed, onMounted, ref } from 'vue';
+
+const skillStore = useSkillStore();
+const {skills, error} = storeToRefs(skillStore);
+const {getAllSkills} = skillStore;
+
+const searchKey = ref<string>('');
+const skillActive = ref<Object>({})
+
+const skillsToView = computed(()=>{
+    return (searchKey.value.length)
+    ?
+    skills.value.filter(skill=>skill.name.toUpperCase().includes(searchKey.value.toUpperCase()))
+    :
+    skills.value;
+});
+
+const seeLevel = function(selectedSkill:Object){
+    skillActive.value = selectedSkill;
+};
+
+onMounted(() => {
+    getAllSkills();
+});
+
+</script>
 
 <style scoped>
 

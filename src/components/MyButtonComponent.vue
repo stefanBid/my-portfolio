@@ -1,34 +1,25 @@
-<script lang="ts">
-import { defineComponent, type PropType } from 'vue';
-import {ButtonType} from '../types'
-export default defineComponent({
-    name:"MyButton",
-    props:{
-        disabled:{
-            type:Boolean,
-            required:false,
-            default:false
-        },
-        type:{
-            type:String as PropType<ButtonType>,
-            required:false,
-            default: ButtonType.CLASSIC
-        }
-        
-    },
-    created() {
-     
+<template>
+    <button 
+        :disabled="disabled"
+        :class="[type, 'btn']">
+        <slot></slot>
+    </button>
+</template>
+
+<script setup lang="ts">
+import type{PropType} from 'vue';
+import { ButtonType } from '@/types';
+
+const props = defineProps({
+    disabled:{type:Boolean, required:false, default:false},
+    type:{
+        type:String as PropType<ButtonType>,
+        required: false,
+        default: ButtonType.CLASSIC,
     }
-})
+});
 </script>
 
-<template>
-<button 
-:disabled="disabled"
-:class="[type, 'btn']">
-    <slot></slot>
-</button>
-</template>
 
 <style scoped>
 

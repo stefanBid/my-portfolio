@@ -12,15 +12,6 @@ export interface HeaderType{
     label:string
 }
 
-/**
- * This interface describe the structure of an item on About me page
- * @param head: Title
- * @param content: Content
- */
-export interface AboutMeItem{
-    head:string,
-    content:string
-}
 
 /**
  * This interface describe the structure of an item on Skill page
@@ -59,6 +50,16 @@ export enum ButtonType{
     CLASSIC_MINIMAL = "classic-minimal",
     ROUNDED = "rounded",
     ROUNDED_MINIMAL = "rounded-minimal"
+}
+
+export enum GridType{
+    GRID = 'grid-content',
+    FLEX = 'flex-content',
+}
+
+export enum CardType{
+    GRID = 'card-grid',
+    FLEX = 'card-flex',
 }
 
 export enum RequestError{

@@ -1,34 +1,27 @@
-<script lang="ts">
-    import { defineComponent } from 'vue';
-    export default defineComponent({
-        name:"MySection", 
-        props:{
-            invert:{
-                type:Boolean,
-                required:false,
-                default:false
-            },
-            distance:{
-                type:Number,
-                required:false,
-                default:5
-            }
-            
-        } 
-    })
-</script>
-
 <template>
     <!--Section Structure-->
- <section class="sec" :class="[invert?'invert':'', distance === 5?'gap5':'gap10']">
+    <section class="sec" :class="[invert?'invert':'', distance === 5?'gap5':'gap10']">
         <div class="sec-l-content">
             <slot></slot>
         </div>
         <div class="sec-r-content">
             <slot name="next"></slot>
         </div>
-</section>
+    </section>
 </template>
+
+
+<script setup lang="ts">
+const props = defineProps({
+    invert:{type:Boolean, required:false, default:false},
+    distance:{
+        type:Number,
+        requied:false,
+        default:5,
+        validator:(value:number)=>{return [5,10].includes(value)}
+    }
+});
+</script>
 
 <style scoped>
 .sec{

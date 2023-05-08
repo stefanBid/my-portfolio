@@ -1,33 +1,28 @@
-<script lang="ts">
-    import { defineComponent } from 'vue';
-    export default defineComponent({
-        name:"MyCard",
-        props:{
-            typeCard:{
-                type:String,
-                required:true,
-                validator(value:string){
-                    return ['flex', 'grid'].includes(value)
-                }
-            }
-        }   
-    })
+<template>
+    <!--Card Structure-->
+    <div :class="[type,'card']">
+        <div class="header">
+            <slot name="header"></slot>
+        </div>
+        <div class="content">
+            <slot></slot>
+        </div>
+        <div class="footer">
+            <slot name="footer"></slot>
+        </div>
+    </div>
+</template>
+
+
+<script setup lang="ts">
+import { CardType } from '@/types';
+import type { PropType } from 'vue';
+
+const props = defineProps({
+    type:{type:String as PropType<CardType>, required:true, default:CardType.FLEX}
+});
 </script>
 
-<template>
-<!--Card Structure-->
-<div :class="[{'card-flex':(typeCard==='flex')}, {'card-grid':(typeCard==='grid')}, {'card':true}]">
-    <div class="header">
-        <slot name="header"></slot>
-    </div>
-    <div class="content">
-        <slot></slot>
-    </div>
-    <div class="footer">
-        <slot name="footer"></slot>
-    </div>
-</div>
-</template>
 
 <style scoped>
 .card{
@@ -120,6 +115,5 @@
     }
 
 }
-
 
 </style>
