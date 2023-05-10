@@ -1,7 +1,7 @@
 <template>
     <button 
-        :disabled="disabled"
-        :class="[type, 'btn']">
+        :disabled="props.disabled"
+        :class="[props.type, 'btn']">
         <slot></slot>
     </button>
 </template>
@@ -22,106 +22,117 @@ const props = defineProps({
 
 
 <style scoped>
+@tailwind components;
 
-.btn{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap:0.7rem;
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    transition: .3s ease-in-out;
-    cursor: pointer;
-}
-.classic{
-    padding: 1rem 2.8rem;
-    background: var(--main-color);
-    border-radius: 4rem;
-    border: 1px solid var(--main-color);
-    box-shadow: 0 0 1rem var(--main-color);
-    color: var(--second-bg-color);
-}
+@layer components{
+    .btn{
+        @apply 
+        inline-flex 
+        justify-center 
+        items-center 
+        gap-3 
+        text-1.6
+        font-semibold 
+        tracking-widest 
+        duration-300 
+        ease-in-out 
+        cursor-pointer
 
-.classic:hover{
-    box-shadow: none;
-    background: var(--second-bg-color);
-    color: var(--main-color);
-}
+        disabled:cursor-no-drop
+        disabled:opacity-50;
+    }
 
-.classic:disabled{
-    opacity: 0.7;
-    cursor: no-drop;
-    box-shadow: none;
-    background: var(--second-bg-color);
-    color: var(--main-color);
-}
+    .classic{
+        @apply 
+        py-4 
+        px-11 
+        bg-pink 
+        rounded-button 
+        border-solid 
+        border-2 
+        border-pink 
+        shadow-button
+        shadow-pink 
+        text-board
 
-:slotted(.classic i){
-    font-size: 2rem;
-    font-weight: 900;
-}
+        hover:shadow-none
+        hover:bg-board
+        hover:text-pink
+        
+        disabled:shadow-none
+        disabled:text-pink
+        disabled:bg-transparent;
 
-.classic-minimal{
-    background: var(--text-color);
-    color: var(--second-bg-color); 
-    padding: 1rem 2.8rem;
-    border-radius: 4rem;
-}
+    }
 
-.classic-minimal:hover{
-    background: var(--second-bg-color);
-    color: var(--text-color);
-}
+    .classic-minimal{
+        @apply 
+        bg-white 
+        text-board 
+        py-4 
+        px-11
+        rounded-button
+        border-solid
+        border-2
+        border-white
 
-:slotted(.classic-minimal i){
-    font-size: 2rem;
-    font-weight: 900;
-}
+        hover:bg-board 
+        hover:text-white
+
+        disabled:text-white
+        disabled:bg-transparent;
+    }
+
+    .rounded{
+        @apply 
+        w-20 
+        h-20 
+        bg-transparent 
+        border-solid 
+        border-2 
+        border-pink 
+        rounded-full 
+        text-pink
+
+        hover:bg-pink 
+        hover:shadow-button 
+        hover:shadow-pink 
+        hover:text-board
+
+        disabled:shadow-none
+        disabled:text-pink
+        disabled:bg-transparent;
+    }
+
+    .rounded-minimal{
+        @apply 
+        w-20
+        h-20
+        rounded-full
+        bg-white
+        text-board
+        border-solid
+        border-2
+        border-white
+
+        hover:bg-board
+        hover:text-white
+
+        disabled:bg-transparent
+        disabled:text-board;
+
+    }
 
 
-.rounded{
-    width: 5rem;
-    height: 5rem;
-    background: transparent;
-    border: .2rem solid var(--main-color);
-    border-radius: 50%;
-    color: var(--main-color);
-}
 
-:slotted(.rounded i){
-    font-size: 3rem;
-}
+    :slotted(.classic i), :slotted(.classic-minimal i){
+        @apply text-2 font-black;
+    }
 
-.rounded:hover{
-    background: var(--main-color);
-    color: var(--second-bg-color);
-    box-shadow: 0 0 1rem var(--main-color);
-}
+    :slotted(.rounded i), :slotted(.rounded-minimal i){
+        @apply text-3;
+    }
 
-.rounded:disabled{
-    opacity: 0.7;
-    cursor: no-drop;
-    background: var(--main-color);
-    color: var(--second-bg-color);
-    box-shadow: none;
-}
-
-.rounded-minimal{
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    background: var(--text-color);
-    color: var(--second-bg-color); 
-}
-
-.rounded-minimal:hover{
-    background: var(--second-bg-color);
-    color: var(--text-color);
-}
-
-:slotted(.rounded-minimal i){
-    font-size: 3rem;
 }
 
 </style>

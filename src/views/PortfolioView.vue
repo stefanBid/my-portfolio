@@ -2,7 +2,12 @@
     <section class="portfolio">
         <MyGrid :type="GridType.GRID">
             <template #title>
-                <h2>Latest <span>Project</span></h2>
+                <MyTitle position="center" dimension="big">
+                Latest
+                <template #prettyText>
+                    Project
+                </template>
+            </MyTitle>
             </template>
             <MyCard :type="CardType.GRID" v-for="(project,index) of projects" class="portfolio-box">
                 <template #header>
@@ -25,6 +30,7 @@
 import MyGrid from '@/components/MyGridComponent.vue';
 import MyCard from '@/components/MyCardComponent.vue';
 import MyButton from '@/components/MyButtonComponent.vue';
+import MyTitle from '@/components/MyTitleComponent.vue';
 import { ButtonType, CardType, GridType } from '@/types';
 import { useProjectStore } from '@/stores/project';
 import { storeToRefs } from 'pinia';
