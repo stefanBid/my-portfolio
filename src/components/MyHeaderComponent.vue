@@ -15,15 +15,13 @@ import type{ HeaderType } from '@/types';
 
 const headerLogo = ref<HeaderType>({name:'home', label:'My Portfolio.'});
 const headerItems = ref<HeaderType[]>([]);
-const changeHamburgerIcon = ref<boolean>(false);
-const changeNavbar = ref<boolean>(false);
-const windowWidth = ref<number>(0);
+const changeHamburgerIcon = ref<boolean>();
+const changeNavbar = ref<boolean>();
 const breakPoint = ref<number>(768);
 
 const addResizeEvent = function(){
     window.addEventListener('resize', ()=>{
-        windowWidth.value = window.innerWidth;
-        if(windowWidth.value>breakPoint.value){
+        if(window.innerWidth>breakPoint.value){
             changeHamburgerIcon.value = false;
             changeNavbar.value = false;
         }
@@ -32,6 +30,7 @@ const addResizeEvent = function(){
 
 const change = function(isLogo:boolean = true){
     if(!isLogo){
+        /**dont'open the menu when click icon of website */
         changeHamburgerIcon.value = false;
         changeNavbar.value = false;
     }else{
@@ -56,7 +55,8 @@ onMounted(()=>{
             {name:'portfolio', label:'Portfolio'},
             {name:'contact', label:'Contact'},
     ];
-    windowWidth.value = window.innerWidth;
+    changeHamburgerIcon.value = window.innerWidth>breakPoint.value;
+    changeNavbar.value = window.innerWidth>breakPoint.value;
     addResizeEvent();
 });
 </script>

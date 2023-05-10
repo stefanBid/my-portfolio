@@ -1,7 +1,12 @@
 <template>
     <MyGrid search-bar v-model:search-key="searchKey" :type="GridType.FLEX">
         <template #title>
-            <h2 class="heading">My <span>Skils</span></h2>
+            <MyTitle position="center" dimension="big">
+                My
+                <template #prettyText>
+                    Skills
+                </template>
+            </MyTitle>
             <p id="info">Tap the cards to see Skill level</p>
         </template>
         <!--Case 1 NO CONNECTION-->
@@ -42,6 +47,7 @@
 <script setup lang="ts">
 import MyGrid from '@/components/MyGridComponent.vue';
 import MyCard from '@/components/MyCardComponent.vue';
+import MyTitle from '@/components/MyTitleComponent.vue';
 import { useSkillStore } from '@/stores/skill';
 import { RequestError, GridType, CardType} from '@/types';
 import { storeToRefs } from 'pinia';
