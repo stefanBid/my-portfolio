@@ -1,14 +1,14 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { RouterView } from 'vue-router';
-import MyHeader from './components/MyHeaderComponent.vue';
+import TheHeader from '@components/TheHeader.vue';
 
-</script>
+</script >
 
-<template>
-  <MyHeader></MyHeader>
-  <RouterView/>
-</template>
+<template >
+  <TheHeader />
+  <RouterView />
+</template >
 
-<style scoped>
+<style scoped >
 
-</style>
+</style >

@@ -1,24 +1,27 @@
-<template>
-    <div :class="[pos,dim]" class="title-container">
-        <h2><slot></slot><span><slot name="prettyText"></slot></span></h2>
-    </div>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue';
+    import { computed } from 'vue';
     const props = defineProps({
         position:{type:String, required:true, validator(value:string){return ['left','center','right'].includes(value)}},
         dimension:{type:String, required:true, validator(value:string){return ['small','medium','big'].includes(value)}},
     });
 
     const pos = computed(()=>{
-        return ({left:'l-side',center:'c-side', right:'r-side'})[props.position];
+        return ({left:'l-side',center:'c-side', right:'r-side'})[props.position] ?? 'c-side';
     });
 
     const dim = computed(()=>{
-        return ({small:'sm-title', medium:'md-title', big:'bg-title'})[props.dimension];
+        return ({small:'sm-title', medium:'md-title', big:'bg-title'})[props.dimension] ?? 'md-title';
     })
 </script>
+
+<template>
+    <div :class="[pos,dim]" class="title-container">
+        <h2> 
+            <slot />
+            <span> <slot name="prettyText" /> </span>
+        </h2>
+    </div>
+</template>
 
 <style scoped>
     @tailwind components;
@@ -32,7 +35,7 @@ import { computed } from 'vue';
 
     @layer components{
        .title-container{
-        @apply w-full flex flex-col justify-center 
+        @apply w-full flex flex-col justify-center;
        } 
 
        .l-side{@apply items-start;}

@@ -38,13 +38,26 @@ export default {
       'title-base':'3.2rem',
       'title-lg':'4.2rem',
       '1.6': '1.6rem',
+      '1.8': '1.8rem',
       '2':'2rem',
       '3':'3rem'
     },
 
+    /* My Border */
+    borderWidth:{
+      DEFAULT: '.1rem',
+      '0': '0',
+      '2':'.2rem',
+      '3':'.3rem',
+      '4':'.4rem',
+      '5':'.5rem',
+      '6':'.6rem',
+    },
+
     extend:{
       borderRadius:{
-        'button':'4rem'
+        'button':'4rem',
+        'input':'2rem'
       },
       boxShadow:{
         'button':'0 0 1rem'

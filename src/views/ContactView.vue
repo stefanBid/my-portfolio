@@ -1,14 +1,16 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 
-export default defineComponent({
-
-})
 </script>
 
 <template>
-
+    <div>
+        <box-icon name="rocket" />
+        Prova
+    </div>
 </template>
 
 <style scoped>
+  div{
+    @apply m-40
+  }
 </style>

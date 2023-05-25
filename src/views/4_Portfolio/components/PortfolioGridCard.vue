@@ -1,61 +1,38 @@
-<template>
+<template >
     <!--Card Structure-->
-    <div :class="[type,'card']">
-        <div class="header">
-            <slot name="header"></slot>
-        </div>
-        <div class="content">
-            <slot></slot>
-        </div>
-        <div class="footer">
-            <slot name="footer"></slot>
-        </div>
-    </div>
-</template>
+    <div class="card-grid" >
+        <div class="header" >
+            <slot name="card-bg-img" />
+        </div >
+        <div class="content" >
+            <slot />
+        </div >
+    </div >
+</template >
 
 
-<script setup lang="ts">
-import { CardType } from '@/types';
-import type { PropType } from 'vue';
-
-const props = defineProps({
-    type:{type:String as PropType<CardType>, required:true, default:CardType.FLEX}
-});
-</script>
-
-
-<style scoped>
-.card{
+<style scoped >
+.card-grid{
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 2rem;
     border: .2rem solid var(--bg-color);
     transition: .3s ease-in-out;
-}
 
-.card:hover{
-    transform: scale(1.02);
-    cursor: pointer;
-    border-color: var(--main-color);
-}
-.card-flex{
-    flex: 1 1 30rem;
-    gap: 2.5rem;
-    height: 55vh;
-    flex-direction: column;
-    background: var(--second-bg-color);
-    padding: 3rem 2rem 4rem;
-}
-
-.card-grid{
     position:relative;
     box-shadow: 0 0 1rem var(--second-bg-color);
     overflow: hidden;
     height: 100%;
 }
 
-.content, .header, .footer{
+.card-grid:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+    border-color: var(--main-color);
+}
+
+.content, .header{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,24 +56,24 @@ const props = defineProps({
     transform: translateY(0);
 }
 
-:slotted(.card i){
+:slotted(.card-grid i){
     font-size: 7rem;
     color: var(--main-color);
 }
 
-:slotted(.card h3){
+:slotted(.card-grid h3){
     font-size: 2.6rem;
 }
 
-:slotted(.card h4){
+:slotted(.card-grid h4){
     font-size: 2rem;
 }
 
-:slotted(.card p){
+:slotted(.card-grid p){
     font-size: 1.6rem;
 }
 
-:slotted(.card img){
+:slotted(.card-grid img){
     width: 100%;
 }
 
@@ -110,10 +87,10 @@ const props = defineProps({
         height: 80%;
     }
 
-    :slotted(.card img){
+    :slotted(.card-grid img){
         zoom: 30%;
     }
 
 }
 
-</style>
+</style >

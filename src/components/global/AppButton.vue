@@ -1,24 +1,25 @@
+<script setup lang="ts">
+    import type {PropType} from 'vue';
+    import { AppButtonType } from '@/types';
+
+    const props = defineProps({
+        disabled:{type:Boolean, required:false, default:false},
+        type:{
+            type:String as PropType<AppButtonType>,
+            required: false,
+            default: AppButtonType.CLASSIC,
+        }
+    });
+</script>
+
 <template>
     <button 
-        :disabled="props.disabled"
-        :class="[props.type, 'btn']">
-        <slot></slot>
+        :disabled="props.disabled" 
+        :class="[props.type, 'btn']" 
+    >
+        <slot />
     </button>
 </template>
-
-<script setup lang="ts">
-import type{PropType} from 'vue';
-import { ButtonType } from '@/types';
-
-const props = defineProps({
-    disabled:{type:Boolean, required:false, default:false},
-    type:{
-        type:String as PropType<ButtonType>,
-        required: false,
-        default: ButtonType.CLASSIC,
-    }
-});
-</script>
 
 
 <style scoped>
@@ -84,7 +85,7 @@ const props = defineProps({
     }
 
     .rounded{
-        @apply 
+        @apply
         w-20 
         h-20 
         bg-transparent 

@@ -1,37 +1,16 @@
-<template>
+<template >
     <!--Grid Structure-->
-    <section class="grid">
-        <div class="grid-title">
-            <slot name="title"></slot>
-        </div>
-        <div v-if="searchBar === true" class="grid-search">
-            <input type="text" placeholder="Search..." :value="searchKey" @input="action(($event.target as HTMLInputElement).value)">
-        </div>
-        <div :class="[type]">
-            <slot></slot>
-        </div>
-    </section>
-</template>
+    <section class="grid" >
+        <div class="grid-title" >
+            <slot name="title" />
+        </div >
+        <div class="grid-content" >
+            <slot />
+        </div >
+    </section >
+</template >
 
-<script setup lang="ts">
-import { GridType } from '@/types';
-import type { PropType } from 'vue';
-
-const props = defineProps({
-    searchBar:{type:Boolean, required:false, default:false},
-    searchKey:{type:String, required:false, default:''},
-    type:{type:String as PropType<GridType>, required:true, default:GridType.FLEX}
-});
-
-const emit = defineEmits(['update:searchKey']);
-
-const action = function(value:string){
-    emit('update:searchKey',value);
-};
-
-</script>
-
-<style scoped>
+<style scoped >
 .grid{
     display: flex;
     flex-direction: column;
@@ -44,6 +23,13 @@ const action = function(value:string){
 
 .grid-title{
     margin-bottom: 5rem;
+}
+
+.grid-content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 2.5rem
 }
 
 .grid-search{
@@ -83,22 +69,6 @@ const action = function(value:string){
 
 ::-ms-input-placeholder { /* Microsoft Edge */
     color: var(--main-color);
-}
-
-.grid-content{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    gap: 2.5rem
-}
-
-.flex-content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap:2.5rem
-
 }
 
 :slotted(.grid h2){
@@ -142,4 +112,4 @@ const action = function(value:string){
     }
 }
 
-</style>
+</style >

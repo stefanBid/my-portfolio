@@ -1,30 +1,43 @@
 import { defineStore } from "pinia"
-import { type SkillItem, RequestError } from '../types'
+import { type SkillItem, HandlingError } from '../types'
 import SkillService from "@/services/SkillService"
 
-
-
+/**
+ * # Skill Store 🥭
+ * @author stefanBid
+ * @description Store for Skill items
+ * @template state
+ * @param {SkillItem[]} state.skills - Array of Skill items
+ * @param {string | undefined} state.error - Error message from request when error  occurs
+ * 
+ * @template actions
+ * @param {function} actions.getAllSkills - Get all skills from server
+ */ 
 export const useSkillStore = defineStore({
     id:'skillStore',
     state: ()=>({
+
         skills:[] as SkillItem[],
-        error: '' as String | undefined
+        error: undefined as string | undefined
 
     }),
     actions:{
         getAllSkills(){
             SkillService.getAllSkills()
             .then(response => {
-                this.skills = response.data
-                //Change error whit status
-                this.error = undefined
+                this.skills = response.data;
+                this.error = undefined;
             })
             .catch(er => {
-                this.error = er
-                if(er.request.status === 0){
-                    this.error = RequestError[RequestError.ERR_NETWORK]
-                }else if(er.request.status === 404){
-                    this.error = RequestError[RequestError.ERR_REQUEST]
+                switch(er.code){
+                    case HandlingError.ERR_BAD_REQUEST:
+                        this.error = HandlingError.ERR_BAD_REQUEST
+                        break;
+                    case HandlingError.ERR_NETWORK:
+                        this.error = HandlingError.ERR_NETWORK
+                        break;
+                    default:
+                        break;
                 }
             })
         }

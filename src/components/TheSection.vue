@@ -1,19 +1,19 @@
-<template>
+<template >
     <!--Section Structure-->
-    <section class="sec" :class="[invert?'invert':'', distance === 5?'gap5':'gap10']">
-        <div class="sec-l-content">
-            <slot></slot>
-        </div>
-        <div class="sec-r-content">
-            <slot name="next"></slot>
-        </div>
-    </section>
-</template>
+    <section class="sec" :class="[props.isMirrored?'mirrored':'', props.distance === 5?'gap5':'gap10']" >
+        <div class="sec-l-content" >
+            <slot />
+        </div >
+        <div class="sec-r-content" >
+            <slot name="next" />
+        </div >
+    </section >
+</template >
 
 
-<script setup lang="ts">
+<script setup lang="ts" >
 const props = defineProps({
-    invert:{type:Boolean, required:false, default:false},
+    isMirrored:{type:Boolean, required:false, default:false},
     distance:{
         type:Number,
         requied:false,
@@ -21,9 +21,9 @@ const props = defineProps({
         validator:(value:number)=>{return [5,10].includes(value)}
     }
 });
-</script>
+</script >
 
-<style scoped>
+<style scoped >
 .sec{
     display: flex;
     justify-content: center;
@@ -34,7 +34,7 @@ const props = defineProps({
     transition: .3s ease-in-out;
 }
 
-.invert{
+.mirrored{
     flex-direction: row-reverse;
 }
 
@@ -89,7 +89,7 @@ const props = defineProps({
         gap: 5rem;
     }
 
-    .invert{
+    .mirrored{
         flex-direction: column-reverse;
         text-align: center;
     }
@@ -112,4 +112,4 @@ const props = defineProps({
     }
 }
 
-</style>
+</style >

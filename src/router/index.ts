@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import PortfolioView from '../views/PortfolioView.vue'
-import ContactView from '../views/ContactView.vue'
-import SkilsViewVue from '@/views/SkilsView.vue'
+import HomeView from '@views/1_Home/HomeView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //Page Not Found
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('@views/NotFoundView.vue')
+    },
+    //Real Pages
     {
       path: '/',
       name: 'home',
@@ -16,22 +20,22 @@ const router = createRouter({
     {
       path:'/about',
       name:'about',
-      component: AboutView
+      component: () => import('@views/2_About/AboutView.vue')
     },
     {
       path:'/portfolio',
       name: 'portfolio',
-      component: PortfolioView
+      component: () => import('@views/4_Portfolio/PortfolioView.vue')
     },
     {
-      path:'/skils',
-      name:'skils',
-      component: SkilsViewVue
+      path:'/skills',
+      name:'skills',
+      component: () => import('@views/3_Skill/SkillView.vue')
     },
     {
       path:'/contact',
       name:'contact',
-      component:ContactView
+      component: () => import('@views/ContactView.vue')
     }
   ]
 })
