@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
 import { RouterLink, useRoute } from 'vue-router';
-import { CodeBracketIcon } from '@heroicons/vue/24/outline';
+import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import { useGlobalBreakpoints } from '@/hooks';
+import { computed, ref } from 'vue';
 
 const WEBSITE_ROUTES = [
 	{
@@ -28,6 +30,21 @@ const WEBSITE_ROUTES = [
 
 const route = useRoute();
 
+const { xs, sm, md } = useGlobalBreakpoints();
+
+const isMenuOpen = ref(false);
+
+const isMenuCollapsed = computed(() => {
+	if (xs.value || sm.value || md.value) {
+		return true;
+	}
+	return false;
+});
+
+const onChangeMenuVisibility = (newVisibility:boolean) => {
+	isMenuOpen.value = newVisibility;
+};
+
 </script>
 
 <template>
@@ -40,14 +57,29 @@ const route = useRoute();
           <router-link
             to="/"
             class="text-4xl font-semibold"
+            @click="isMenuOpen ? onChangeMenuVisibility(false) : undefined"
           >
             Stefano Biddau
           </router-link>
         </span>
       </div>
+      <component
+        :is="isMenuOpen ? XMarkIcon : Bars3Icon"
+        v-if="isMenuCollapsed"
+        class="text-white transition-all duration-200 ease-in-out cursor-pointer size-8 active:rotate-90"
+        @click="isMenuOpen = !isMenuOpen"
+      />
 
       <!-- Sezione Navigazione a Destra -->
-      <nav class="flex items-center justify-end px-4 py-2 space-x-8 rounded-full bg-secondary">
+      <nav
+        class="transition-all duration-200 ease-in-out bg-secondary"
+        :class="{
+          'flex items-center justify-end px-4 py-2 space-x-8 rounded-full ': !isMenuCollapsed,
+          'absolute flex flex-col space-y-8 left-0 w-full top-full rounded-none ': isMenuCollapsed,
+          'left-0': isMenuCollapsed ? isMenuOpen : undefined,
+          '-left-full': isMenuCollapsed ? !isMenuOpen : undefined,
+        }"
+      >
         <router-link
           v-for="routeItem in WEBSITE_ROUTES"
           :key="routeItem.id"
@@ -57,6 +89,7 @@ const route = useRoute();
             'text-main bg-white': route.path === routeItem.path,
             'text-white hover:text-main  hover:bg-white': route.path !== routeItem.path,
           }"
+          @click="isMenuOpen ? onChangeMenuVisibility(false) : undefined"
         >
           {{ routeItem.title }}
         </router-link>
