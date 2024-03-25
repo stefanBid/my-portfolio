@@ -5,7 +5,7 @@ import { ListBulletIcon } from '@heroicons/vue/16/solid';
 </script>
 
 <template>
-  <div class="h-screen border">
+  <div class="border">
     <PageHeading
       title="Skills Page"
       :icon="ListBulletIcon"

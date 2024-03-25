@@ -5,7 +5,7 @@ import { HomeIcon } from '@heroicons/vue/16/solid';
 </script>
 
 <template>
-  <div class="h-screen border">
+  <div class="border">
     <PageHeading
       title="Home Page"
       :icon="HomeIcon"
