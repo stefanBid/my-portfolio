@@ -1,0 +1,41 @@
+name: Vue CI
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    branches:
+      - '*'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-test:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21.6.2'
+
+      - name: Verify Node.js version
+        run: node -v
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Project lint
+        run: npm run lint
+
+      - name: GitHub Status Check
+        run: echo "All steps have passed!"

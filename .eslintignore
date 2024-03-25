@@ -1,0 +1,16 @@
+/dist/
+/node_modules/
+/public/
+
+# File di configurazione e build
+*.config.js
+vite.config.js
+*.config.ts
+vite.config.ts
+
+# Cartelle specifiche del progetto
+/src/assets/
+/src/types/
+
+# File TypeScript generati o di definizione
+*.d.ts
