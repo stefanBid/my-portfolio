@@ -5,7 +5,7 @@
 }
 
 body {
-  @apply overflow-x-hidden bg-black;
+  @apply overflow-x-hidden bg-main;
 }
 
 html {
@@ -13,26 +13,6 @@ html {
 }
 
 
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #ffffff #000000;
-  }
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: #000000;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 3px solid #000000;
-  }
 
                 

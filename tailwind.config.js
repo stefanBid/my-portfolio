@@ -14,7 +14,12 @@ export default {
 		fontFamily: {
 			poppins: ['Poppins', 'sans-serif'],
 		},
-		extend: {},
+		extend: {
+			colors: {
+				main: '#0A0909',
+				secondary: '#1F1E1E',
+			},
+		},
 	},
 	plugins: [],
 };
