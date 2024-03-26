@@ -8,7 +8,7 @@
       <h1 class="text-[8rem] font-semibold text-white leading-none break-words">
         Hello Everyone!
       </h1>
-      <h2 class="text-[6rem] font-semibold text-white leading-none break-words">
+      <h2 class="text-[6rem] font-semibold text-white leading-none whitespace-normal">
         Welcome to my website!
       </h2>
     </div>
