@@ -6,7 +6,5 @@ import { RouterView, } from 'vue-router';
 
 <template>
   <MainHeader />
-  <div class="pt-20 px-[3%]">
-    <router-view />
-  </div>
+  <router-view />
 </template>

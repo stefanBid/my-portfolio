@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
 
 * {
-  @apply box-border p-0 m-0 no-underline font-poppins;
+  @apply box-border p-0 m-0 no-underline font-gilroy;
 }
 
 body {

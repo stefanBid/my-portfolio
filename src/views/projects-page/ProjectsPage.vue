@@ -5,7 +5,7 @@ import { CubeTransparentIcon } from '@heroicons/vue/16/solid';
 </script>
 
 <template>
-  <div class="border">
+  <div class="h-screen pt-20 border">
     <PageHeading
       title="Project Page"
       :icon="CubeTransparentIcon"
