@@ -12,9 +12,15 @@ export default {
 			'2xl': { min: '1536px' },
 		},
 		fontFamily: {
-			poppins: ['Poppins', 'sans-serif'],
+
+			gilroy: ['Gilroy', 'sans-serif'],
 		},
-		extend: {},
+		extend: {
+			colors: {
+				main: '#0A0909',
+				secondary: '#1F1E1E',
+			},
+		},
 	},
 	plugins: [],
 };

@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
 
 * {
-  @apply box-border p-0 m-0 no-underline font-poppins;
+  @apply box-border p-0 m-0 no-underline font-gilroy;
 }
 
 body {
-  @apply overflow-x-hidden bg-black;
+  @apply overflow-x-hidden bg-main;
 }
 
 html {
@@ -13,26 +13,6 @@ html {
 }
 
 
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #ffffff #000000;
-  }
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: #000000;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 3px solid #000000;
-  }
 
                 
