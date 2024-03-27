@@ -57,10 +57,10 @@ watch([xs, sm, md], () => {
     <div class="relative flex items-center justify-between h-20 px-8 gap-x-4">
       <!-- Sezione Logo a Sinistra -->
       <div class="flex items-center text-white ">
-        <CodeBracketIcon class="flex-none transition-all duration-300 ease-in-out size-14 me-4 md:size-10 sm:size-8 xs:size-8" />
+        <CodeBracketIcon class="flex-none transition-all duration-300 ease-in-out size-12 me-4 md:size-8 sm:size-8 xs:size-8" />
 
         <router-link
-          class="flex-1 text-4xl font-semibold transition-all duration-300 ease-in-out md:text-2xl sm:text-xl xs:text-xl"
+          class="flex-1 text-[2rem] font-semibold transition-all duration-300 ease-in-out font-bebas md:text-[1.5rem] sm:text-[1.5rem] xs:text-[1.5rem]"
           to="/"
           @click="onChangeMenuVisibility(false)"
         >
