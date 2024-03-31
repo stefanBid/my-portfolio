@@ -13,8 +13,8 @@ export default {
 		},
 		fontFamily: {
 
-			gilroy: ['Gilroy', 'sans-serif'],
 			bebas: ['Bebas Neue', 'sans-serif'],
+			roboto: ['Roboto', 'sans-serif'],
 		},
 		extend: {
 			colors: {

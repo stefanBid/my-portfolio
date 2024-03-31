@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 interface PageCoverProps {
-  backgroundType: 'image' | 'clip';
+  backgroundType: 'image' | 'clip' ;
   backgroundUrl: string;
   overlayColor: 'black' | 'white';
 }
@@ -11,7 +11,9 @@ const props = defineProps<PageCoverProps>();
 </script>
 
 <template>
-  <div class="relative w-full h-screen px-8 overflow-hidden bg-black">
+  <div
+    class="relative w-full h-screen pt-20 overflow-hidden bg-black"
+  >
     <!-- Background -->
     <img
       v-if="props.backgroundType === 'image'"
@@ -38,7 +40,7 @@ const props = defineProps<PageCoverProps>();
     ></div>
 
     <!-- Cover Content -->
-    <div class="relative z-10 ">
+    <div class="relative z-10 px-8">
       <slot name="cover-content"></slot>
     </div>
   </div>
