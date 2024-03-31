@@ -28,6 +28,7 @@ const props = defineProps<PageCoverProps>();
       autoplay
       loop
       muted
+      playsinline
     ></video>
 
     <!-- Overlay -->
