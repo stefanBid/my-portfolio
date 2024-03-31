@@ -24,7 +24,7 @@ const props = defineProps<PageCoverProps>();
     <video
       v-if="props.backgroundType === 'clip'"
       :src="props.backgroundUrl"
-      class="absolute inset-0 object-cover object-center w-full h-full grayscale"
+      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none grayscale"
       autoplay
       loop
       muted
