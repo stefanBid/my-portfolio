@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { PageCover } from '@/components';
-import backgroundClip from '@/assets/coverVideo.mp4';
+import backgroundClip from '@/assets/media/coverVideo.mp4';
 import { onMounted, ref } from 'vue';
-
+import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
+import { PageCover, CustomButton } from '@/components';
+import { downloadCv, openLink } from '@/utils';
 import { useGlobalBreakpoints } from '@/hooks';
 
 const { xs, sm, md } = useGlobalBreakpoints();
@@ -52,47 +53,99 @@ onMounted(() => {
   <PageCover
     background-type="clip"
     :background-url="backgroundClip"
+    background-dimensions="quarter"
     overlay-color="black"
   >
     <template #cover-content>
       <div
-        class="flex flex-col h-screen transition-all duration-300 ease-in-out"
         :class="{
-          'justify-center items-start': !xs && !sm && !md,
-          'justify-center items-center': xs || sm || md,
-        }"
-      >
-        <span
-          class="leading-none text-white whitespace-normal font-bebas"
-          :class="{
-            'text-[2.5rem] text-center': xs || sm,
-            'text-[5rem] text-center': md,
-            'text-[6rem] text-left': !xs && !sm && !md,
-          }"
-        >
-          Hello Everyone!
-        </span>
-        <span
-          class="font-bebas text-[8rem] text-white leading-tight transition-all duration-300 ease-in-out whitespace-normal"
-          :class="{
-            'text-[3.5rem] text-center': xs || sm,
-            'text-[6rem] text-center': md,
-            'text-[7rem] text-left': !xs && !sm && !md,
+          'flex-col gap-y-2 ': xs || sm || md,
+          'flex-row gap-x-2': !xs && !sm && !md,
 
-          }"
-        >
-          I'm Stefano Biddau
-        </span>
-        <span
-          class="font-bebas text-[6rem] text-white leading-none transition-all duration-300 ease-in-out whitespace-normal "
+        }"
+        class="flex items-center h-screen"
+      >
+        <div
+          class="flex flex-col transition-all duration-300 ease-in-out gap-y-2 font-bebas"
           :class="{
-            'text-[2.5rem] text-center': xs || sm,
-            'text-[5rem] text-center': md,
-            'text-[6rem] text-left': !xs && !sm && !md,
+            'justify-center items-start w-[75%] h-screen': !xs && !sm && !md,
+            'justify-center items-center w-full h-[40%]': xs || sm || md,
           }"
         >
-          I'm a {{ currentTxt }}_
-        </span>
+          <span
+            class="leading-none text-white whitespace-normal"
+            :class="{
+              'text-[2rem] text-center': xs || sm,
+              'text-[5rem] text-center': md,
+              'text-[5.5rem] text-left': !xs && !sm && !md,
+            }"
+          >
+            Hello Everyone!
+          </span>
+          <span
+            class="leading-none text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-lg "
+            :class="{
+              'text-[3rem] text-center p-1': xs || sm,
+              'text-[6rem] text-center p-2': md,
+              'text-[6.5rem] text-left p-4': !xs && !sm && !md,
+
+            }"
+          >
+            I'm Stefano Biddau
+
+          </span>
+          <span
+            class="leading-none text-white whitespace-normal transition-all duration-300 ease-in-out"
+            :class="{
+              'text-[2rem] text-center': xs || sm,
+              'text-[5rem] text-center': md,
+              'text-[5.5rem] text-left': !xs && !sm && !md,
+            }"
+          >
+            I'm a {{ currentTxt }}_
+          </span>
+        </div>
+        <div
+          class="flex flex-col items-center justify-center "
+          :class="{
+            'w-[25%] h-screen': !xs && !sm && !md,
+            'w-full h-[40%]': xs || sm || md,
+          }"
+        >
+          <CustomButton
+            :class="{
+              'w-60': !xs && !sm && !md,
+              'w-48': xs || sm || md,
+            }"
+            @click="openLink('https://www.linkedin.com/in/stefano-biddau-669149214/')"
+          >
+            Contact Me
+            <ChatBubbleLeftRightIcon class="size-6 shrink-0" />
+          </CustomButton>
+
+          <span
+            class="my-4 text-white transition-all duration-300 ease-in-out font-bebas"
+            :class="{
+              'text-[2rem] text-center': xs || sm,
+              'text-[5rem] text-center': md,
+              'text-[6rem] text-left': !xs && !sm && !md,
+            }"
+          >
+            OR
+          </span>
+
+          <CustomButton
+            :class="{
+              'w-60': !xs && !sm && !md,
+              'w-48': xs || sm || md,
+            }"
+
+            @click="downloadCv()"
+          >
+            Download my CV
+            <DocumentArrowDownIcon class="size-6 shrink-0" />
+          </CustomButton>
+        </div>
       </div>
     </template>
   </PageCover>

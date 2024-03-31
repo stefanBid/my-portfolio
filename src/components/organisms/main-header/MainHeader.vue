@@ -83,7 +83,7 @@ watch([xs, sm, md], () => {
           v-for="routeItem in WEBSITE_ROUTES"
           :key="routeItem.id"
           :to="routeItem.path"
-          class="inline-flex items-center justify-center p-1 px-4 transition-all duration-300 ease-in-out rounded-full min-w-20 "
+          class="inline-flex items-center justify-center p-1 px-4 transition-all duration-300 ease-in-out rounded-full min-w-20 font-roboto"
           :class="{
             'text-main bg-white': route.path === routeItem.path,
             'text-white hover:bg-slate-700': route.path !== routeItem.path,
@@ -106,7 +106,7 @@ watch([xs, sm, md], () => {
       v-for="routeItem in WEBSITE_ROUTES"
       :key="routeItem.id"
       :to="routeItem.path"
-      class="inline-flex items-center justify-start w-full px-8 py-6 transition-all duration-300 ease-in-out"
+      class="inline-flex items-center w-full px-8 py-6 text-lg transition-all duration-300 ease-in-out font-roboto"
       :class="{
         'text-main bg-white': route.path === routeItem.path,
         'text-white hover:bg-slate-700': route.path !== routeItem.path,
