@@ -59,7 +59,7 @@ onMounted(() => {
     <template #cover-content>
       <div
         :class="{
-          'flex-col gap-y-2 ': xs || sm || md,
+          'flex-col gap-y-2 justify-start ': xs || sm || md,
           'flex-row gap-x-2': !xs && !sm && !md,
 
         }"
@@ -69,7 +69,7 @@ onMounted(() => {
           class="flex flex-col transition-all duration-300 ease-in-out gap-y-2 font-bebas"
           :class="{
             'justify-center items-start w-[75%] h-screen': !xs && !sm && !md,
-            'justify-center items-center w-full h-[40%]': xs || sm || md,
+            'justify-center items-center w-full h-[50%]': xs || sm || md,
           }"
         >
           <span
@@ -109,7 +109,7 @@ onMounted(() => {
           class="flex flex-col items-center justify-center "
           :class="{
             'w-[25%] h-screen': !xs && !sm && !md,
-            'w-full h-[40%]': xs || sm || md,
+            'w-full h-fit': xs || sm || md,
           }"
         >
           <CustomButton
@@ -124,11 +124,11 @@ onMounted(() => {
           </CustomButton>
 
           <span
-            class="my-4 text-white transition-all duration-300 ease-in-out font-bebas"
+            class="text-white transition-all duration-300 ease-in-out font-bebas"
             :class="{
-              'text-[2rem] text-center': xs || sm,
-              'text-[5rem] text-center': md,
-              'text-[6rem] text-left': !xs && !sm && !md,
+              'text-[2rem] text-center my-2': xs || sm,
+              'text-[3rem] text-center my-2': md,
+              'text-[6rem] text-left my-4': !xs && !sm && !md,
             }"
           >
             OR
