@@ -4,9 +4,9 @@ import { PageHeading } from '@/components';
 </script>
 
 <template>
-  <div class="h-screen pt-20 border">
+  <div class="h-screen pt-20 border ">
     <PageHeading
-      title="Skills Page"
+      title="Get to know me!"
     />
   </div>
 </template>

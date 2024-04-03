@@ -11,10 +11,10 @@ interface TransitionObject {
 
 const TRANSITION_MAP: Record<Transition, TransitionObject> = {
 	fade: {
-		enterActiveClass: 'transition duration-700 ease-out',
+		enterActiveClass: 'transition duration-500 ease-out',
 		enterFromClass: 'opacity-0',
 		enterToClass: 'opacity-100',
-		leaveActiveClass: 'transition duration-700 ease-in',
+		leaveActiveClass: 'transition duration-500 ease-in',
 		leaveFromClass: 'opacity-100',
 		leaveToClass: 'opacity-0',
 	},
@@ -28,11 +28,11 @@ const TRANSITION_MAP: Record<Transition, TransitionObject> = {
 	},
 	shutter: {
 		enterActiveClass: 'transition-transform duration-700 ease-out',
-		enterFromClass: 'transform translate-x-full',
-		enterToClass: 'transform translate-x-0',
+		enterFromClass: 'transform translate-y-full',
+		enterToClass: 'transform translate-y-0',
 		leaveActiveClass: 'transition-transform duration-700 ease-in',
-		leaveFromClass: 'transform translate-x-0',
-		leaveToClass: 'transform -translate-x-full',
+		leaveFromClass: 'transform translate-y-0',
+		leaveToClass: 'transform -translate-y-full',
 	},
 	stretch: {
 		enterActiveClass: 'transition-transform duration-500 ease-out',

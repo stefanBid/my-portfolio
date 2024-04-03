@@ -6,7 +6,7 @@ import { PageHeading } from '@/components';
 <template>
   <div class="h-screen pt-20 border">
     <PageHeading
-      title="About Me"
+      title="Who am I?"
     />
   </div>
 </template>
