@@ -19,10 +19,10 @@ const TRANSITION_MAP: Record<Transition, TransitionObject> = {
 		leaveToClass: 'opacity-0',
 	},
 	scaleAndFade: {
-		enterActiveClass: 'transition duration-300 ease-out',
+		enterActiveClass: 'transition duration-700 ease-out',
 		enterFromClass: 'transform scale-95 opacity-0',
 		enterToClass: 'transform scale-100 opacity-100',
-		leaveActiveClass: 'transition duration-300 ease-in',
+		leaveActiveClass: 'transition duration-700 ease-in',
 		leaveFromClass: 'transform scale-100 opacity-100',
 		leaveToClass: 'transform scale-95 opacity-0',
 	},
