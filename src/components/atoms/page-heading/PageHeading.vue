@@ -1,25 +1,41 @@
 <script setup lang="ts">
-import type { FunctionalComponent } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getTransition } from '@/utils';
 
 interface PageHeadingProps {
   title: string;
-  icon: FunctionalComponent
 }
 
 const props = defineProps<PageHeadingProps>();
 
+const show = ref(false);
+const showIcon = ref(false);
+const transitionObj = getTransition('stretch');
+
+onMounted(() => {
+	show.value = true;
+	setTimeout(() => {
+		showIcon.value = true;
+	}, 600);
+});
 </script>
 
 <template>
-  <div class="flex items-center p-8 sm:justify-center xs:justify-center h-1/4 bg-secondary gap-x-4">
-    <div class="border-e-2 pe-4">
-      <component
-        :is="props.icon"
-        class="text-white transition-all duration-200 ease-in-out size-12 md:size-10 sm:size-8 xs:size-8"
-      />
-    </div>
-    <h1 class="text-4xl font-thin text-white duration-200 ease-in-out md:text-2xl sm:text-xl xs:text-xl ransition-all ">
-      {{ props.title }}
-    </h1>
+  <div class="flex items-center justify-center p-8 h-[20%] bg-slate-700 gap-x-4">
+    <transition
+      :enter-active-class="transitionObj.enterActiveClass"
+      :enter-from-class="transitionObj.enterFromClass"
+      :enter-to-class="transitionObj.enterToClass"
+      :leave-active-class="transitionObj.leaveActiveClass"
+      :leave-from-class="transitionObj.leaveFromClass"
+      :leave-to-class="transitionObj.leaveToClass"
+    >
+      <h1
+        v-if="show"
+        class=" text-[5rem] text-white duration-200 ease-in-out font-bebas md:text-2xl sm:text-xl xs:text-xl transition-all "
+      >
+        {{ props.title }}
+      </h1>
+    </transition>
   </div>
 </template>
