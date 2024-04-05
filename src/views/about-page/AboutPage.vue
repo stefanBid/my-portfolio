@@ -5,7 +5,7 @@ import img from '@/assets/media/graduationPhoto.jpg';
 </script>
 
 <template>
-  <div class="">
+  <div class="div_container">
     <PageHeading
       title="Who am I?"
     />
