@@ -1,0 +1,16 @@
+{
+  "sections":[
+    {
+      "title": "My schooling",
+      "description": "Nostrud consectetur id anim amet quis amet ipsum aliquip ad veniam. Est aliquip culpa deserunt sunt qui do excepteur ullamco est irure proident deserunt consectetur. Veniam mollit cillum voluptate laborum occaecat nisi ut sint occaecat nostrud qui. Amet commodo exercitation aute laboris esse nisi sunt sit dolor qui ad anim Lorem adipisicing. Duis consectetur minim laboris enim amet nisi proident. Dolore nostrud occaecat proident in esse. Consectetur dolor dolor aliquip reprehenderit nisi amet culpa eiusmod excepteur est. Nostrud consectetur id anim amet quis amet ipsum aliquip ad veniam. Est aliquip culpa deserunt sunt qui do excepteur ullamco est irure proident deserunt consectetur. Veniam mollit cillum voluptate laborum occaecat nisi ut sint occaecat nostrud qui. Amet commodo exercitation aute laboris esse nisi sunt sit dolor qui ad anim Lorem adipisicing. Duis consectetur minim laboris enim amet nisi proident. Dolore nostrud occaecat proident in esse. Consectetur dolor dolor aliquip reprehenderit nisi amet culpa eiusmod excepteur est.",
+      "image": "./src/assets/media/graduationPhoto.jpg",
+      "imageDescription": "At my graduation ceremony on 15th Dec 2023"
+    },
+    {
+      "title": "My work",
+      "description":"Nostrud consectetur id anim amet quis amet ipsum aliquip ad veniam. Est aliquip culpa deserunt sunt qui do excepteur ullamco est irure proident deserunt consectetur. Veniam mollit cillum voluptate laborum occaecat nisi ut sint occaecat nostrud qui. Amet commodo exercitation aute laboris esse nisi sunt sit dolor qui ad anim Lorem adipisicing. Duis consectetur minim laboris enim amet nisi proident. Dolore nostrud occaecat proident in esse. Consectetur dolor dolor aliquip reprehenderit nisi amet culpa eiusmod excepteur est. Nostrud consectetur id anim amet quis amet ipsum aliquip ad veniam. Est aliquip culpa deserunt sunt qui do excepteur ullamco est irure proident deserunt consectetur. Veniam mollit cillum voluptate laborum occaecat nisi ut sint occaecat nostrud qui. Amet commodo exercitation aute laboris esse nisi sunt sit dolor qui ad anim Lorem adipisicing. Duis consectetur minim laboris enim amet nisi proident. Dolore nostrud occaecat proident in esse. Consectetur dolor dolor aliquip reprehenderit nisi amet culpa eiusmod excepteur est.",
+      "image": "./src/assets/media/graduationPhoto.jpg",
+      "imageDescription": "This is a photo of me at my workstation"
+    }
+  ]
+}
