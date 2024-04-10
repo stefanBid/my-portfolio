@@ -44,7 +44,7 @@ const { xs, sm, md } = useGlobalBreakpoints();
       <div
         v-for="(section, index) in bio.sections"
         :key="index"
-        v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
+        v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.05}]"
         :class="{
           'flex-row gap-x-10': index % 2 === 0 && !xs && !sm && !md,
           'flex-row-reverse gap-x-10': index % 2 !== 0 && !xs && !sm && !md,
@@ -52,7 +52,7 @@ const { xs, sm, md } = useGlobalBreakpoints();
           'opacity-0': !isVisible[index],
           'opacity-100': isVisible[index],
         }"
-        class="flex px-8 transition-all duration-300 ease-in-out"
+        class="flex px-8 transition-all duration-500 ease-in-out"
       >
         <VintageImageContainer
           :image-url="section.image"
@@ -61,13 +61,25 @@ const { xs, sm, md } = useGlobalBreakpoints();
             '-rotate-2': index % 2 === 0,
             'rotate-2': index % 2 !== 0,
           }"
-          class="shrink-0 h-fit"
+          class="mt-2 shrink-0 h-fit"
         />
-        <div class="flex flex-col justify-center flex-1">
-          <h1 class="font-bebas text-[3rem] text-white">
+        <div class="flex flex-col justify-center flex-1 ">
+          <h1
+            :class="{
+              'text-[3.5rem]': !xs && !sm && !md,
+              'text-[3rem]': xs || sm || md,
+            }"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
+          >
             {{ section.title }}
           </h1>
-          <p class="text-justify text-white whitespace-normal font-roboto">
+          <p
+            :class="{
+              'text-[1.25rem]': !xs && !sm && !md,
+              'text-[1rem]': xs || sm || md,
+            }"
+            class="text-justify text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+          >
             {{ section.description }}
           </p>
         </div>
