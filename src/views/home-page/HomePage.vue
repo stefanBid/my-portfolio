@@ -28,7 +28,7 @@ onMounted(() => {
 <template>
   <PageCover
     background-type="clip"
-    background-url="/public/media/coverVideo.mp4"
+    background-url="/media/coverVideo.mp4"
     overlay-color="black"
   >
     <template #cover-content>
