@@ -3,13 +3,13 @@
     {
       "title": "My schooling",
       "description": "My educational journey, which paved the way for my career as a web developer, began to take shape during my high school years, where my passion for computer science first ignited. This early interest in technology led me to pursue higher education at the University of Salerno (UNISA), a renowned institution celebrated for its excellence in the field of computer science. Guided by my passion for technology and programming, I navigated through my academic years, ultimately achieving a Bachelor's degree in Computer Science with an impressive score of 98/100. The crowning achievement of my university studies was my thesis, which delved into the classification of images using advanced artificial intelligence algorithms. This endeavor not only underscored my technical acumen and my ability to tackle complex concepts in practical scenarios but also sparked a profound and enduring fascination with the potential of artificial intelligence within web development and beyond.",
-      "image": "./public/media/graduationPhoto.jpg",
+      "image": "/public/media/graduationPhoto.jpg",
       "imageDescription": "At my graduation ceremony on 15th Dec 2023"
     },
     {
       "title": "My work",
       "description":"Currently, I am employed as a full-stack consultant at SI2001, where I have been an integral part of the team for two years. This role has provided me with a stable platform to transition from a junior developer to a senior developer, laying down the essential foundations for this significant progression in my career. Working at SI2001 has been a transformative experience, not only in terms of enhancing my technical skills but also in fostering personal growth. It has been an invaluable period of learning and development, allowing me to become more aware of my capabilities and confident in my resources. This journey of maturation at SI2001 is equipping me with the tools and knowledge necessary to navigate the complexities of the tech industry, pushing me closer to achieving my goal of becoming a senior developer.",
-      "image": "./public/media/work.jpg",
+      "image": "/public/media/work.jpg",
       "imageDescription": "This is a photo of me at my workstation"
     }
   ]
