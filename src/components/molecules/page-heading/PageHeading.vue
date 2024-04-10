@@ -24,7 +24,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-screen pt-20 border">
+  <div
+    v-bind="$attrs"
+    class="h-screen pt-20 "
+  >
     <div class="flex flex-col items-center justify-center h-full p-8 bg-main gap-x-4">
       <transition
         :enter-active-class="transitionObj.enterActiveClass"
