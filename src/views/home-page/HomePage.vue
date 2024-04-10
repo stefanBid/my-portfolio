@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import backgroundClip from '@/assets/media/coverVideo.mp4';
 import { onMounted, ref } from 'vue';
 import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
 import { PageCover, CustomButton } from '@/components';
@@ -29,7 +28,7 @@ onMounted(() => {
 <template>
   <PageCover
     background-type="clip"
-    :background-url="backgroundClip"
+    :background-url="'./public/media/coverVideo.mp4'"
     overlay-color="black"
   >
     <template #cover-content>
