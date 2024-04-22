@@ -1,10 +1,38 @@
 <script setup lang="ts">
-import { PageHeading, VintageImageContainer } from '@/components';
+import { PageHeading, VintagePicture } from '@/components';
 import { vIntersectionObserver } from '@vueuse/components';
-import { useGlobalBreakpoints } from '@/hooks';
+import { useGlobalBreakpoints, useTypedI18n } from '@/hooks';
+import { computed, ref } from 'vue';
 
-import bio from '@/data/bio.json';
-import { ref } from 'vue';
+// Feature 0: Manage Style Classes
+const { xs, sm, md } = useGlobalBreakpoints();
+
+const sectionContainerCss = computed(() => {
+	if (xs.value || sm.value) { return 'p-sb-side-sm gap-y-16'; }
+	if (md.value) { return 'p-sb-side-base gap-y-20'; }
+	return 'p-sb-side-lg gap-y-24';
+});
+
+const sectionTitleCss = computed(() => {
+	if (xs.value || sm.value) { return 'text-sb-3xl text-center'; }
+	if (md.value) { return 'text-sb-4xl text-left'; }
+	return 'text-sb-5xl text-left';
+});
+
+const sectionSubtitleCss = computed(() => {
+	if (xs.value || sm.value) { return 'text-sb-lg text-center'; }
+	if (md.value) { return 'text-sb-xl text-left'; }
+	return 'text-sb-2xl text-left';
+});
+
+const sectionDescriptionCss = computed(() => {
+	if (xs.value || sm.value) { return 'text-sb-sm'; }
+	if (md.value) { return 'text-sb-base'; }
+	return 'text-sb-lg';
+});
+
+// Feature 1: Internationalization (i18n)
+const { aboutMeI18nContent } = useTypedI18n();
 
 const initializeBooleanArray = (structure: {[key:string]:string}[]) => {
 	let arr: boolean[] = [];
@@ -13,14 +41,11 @@ const initializeBooleanArray = (structure: {[key:string]:string}[]) => {
 };
 
 const root = ref(null);
-const isVisible = ref<boolean[]>(initializeBooleanArray(bio.sections));
+const isVisible = ref<boolean[]>(initializeBooleanArray(aboutMeI18nContent.value.bio));
 
 const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
 	isVisible.value[index] = isIntersecting;
 };
-
-const { xs, sm, md } = useGlobalBreakpoints();
-
 </script>
 
 <template>
@@ -29,58 +54,54 @@ const { xs, sm, md } = useGlobalBreakpoints();
     class=" div_container"
   >
     <PageHeading
-      title="Who am I?"
+      :title="aboutMeI18nContent.pageHeading"
     />
 
     <div
-      :class="
-        {
-          'gap-y-28': xs || sm || md,
-          'gap-y-20': !xs && !sm && !md,
-        }
-      "
-      class="flex flex-col mt-5 mb-10 "
+      id="section-container"
+      :class="[sectionContainerCss]"
+      class="flex flex-col mt-5 mb-10"
     >
       <div
-        v-for="(section, index) in bio.sections"
+        v-for="(section, index) in aboutMeI18nContent.bio"
         :key="index"
         v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.05}]"
-        :class="{
+        :class=" {
           'flex-row gap-x-10': index % 2 === 0 && !xs && !sm && !md,
           'flex-row-reverse gap-x-10': index % 2 !== 0 && !xs && !sm && !md,
           'flex-col items-center gap-y-5': xs || sm || md,
           'opacity-0': !isVisible[index],
           'opacity-100': isVisible[index],
         }"
-        class="flex px-8 transition-all duration-500 ease-in-out"
+        class="flex items-start px-8 transition-all duration-500 ease-in-out "
       >
-        <VintageImageContainer
-          :image-url="section.image"
-          :text="section.imageDescription"
+        <VintagePicture
+          :image-url="section.imgPath"
+          :text="section.imgDescription"
           :class="{
             '-rotate-2': index % 2 === 0,
             'rotate-2': index % 2 !== 0,
           }"
-          class="mt-2 shrink-0 h-fit"
+          class="mt-2 shrink-0"
         />
         <div class="flex flex-col justify-center flex-1 ">
           <h1
-            :class="{
-              'text-[3.5rem]': !xs && !sm && !md,
-              'text-[3rem]': xs || sm || md,
-            }"
-            class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
+            :class="[sectionTitleCss]"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out  font-bebas"
           >
-            {{ section.title }}
+            {{ section.sectionTitle }}
           </h1>
-          <p
-            :class="{
-              'text-[1.25rem]': !xs && !sm && !md,
-              'text-[1rem]': xs || sm || md,
-            }"
-            class="text-justify text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+          <h2
+            :class="[sectionSubtitleCss]"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out  font-roboto"
           >
-            {{ section.description }}
+            ({{ section.sectionSubtitle }} prova prova prova)
+          </h2>
+          <p
+            :class="[sectionDescriptionCss]"
+            class="mt-4 text-justify text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+          >
+            {{ section.sectionParagraph }}
           </p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+import { useGlobalBreakpoints } from '@/hooks';
+import { computed } from 'vue';
 interface PageCoverProps {
   backgroundType: 'image' | 'clip' ;
   backgroundUrl: string;
@@ -8,10 +9,20 @@ interface PageCoverProps {
 
 const props = defineProps<PageCoverProps>();
 
+// Feature 0: Manage Style Classes
+const { xs, sm, md } = useGlobalBreakpoints();
+
+const coverPadding = computed(() => {
+	if (xs.value || sm.value) { return 'p-sb-side-sm'; }
+	if (md.value) { return 'p-sb-side-base'; }
+	return 'p-sb-side-lg';
+});
+
 </script>
 
 <template>
   <div
+    :class="[coverPadding]"
     class="relative w-full h-screen pt-20 overflow-hidden bg-black"
   >
     <!-- Background -->
@@ -41,7 +52,7 @@ const props = defineProps<PageCoverProps>();
     ></div>
 
     <!-- Cover Content -->
-    <div class="relative z-10 px-8">
+    <div class="relative z-10 p-sb-side">
       <slot name="cover-content"></slot>
     </div>
   </div>

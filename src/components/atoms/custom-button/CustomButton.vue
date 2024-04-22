@@ -1,17 +1,22 @@
 <script setup lang="ts">
-
 import { useGlobalBreakpoints } from '@/hooks';
+import type { FunctionalComponent } from 'vue';
 
 interface CustomButtonProps {
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
+  icon?: FunctionalComponent;
+  customDimensions?: boolean;
 }
 
 const props = withDefaults(defineProps<CustomButtonProps>(), {
 	disabled: false,
 	variant: 'primary',
+	icon: undefined,
+	customDimensions: false,
 });
 
+// Feature 0: Manage Style Classes
 const { xs, sm, md } = useGlobalBreakpoints();
 </script>
 
@@ -19,16 +24,31 @@ const { xs, sm, md } = useGlobalBreakpoints();
   <button
     v-bind="$attrs"
     type="button"
-    class="inline-flex items-center justify-center px-8 py-4 font-medium truncate transition-all duration-300 ease-in-out border border-white rounded-full outline-none gap-x-2 ring-0 font-roboto"
-    :class="{
-      'pointer-events-none opacity-50': props.disabled,
-      ' bg-main text-white hover:text-main hover:bg-white ': props.variant === 'primary',
-      'bg-white text-main hover:text-white hover:bg-main': props.variant === 'secondary',
-      'text-xl': !xs && !sm && !md,
-      'text-lg': md,
-      'text-base': sm || xs,
-    }"
+    class="inline-flex items-center justify-center overflow-x-hidden font-medium truncate transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none gap-x-2 ring-0 font-roboto"
+    :class="[
+      {
+        'pointer-events-none opacity-50': props.disabled,
+        'bg-secondary text-white hover:text-main hover:bg-white ': props.variant === 'primary',
+        'bg-white text-main hover:text-white hover:bg-secondary': props.variant === 'secondary',
+      },
+
+      {
+        'py-4 px-8': !props.customDimensions,
+        'text-sb-lg': !xs && !sm && !md,
+        'text-sb-base': md,
+        'text-sb-sm': sm || xs,
+      }
+    ]"
   >
     <slot></slot>
+    <component
+      :is="props.icon"
+      class="shrink-0"
+      :class="{
+        'size-6': !xs && !sm && !md,
+        'size-5': md,
+        'size-4': xs || sm,
+      }"
+    />
   </button>
 </template>

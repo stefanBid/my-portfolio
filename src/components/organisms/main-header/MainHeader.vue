@@ -2,9 +2,14 @@
 
 import { RouterLink, useRoute } from 'vue-router';
 import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
-import { useGlobalBreakpoints } from '@/hooks';
-import { ref, watch } from 'vue';
+import { useGlobalBreakpoints, useTypedI18n } from '@/hooks';
+import { computed, ref, watch } from 'vue';
+import { DropdownButton, ItFlagIcon, UKFlagIcon } from '@/components';
 
+// Feature 0: Internationalization (i18n)
+const { changeLanguage, currentLanguage } = useTypedI18n();
+
+// Feature 1: Manage Routes
 const WEBSITE_ROUTES = [
 	{
 		id: 'ce16c95b-1e14-4c63-8fa1-ebc4897a742a',
@@ -26,11 +31,15 @@ const WEBSITE_ROUTES = [
 		title: 'My Projects',
 		path: '/projects',
 	},
+
 ];
 
 const route = useRoute();
+
+// Feaure 3: Manage Breakpoints and Style Classes
 const { xs, sm, md } = useGlobalBreakpoints();
 
+// Feature 3.1: Manage Menu Visibility
 const isMenuOpen = ref(false);
 const isMenuCollapsed = ref(true);
 
@@ -50,17 +59,39 @@ watch([xs, sm, md], () => {
 	immediate: true,
 });
 
+// Feature 3.2: Manage Style Classes
+const customPadding = computed(() => {
+	if (xs.value || sm.value) { return 'p-sb-side-sm'; }
+	if (md.value) { return 'p-sb-side-base'; }
+	return 'p-sb-side-lg';
+});
+
 </script>
 
 <template>
   <header class="fixed top-0 left-0 z-50 w-full h-20 shadow-md bg-main">
-    <div class="relative flex items-center justify-between h-20 px-8 gap-x-4">
+    <div
+      :class="[customPadding]"
+      class="relative flex items-center justify-between h-20 p-sb-side gap-x-4"
+    >
       <!-- Sezione Logo a Sinistra -->
-      <div class="flex items-center text-white ">
-        <CodeBracketIcon class="flex-none transition-all duration-300 ease-in-out size-12 me-4 md:size-8 sm:size-8 xs:size-8" />
+      <div class="flex items-center text-white gap-x-4">
+        <CodeBracketIcon
+          class="transition-all duration-300 ease-in-out shrink-0"
+          :class="{
+            'size-12': !xs && !sm && !md,
+            'size-10': md,
+            'size-8': xs || sm,
+          }"
+        />
 
         <router-link
-          class="flex-1 text-[2rem] font-semibold transition-all duration-300 ease-in-out font-bebas md:text-[1.5rem] sm:text-[1.5rem] xs:text-[1.5rem]"
+          class="flex-1 font-semibold transition-all duration-300 ease-in-out font-bebas "
+          :class="{
+            'text-sb-3xl': !xs && !sm && !md,
+            'text-sb-2xl': md,
+            'text-sb-xl': xs || sm,
+          }"
           to="/"
           @click="onChangeMenuVisibility(false)"
         >
@@ -70,28 +101,74 @@ watch([xs, sm, md], () => {
       <component
         :is="isMenuOpen ? XMarkIcon : Bars3Icon"
         v-if="isMenuCollapsed"
-        class="flex-none text-white transition-all duration-300 ease-in-out cursor-pointer size-10 sm:size-8 xs:size-8 active:rotate-90 "
+        class="flex-none text-white transition-all duration-300 ease-in-out cursor-pointer active:rotate-90"
+        :class="{
+          'size-10': !xs && !sm && !md,
+          'size-8': md,
+          'size-6': xs || sm,
+        }"
         @click="onChangeMenuVisibility(!isMenuOpen) "
       />
 
-      <!-- Sezione Navigazione a Destra -->
-      <nav
+      <!-- Sezione Destra -->
+      <div
         v-if="!isMenuCollapsed"
-        class="flex items-center justify-end px-4 py-2 space-x-6 transition-all duration-300 ease-in-out rounded-full bg-secondary"
+        class="flex items-center w-fit gap-x-4"
       >
-        <router-link
-          v-for="routeItem in WEBSITE_ROUTES"
-          :key="routeItem.id"
-          :to="routeItem.path"
-          class="inline-flex items-center justify-center p-1 px-4 transition-all duration-300 ease-in-out rounded-full min-w-20 font-roboto"
-          :class="{
-            'text-main bg-white': route.path === routeItem.path,
-            'text-white hover:bg-slate-700': route.path !== routeItem.path,
-          }"
+        <!-- Sezione Navigazione a Destra -->
+        <nav
+
+          class="flex items-center justify-end px-4 py-2 transition-all duration-300 ease-in-out border-2 rounded-full gap-x-6 bg-secondary border-slate-700"
         >
-          {{ routeItem.title }}
-        </router-link>
-      </nav>
+          <router-link
+            v-for="routeItem in WEBSITE_ROUTES"
+            :key="routeItem.id"
+            :to="routeItem.path"
+            class="inline-flex items-center justify-center px-2 py-1 transition-all duration-300 ease-in-out rounded-full min-w-24 font-roboto"
+            :class="{
+              'text-main bg-white': route.path === routeItem.path,
+              'text-white hover:bg-slate-700': route.path !== routeItem.path,
+              'text-sb-base': !xs && !sm && !md,
+            }"
+          >
+            {{ routeItem.title }}
+          </router-link>
+        </nav>
+        <!-- Sezione Cambio Lingua -->
+        <DropdownButton
+          class="w-24"
+          :icon="currentLanguage === 'it' ? ItFlagIcon : UKFlagIcon"
+        >
+          <template #popper-content>
+            <div class="w-48 p-1">
+              <span
+                class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
+                @click="changeLanguage('it')"
+              >
+                <ItFlagIcon class="size-6 shrink-0" />
+                <span
+                  :class="{
+                    'font-bold': currentLanguage === 'it',
+                  }"
+                  class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
+                > (IT)</span>
+              </span>
+              <span
+                class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
+                @click="changeLanguage('en')"
+              >
+                <UKFlagIcon class="size-6 shrink-0" />
+                <span
+                  :class="{
+                    'font-bold': currentLanguage === 'en',
+                  }"
+                  class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
+                > (EN)</span>
+              </span>
+            </div>
+          </template>
+        </DropdownButton>
+      </div>
     </div>
   </header>
   <nav
@@ -106,14 +183,53 @@ watch([xs, sm, md], () => {
       v-for="routeItem in WEBSITE_ROUTES"
       :key="routeItem.id"
       :to="routeItem.path"
-      class="inline-flex items-center w-full px-8 py-6 text-lg transition-all duration-300 ease-in-out font-roboto"
-      :class="{
+      class="inline-flex items-center w-full py-6 text-lg transition-all duration-300 ease-in-out font-roboto"
+      :class="[customPadding,{
         'text-main bg-white': route.path === routeItem.path,
         'text-white hover:bg-slate-700': route.path !== routeItem.path,
-      }"
+      }]"
       @click="onChangeMenuVisibility(false)"
     >
       {{ routeItem.title }}
     </router-link>
+    <div
+      :class="[customPadding]"
+      class="inline-flex items-center w-full py-6 text-white gap-x-4"
+    >
+      {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
+      <DropdownButton
+        class="w-24 "
+        :icon="currentLanguage === 'it' ? ItFlagIcon : UKFlagIcon"
+      >
+        <template #popper-content>
+          <div class="w-48 p-1">
+            <span
+              class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
+              @click="changeLanguage('it')"
+            >
+              <ItFlagIcon class="size-6 shrink-0" />
+              <span
+                :class="{
+                  'font-bold': currentLanguage === 'it',
+                }"
+                class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
+              > (IT)</span>
+            </span>
+            <span
+              class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
+              @click="changeLanguage('en')"
+            >
+              <UKFlagIcon class="size-6 shrink-0" />
+              <span
+                :class="{
+                  'font-bold': currentLanguage === 'en',
+                }"
+                class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
+              > (EN)</span>
+            </span>
+          </div>
+        </template>
+      </DropdownButton>
+    </div>
   </nav>
 </template>

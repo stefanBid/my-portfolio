@@ -1,23 +1,40 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
 import { PageCover, CustomButton } from '@/components';
-import { downloadCv, openLink, getTransition } from '@/utils';
-import { useGlobalBreakpoints, useTypingText } from '@/hooks';
+import { downloadCv, openLink } from '@/utils';
+import { useGlobalBreakpoints, useTypingText, useTypedI18n } from '@/hooks';
 
+// Feature 0: Manage Style Classes
 const { xs, sm, md } = useGlobalBreakpoints();
 
-// Feature 1: Machine Typing Effect
-const texts: string[] = [
-	'Front-End Developer',
-	'Back-End Developer',
-	'Content Creator',
-];
+const getButtonWidth = computed(() => {
+	if (xs.value || sm.value) { return 'w-44'; }
+	if (md.value) { return 'w-52'; }
+	return 'w-56';
+});
+
+const getMainTitleSize = computed(() => {
+	if (xs.value || sm.value) { return 'text-sb-4xl px-1 py-0.5'; }
+	if (md.value) { return 'text-sb-6xl px-2 py-1'; }
+	return 'text-sb-7xl px-4 py-2';
+});
+
+const getSubTitleSize = computed(() => {
+	if (xs.value || sm.value) { return 'text-sb-3xl'; }
+	if (md.value) { return 'text-sb-4xl'; }
+	return 'text-sb-5xl';
+});
+
+// Feature 1: Internationalization (i18n)
+const { homepageI18nContent } = useTypedI18n();
+
+// Feature 2: Machine Typing Effect
+const texts = computed(() => homepageI18nContent.value.generalSkills);
 
 const { currentTxt } = useTypingText(texts);
 
-// Feature 2: Manage effects
-const transitionObj = getTransition('scaleAndFade');
+// Feature 3: Manage effects
 const show = ref(false);
 
 onMounted(() => {
@@ -28,7 +45,7 @@ onMounted(() => {
 <template>
   <PageCover
     background-type="clip"
-    background-url="/media/coverVideo.mp4"
+    background-url="/video/cover-video.mp4"
     overlay-color="black"
   >
     <template #cover-content>
@@ -40,104 +57,65 @@ onMounted(() => {
         }"
         class="flex items-center h-screen"
       >
-        <transition
-          :enter-active-class="transitionObj.enterActiveClass"
-          :enter-from-class="transitionObj.enterFromClass"
-          :enter-to-class="transitionObj.enterToClass"
-          :leave-active-class="transitionObj.leaveActiveClass"
-          :leave-from-class="transitionObj.leaveFromClass"
-          :leave-to-class="transitionObj.leaveToClass"
-        >
+        <transition name="scale-and-fade-slow">
           <div
             v-if="show"
             class="flex flex-col transition-all duration-300 ease-in-out gap-y-2 font-bebas"
             :class="{
-              'justify-center items-start w-[75%] h-screen': !xs && !sm && !md,
-              'justify-center items-center w-full h-[50%]': xs || sm || md,
+              'text-left justify-center items-left w-[75%] h-screen': !xs && !sm && !md,
+              'text-center justify-center items-center w-fit h-[50%]': xs || sm || md,
             }"
           >
-            <span
-              class="leading-none text-white whitespace-normal"
-              :class="{
-                'text-[2rem] text-center': xs || sm,
-                'text-[5rem] text-center': md,
-                'text-[5.5rem] text-left': !xs && !sm && !md,
-              }"
+            <h2
+              class="text-white whitespace-normal"
+              :class="[getSubTitleSize]"
             >
-              Hello Everyone!
-            </span>
-            <span
-              class="leading-none text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-lg "
-              :class="{
-                'text-[3rem] text-center p-1': xs || sm,
-                'text-[6rem] text-center p-2': md,
-                'text-[6.5rem] text-left p-4': !xs && !sm && !md,
-
-              }"
+              {{ homepageI18nContent.welcomeText }}
+            </h2>
+            <h1
+              class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit "
+              :class="[getMainTitleSize]"
             >
-              I'm Stefano Biddau
-
-            </span>
-            <span
-              class="leading-none text-white whitespace-normal transition-all duration-300 ease-in-out"
-              :class="{
-                'text-[2rem] text-center': xs || sm,
-                'text-[5rem] text-center': md,
-                'text-[5.5rem] text-left': !xs && !sm && !md,
-              }"
+              {{ homepageI18nContent.presentationText }}
+            </h1>
+            <h2
+              class="text-white whitespace-normal transition-all duration-300 ease-in-out "
+              :class="[getSubTitleSize]"
             >
-              I'm a {{ currentTxt }}_
-            </span>
+              {{ homepageI18nContent.presentationText2 }} {{ currentTxt }}_
+            </h2>
           </div>
         </transition>
-        <transition
-          :enter-active-class="transitionObj.enterActiveClass"
-          :enter-from-class="transitionObj.enterFromClass"
-          :enter-to-class="transitionObj.enterToClass"
-          :leave-active-class="transitionObj.leaveActiveClass"
-          :leave-from-class="transitionObj.leaveFromClass"
-          :leave-to-class="transitionObj.leaveToClass"
-        >
+        <transition name="scale-and-fade-slow">
           <div
             v-if="show"
             class="flex flex-col items-center justify-center "
             :class="{
-              'w-[25%] h-screen': !xs && !sm && !md,
-              'w-full h-fit': xs || sm || md,
+              'w-[25%] h-screen gap-y-4': !xs && !sm && !md,
+              'w-fit h-fit gap-y-2': xs || sm || md,
             }"
           >
             <CustomButton
-              :class="{
-                'w-64': !xs && !sm && !md,
-                'w-52': xs || sm || md,
-              }"
-              @click="openLink('https://www.linkedin.com/in/stefano-biddau-669149214/')"
+              :class="[getButtonWidth]"
+              :icon="ChatBubbleLeftRightIcon"
+              @click="openLink(homepageI18nContent.callToAction1.link)"
             >
-              Contact Me
-              <ChatBubbleLeftRightIcon class="size-6 shrink-0" />
+              {{ homepageI18nContent.callToAction1.text }}
             </CustomButton>
 
             <span
               class="text-white transition-all duration-300 ease-in-out font-bebas"
-              :class="{
-                'text-[2rem] text-center my-2': xs || sm,
-                'text-[3rem] text-center my-2': md,
-                'text-[6rem] text-left my-4': !xs && !sm && !md,
-              }"
+              :class="[getSubTitleSize]"
             >
               OR
             </span>
 
             <CustomButton
-              :class="{
-                'w-64': !xs && !sm && !md,
-                'w-52': xs || sm || md,
-              }"
-
-              @click="downloadCv()"
+              :class="[getButtonWidth]"
+              :icon="DocumentArrowDownIcon"
+              @click="downloadCv(homepageI18nContent.callToAction2.link)"
             >
-              Download my CV
-              <DocumentArrowDownIcon class="size-6 shrink-0" />
+              {{ homepageI18nContent.callToAction2.text }}
             </CustomButton>
           </div>
         </transition>

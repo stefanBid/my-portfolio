@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  text-decoration-line: none;
+  
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #0A0909;
+}
+
+
+html {
+  font-size: 100%;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Per Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Per Safari e Chrome */
+}
+
+
+/* TRANSITIONS CSS START */
+
+  /* Scale and Fade (fast 0.3s) */
+  .scale-and-fade-fast-enter-active {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .scale-and-fade-fast-enter-from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .scale-and-fade-fast-enter-to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .scale-and-fade-fast-leave-active {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .scale-and-fade-fast-leave-from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .scale-and-fade-fast-leave-to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+
+  /* Scale and Fade (slow 0.7) */
+
+  .scale-and-fade-slow-enter-active {
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .scale-and-fade-slow-enter-from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  .scale-and-fade-slow-enter-to {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .scale-and-fade-slow-leave-active {
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .scale-and-fade-slow-leave-from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .scale-and-fade-slow-leave-to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* Shutter */
+  .shutter-enter-active {
+    transition: transform 0.5s ease-out;
+  }
+  .shutter-enter-from {
+    transform: translateY(100%);
+  }
+  .shutter-enter-to {
+    transform: translateY(0);
+  }
+  .shutter-leave-active {
+    transition: transform 0.5s ease-in;
+  }
+  .shutter-leave-from {
+    transform: translateY(0);
+  }
+  .shutter-leave-to {
+    transform: translateY(-100%);
+  }
+
+  /* Stretch */
+  .stretch-enter-active {
+    transition: transform 0.5s ease-out;
+  }
+  .stretch-enter-from {
+    transform: scale(0);
+  }
+  .stretch-enter-to {
+    transform: scale(1);
+  }
+  .stretch-leave-active {
+    transition: transform 0.5s ease-in;
+  }
+  .stretch-leave-from {
+    transform: scale(1);
+  }
+  .stretch-leave-to {
+    transform: scale(0);
+  }
+
+/* TRANSITIONS CSS END */
+
+
+
+
+
+
+
+
+                

@@ -12,14 +12,36 @@ export default {
 			'2xl': { min: '1536px' },
 		},
 		fontFamily: {
-
 			bebas: ['Bebas Neue', 'sans-serif'],
 			roboto: ['Roboto', 'sans-serif'],
+		},
+		fontSize: {
+			'sb-xs': '0.75rem',  // extra small
+			'sb-sm': '0.875rem', // small
+			'sb-base': '1rem',   // base
+			'sb-lg': '1.125rem', // large
+			'sb-xl': '1.25rem',  // extra large
+			'sb-2xl': '1.5rem',  // 2 extra large
+			'sb-3xl': '1.875rem',// 3 extra large
+      'sb-4xl': '2.5rem',   // 4 extra large, 
+      'sb-5xl': '3.5rem',   // 5 extra large, 
+      'sb-6xl': '4.5rem',   // 6 extra large, 
+      'sb-7xl': '5.5rem'    // 7 extra large, 
 		},
 		extend: {
 			colors: {
 				main: '#0A0909',
 				secondary: '#1F1E1E',
+			},
+			padding: {
+				'sb-side-sm': '0 5%',
+				'sb-side-base': '0 6%',
+				'sb-side-lg': '0 7%',
+			},
+			margin: {
+				'sb-top-sm': '14% 0 0 0',
+				'sb-top-base': '15% 0 0 0',
+				'sb-top-lg': '16% 0 0 0',
 			},
 		},
 	},

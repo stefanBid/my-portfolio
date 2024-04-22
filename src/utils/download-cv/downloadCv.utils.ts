@@ -1,6 +1,5 @@
-export const downloadCv = () => {
-	// CV path
-	const cvUrl = '/cv/Stefano_Biddau_CV.pdf';
+export const downloadCv = (cvUrl:string) => {
+	// CV file name
 	const fileName = 'CV-Stefano-Biddau.pdf';
 
 	// Create a new <a> element for the download simulation
