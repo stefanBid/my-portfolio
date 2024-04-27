@@ -27,7 +27,7 @@ const getSubTitleSize = computed(() => {
 });
 
 // Feature 1: Internationalization (i18n)
-const { homepageI18nContent } = useTypedI18n();
+const { homepageI18nContent, currentLanguage } = useTypedI18n();
 
 // Feature 2: Machine Typing Effect
 const texts = computed(() => homepageI18nContent.value.generalSkills);
@@ -107,7 +107,7 @@ onMounted(() => {
               class="text-white transition-all duration-300 ease-in-out font-bebas"
               :class="[getSubTitleSize]"
             >
-              OR
+              {{ currentLanguage === 'en' ? 'Or' : 'Oppure' }}
             </span>
 
             <CustomButton

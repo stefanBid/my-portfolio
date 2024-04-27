@@ -87,13 +87,13 @@ const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: Interse
         <div class="flex flex-col justify-center flex-1 ">
           <h1
             :class="[sectionTitleCss]"
-            class="text-white whitespace-normal transition-all duration-300 ease-in-out  font-bebas"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
           >
             {{ section.sectionTitle }}
           </h1>
           <h2
             :class="[sectionSubtitleCss]"
-            class="text-white whitespace-normal transition-all duration-300 ease-in-out  font-roboto"
+            class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
           >
             ({{ section.sectionSubtitle }} prova prova prova)
           </h2>

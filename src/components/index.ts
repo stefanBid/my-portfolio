@@ -2,6 +2,7 @@
 export { default as CustomButton } from '@/components/atoms/custom-button/CustomButton.vue';
 export { default as ItFlagIcon } from '@/components/atoms/icons/ItFlagIcon.vue';
 export { default as UKFlagIcon } from '@/components/atoms/icons/UkFlagIcon.vue';
+export { default as AngularIcon } from '@/components/atoms/icons/AngularIcon.vue';
 
 // MOLECULES
 export { default as DropdownButton } from '@/components/molecules/dropdown-button/DropdownButton.vue';
