@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import AngularIcon from '@/assets/icons/angular.svg';
+import ReactIcon from '@/assets/icons/react.svg';
+import VueIcon from '@/assets/icons/vue.svg';
+import ItalyFlagIcon from '@/assets/icons/it-flag.svg';
+import EnglandFlagIcon from '@/assets/icons/en-flag.svg';
+
 
 type IconName = 'AngularSBIcon' | 'ReactSBIcon' | 'VueSBIcon' | 'ItalyFlagSBIcon' | 'EnglandFlagSBIcon';
 
@@ -10,11 +15,11 @@ interface CustomIconProps {
 const props = defineProps<CustomIconProps>();
 
 const ICON_MAP = {
-	AngularSBIcon: defineAsyncComponent(() => import('@/assets/icons/angular.svg')),
-	ReactSBIcon: defineAsyncComponent(() => import('@/assets/icons/react.svg')),
-	VueSBIcon: defineAsyncComponent(() => import('@/assets/icons/vue.svg')),
-	ItalyFlagSBIcon: defineAsyncComponent(() => import('@/assets/icons/it-flag.svg')),
-	EnglandFlagSBIcon: defineAsyncComponent(() => import('@/assets/icons/en-flag.svg')),
+	AngularSBIcon: AngularIcon,
+	ReactSBIcon: ReactIcon,
+	VueSBIcon: VueIcon,
+	ItalyFlagSBIcon: ItalyFlagIcon,
+	EnglandFlagSBIcon: EnglandFlagIcon,
 };
 </script>
 
