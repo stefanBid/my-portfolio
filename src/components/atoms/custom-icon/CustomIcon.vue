@@ -24,7 +24,6 @@ const ICON_MAP = {
 
 <template>
   <div
-    class="inline-flex items-center"
     v-bind="$attrs"
   >
     <component
