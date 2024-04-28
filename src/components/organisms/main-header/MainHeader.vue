@@ -3,11 +3,14 @@
 import { RouterLink, useRoute } from 'vue-router';
 import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
 import { useGlobalBreakpoints, useTypedI18n } from '@/hooks';
-import { computed, ref, watch } from 'vue';
-import { DropdownButton, ItFlagIcon, UKFlagIcon } from '@/components';
+import { computed, ref, watch, h } from 'vue';
+import { DropdownButton, CustomIcon } from '@/components';
 
 // Feature 0: Internationalization (i18n)
 const { changeLanguage, currentLanguage } = useTypedI18n();
+
+const EnglandFlagSBIcon = h(CustomIcon, { name: 'EnglandFlagSBIcon' });
+const ItalyFlagSBIcon = h(CustomIcon, { name: 'ItalyFlagSBIcon' });
 
 // Feature 1: Manage Routes
 const WEBSITE_ROUTES = [
@@ -137,7 +140,7 @@ const customPadding = computed(() => {
         <!-- Sezione Cambio Lingua -->
         <DropdownButton
           class="w-24"
-          :icon="currentLanguage === 'it' ? ItFlagIcon : UKFlagIcon"
+          :icon="currentLanguage === 'it' ? ItalyFlagSBIcon : EnglandFlagSBIcon"
         >
           <template #popper-content>
             <div class="w-48 p-1">
@@ -145,7 +148,10 @@ const customPadding = computed(() => {
                 class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
                 @click="changeLanguage('it')"
               >
-                <ItFlagIcon class="size-6 shrink-0" />
+                <CustomIcon
+                  name="ItalyFlagSBIcon"
+                  class="size-6 shrink-0"
+                />
                 <span
                   :class="{
                     'font-bold': currentLanguage === 'it',
@@ -157,7 +163,10 @@ const customPadding = computed(() => {
                 class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
                 @click="changeLanguage('en')"
               >
-                <UKFlagIcon class="size-6 shrink-0" />
+                <CustomIcon
+                  name="EnglandFlagSBIcon"
+                  class="size-6 shrink-0"
+                />
                 <span
                   :class="{
                     'font-bold': currentLanguage === 'en',
@@ -199,7 +208,7 @@ const customPadding = computed(() => {
       {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
       <DropdownButton
         class="w-24 "
-        :icon="currentLanguage === 'it' ? ItFlagIcon : UKFlagIcon"
+        :icon="currentLanguage === 'it' ? ItalyFlagSBIcon : EnglandFlagSBIcon"
       >
         <template #popper-content>
           <div class="w-48 p-1">
@@ -207,7 +216,10 @@ const customPadding = computed(() => {
               class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
               @click="changeLanguage('it')"
             >
-              <ItFlagIcon class="size-6 shrink-0" />
+              <CustomIcon
+                name="ItalyFlagSBIcon"
+                class="size-4 shrink-0"
+              />
               <span
                 :class="{
                   'font-bold': currentLanguage === 'it',
@@ -219,7 +231,10 @@ const customPadding = computed(() => {
               class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
               @click="changeLanguage('en')"
             >
-              <UKFlagIcon class="size-6 shrink-0" />
+              <CustomIcon
+                name="EnglandFlagSBIcon"
+                class="size-4 shrink-0"
+              />
               <span
                 :class="{
                   'font-bold': currentLanguage === 'en',

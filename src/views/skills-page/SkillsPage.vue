@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PageHeading, CustomButton, AngularIcon } from '@/components';
+import { PageHeading, CustomButton, CustomIcon } from '@/components';
 import { useGlobalBreakpoints } from '@/hooks';
 import { computed } from 'vue';
 import { ArrowRightIcon } from '@heroicons/vue/24/outline';
@@ -76,27 +76,10 @@ const sectionContainerCss = computed(() => {
         }"
       >
         <span class="inline-flex items-center justify-center py-2 font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
-          Angular
-        </span>
-        <span class="inline-flex items-center justify-center font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
-          Angular
-        </span>
-        <span class="inline-flex items-center justify-center py-2 font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
-          Angular
-        </span>
-        <span class="inline-flex items-center justify-center font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
-          Angular
-        </span>
-        <span class="inline-flex items-center justify-center py-2 font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
-          Angular
-        </span>
-        <span class="inline-flex items-center justify-center font-bold border-2 rounded-lg text-sb-xl font-roboto bg-secondary border-slate-700">
-          <AngularIcon class="text-white size-12" />
+          <CustomIcon
+            :name="'AngularSBIcon'"
+            class="size-12"
+          />
           Angular
         </span>
       </div>
