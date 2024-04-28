@@ -5,7 +5,6 @@ import VueIcon from '@/assets/icons/vue.svg';
 import ItalyFlagIcon from '@/assets/icons/it-flag.svg';
 import EnglandFlagIcon from '@/assets/icons/en-flag.svg';
 
-
 type IconName = 'AngularSBIcon' | 'ReactSBIcon' | 'VueSBIcon' | 'ItalyFlagSBIcon' | 'EnglandFlagSBIcon';
 
 interface CustomIconProps {
