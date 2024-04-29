@@ -1,8 +1,8 @@
-import { HomePageContent, AboutMePageContent } from '@/types';
-
 import { ref, watch, } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { ComposerTranslation } from 'vue-i18n';
+
+import { HomePageContent, AboutMePageContent } from '@/types';
 
 const updateHomePageI18nContent = (t: ComposerTranslation) => ({
 	welcomeText: t('homePageContent.welcomeText'),

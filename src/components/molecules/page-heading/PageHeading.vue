@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { useGlobalBreakpoints } from '@/hooks';
-
 import { ChevronDoubleDownIcon } from '@heroicons/vue/24/solid';
+import { computed, onMounted, ref } from 'vue';
+
+import { useGlobalBreakpoints } from '@/hooks';
 
 interface PageHeadingProps {
   title: string;

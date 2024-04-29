@@ -1,33 +1,28 @@
 <script setup lang="ts">
-import AngularIcon from '@/assets/icons/angular.svg';
-import ReactIcon from '@/assets/icons/react.svg';
-import VueIcon from '@/assets/icons/vue.svg';
-import ItalyFlagIcon from '@/assets/icons/it-flag.svg';
-import EnglandFlagIcon from '@/assets/icons/en-flag.svg';
+import { defineAsyncComponent } from 'vue';
 
-type IconName = 'AngularSBIcon' | 'ReactSBIcon' | 'VueSBIcon' | 'ItalyFlagSBIcon' | 'EnglandFlagSBIcon';
+const ICON_MAP = {
+	AngularIcon: defineAsyncComponent(() => import('@/assets/icons/angular.svg')),
+	CssIcon: defineAsyncComponent(() => import('@/assets/icons/css.svg')),
+	HtmlIcon: defineAsyncComponent(() => import('@/assets/icons/html.svg')),
+	ItalyFlagIcon: defineAsyncComponent(() => import('@/assets/icons/it-flag.svg')),
+	JavaScriptIcon: defineAsyncComponent(() => import('@/assets/icons/java-script.svg')),
+	ReactIcon: defineAsyncComponent(() => import('@/assets/icons/react.svg')),
+	TypeScriptIcon: defineAsyncComponent(() => import('@/assets/icons/type-script.svg')),
+	UkFlagIcon: defineAsyncComponent(() => import('@/assets/icons/uk-flag.svg')),
+	VueIcon: defineAsyncComponent(() => import('@/assets/icons/vue.svg')),
+};
 
 interface CustomIconProps {
-  name: IconName;
+  name: keyof typeof ICON_MAP;
 }
 
 const props = defineProps<CustomIconProps>();
-
-const ICON_MAP = {
-	AngularSBIcon: AngularIcon,
-	ReactSBIcon: ReactIcon,
-	VueSBIcon: VueIcon,
-	ItalyFlagSBIcon: ItalyFlagIcon,
-	EnglandFlagSBIcon: EnglandFlagIcon,
-};
 </script>
 
 <template>
-  <div
+  <component
     v-bind="$attrs"
-  >
-    <component
-      :is="ICON_MAP[props.name]"
-    />
-  </div>
+    :is="ICON_MAP[props.name]"
+  />
 </template>

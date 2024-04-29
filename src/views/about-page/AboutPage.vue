@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { PageHeading, VintagePicture } from '@/components';
 import { vIntersectionObserver } from '@vueuse/components';
-import { useGlobalBreakpoints, useTypedI18n } from '@/hooks';
 import { computed, ref } from 'vue';
 
-// Feature 0: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
+import { PageHeading, VintagePicture } from '@/components';
+import { useTypedI18n, useCommonStyle } from '@/hooks';
 
-const sectionContainerCss = computed(() => {
-	if (xs.value || sm.value) { return 'p-sb-side-sm gap-y-16'; }
-	if (md.value) { return 'p-sb-side-base gap-y-20'; }
-	return 'p-sb-side-lg gap-y-24';
-});
+// Feature 0: Manage Style Classes
+const { xs, sm, md, containerStyle, containerPadding, containerGapElements } = useCommonStyle();
 
 const sectionTitleCss = computed(() => {
 	if (xs.value || sm.value) { return 'text-sb-3xl text-center'; }
@@ -51,15 +46,14 @@ const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: Interse
 <template>
   <div
     ref="root"
-    class=" div_container"
+    :style="containerStyle"
   >
     <PageHeading
       :title="aboutMeI18nContent.pageHeading"
     />
 
     <div
-      id="section-container"
-      :class="[sectionContainerCss]"
+      :class="[containerPadding, containerGapElements]"
       class="flex flex-col mt-5 mb-10"
     >
       <div
@@ -73,7 +67,7 @@ const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: Interse
           'opacity-0': !isVisible[index],
           'opacity-100': isVisible[index],
         }"
-        class="flex items-start px-8 transition-all duration-500 ease-in-out "
+        class="flex items-start px-4 transition-all duration-500 ease-in-out"
       >
         <VintagePicture
           :image-url="section.imgPath"
@@ -108,10 +102,3 @@ const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: Interse
     </div>
   </div>
 </template>
-
-<style scoped>
-
-.div_container {
-  overflow-y: hidden;
-}
-</style>

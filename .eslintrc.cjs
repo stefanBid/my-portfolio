@@ -2,11 +2,14 @@ module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
+		node: true,
 	},
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:vue/vue3-recommended'
+		'plugin:vue/vue3-recommended',
+		'plugin:import/errors',
+		'plugin:import/warnings'
 	],
 	overrides: [
 		{
@@ -24,9 +27,34 @@ module.exports = {
 		parser: '@typescript-eslint/parser',
 		sourceType: 'module',
 	},
-	plugins: ['@typescript-eslint', 'vue'],
-
+	plugins: ['@typescript-eslint', 'vue', 'import'],
+	settings: {
+		'import/resolver': {
+			alias: {
+				map: [
+					['@', './src'] // Assicurati che questo percorso corrisponda esattamente alla tua struttura di directory
+				],
+				extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue']
+			}
+		}
+	},
 	rules: {
+
+		'import/order': ['warn', {
+			'groups': [['builtin', 'external'], ['internal'], ['parent', 'sibling', 'index']],
+			'pathGroups': [
+				{
+					'pattern': '@/**',
+					'group': 'internal'
+				}
+			],
+			'pathGroupsExcludedImportTypes': ['builtin'],
+			'newlines-between': 'always',
+			'alphabetize': {
+				'order': 'asc',
+				'caseInsensitive': true
+			}
+		}],
 		// Vue-specific rules
 		'vue/no-unused-vars': 'warn', // Warns about declared variables that are not used in the component
 		'vue/html-indent': ['warn', 2, { 'baseIndent': 1 }], // Enforces a consistent indentation in <template>
@@ -104,5 +132,4 @@ module.exports = {
 		'semi-spacing': ['warn', { 'before': false, 'after': true }], // Enforce spacing before and after semicolons
 		'space-infix-ops': ['warn', { 'int32Hint': false }] // Require spacing around infix operators
 	}
-
 };

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useGlobalBreakpoints } from '@/hooks';
 import { computed } from 'vue';
+
+import { useGlobalBreakpoints } from '@/hooks';
 interface PageCoverProps {
   backgroundType: 'image' | 'clip' ;
   backgroundUrl: string;

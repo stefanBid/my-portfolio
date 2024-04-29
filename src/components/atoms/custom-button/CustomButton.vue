@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useGlobalBreakpoints } from '@/hooks';
 import type { FunctionalComponent } from 'vue';
+
+import { useGlobalBreakpoints } from '@/hooks';
 
 interface CustomButtonProps {
   disabled?: boolean;

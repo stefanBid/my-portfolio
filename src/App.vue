@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { MainHeader } from '@/components';
 import { RouterView, } from 'vue-router';
+
+import { MainHeader } from '@/components';
 
 </script>
 

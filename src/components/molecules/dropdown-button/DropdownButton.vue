@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useFloatingPanel, useGlobalBreakpoints } from '@/hooks';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 import { vOnClickOutside } from '@vueuse/components';
 import type { FunctionalComponent, Component } from 'vue';
+
+import { useFloatingPanel, useGlobalBreakpoints } from '@/hooks';
 
 interface DropdownButtonProps {
   icon?: FunctionalComponent | Component;
@@ -84,8 +85,7 @@ const handleClick = () => {
         :style="popperStyle"
         class="absolute z-50 p-2 text-sm break-words whitespace-normal border-2 rounded-lg shadow-lg border-slate-700 bg-secondary w-fit shadow-black/30"
       >
-        <slot name="popper-content">
-        </slot>
+        <slot name="popper-content"></slot>
       </div>
     </transition>
   </teleport>

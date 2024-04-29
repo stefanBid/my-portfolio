@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
 import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
+import { computed, onMounted, ref } from 'vue';
+
 import { PageCover, CustomButton } from '@/components';
-import { downloadCv, openLink } from '@/utils';
 import { useGlobalBreakpoints, useTypingText, useTypedI18n } from '@/hooks';
+import { downloadCv, openLink } from '@/utils';
 
 // Feature 0: Manage Style Classes
 const { xs, sm, md } = useGlobalBreakpoints();
