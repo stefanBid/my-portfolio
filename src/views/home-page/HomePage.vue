@@ -52,16 +52,16 @@ onMounted(() => {
     <template #cover-content>
       <div
         :class="{
-          'flex-col gap-y-4 justify-center ': xs || sm || md,
+          'flex-col gap-y-4 pt-20 ': xs || sm || md,
           'flex-row gap-x-4': !xs && !sm && !md,
 
         }"
-        class="flex h-screen border border-white"
+        class="flex h-screen"
       >
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="space-y-4 transition-all duration-300 ease-in-out border border-white font-bebas"
+            class="space-y-4 transition-all duration-300 ease-in-out font-bebas"
             :class="{
               'text-left w-[75%] my-auto': !xs && !sm && !md,
               'text-center mx-auto': xs || sm || md,
@@ -90,7 +90,7 @@ onMounted(() => {
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="space-y-4 text-center border border-white "
+            class="space-y-4 text-center"
             :class="{
               'w-[25%] my-auto': !xs && !sm && !md,
               'mx-auto': xs || sm || md,
