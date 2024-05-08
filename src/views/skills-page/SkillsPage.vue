@@ -78,10 +78,10 @@ const feSkills = [
         }"
       >
         <div
-          class="space-y-8 "
+          class="my-auto space-y-8"
           :class="{
             'w-full': xs || sm || md,
-            'w-[60%]': !xs && !sm && !md,
+            'w-[40%]': !xs && !sm && !md,
           }"
         >
           <div class="block">
@@ -111,23 +111,34 @@ const feSkills = [
           </div>
         </div>
         <div
-          class="flex flex-row flex-wrap items-center justify-between gap-x-10 gap-y-10 h-fit"
+          class="grid gap-10 p-4 border-2 border-slate-700 rounded-xl"
           :class="{
             'w-full': xs || sm || md,
-            'w-[40%]': !xs && !sm && !md,
+            'w-[60%]': !xs && !sm && !md,
+            'grid-cols-2': !xs,
+            'grid-cols-1': xs,
           }"
         >
-          <span
-            v-for="(s) in feSkills"
-            :key="s.name"
-            class="flex-1 inline-flex gap-x-1.5 items-center justify-center font-bold text-sb-xl font-roboto"
+          <div
+            v-for="(s, i) in feSkills"
+            :key="i"
+            class="inline-flex items-center p-4 font-bold border-2 rounded-xl gap-x-2 font-roboto border-slate-700 bg-secondary h-fit"
+            :class="{
+              'text-sb-lg': !xs && !sm,
+              'text-sb-base ': sm || xs,
+            }"
           >
             <CustomIcon
               :name="s.icon"
-              class="size-12"
+              class=" shrink-0"
+              :class="{
+                'size-8': xs || sm,
+                'size-9': md && !sm && !xs,
+                'size-11': !xs && !sm && !md,
+              }"
             />
             {{ s.name }}
-          </span>
+          </div>
         </div>
       </div>
     </div>
