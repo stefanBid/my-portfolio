@@ -16,8 +16,8 @@ const getButtonWidth = computed(() => {
 });
 
 const getMainTitleSize = computed(() => {
-	if (xs.value || sm.value) { return 'text-sb-4xl px-1 py-0.5'; }
-	if (md.value) { return 'text-sb-6xl px-2 py-1'; }
+	if (xs.value || sm.value) { return 'text-sb-4xl px-1 py-0.5 mx-auto'; }
+	if (md.value) { return 'text-sb-6xl px-2 py-1 mx-auto'; }
 	return 'text-sb-7xl px-4 py-2';
 });
 
@@ -52,19 +52,19 @@ onMounted(() => {
     <template #cover-content>
       <div
         :class="{
-          'flex-col gap-y-2 justify-start ': xs || sm || md,
-          'flex-row gap-x-2': !xs && !sm && !md,
+          'flex-col gap-y-4 justify-center ': xs || sm || md,
+          'flex-row gap-x-4': !xs && !sm && !md,
 
         }"
-        class="flex items-center h-screen"
+        class="flex h-screen border border-white"
       >
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="flex flex-col transition-all duration-300 ease-in-out gap-y-2 font-bebas"
+            class="space-y-4 transition-all duration-300 ease-in-out border border-white font-bebas"
             :class="{
-              'text-left justify-center items-left w-[75%] h-screen': !xs && !sm && !md,
-              'text-center justify-center items-center w-fit h-[50%]': xs || sm || md,
+              'text-left w-[75%] my-auto': !xs && !sm && !md,
+              'text-center mx-auto': xs || sm || md,
             }"
           >
             <h2
@@ -74,7 +74,7 @@ onMounted(() => {
               {{ homepageI18nContent.welcomeText }}
             </h2>
             <h1
-              class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit "
+              class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit rotate-3"
               :class="[getMainTitleSize]"
             >
               {{ homepageI18nContent.presentationText }}
@@ -90,10 +90,10 @@ onMounted(() => {
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="flex flex-col items-center justify-center "
+            class="space-y-4 text-center border border-white "
             :class="{
-              'w-[25%] h-screen gap-y-4': !xs && !sm && !md,
-              'w-fit h-fit gap-y-2': xs || sm || md,
+              'w-[25%] my-auto': !xs && !sm && !md,
+              'mx-auto': xs || sm || md,
             }"
           >
             <CustomButton
@@ -105,7 +105,7 @@ onMounted(() => {
             </CustomButton>
 
             <span
-              class="text-white transition-all duration-300 ease-in-out font-bebas"
+              class="block text-white transition-all duration-300 ease-in-out font-bebas"
               :class="[getSubTitleSize]"
             >
               {{ currentLanguage === 'en' ? 'Or' : 'Oppure' }}
