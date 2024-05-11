@@ -3,13 +3,16 @@ import { ArrowRightIcon } from '@heroicons/vue/24/outline';
 import { vIntersectionObserver } from '@vueuse/components';
 import { ref } from 'vue';
 
-import { PageHeading, CustomButton, CustomIcon } from '@/components';
-import { useCommonStyle } from '@/hooks';
+import { PageHeading, CustomButton, CustomIcon, CustomAlert } from '@/components';
+import { useCommonStyle, useTypedI18n } from '@/hooks';
 
-// Feature 0: Manage Style Classes
+// Feature 0: Internationalization (i18n)
+const { currentLanguage } = useTypedI18n();
+
+// Feature 1: Manage Style Classes
 const { xs, sm, md, containerStyle, containerGapElements, containerPadding } = useCommonStyle();
 
-// Feature 1: Manage Visibility for effects
+// Feature 2: Manage Visibility for effects
 const root = ref(null);
 const isVisible = ref<boolean[]>([false]);
 
@@ -58,10 +61,18 @@ const feSkills = [
     :style="containerStyle"
   >
     <PageHeading
-      title="Get to know me!"
+      :title="currentLanguage === 'en' ? 'Get to know me!' : 'Conoscimi meglio!'"
     />
-
+    <CustomAlert
+      v-intersection-observer="[onIntersectionObserver(0), {root, threshold: 0.5}]"
+      class="transition-all duration-500 ease-in-out"
+      :class="{
+        'opacity-0': !isVisible[0],
+        'opacity-100': isVisible[0],
+      }"
+    />
     <div
+      v-if="false"
       :class="[containerPadding, containerGapElements]"
       class="flex flex-col mt-5 mb-10"
     >

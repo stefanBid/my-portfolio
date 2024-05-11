@@ -3,6 +3,7 @@ import { defineAsyncComponent } from 'vue';
 
 const ICON_MAP = {
 	AngularIcon: defineAsyncComponent(() => import('@/assets/icons/angular.svg')),
+	CodingIcon: defineAsyncComponent(() => import('@/assets/icons/coding.svg')),
 	CssIcon: defineAsyncComponent(() => import('@/assets/icons/css.svg')),
 	HtmlIcon: defineAsyncComponent(() => import('@/assets/icons/html.svg')),
 	ItalyFlagIcon: defineAsyncComponent(() => import('@/assets/icons/it-flag.svg')),

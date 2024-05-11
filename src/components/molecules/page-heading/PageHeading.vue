@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ChevronDoubleDownIcon } from '@heroicons/vue/24/solid';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import { useGlobalBreakpoints } from '@/hooks';
+import { useCommonStyle } from '@/hooks';
 
 interface PageHeadingProps {
   title: string;
@@ -18,19 +18,7 @@ onMounted(() => {
 });
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
-
-const headingPadding = computed(() => {
-	if (xs.value || sm.value) { return 'p-sb-side-sm'; }
-	if (md.value) { return 'p-sb-side-base'; }
-	return 'p-sb-side-lg';
-});
-
-const textSize = computed(() => {
-	if (xs.value || sm.value) { return 'text-sb-4xl'; }
-	if (md.value) { return 'text-sb-6xl'; }
-	return 'text-sb-7xl';
-});
+const { impactTitleTextSize, containerPadding, xs, sm, md } = useCommonStyle();
 
 </script>
 
@@ -40,13 +28,13 @@ const textSize = computed(() => {
     class="h-screen pt-20 "
   >
     <div
-      :class="[headingPadding]"
+      :class="[containerPadding]"
       class="flex flex-col items-center justify-center h-full p-8 bg-main gap-x-4"
     >
       <transition name="stretch">
         <h1
           v-if="show"
-          :class="[textSize]"
+          :class="[impactTitleTextSize]"
           class="text-center text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas "
         >
           {{ props.title }}
@@ -55,7 +43,12 @@ const textSize = computed(() => {
       <transition name="shutter">
         <ChevronDoubleDownIcon
           v-if="show"
-          class="mt-4 text-white transform size-14 animate-pulse"
+          :class="{
+            'size-12': xs || sm,
+            'size-14': md,
+            'size-16': !xs && !sm && !md,
+          }"
+          class="mt-4 text-white transform animate-pulse"
         />
       </transition>
     </div>

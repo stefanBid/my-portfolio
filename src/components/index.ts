@@ -1,6 +1,7 @@
 // ATOMS
 export { default as CustomButton } from '@/components/atoms/custom-button/CustomButton.vue';
 export { default as CustomIcon } from '@/components/atoms/custom-icon/CustomIcon.vue';
+export { default as CustomAlert } from '@/components/atoms/custom-alert/CustomAlert.vue';
 
 // MOLECULES
 export { default as DropdownButton } from '@/components/molecules/dropdown-button/DropdownButton.vue';

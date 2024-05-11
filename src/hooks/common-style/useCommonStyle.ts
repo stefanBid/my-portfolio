@@ -13,7 +13,7 @@ export function useCommonStyle() {
 	});
 
 	const xs = breakpoints.smaller('sm');
-	const sm = breakpoints.between('xs', 'md');
+	const sm = breakpoints.between('sm', 'md');
 	const md = breakpoints.between('md', 'lg');
 	const lg = breakpoints.between('lg', 'xl');
 	const xl = breakpoints.between('xl', 'xxl');
@@ -35,5 +35,17 @@ export function useCommonStyle() {
 		return ' gap-y-24';
 	});
 
-	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements };
+	const impactTitleTextSize = computed(() => {
+		if (xs.value || sm.value) { return 'text-sb-4xl'; }
+		if (md.value) { return 'text-sb-6xl'; }
+		return 'text-sb-7xl';
+	});
+
+	const subtitleTextSize = computed(() => {
+		if (xs.value || sm.value) { return 'text-sb-lg'; }
+		if (md.value) { return 'text-sb-xl'; }
+		return 'text-sb-2xl';
+	});
+
+	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, impactTitleTextSize, subtitleTextSize };
 }
