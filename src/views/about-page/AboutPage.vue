@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { vIntersectionObserver } from '@vueuse/components';
-import { computed, ref } from 'vue';
+import { useTitle } from '@vueuse/core';
+import { computed, onMounted, ref } from 'vue';
 
 import { PageHeading, VintagePicture } from '@/components';
 import { useTypedI18n, useCommonStyle } from '@/hooks';
 
-// Feature 0: Manage Style Classes
+// Feature 0: Manage Page Title
+const title = useTitle();
+
+onMounted(() => {
+	title.value = ` ${title.value} | About Me`;
+});
+
+// Feature 1: Manage Style Classes
 const { xs, sm, md, containerStyle, containerPadding, containerGapElements } = useCommonStyle();
 
 const sectionTitleCss = computed(() => {
@@ -26,7 +34,7 @@ const sectionDescriptionCss = computed(() => {
 	return 'text-sb-lg';
 });
 
-// Feature 1: Internationalization (i18n)
+// Feature 2: Internationalization (i18n)
 const { aboutMeI18nContent } = useTypedI18n();
 
 const initializeBooleanArray = (structure: {[key:string]:string}[]) => {
@@ -41,6 +49,7 @@ const isVisible = ref<boolean[]>(initializeBooleanArray(aboutMeI18nContent.value
 const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
 	isVisible.value[index] = isIntersecting;
 };
+
 </script>
 
 <template>

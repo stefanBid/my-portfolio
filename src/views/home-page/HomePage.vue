@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
+import { useTitle } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
 
 import { PageCover, CustomButton } from '@/components';
 import { useGlobalBreakpoints, useTypingText, useTypedI18n } from '@/hooks';
 import { downloadCv, openLink } from '@/utils';
 
-// Feature 0: Manage Style Classes
+// Feature 0: Manage Page Title
+const title = useTitle();
+
+onMounted(() => {
+	title.value = ` ${title.value} | Home`;
+});
+
+// Feature 1: Manage Style Classes
 const { xs, sm, md } = useGlobalBreakpoints();
 
 const getButtonWidth = computed(() => {
@@ -27,15 +35,15 @@ const getSubTitleSize = computed(() => {
 	return 'text-sb-5xl';
 });
 
-// Feature 1: Internationalization (i18n)
+// Feature 2: Internationalization (i18n)
 const { homepageI18nContent, currentLanguage } = useTypedI18n();
 
-// Feature 2: Machine Typing Effect
+// Feature 3: Machine Typing Effect
 const texts = computed(() => homepageI18nContent.value.generalSkills);
 
 const { currentTxt } = useTypingText(texts);
 
-// Feature 3: Manage effects
+// Feature 4: Manage effects
 const show = ref(false);
 
 onMounted(() => {

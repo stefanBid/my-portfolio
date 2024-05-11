@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import { vIntersectionObserver } from '@vueuse/components';
-import { ref } from 'vue';
+import { useTitle } from '@vueuse/core';
+import { onMounted, ref } from 'vue';
 
 import { PageHeading, CustomAlert } from '@/components';
 import { useCommonStyle, useTypedI18n } from '@/hooks';
 
-// Feature 0: Internationalization (i18n)
+// Feature 0: Manage Page Title
+const title = useTitle();
+
+onMounted(() => {
+	title.value = ` ${title.value} | Projects`;
+});
+
+// Feature 1: Internationalization (i18n)
 const { currentLanguage } = useTypedI18n();
 
-// Feature 1: Manage Style Classes
+// Feature 2: Manage Style Classes
 const { containerStyle } = useCommonStyle();
 
-// Feature 2: Manage Visibility for effects
+// Feature 3: Manage Visibility for effects
 const root = ref(null);
 const isVisible = ref<boolean[]>([false]);
 
