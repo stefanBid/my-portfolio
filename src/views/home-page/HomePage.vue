@@ -60,7 +60,7 @@ onMounted(() => {
     <template #cover-content>
       <div
         :class="{
-          'flex-col gap-y-4 pt-40 ': xs || sm || md,
+          'flex-col gap-y-20 pt-40': xs || sm || md,
           'flex-row gap-x-4': !xs && !sm && !md,
 
         }"
