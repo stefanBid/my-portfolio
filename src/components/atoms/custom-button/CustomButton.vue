@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { FunctionalComponent } from 'vue';
+import type { Component, FunctionalComponent } from 'vue';
 
 import { useGlobalBreakpoints } from '@/hooks';
 
 interface CustomButtonProps {
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
-  icon?: FunctionalComponent;
+  icon?: FunctionalComponent | Component | string;
   customDimensions?: boolean;
 }
 
@@ -34,7 +34,9 @@ const { xs, sm, md } = useGlobalBreakpoints();
       },
 
       {
-        'py-4 px-8': !props.customDimensions,
+        'py-4 px-8': !props.customDimensions && !xs && !sm && !md,
+        'py-3 px-6': !props.customDimensions && md,
+        'py-2 px-4': !props.customDimensions && xs || sm,
         'text-sb-lg': !xs && !sm && !md,
         'text-sb-base': md,
         'text-sb-sm': sm || xs,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CustomIcon } from '@/components';
+import { CodeIcon } from '@/assets';
 import { useCommonStyle, useTypedI18n } from '@/hooks';
 
 const { impactTitleTextSize, subtitleTextSize, containerPadding, xs, sm, md } = useCommonStyle();
@@ -19,8 +19,7 @@ const { currentLanguage } = useTypedI18n();
     >
       {{ currentLanguage === 'en' ? 'Work in progress!' : 'Lavori in corso!' }}
     </h1>
-    <CustomIcon
-      name="CodingIcon"
+    <CodeIcon
       class="transition-all duration-300 ease-in-out"
       :class="{
         'size-80': !xs && !sm && !md,

@@ -4,7 +4,7 @@ import { vIntersectionObserver } from '@vueuse/components';
 import { useTitle } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 
-import { PageHeading, CustomButton, CustomIcon, CustomAlert } from '@/components';
+import { PageHeading, CustomButton, CustomAlert } from '@/components';
 import { useCommonStyle, useTypedI18n } from '@/hooks';
 
 // Feature 0: Manage Page Title
@@ -147,6 +147,7 @@ const feSkills = [
               'text-sb-base ': sm || xs,
             }"
           >
+            <!--
             <CustomIcon
               :name="s.icon"
               class=" shrink-0"
@@ -156,6 +157,7 @@ const feSkills = [
                 'size-11': !xs && !sm && !md,
               }"
             />
+            -->
             {{ s.name }}
           </div>
         </div>

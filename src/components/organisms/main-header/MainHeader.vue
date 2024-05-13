@@ -1,17 +1,26 @@
 <script setup lang="ts">
 
 import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
-import { computed, ref, watch, h } from 'vue';
+import { computed, ref, watch, } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
-import { DropdownButton, CustomIcon } from '@/components';
+import { ItalyIcon, UkIcon } from '@/assets';
+import { DropdownButton } from '@/components';
 import { useGlobalBreakpoints, useTypedI18n } from '@/hooks';
 
 // Feature 0: Internationalization (i18n)
 const { changeLanguage, currentLanguage } = useTypedI18n();
 
-const UkFlagIcon = h(CustomIcon, { name: 'UkFlagIcon' });
-const ItalyFlagIcon = h(CustomIcon, { name: 'ItalyFlagIcon' });
+const languageOptions = {
+	it: {
+		label: 'Italiano',
+		icon: ItalyIcon,
+	},
+	en: {
+		label: 'English',
+		icon: UkIcon,
+	},
+};
 
 // Feature 1: Manage Routes
 const WEBSITE_ROUTES = [
@@ -140,44 +149,12 @@ const customPadding = computed(() => {
         </nav>
         <!-- Sezione Cambio Lingua -->
         <DropdownButton
-          class="w-24"
-          :icon="currentLanguage === 'it' ? ItalyFlagIcon : UkFlagIcon"
-        >
-          <template #popper-content>
-            <div class="w-48 p-1">
-              <span
-                class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
-                @click="changeLanguage('it')"
-              >
-                <CustomIcon
-                  name="ItalyFlagIcon"
-                  class="size-6 shrink-0"
-                />
-                <span
-                  :class="{
-                    'font-bold': currentLanguage === 'it',
-                  }"
-                  class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
-                > (IT)</span>
-              </span>
-              <span
-                class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
-                @click="changeLanguage('en')"
-              >
-                <CustomIcon
-                  name="UkFlagIcon"
-                  class="size-6 shrink-0"
-                />
-                <span
-                  :class="{
-                    'font-bold': currentLanguage === 'en',
-                  }"
-                  class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
-                > (EN)</span>
-              </span>
-            </div>
-          </template>
-        </DropdownButton>
+          class="w-24 "
+          :menu-options="languageOptions"
+          :selected-option="currentLanguage"
+          :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+          :on-get-selected-option="(op) => changeLanguage(op as 'it' | 'en')"
+        />
       </div>
     </div>
   </header>
@@ -209,43 +186,11 @@ const customPadding = computed(() => {
       {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
       <DropdownButton
         class="w-24 "
-        :icon="currentLanguage === 'it' ? ItalyFlagIcon : UkFlagIcon"
-      >
-        <template #popper-content>
-          <div class="w-48 p-1">
-            <span
-              class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
-              @click="changeLanguage('it')"
-            >
-              <CustomIcon
-                name="ItalyFlagIcon"
-                class="size-4 shrink-0"
-              />
-              <span
-                :class="{
-                  'font-bold': currentLanguage === 'it',
-                }"
-                class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
-              > (IT)</span>
-            </span>
-            <span
-              class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
-              @click="changeLanguage('en')"
-            >
-              <CustomIcon
-                name="UkFlagIcon"
-                class="size-4 shrink-0"
-              />
-              <span
-                :class="{
-                  'font-bold': currentLanguage === 'en',
-                }"
-                class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black"
-              > (EN)</span>
-            </span>
-          </div>
-        </template>
-      </DropdownButton>
+        :menu-options="languageOptions"
+        :selected-option="currentLanguage"
+        :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+        :on-get-selected-option="(op) => changeLanguage(op as 'it' | 'en')"
+      />
     </div>
   </nav>
 </template>

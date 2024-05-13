@@ -6,11 +6,21 @@ import type { FunctionalComponent, Component } from 'vue';
 import { useFloatingPanel, useGlobalBreakpoints } from '@/hooks';
 
 interface DropdownButtonProps {
-  icon?: FunctionalComponent | Component;
-  customDimensions?: boolean;
+  menuOptions: {
+    [key: string]: {
+      label: string;
+      icon: FunctionalComponent | Component | string;
+    };
+  }
+  // eslint-disable-next-line no-unused-vars
+  onGetSelectedOption: (option: string) => void;
+  selectedOption?: string;
+  icon?: FunctionalComponent | Component | string;
+  customDimensions?: boolean
 }
 
 const props = withDefaults(defineProps<DropdownButtonProps>(), {
+	selectedOption: undefined,
 	icon: undefined,
 	customDimensions: false,
 });
@@ -29,6 +39,12 @@ const handleClick = () => {
 		return;
 	}
 	changeToolTipVisibility('open');
+};
+
+// Feature 1: Handle Option Selection
+const handleOptionSelection = (option: string) => {
+	props.onGetSelectedOption(option);
+	changeToolTipVisibility('close');
 };
 
 </script>
@@ -85,7 +101,30 @@ const handleClick = () => {
         :style="popperStyle"
         class="absolute z-50 p-2 text-sm break-words whitespace-normal border-2 rounded-lg shadow-lg border-slate-700 bg-secondary w-fit shadow-black/30"
       >
-        <slot name="popper-content"></slot>
+        <div class="w-48 p-1">
+          <span
+            v-for="op in Object.keys(props.menuOptions)"
+            :key="op"
+            class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group"
+            @click="handleOptionSelection(op)"
+          >
+            <component
+              :is="props.menuOptions[op].icon"
+              class="shrink-0"
+              :class="{
+                'size-6': !xs && !sm && !md,
+                'size-5': md,
+                'size-4': xs || sm,
+              }"
+            />
+            <span
+              :class="{ 'font-semibold': props.selectedOption === op}"
+              class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black text-roboto"
+            >
+              {{ props.menuOptions[op].label }}
+            </span>
+          </span>
+        </div>
       </div>
     </transition>
   </teleport>
