@@ -1,40 +1,58 @@
 {
+  "headerContent": {
+    "navbarRoutes": [
+      {
+        "text": "Home",
+        "path": "/"
+      },
+      {
+        "text": "Chi sono ",
+        "path": "/about"
+      },
+      {
+        "text": "Abilità",
+        "path": "/skills"
+      },
+      {
+        "text": "Progetti",
+        "path": "/projects"
+      }
+    ]
+  },
   "homePageContent": {
-    "welcomeText": "Salve a tutti!",
-    "presentationText": "Sono Stefano Biddau",
-    "presentationText2": "E sono uno ",
-    "generalSkills": [
+    "firstHeading": "Salve a tutti!",
+    "secondHeading": "Sono Stefano Biddau",
+    "thirdHeading": [
       "Sviluppatore Frontend",
       "Web Designer",
       "Sviluppatore Backend"
     ],
-    "callToAction1": {
+    "firstButton": {
       "text": "Contattami",
       "link": "https://www.linkedin.com/in/stefano-biddau-669149214/"
     },
-    "callToAction2": {
-      "text": "Scarica il mio CV",
+    "secondButton": {
+      "text": "Scarica CV",
       "link": "/docs/Stefano-Biddau-CV.pdf"
     }
   },
-
   "aboutMePageContent": {
-    "pageHeading": "Chi sono?",
-    "bio": [
+    "pageHeading": "Chi sono",
+    "bioSections": [
       {
-        "sectionTitle": "Dalle Fondamenta alla Frontiera",
-        "sectionSubtitle": "Il Mio Viaggio nell'Informatica",
-        "sectionParagraph": "La mia passione per l'informatica e lo sviluppo ha trovato solide radici durante gli anni di formazione, iniziando con il percorso di studi presso il Liceo Statale P.E. Imbriani di Avellino, Italia, dove mi sono diplomato nel Luglio del 2018. La scelta dell'opzione Scienze Applicate è stata determinante, poiché mi ha permesso di esplorare in profondità matematica, fisica e biologia, materie che hanno affinato il mio pensiero analitico e la mia capacità di risolvere problemi complessi. Questa preparazione ha gettato le basi per la mia successiva esperienza universitaria all'Università degli Studi di Salerno a Fisciano, dove ho conseguito la Laurea Triennale in Informatica nel Dicembre del 2022. Durante il mio percorso universitario, ho avuto l'opportunità di immergermi completamente nel campo dell'informatica, affrontando studi approfonditi su programmazione, algoritmi, sistemi operativi e intelligenza artificiale. Questi studi non solo hanno rafforzato la mia passione ma hanno anche ampliato la mia visione sulle potenzialità dello sviluppo software e su come la tecnologia possa essere utilizzata per migliorare la vita quotidiana. L'unione di teoria e pratica, attraverso progetti e laboratori, è stata cruciale per sviluppare le mie competenze tecniche e la capacità di applicare concretamente le conoscenze acquisite. La scelta di intraprendere questa carriera è stata una naturale evoluzione del mio interesse e curiosità verso il mondo digitale, spingendomi a esplorare e innovare continuamente in questo campo dinamico e sempre in evoluzione.",
-        "imgPath": "/images/graduation-img.jpg",
-        "imgDescription": "Durante l'esposizione della mia tesi di laurea (15 Dicembre 2023)"
+        "titleHeading": "Dalle Fondamenta alla Frontiera",
+        "subTitleHeading": "Il Mio Viaggio nell'Informatica",
+        "contentParagraph": "La mia passione per l'informatica e lo sviluppo ha trovato solide radici durante gli anni di formazione, iniziando con il percorso di studi presso il Liceo Statale P.E. Imbriani di Avellino, Italia, dove mi sono diplomato nel Luglio del 2018. La scelta dell'opzione Scienze Applicate è stata determinante, poiché mi ha permesso di esplorare in profondità matematica, fisica e biologia, materie che hanno affinato il mio pensiero analitico e la mia capacità di risolvere problemi complessi. Questa preparazione ha gettato le basi per la mia successiva esperienza universitaria all'Università degli Studi di Salerno a Fisciano, dove ho conseguito la Laurea Triennale in Informatica nel Dicembre del 2022. Durante il mio percorso universitario, ho avuto l'opportunità di immergermi completamente nel campo dell'informatica, affrontando studi approfonditi su programmazione, algoritmi, sistemi operativi e intelligenza artificiale. Questi studi non solo hanno rafforzato la mia passione ma hanno anche ampliato la mia visione sulle potenzialità dello sviluppo software e su come la tecnologia possa essere utilizzata per migliorare la vita quotidiana. L'unione di teoria e pratica, attraverso progetti e laboratori, è stata cruciale per sviluppare le mie competenze tecniche e la capacità di applicare concretamente le conoscenze acquisite. La scelta di intraprendere questa carriera è stata una naturale evoluzione del mio interesse e curiosità verso il mondo digitale, spingendomi a esplorare e innovare continuamente in questo campo dinamico e sempre in evoluzione.",
+        "imagePath": "/images/graduation-img.jpg",
+        "imageDescription": "Durante l'esposizione della mia tesi di laurea (15 Dicembre 2023)"
       },
 
       {
-        "sectionTitle": "Navigazione tra Stack",
-        "sectionSubtitle": "Dall'Internship al Full-Stack Development",
-        "sectionParagraph":"Il mio ingresso nel mondo professionale dell'informatica ha avuto inizio con uno stage presso SI2001 a Battipaglia, Campania, che si è svolto da novembre 2022 a febbraio 2023. Durante questo periodo, ho acquisito competenze nello sviluppo di applicazioni distribuite, padroneggiando sia il back-end che il front-end. Questa esperienza mi ha permesso di impiegare tecnologie moderne e molto richieste sul mercato, affinando le mie abilità tecniche in un ambiente stimolante e dinamico. Con il completamento del mio stage, sono stato assunto come Full-Stack Developer dalla stessa azienda a marzo 2023, ruolo che continuo a ricoprire attualmente. Questo passaggio da stagista a membro effettivo del team di sviluppo mi ha offerto la possibilità di approfondire ulteriormente le mie conoscenze e competenze tecniche, lavorando su progetti più complessi e sfidanti. Sebbene il ruolo di full-stack developer richieda una buona versatilità tra diverse tecnologie e framework, la mia passione e il mio obiettivo principale rimangono focalizzati sul front-end. Sono continuamente alla ricerca di opportunità per eccellere in questo ambito, convinto che l'interfaccia utente non sia solo una questione di estetica, ma un cruciale punto di contatto che definisce l'esperienza dell'utente finale. La mia aspirazione è di diventare un punto di riferimento nel campo del front-end, portando innovazione e miglioramenti continui nei progetti a cui lavoro. In questo viaggio, la mia passione per l'informatica continua a guidarmi verso nuove sfide e traguardi, con l'obiettivo di eccellere in ogni aspetto del mio lavoro, pur mantenendo un focus chiaro sulla specializzazione che più mi appassiona.",
-        "imgPath": "/images/work-img.jpg",
-        "imgDescription": "Alla mia postazione di lavoro remota (2023)"
+        "titleHeading": "Navigazione tra Stack",
+        "subTitleHeading": "Dall'Internship al Full-Stack Development",
+        "contentParagraph":"Il mio ingresso nel mondo professionale dell'informatica ha avuto inizio con uno stage presso SI2001 a Battipaglia, Campania, che si è svolto da novembre 2022 a febbraio 2023. Durante questo periodo, ho acquisito competenze nello sviluppo di applicazioni distribuite, padroneggiando sia il back-end che il front-end. Questa esperienza mi ha permesso di impiegare tecnologie moderne e molto richieste sul mercato, affinando le mie abilità tecniche in un ambiente stimolante e dinamico. Con il completamento del mio stage, sono stato assunto come Full-Stack Developer dalla stessa azienda a marzo 2023, ruolo che continuo a ricoprire attualmente. Questo passaggio da stagista a membro effettivo del team di sviluppo mi ha offerto la possibilità di approfondire ulteriormente le mie conoscenze e competenze tecniche, lavorando su progetti più complessi e sfidanti. Sebbene il ruolo di full-stack developer richieda una buona versatilità tra diverse tecnologie e framework, la mia passione e il mio obiettivo principale rimangono focalizzati sul front-end. Sono continuamente alla ricerca di opportunità per eccellere in questo ambito, convinto che l'interfaccia utente non sia solo una questione di estetica, ma un cruciale punto di contatto che definisce l'esperienza dell'utente finale. La mia aspirazione è di diventare un punto di riferimento nel campo del front-end, portando innovazione e miglioramenti continui nei progetti a cui lavoro. In questo viaggio, la mia passione per l'informatica continua a guidarmi verso nuove sfide e traguardi, con l'obiettivo di eccellere in ogni aspetto del mio lavoro, pur mantenendo un focus chiaro sulla specializzazione che più mi appassiona.",
+        "imagePath": "/images/work-img.jpg",
+        "imageDescription": "Alla mia postazione di lavoro remota (2023)"
       }
     ]
   }

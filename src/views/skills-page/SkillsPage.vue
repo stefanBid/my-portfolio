@@ -1,24 +1,16 @@
 <script setup lang="ts">
 import { ArrowRightIcon } from '@heroicons/vue/24/outline';
 import { vIntersectionObserver } from '@vueuse/components';
-import { useTitle } from '@vueuse/core';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import { PageHeading, CustomButton, CustomAlert } from '@/components';
-import { useCommonStyle, useTypedI18n } from '@/hooks';
-
-// Feature 0: Manage Page Title
-const title = useTitle();
-
-onMounted(() => {
-	title.value = ` ${title.value} | Skills`;
-});
+import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 0: Internationalization (i18n)
-const { currentLanguage } = useTypedI18n();
+const { currentLanguage } = useTypedI18nSingleton();
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, containerStyle, containerGapElements, containerPadding } = useCommonStyle();
+const { xs, sm, md, containerStyle, containerGapElements, containerPadding } = useCommonStyleSingleton();
 
 // Feature 2: Manage Visibility for effects
 const root = ref(null);

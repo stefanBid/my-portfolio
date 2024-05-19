@@ -1,21 +1,13 @@
 <script setup lang="ts">
 import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
-import { useTitle } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
 
 import { PageCover, CustomButton } from '@/components';
-import { useGlobalBreakpoints, useTypingText, useTypedI18n } from '@/hooks';
+import { useCommonStyleSingleton, useTypingText, useTypedI18nSingleton } from '@/hooks';
 import { downloadCv, openLink } from '@/utils';
 
-// Feature 0: Manage Page Title
-const title = useTitle();
-
-onMounted(() => {
-	title.value = ` ${title.value} | Home`;
-});
-
 // Feature 1: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
+const { xs, sm, md, h1Size, h2Size } = useCommonStyleSingleton();
 
 const getButtonWidth = computed(() => {
 	if (xs.value || sm.value) { return 'w-44'; }
@@ -23,23 +15,11 @@ const getButtonWidth = computed(() => {
 	return 'w-56';
 });
 
-const getMainTitleSize = computed(() => {
-	if (xs.value || sm.value) { return 'text-sb-4xl px-1 py-0.5 mx-auto'; }
-	if (md.value) { return 'text-sb-6xl px-2 py-1 mx-auto'; }
-	return 'text-sb-7xl px-4 py-2';
-});
-
-const getSubTitleSize = computed(() => {
-	if (xs.value || sm.value) { return 'text-sb-3xl'; }
-	if (md.value) { return 'text-sb-4xl'; }
-	return 'text-sb-5xl';
-});
-
 // Feature 2: Internationalization (i18n)
-const { homepageI18nContent, currentLanguage } = useTypedI18n();
+const { homePageI18nContent, currentLanguage } = useTypedI18nSingleton();
 
 // Feature 3: Machine Typing Effect
-const texts = computed(() => homepageI18nContent.value.generalSkills);
+const texts = computed(() => homePageI18nContent.value.thirdHeading);
 
 const { currentTxt } = useTypingText(texts);
 
@@ -59,12 +39,13 @@ onMounted(() => {
   >
     <template #cover-content>
       <div
+        id="homePageContent"
         :class="{
-          'flex-col gap-y-20 pt-40': xs || sm || md,
-          'flex-row gap-x-4': !xs && !sm && !md,
+          'flex-col gap-y-20 pt-40 w-full': xs || sm || md,
+          'flex-row gap-x-4 h-full': !xs && !sm && !md,
 
         }"
-        class="flex h-screen"
+        class="flex"
       >
         <transition name="scale-and-fade-slow">
           <div
@@ -76,22 +57,33 @@ onMounted(() => {
             }"
           >
             <h2
+              id="firstHeading"
               class="text-white whitespace-normal"
-              :class="[getSubTitleSize]"
+              :class="[h2Size]"
             >
-              {{ homepageI18nContent.welcomeText }}
+              {{ homePageI18nContent.firstHeading }}
             </h2>
             <h1
+              id="secondHeading"
               class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit rotate-3"
-              :class="[getMainTitleSize]"
+              :class="[
+                h1Size,
+                {
+                  'px-1 py-0.5': xs || sm,
+                  'px-2 py-1': md,
+                  'mx-auto': xs || sm || md,
+                  'px-4 py-2': !xs && !sm && !md,
+                }
+              ]"
             >
-              {{ homepageI18nContent.presentationText }}
+              {{ homePageI18nContent.secondHeading }}
             </h1>
             <h2
+              id="thirdHeading"
               class="text-white whitespace-normal transition-all duration-300 ease-in-out "
-              :class="[getSubTitleSize]"
+              :class="[h2Size]"
             >
-              {{ homepageI18nContent.presentationText2 }} {{ currentTxt }}_
+              {{ currentLanguage === 'en' ? `And I'm a`: `E sono uno` }} {{ currentTxt }}_
             </h2>
           </div>
         </transition>
@@ -105,26 +97,28 @@ onMounted(() => {
             }"
           >
             <CustomButton
+              id="firstButton"
               :class="[getButtonWidth]"
               :icon="ChatBubbleLeftRightIcon"
-              @click="openLink(homepageI18nContent.callToAction1.link)"
+              @click="openLink(homePageI18nContent.firstButton.link)"
             >
-              {{ homepageI18nContent.callToAction1.text }}
+              {{ homePageI18nContent.firstButton.text }}
             </CustomButton>
 
             <span
               class="block text-white transition-all duration-300 ease-in-out font-bebas"
-              :class="[getSubTitleSize]"
+              :class="[h2Size]"
             >
               {{ currentLanguage === 'en' ? 'Or' : 'Oppure' }}
             </span>
 
             <CustomButton
+              id="secondButton"
               :class="[getButtonWidth]"
               :icon="DocumentArrowDownIcon"
-              @click="downloadCv(homepageI18nContent.callToAction2.link)"
+              @click="downloadCv(homePageI18nContent.secondButton.link)"
             >
-              {{ homepageI18nContent.callToAction2.text }}
+              {{ homePageI18nContent.secondButton.text }}
             </CustomButton>
           </div>
         </transition>

@@ -2,7 +2,7 @@
 import { ChevronDoubleDownIcon } from '@heroicons/vue/24/solid';
 import { onMounted, ref } from 'vue';
 
-import { useCommonStyle } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
 
 interface PageHeadingProps {
   title: string;
@@ -18,7 +18,7 @@ onMounted(() => {
 });
 
 // Feature 1: Manage Style Classes
-const { impactTitleTextSize, containerPadding, xs, sm, md } = useCommonStyle();
+const { h1Size, containerPadding, xs, sm, md } = useCommonStyleSingleton();
 
 </script>
 
@@ -34,7 +34,7 @@ const { impactTitleTextSize, containerPadding, xs, sm, md } = useCommonStyle();
       <transition name="stretch">
         <h1
           v-if="show"
-          :class="[impactTitleTextSize]"
+          :class="[h1Size]"
           class="text-center text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas "
         >
           {{ props.title }}

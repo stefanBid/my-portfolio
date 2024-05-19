@@ -6,27 +6,27 @@ import { HomePage } from '@/views';
 const routes = [
 	{
 		path: '/',
-		name: 'HomePage',
+		name: 'homePage',
 		component: HomePage
 	},
 	{
 		path: '/about',
-		name: 'AboutPage',
+		name: 'aboutPage',
 		component: () => import(/* webpackPrefetch: true */ '@/views/about-page/AboutPage.vue')
 	},
 	{
 		path: '/projects',
-		name: 'ProjectsPage',
+		name: 'projectsPage',
 		component: () => import(/* webpackPrefetch: true */ '@/views/projects-page/ProjectsPage.vue')
 	},
 	{
 		path: '/skills',
-		name: 'SkillsPage',
+		name: 'skillsPage',
 		component: () => import(/* webpackPrefetch: true */ '@/views/skills-page/SkillsPage.vue')
 	},
 	{
 		path: '/:pathMatch(.*)*',
-		name: 'NotFoundPage',
+		name: 'notFoundPage',
 		component: () => import(/* webpackPrefetch: true */ '@/views/not-found-page/NotFoundPage.vue')
 	}
 ];

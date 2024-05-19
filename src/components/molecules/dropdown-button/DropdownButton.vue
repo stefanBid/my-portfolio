@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 import { vOnClickOutside } from '@vueuse/components';
 import type { FunctionalComponent, Component } from 'vue';
 
-import { useFloatingPanel, useGlobalBreakpoints } from '@/hooks';
+import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 
 interface DropdownButtonProps {
   menuOptions: {
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<DropdownButtonProps>(), {
 defineOptions({ inheritAttrs: false });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
+const { xs, sm, md } = useCommonStyleSingleton();
 
 // Feature 0: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownButton');

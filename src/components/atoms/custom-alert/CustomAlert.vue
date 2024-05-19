@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { CodeIcon } from '@/assets';
-import { useCommonStyle, useTypedI18n } from '@/hooks';
+import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
-const { impactTitleTextSize, subtitleTextSize, containerPadding, xs, sm, md } = useCommonStyle();
+const { h2Size, h3Size, containerPadding, xs, sm, md } = useCommonStyleSingleton();
 
-const { currentLanguage } = useTypedI18n();
+const { currentLanguage } = useTypedI18nSingleton();
 
 </script>
 
@@ -14,7 +14,7 @@ const { currentLanguage } = useTypedI18n();
     class="flex flex-col items-center justify-center h-screen text-center text-white gap-y-4"
   >
     <h1
-      :class="[impactTitleTextSize]"
+      :class="[h2Size]"
       class="whitespace-normal transition-all duration-300 ease-in-out font-bebas "
     >
       {{ currentLanguage === 'en' ? 'Work in progress!' : 'Lavori in corso!' }}
@@ -27,11 +27,11 @@ const { currentLanguage } = useTypedI18n();
         'size-40': sm || xs,
       }"
     />
-    <p
-      :class="[subtitleTextSize]"
+    <h3
+      :class="[h3Size]"
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto"
     >
       {{ currentLanguage === 'en' ? 'This page is under construction. Please come back later.' : 'Questa pagina è in costruzione. Torna più tardi.' }}
-    </p>
+    </h3>
   </div>
 </template>

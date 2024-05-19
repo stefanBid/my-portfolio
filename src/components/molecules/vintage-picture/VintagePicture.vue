@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { useGlobalBreakpoints } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
 
 interface VintagePictureProps {
   imageUrl: string;
@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
+const { xs, sm, md } = useCommonStyleSingleton();
 
 const getFrameDimension = computed(() => {
 	if (xs.value) {
@@ -37,28 +37,54 @@ const getPictureDimension = computed(() => {
 	return 'h-[380px]';
 });
 
+const stackSize = 5;
+
+const getStackStyle = (index: number) => {
+	const rotation = Math.random() * 10 - 5; // Rotazione casuale tra -5 e 5 gradi
+	const translationX = Math.random() * 10 - 5; // Traslazione casuale sull'asse X
+	const translationY = Math.random() * 10 - 5; // Traslazione casuale sull'asse Y
+	const zIndex = -index; // Decresce lo zIndex per far apparire i div sotto
+
+	return {
+		transform: `rotate(${rotation}deg) translate(${translationX}px, ${translationY}px)`,
+		zIndex: zIndex,
+	};
+};
+
 </script>
 
 <template>
-  <div
-    v-bind="$attrs"
-    id="picture-frame"
-    :class="[getFrameDimension]"
-    class="flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white rounded gap-y-2"
-  >
-    <img
-      id="picture"
-      :src="props.imageUrl"
-      :alt="`${props.text} picture`"
-      :class="[getPictureDimension]"
-      class="object-cover object-center w-full transition-all duration-300 ease-in-out "
-    />
-    <p
-      id="picture-description"
-      :class="[]"
-      class="my-2 text-sm font-bold text-center truncate whitespace-normal text-secondary font-roboto h-fit"
+  <div class="relative flex items-center justify-center">
+    <div
+      v-for="index in stackSize"
+      :key="index"
+      :style="getStackStyle(index)"
+      :class="[getFrameDimension]"
+      class="absolute w-full h-full border border-gray-400 rounded shadow-md bg-slate-100"
+    ></div>
+    <div
+      v-bind="$attrs"
+      :class="[getFrameDimension]"
+      class="flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-400 rounded shadow-md hover:-translate-y-6 gap-y-2 "
     >
-      {{ props.text }}
-    </p>
+      <img
+        id="picture"
+        :src="props.imageUrl"
+        :alt="`${props.text} picture`"
+        :class="[getPictureDimension]"
+        class="object-cover object-center w-full transition-all duration-300 ease-in-out "
+      />
+      <p
+        id="picture-description"
+        :class="[ {
+          'text-sb-xs': xs || sm,
+          'text-sb-sm': md,
+          'text-sb-base': !xs && !sm && !md,
+        }]"
+        class="my-2 text-sm font-bold text-center truncate whitespace-normal text-secondary font-roboto h-fit"
+      >
+        {{ props.text }}
+      </p>
+    </div>
   </div>
 </template>

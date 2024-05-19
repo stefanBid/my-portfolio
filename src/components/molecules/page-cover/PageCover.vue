@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 
-import { useGlobalBreakpoints } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
+
 interface PageCoverProps {
   backgroundType: 'image' | 'clip' ;
   backgroundUrl: string;
@@ -11,20 +11,13 @@ interface PageCoverProps {
 const props = defineProps<PageCoverProps>();
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
-
-const coverPadding = computed(() => {
-	if (xs.value || sm.value) { return 'p-sb-side-sm'; }
-	if (md.value) { return 'p-sb-side-base'; }
-	return 'p-sb-side-lg';
-});
+const { containerPadding } = useCommonStyleSingleton();
 
 </script>
 
 <template>
   <div
-    :class="[coverPadding]"
-    class="relative w-full h-screen pt-20 overflow-hidden bg-black"
+    class="relative w-full h-screen overflow-hidden bg-black"
   >
     <!-- Background -->
     <img
@@ -53,7 +46,10 @@ const coverPadding = computed(() => {
     ></div>
 
     <!-- Cover Content -->
-    <div class="relative z-10 p-sb-side">
+    <div
+      :class="[containerPadding]"
+      class="relative z-10 w-full h-full pt-20"
+    >
       <slot name="cover-content"></slot>
     </div>
   </div>

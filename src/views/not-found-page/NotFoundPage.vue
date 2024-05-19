@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import { HomeIcon, WindowIcon } from '@heroicons/vue/24/outline';
-import { useTitle } from '@vueuse/core';
-import { onMounted, } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { CustomButton } from '@/components';
-import { useCommonStyle, useTypedI18n } from '@/hooks';
-// Feature 0: Manage Page Title
-const title = useTitle();
-
-onMounted(() => {
-	title.value = ` ${title.value} | 404 - Not Found`;
-});
+import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 2: Internationalization (i18n)
-const { currentLanguage } = useTypedI18n();
+const { currentLanguage } = useTypedI18nSingleton();
 
 // Feature 3: Manage Style Classes
-const { xs, sm, md, impactTitleTextSize, subtitleTextSize, containerPadding } = useCommonStyle();
+const { xs, sm, md, h1Size, h3Size, containerPadding } = useCommonStyleSingleton();
 
 // Feature 4: Navigation
 const router = useRouter();
@@ -29,7 +21,7 @@ const router = useRouter();
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
     <h1
-      :class="[impactTitleTextSize]"
+      :class="[h1Size]"
       class="whitespace-normal transition-all duration-300 ease-in-out font-bebas "
     >
       {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
@@ -43,7 +35,7 @@ const router = useRouter();
       }"
     />
     <p
-      :class="[subtitleTextSize]"
+      :class="[h3Size]"
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto "
     >
       {{ currentLanguage === 'en' ? 'The page you are looking for does not exist.' : 'La pagina che stai cercando non esiste.' }}

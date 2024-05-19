@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Component, FunctionalComponent } from 'vue';
 
-import { useGlobalBreakpoints } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
 
 interface CustomButtonProps {
   disabled?: boolean;
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<CustomButtonProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useGlobalBreakpoints();
+const { xs, sm, md } = useCommonStyleSingleton();
 </script>
 
 <template>

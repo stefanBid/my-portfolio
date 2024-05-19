@@ -2,7 +2,10 @@
 import { useBreakpoints } from '@vueuse/core';
 import { computed } from 'vue';
 import type { StyleValue } from 'vue';
-export function useCommonStyle() {
+
+let instance: ReturnType<typeof createCommonStyle> | undefined;
+
+function createCommonStyle() {
 	const breakpoints = useBreakpoints({
 		xs: 0, // From 0 to 639px
 		sm: 640, // From 640px to 767px
@@ -35,17 +38,38 @@ export function useCommonStyle() {
 		return ' gap-y-24';
 	});
 
-	const impactTitleTextSize = computed(() => {
+	// Common style for text elements
+
+	const h1Size = computed(() => {
 		if (xs.value || sm.value) { return 'text-sb-4xl'; }
 		if (md.value) { return 'text-sb-6xl'; }
 		return 'text-sb-7xl';
 	});
 
-	const subtitleTextSize = computed(() => {
+	const h2Size = computed(() => {
+		if (xs.value || sm.value) { return 'text-sb-3xl'; }
+		if (md.value) { return 'text-sb-4xl'; }
+		return 'text-sb-5xl';
+	});
+
+	const h3Size = computed(() => {
 		if (xs.value || sm.value) { return 'text-sb-lg'; }
 		if (md.value) { return 'text-sb-xl'; }
 		return 'text-sb-2xl';
 	});
 
-	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, impactTitleTextSize, subtitleTextSize };
+	const pSize = computed(() => {
+		if (xs.value || sm.value) { return 'text-sb-sm'; }
+		if (md.value) { return 'text-sb-base'; }
+		return 'text-sb-lg';
+	});
+
+	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize };
+}
+
+export function useCommonStyleSingleton() {
+	if (!instance) {
+		instance = createCommonStyle();
+	}
+	return instance;
 }
