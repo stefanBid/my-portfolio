@@ -1,0 +1,57 @@
+<script setup lang="ts">
+
+import { useCommonStyleSingleton } from '@/hooks';
+
+interface PageCoverProps {
+  backgroundType: 'image' | 'clip' ;
+  backgroundUrl: string;
+  overlayColor: 'black' | 'white';
+}
+
+const props = defineProps<PageCoverProps>();
+
+// Feature 0: Manage Style Classes
+const { containerPadding, containerStyle } = useCommonStyleSingleton();
+
+</script>
+
+<template>
+  <div
+    :style="containerStyle"
+    class="relative w-full h-screen overflow-hidden bg-black"
+  >
+    <!-- Background -->
+    <img
+      v-if="props.backgroundType === 'image'"
+      :src="props.backgroundUrl "
+      alt="Background"
+      class="absolute inset-0 object-cover object-center w-full h-full"
+    />
+    <video
+      v-if="props.backgroundType === 'clip'"
+      :src="props.backgroundUrl"
+      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none grayscale"
+      autoplay
+      loop
+      muted
+      playsinline
+    ></video>
+
+    <!-- Overlay -->
+    <div
+      :class="{
+        'bg-black': props.overlayColor === 'black',
+        'bg-white': props.overlayColor === 'white'
+      }"
+      class="absolute inset-0 opacity-60"
+    ></div>
+
+    <!-- Cover Content -->
+    <div
+      :class="[containerPadding]"
+      class="relative z-10 w-full h-full overflow-y-auto"
+    >
+      <slot name="cover-content"></slot>
+    </div>
+  </div>
+</template>

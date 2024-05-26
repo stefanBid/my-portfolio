@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-
-import { MainHeader } from '@/components';
-import { useWindowTitleSingleton } from '@/hooks';
-
-useWindowTitleSingleton();
+import { TheMainContent } from '@/components';
 
 </script>
 
 <template>
-  <MainHeader />
-  <router-view />
+  <TheMainContent />
 </template>

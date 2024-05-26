@@ -5,3 +5,4 @@ export * from '@/hooks/singleton/window-title/useWindowTitleSingleton';
 // composable
 export * from '@/hooks/typing-text/useTypingText';
 export * from '@/hooks/floating-panel/useFloatingPanel';
+export * from '@/hooks/intersection-observer/useIntersectionObserver';
