@@ -11,6 +11,7 @@ const { containerStyle, containerPadding, containerGapElements } = useCommonStyl
   <div
     v-bind="$attrs"
     :style="containerStyle"
+    class="pt-20"
     :class="[containerPadding]"
   >
     <slot name="intro-section"></slot>

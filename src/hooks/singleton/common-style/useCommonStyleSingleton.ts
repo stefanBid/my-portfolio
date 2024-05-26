@@ -24,7 +24,7 @@ function createCommonStyle() {
 
 	// Common style for website elements
 
-	const containerStyle: StyleValue = { 'overflow-y': 'hidden', 'padding-top': '80px' };
+	const containerStyle: StyleValue = { 'overflow-y': 'hidden' };
 
 	const containerPadding = computed(() => {
 		if (xs.value || sm.value) { return 'p-sb-side-sm'; }
