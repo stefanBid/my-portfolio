@@ -49,7 +49,7 @@ watch([xs, sm, md], () => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 z-50 w-full h-20 shadow-md bg-main">
+  <header class="fixed top-0 left-0 z-50 w-full h-20 border-b-2 shadow-md bg-main">
     <div
       :class="[containerPadding]"
       class="relative flex items-center justify-between h-20 p-sb-side gap-x-4"
@@ -116,10 +116,11 @@ watch([xs, sm, md], () => {
 
   <header
     v-if="isMenuCollapsed "
-    class="fixed top-0 left-0 z-40 w-full h-full py-20 transition-all duration-300 ease-in-out bg-secondary"
+
+    class="fixed top-0 left-0 z-40 w-full h-full mt-20 transition-all duration-300 ease-in-out bg-secondary"
     :class="{
-      'translate-x-0': isMenuOpen,
-      '-translate-x-full': !isMenuOpen,
+      'translate-y-0': isMenuOpen,
+      '-translate-y-full': !isMenuOpen,
     }"
   >
     <TheNavbar

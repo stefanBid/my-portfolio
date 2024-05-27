@@ -18,19 +18,19 @@ const { containerPadding, containerStyle } = useCommonStyleSingleton();
 <template>
   <div
     :style="containerStyle"
-    class="relative w-full h-screen overflow-hidden bg-black"
+    class="relative w-full h-screen overflow-x-hidden bg-black"
   >
     <!-- Background -->
     <img
       v-if="props.backgroundType === 'image'"
       :src="props.backgroundUrl "
       alt="Background"
-      class="absolute inset-0 object-cover object-center w-full h-full"
+      class="absolute inset-0 object-cover object-center w-full h-full pt-20"
     />
     <video
       v-if="props.backgroundType === 'clip'"
       :src="props.backgroundUrl"
-      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none grayscale"
+      class="absolute inset-0 object-cover object-center w-full h-full pt-20 pointer-events-none grayscale"
       autoplay
       loop
       muted
@@ -43,13 +43,13 @@ const { containerPadding, containerStyle } = useCommonStyleSingleton();
         'bg-black': props.overlayColor === 'black',
         'bg-white': props.overlayColor === 'white'
       }"
-      class="absolute inset-0 opacity-60"
+      class="absolute inset-0 pt-20 opacity-60"
     ></div>
 
     <!-- Cover Content -->
     <div
       :class="[containerPadding]"
-      class="relative z-10 w-full h-full overflow-y-auto"
+      class="absolute inset-0 z-10 w-full h-full pt-20"
     >
       <slot name="cover-content"></slot>
     </div>

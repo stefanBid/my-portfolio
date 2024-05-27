@@ -11,12 +11,12 @@ const { containerStyle, containerPadding, containerGapElements } = useCommonStyl
   <div
     v-bind="$attrs"
     :style="containerStyle"
-    class="pt-20"
+    class="h-full mt-20"
     :class="[containerPadding]"
   >
     <slot name="intro-section"></slot>
     <div
-      class="flex flex-col mt-5 mb-10"
+      class="flex flex-col pt-5 pb-10"
       :class="[containerGapElements]"
     >
       <slot

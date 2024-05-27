@@ -34,15 +34,20 @@ const { containerPadding, xs, sm, md } = useCommonStyleSingleton();
       :key="index"
       :to="routeItem.path"
       tabindex="0"
-      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none ring-0 min-w-24 font-roboto focus-visible:ring-2 ring-white"
+      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none min-w-24 font-roboto"
       :class="[
         props.variant === 'vertical' ? containerPadding : '',
         {
           'justify-center px-2 py-1 text-sb-base rounded-full': props.variant === 'horizontal',
           'py-6 text-sb-base': props.variant === 'vertical' && md,
-          'py-4 text-sb-sm': props.variant === 'vertical' && ( sm || xs),
+          'py-4 text-sb-sm': props.variant === 'vertical' && (sm || xs)
+        },
+        {
           'text-main bg-white': route.path === routeItem.path,
           'text-white bg-slate-700/50 hover:bg-slate-700': route.path !== routeItem.path,
+        },
+        {
+          'focus-visible:ring-2 ring-white ring-0': !xs && !sm && !md,
         }
       ]"
       @click="() => emits('close-menu')"

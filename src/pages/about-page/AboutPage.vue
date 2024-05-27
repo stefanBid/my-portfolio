@@ -21,7 +21,6 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
   >
     <template #intro-section>
       <IntroSection
-
         :title="aboutMePageI18nContent.pageHeading"
       />
     </template>

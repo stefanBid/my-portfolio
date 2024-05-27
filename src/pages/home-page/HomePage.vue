@@ -43,10 +43,10 @@ onMounted(() => {
         id="homePageContent"
         :class="{
           'flex-col h-full gap-y-20 justify-center w-full': xs || sm || md,
-          'flex-row gap-x-4 h-full': !xs && !sm && !md,
+          'items-center gap-x-4 h-full': !xs && !sm && !md,
 
         }"
-        class="flex"
+        class="flex "
       >
         <transition name="scale-and-fade-slow">
           <div
