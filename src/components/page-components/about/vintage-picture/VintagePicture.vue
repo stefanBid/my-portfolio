@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useCommonStyleSingleton } from '@/hooks';
 
@@ -39,16 +39,37 @@ const getPictureDimension = computed(() => {
 
 const stackSize = 5;
 
-const getStackStyle = (index: number) => {
-	const rotation = Math.random() * 10 - 5; // Rotazione casuale tra -5 e 5 gradi
-	const translationX = Math.random() * 10 - 5; // Traslazione casuale sull'asse X
-	const translationY = Math.random() * 10 - 5; // Traslazione casuale sull'asse Y
-	const zIndex = -index; // Decresce lo zIndex per far apparire i div sotto
+const stackStyles = computed(() => {
+	const styles = [];
+	for (let index = 0; index < stackSize; index++) {
+		const rotation = Math.random() * 10 - 5; // Rotazione casuale tra -5 e 5 gradi
+		const translationX = Math.random() * 10 - 5; // Traslazione casuale sull'asse X
+		const translationY = Math.random() * 10 - 5; // Traslazione casuale sull'asse Y
+		const zIndex = -index; // Decresce lo zIndex per far apparire i div sotto
 
-	return {
-		transform: `rotate(${rotation}deg) translate(${translationX}px, ${translationY}px)`,
-		zIndex: zIndex,
-	};
+		styles.push({
+			transform: `rotate(${rotation}deg) translate(${translationX}px, ${translationY}px)`,
+			zIndex: zIndex,
+		});
+	}
+	return styles;
+});
+
+const flip = ref(false);
+const delayedFlip = ref(false);
+
+const flipPicture = () => {
+	if (!flip.value) {
+		flip.value = true;
+		setTimeout(() => {
+			delayedFlip.value = true;
+		}, 100);
+	} else {
+		flip.value = false;
+		setTimeout(() => {
+			delayedFlip.value = false;
+		}, 100);
+	}
 };
 
 </script>
@@ -56,35 +77,46 @@ const getStackStyle = (index: number) => {
 <template>
   <div class="relative flex items-center justify-center">
     <div
-      v-for="index in stackSize"
+      v-for="(style, index) in stackStyles"
       :key="index"
-      :style="getStackStyle(index)"
+      :style="style"
       :class="[getFrameDimension]"
       class="absolute w-full h-full border border-gray-400 rounded shadow-md bg-slate-100"
     ></div>
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-400 rounded shadow-md hover:-translate-y-6 gap-y-2 "
+      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-400 rounded shadow-md gap-y-2 "
+      :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
+      @click.prevent="flipPicture"
     >
       <img
+        v-show="!delayedFlip"
         id="picture"
         :src="props.imageUrl"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
         class="object-cover object-center w-full transition-all duration-300 ease-in-out "
+        :style="{ transform: 'rotateY(0deg)' }"
       />
-      <p
+      <div
+        v-show="delayedFlip"
         id="picture-description"
-        :class="[ {
-          'text-sb-xs': xs || sm,
-          'text-sb-sm': md,
-          'text-sb-base': !xs && !sm && !md,
-        }]"
-        class="my-2 text-sm font-bold text-center truncate whitespace-normal text-secondary font-roboto h-fit"
+        :class="[getPictureDimension]"
+        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out bg-gray-700 rounded"
+        :style="{ transform: 'rotateY(180deg)' }"
       >
-        {{ props.text }}
-      </p>
+        <p
+          class="text-center text-white font-roboto"
+          :class=" {
+            'text-sb-sm': xs || sm,
+            'text-sb-base': md,
+            'text-sb-lg': !xs && !sm && !md,
+          }"
+        >
+          {{ props.text }}
+        </p>
+      </div>
     </div>
   </div>
 </template>

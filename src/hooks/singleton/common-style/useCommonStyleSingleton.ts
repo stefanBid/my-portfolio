@@ -64,7 +64,13 @@ function createCommonStyle() {
 		return 'text-sb-lg';
 	});
 
-	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize };
+	const labelSize = computed(() => {
+		if (xs.value || sm.value) { return 'text-sb-xs'; }
+		if (md.value) { return 'text-sb-sm'; }
+		return 'text-sb-base';
+	});
+
+	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
 }
 
 export function useCommonStyleSingleton() {

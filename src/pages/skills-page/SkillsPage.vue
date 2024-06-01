@@ -47,6 +47,7 @@ const feSkills = [
 	}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ] as { name: string; icon: any }[];
+
 </script>
 
 <template>
@@ -61,6 +62,7 @@ const feSkills = [
 
     <template #main-content>
       <PageUnderConstructionAlert
+
         v-intersection-observer="[onIntersectionObserver(0), {root, threshold: 0.5}]"
         class="transition-all duration-500 ease-in-out"
         :class="{
