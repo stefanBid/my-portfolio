@@ -8,21 +8,19 @@ import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 
 interface BaseDropdownButtonProps {
   menuOptions: {
-    [key: string]: {
-      label: string;
-      icon: FunctionalComponent | Component | string;
-    };
-  }
+    name: string;
+    label: string;
+    icon?: FunctionalComponent | Component | string;
+  }[];
   // eslint-disable-next-line no-unused-vars
-  onGetSelectedOption: (option: string) => void;
+  onSelectOption: (selctedOption: { option: { name: string } }) => void;
   selectedOption?: string;
   icon?: FunctionalComponent | Component | string;
 }
 
 const props = withDefaults(defineProps<BaseDropdownButtonProps>(), {
-	selectedOption: undefined,
 	icon: undefined,
-	customDimensions: false,
+	selectedOption: undefined,
 });
 
 defineOptions({ inheritAttrs: false });
@@ -42,8 +40,11 @@ const handleClick = () => {
 };
 
 // Feature 1: Handle Option Selection
-const handleOptionSelection = (option: string) => {
-	props.onGetSelectedOption(option);
+const handleOptionSelection = (newOptionSelected: string) => {
+	if (props.selectedOption !== newOptionSelected) {
+		props.onSelectOption({ option: { name: newOptionSelected } });
+	}
+
 	changeToolTipVisibility('close');
 };
 
@@ -104,15 +105,15 @@ const handleOptionSelection = (option: string) => {
       >
         <div class="w-48 p-1">
           <span
-            v-for="op in Object.keys(props.menuOptions)"
-            :key="op"
+            v-for="op in props.menuOptions"
+            :key="op.name"
             :tabindex="0"
             class="inline-flex items-center w-full p-2 transition-all duration-300 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group ring-0 focus-visible:ring-2 ring-white"
-            @keydown.enter="handleOptionSelection(op)"
-            @click="handleOptionSelection(op)"
+            @keydown.enter="handleOptionSelection(op.name)"
+            @click="handleOptionSelection(op.name)"
           >
             <component
-              :is="props.menuOptions[op].icon"
+              :is="op.icon"
               class="shrink-0"
               :class="{
                 'size-6': !xs && !sm && !md,
@@ -121,10 +122,10 @@ const handleOptionSelection = (option: string) => {
               }"
             />
             <span
-              :class="{ 'font-semibold': props.selectedOption === op}"
+              :class="{ 'font-semibold underline': props.selectedOption === op.name}"
               class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black text-roboto"
             >
-              {{ props.menuOptions[op].label }}
+              {{ op.label }}
             </span>
           </span>
         </div>

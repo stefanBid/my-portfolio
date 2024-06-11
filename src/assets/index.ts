@@ -9,6 +9,23 @@ import TsIcon from '@/assets/icons/type-script.svg';
 import UkIcon from '@/assets/icons/uk-flag.svg';
 import VueIcon from '@/assets/icons/vue.svg';
 
-export { AngularIcon, CodeIcon, CssIcon, HtmlIcon, ItalyIcon, JsIcon, ReactIcon, TsIcon, UkIcon, VueIcon };
+
+const ICONS_MAP = {
+  AngularIcon,
+  CodeIcon,
+  CssIcon,
+  HtmlIcon,
+  ItalyIcon,
+  JsIcon,
+  ReactIcon,
+  TsIcon,
+  UkIcon,
+  VueIcon
+};
+
+
+type CustomIcon = keyof typeof ICONS_MAP;
+
+export { AngularIcon, CodeIcon, CssIcon, HtmlIcon, ItalyIcon, JsIcon, ReactIcon, TsIcon, UkIcon, VueIcon, ICONS_MAP, type CustomIcon };
 
 

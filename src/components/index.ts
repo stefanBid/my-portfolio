@@ -1,6 +1,7 @@
 // BASE
 export { default as BaseButton } from '@/components/base/button/BaseButton.vue';
 export { default as BaseCard } from '@/components/base/card/BaseCard.vue';
+export { default as BaseDataList } from '@/components/base/data-list/BaseDataList.vue';
 export { default as BaseDropdownButton } from '@/components/base/dropdown-button/BaseDropdownButton.vue';
 export { default as BaseToggle } from '@/components/base/toggle/BaseToggle.vue';
 

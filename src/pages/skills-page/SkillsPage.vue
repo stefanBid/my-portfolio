@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ArrowRightIcon } from '@heroicons/vue/24/outline';
+import { ref } from 'vue';
 
-import { IntroSection, BaseButton, ThePageContent } from '@/components';
+import { ICONS_MAP, type CustomIcon } from '@/assets';
+import { IntroSection, BaseButton, ThePageContent, BaseDataList, BaseToggle } from '@/components';
 import PageUnderConstructionAlert from '@/components/temp/page-under-construction-alert/PageUnderConstructionAlert.vue';
 import { useCommonStyleSingleton, useTypedI18nSingleton, useIntersectionObserver } from '@/hooks';
 
@@ -18,36 +20,54 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
 
 const feSkills = [
 	{
+		id: '1',
 		name: 'Angular',
 		icon: 'AngularIcon',
 	},
 	{
+		id: '2',
 		name: 'Vue',
 		icon: 'VueIcon',
 	},
 	{
+		id: '3',
 		name: 'React',
 		icon: 'ReactIcon',
 	},
 	{
+		id: '4',
 		name: 'TypeScript',
-		icon: 'TypeScriptIcon',
+		icon: 'TsIcon',
 	},
 	{
+		id: '5',
 		name: 'JavaScript',
-		icon: 'JavaScriptIcon',
+		icon: 'JsIcon',
 	},
 	{
+		id: '6',
 		name: 'Html',
 		icon: 'HtmlIcon',
 	},
 	{
+		id: '7',
 		name: 'Css',
 		icon: 'CssIcon',
-	}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-] as { name: string; icon: any }[];
+	},
+	{
+		id: '8',
+		name: 'Sass',
+		icon: 'SassIcon',
+	},
+	{
+		id: '9',
+		name: 'Tailwind',
+		icon: 'TailwindIcon',
+	},
 
+] as { id:string, name: string; icon: string }[];
+
+const test = ref(false);
 </script>
 
 <template>
@@ -62,7 +82,6 @@ const feSkills = [
 
     <template #main-content>
       <PageUnderConstructionAlert
-
         v-intersection-observer="[onIntersectionObserver(0), {root, threshold: 0.5}]"
         class="transition-all duration-500 ease-in-out"
         :class="{
@@ -70,6 +89,27 @@ const feSkills = [
           'opacity-100': isVisible[0],
         }"
       />
+      <div class="flex justify-center">
+        <BaseDataList
+          v-if="false"
+          :custom-width-css="'w-full'"
+
+          :data="feSkills"
+        >
+          <template #item-extra-box="{singleDataItem}">
+            <component
+              :is="ICONS_MAP[singleDataItem.icon as CustomIcon]"
+              class="size-14"
+            />
+          </template>
+          <template #content-box>
+            <div class="h-full border">
+              <BaseToggle v-model:enabled="test" />
+            </div>
+          </template>
+        </BaseDataList>
+      </div>
+
       <div
         v-if="false"
         :class="[containerPadding, containerGapElements]"

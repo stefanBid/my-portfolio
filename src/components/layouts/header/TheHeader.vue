@@ -10,15 +10,21 @@ import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 // Feature 0: Internationalization (i18n)
 const { changeLanguage, currentLanguage, headerI18nContent } = useTypedI18nSingleton();
 
-const languageOptions = {
-	it: {
+const languageOptions = [
+	{
+		name: 'it',
 		label: 'Italiano',
 		icon: ItalyIcon,
 	},
-	en: {
+	{
+		name: 'en',
 		label: 'English',
 		icon: UkIcon,
 	},
+];
+
+const handleChangeLanguage = (newLanguage: 'it' | 'en') => {
+	changeLanguage(newLanguage);
 };
 
 // Feature 1: Manage Routes
@@ -108,7 +114,7 @@ watch([xs, sm, md], () => {
           :menu-options="languageOptions"
           :selected-option="currentLanguage"
           :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-          :on-get-selected-option="(op) => changeLanguage(op as 'it' | 'en')"
+          :on-select-option="optionSelected => handleChangeLanguage(optionSelected.option.name as 'it' | 'en')"
         />
       </div>
     </div>
@@ -138,7 +144,7 @@ watch([xs, sm, md], () => {
         :menu-options="languageOptions"
         :selected-option="currentLanguage"
         :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-        :on-get-selected-option="(op) => changeLanguage(op as 'it' | 'en')"
+        :on-select-option="optionSelected => handleChangeLanguage(optionSelected.option.name as 'it' | 'en')"
       />
     </div>
   </header>

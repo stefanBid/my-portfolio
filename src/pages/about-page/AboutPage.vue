@@ -29,7 +29,7 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
         v-for="(section, index) in aboutMePageI18nContent.bioSections"
         :id="`bioSection-${index}`"
         :key="index"
-        v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.05}]"
+        v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
         :class=" {
           'flex-row': index % 2 === 0 && !xs && !sm && !md,
           'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md,

@@ -96,14 +96,14 @@ const flipPicture = () => {
         :src="props.imageUrl"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
-        class="object-cover object-center w-full transition-all duration-300 ease-in-out "
+        class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
         :style="{ transform: 'rotateY(0deg)' }"
       />
       <div
         v-show="delayedFlip"
         id="picture-description"
         :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out bg-gray-700 rounded"
+        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-secondary"
         :style="{ transform: 'rotateY(180deg)' }"
       >
         <p
