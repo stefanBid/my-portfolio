@@ -12,22 +12,22 @@ const routes = [
 	{
 		path: '/about',
 		name: 'aboutPage',
-		component: () => import(/* webpackPrefetch: true */ '@/pages/about-page/AboutPage.vue')
+		component: () => import(/* webpackPrefetch: true, webpackPreload: true */ '@/pages/about-page/AboutPage.vue')
 	},
 	{
 		path: '/projects',
 		name: 'projectsPage',
-		component: () => import(/* webpackPrefetch: true */ '@/pages/projects-page/ProjectsPage.vue')
+		component: () => import(/* webpackPrefetch: true, webpackPreload: true */ '@/pages/projects-page/ProjectsPage.vue')
 	},
 	{
 		path: '/skills',
 		name: 'skillsPage',
-		component: () => import(/* webpackPrefetch: true */ '@/pages/skills-page/SkillsPage.vue')
+		component: () => import(/* webpackPrefetch: true, webpackPreload: true */ '@/pages/skills-page/SkillsPage.vue')
 	},
 	{
 		path: '/:pathMatch(.*)*',
 		name: 'notFoundPage',
-		component: () => import(/* webpackPrefetch: true */ '@/pages/not-found-page/NotFoundPage.vue')
+		component: () => import(/* webpackPrefetch: true, webpackPreload: true */ '@/pages/not-found-page/NotFoundPage.vue')
 	}
 ];
 

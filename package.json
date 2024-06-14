@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
+    "visualize": "vite build --mode visualize",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
     "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.cjs"
@@ -32,10 +33,12 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-vue": "^9.23.0",
     "postcss": "^8.4.38",
+    "rollup-plugin-visualizer": "^5.12.0",
     "svgo": "^3.3.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
+    "vite-plugin-compression": "^0.5.1",
     "vite-svg-loader": "^5.1.0",
     "vue-tsc": "^2.0.6"
   },
