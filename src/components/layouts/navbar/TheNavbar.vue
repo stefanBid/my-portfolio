@@ -38,7 +38,7 @@ const { containerPadding, xs, sm, md } = useCommonStyleSingleton();
       :class="[
         props.variant === 'vertical' ? containerPadding : '',
         {
-          'justify-center px-2 py-1 text-sb-base rounded-full': props.variant === 'horizontal',
+          'justify-center px-2 py-1 text-sb-base rounded-full hover:shadow-sb-light': props.variant === 'horizontal',
           'py-6 text-sb-base': props.variant === 'vertical' && md,
           'py-4 text-sb-sm': props.variant === 'vertical' && (sm || xs)
         },

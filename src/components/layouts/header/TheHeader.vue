@@ -72,7 +72,7 @@ watch([xs, sm, md], () => {
         />
 
         <router-link
-          class="flex-1 font-semibold transition-all duration-300 ease-in-out font-bebas "
+          class="flex-1 font-semibold transition-all duration-300 ease-in-out font-bebas hover:text-shadow-luminous "
           :class="{
             'text-sb-3xl': !xs && !sm && !md,
             'text-sb-2xl': md,

@@ -70,13 +70,13 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
           >
             ({{ section.subTitleHeading }})
           </h3>
-          <p
+          <div
             :id="`bioSection-${index}-contentParagraph`"
             :class="[ pSize]"
-            class="mt-4 text-justify text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+            class="p-4 mt-4 text-justify text-white whitespace-normal transition-all duration-300 ease-in-out rounded-lg font-roboto bg-secondary"
           >
             {{ section.contentParagraph }}
-          </p>
+          </div>
         </div>
       </section>
     </template>

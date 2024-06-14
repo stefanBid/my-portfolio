@@ -45,8 +45,16 @@ export default {
 			},
 			boxShadow: {
 				'sb-light': '0 10px 20px rgba(255, 255, 255, 0.15), 0 5px 10px rgba(255, 255, 255, 0.1), 0 2px 4px rgba(255, 255, 255, 0.05)'
-			}
+			},
 		},
 	},
-	plugins: [],
+	plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.text-shadow-luminous': {
+           textShadow: '0 0 10px rgba(156, 163, 175, 0.7), 0 0 20px rgba(156, 163, 175, 0.6), 0 0 30px rgba(156, 163, 175, 0.5)',
+        },
+      }, ['responsive', 'hover']);
+    }
+  ],
 };
