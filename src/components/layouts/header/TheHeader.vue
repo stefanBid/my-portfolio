@@ -4,7 +4,7 @@ import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline
 import { ref, watch, } from 'vue';
 
 import { ItalyIcon, UkIcon } from '@/assets';
-import { BaseDropdownButton, TheNavbar } from '@/components';
+import { BaseDropdownMenu, TheNavbar } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 0: Internationalization (i18n)
@@ -109,13 +109,46 @@ watch([xs, sm, md], () => {
         />
 
         <!-- Sezione Cambio Lingua -->
-        <BaseDropdownButton
+        <BaseDropdownMenu
           class="w-22 shrink-0 "
-          :menu-options="languageOptions"
-          :selected-option="currentLanguage"
-          :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-          :on-select-option="optionSelected => handleChangeLanguage(optionSelected.option.name as 'it' | 'en')"
-        />
+          :custom-width="200"
+        >
+          <template #dropdown-button-content>
+            <component
+              :is="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+              class="shrink-0 size-6"
+            />
+          </template>
+          <template #dropdown-section-content="{closeMenu}">
+            <div class="w-full h-full p-2 text-sm break-words whitespace-normals">
+              <span
+                v-for="lang in languageOptions"
+                :key="lang.name"
+                :tabindex="0"
+                class="flex items-center p-2 transition-all duration-300 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group ring-0 focus-visible:ring-2 ring-white"
+                @keydown.enter="() => {
+                  handleChangeLanguage(lang.name as 'it' | 'en')
+                  closeMenu()
+                }"
+                @click="() => {
+                  handleChangeLanguage(lang.name as 'it' | 'en')
+                  closeMenu()
+                }"
+              >
+                <component
+                  :is="lang.icon"
+                  class="shrink-0 size-6"
+                />
+                <span
+                  :class="{ 'font-semibold underline': currentLanguage === lang.name}"
+                  class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black text-roboto"
+                >
+                  {{ lang.label }}
+                </span>
+              </span>
+            </div>
+          </template>
+        </BaseDropdownMenu>
       </div>
     </div>
   </header>
@@ -139,13 +172,46 @@ watch([xs, sm, md], () => {
       class="inline-flex items-center w-full text-white gap-x-4"
     >
       {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
-      <BaseDropdownButton
-        class="w-22 "
-        :menu-options="languageOptions"
-        :selected-option="currentLanguage"
-        :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-        :on-select-option="optionSelected => handleChangeLanguage(optionSelected.option.name as 'it' | 'en')"
-      />
+      <BaseDropdownMenu
+        class="w-22 shrink-0 "
+        :custom-width="200"
+      >
+        <template #dropdown-button-content>
+          <component
+            :is="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+            class="shrink-0 size-5"
+          />
+        </template>
+        <template #dropdown-section-content="{ closeMenu }">
+          <div class="w-full h-full p-2 text-sm break-words whitespace-normals">
+            <span
+              v-for="lang in languageOptions"
+              :key="lang.name"
+              :tabindex="0"
+              class="flex items-center p-2 transition-all duration-300 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group ring-0 focus-visible:ring-2 ring-white"
+              @keydown.enter="() => {
+                handleChangeLanguage(lang.name as 'it' | 'en')
+                closeMenu()
+              }"
+              @click="() => {
+                handleChangeLanguage(lang.name as 'it' | 'en')
+                closeMenu()
+              }"
+            >
+              <component
+                :is="lang.icon"
+                class="shrink-0 size-5"
+              />
+              <span
+                :class="{ 'font-semibold underline': currentLanguage === lang.name}"
+                class="flex-1 text-white transition-all duration-100 ease-in-out group-hover:text-black text-roboto"
+              >
+                {{ lang.label }}
+              </span>
+            </span>
+          </div>
+        </template>
+      </BaseDropdownMenu>
     </div>
   </header>
 </template>

@@ -2,18 +2,26 @@ import { useFloating, flip, shift, autoUpdate, offset, arrow } from '@floating-u
 import type { Placement } from '@floating-ui/vue';
 import { ref } from 'vue';
 
-type PopperType = 'dropdownButton' | 'helpInfo'
+type PopperType = 'dropdownMenu' | 'helpInfo' | 'inputSettings'
+
+interface PopperSettings {
+	placement: Placement;
+	offsetValue: number;
+	hasArrow: boolean;
+}
 
 // This helper function is used to configure the popper settings for each popper type in complete security
-const configurePopperSetting = (placement: Placement, offsetValue: number, hasArrow: boolean) => ({
+const configurePopperSetting = (placement: Placement, offsetValue: number, hasArrow: boolean) : PopperSettings => ({
 	placement,
 	offsetValue,
 	hasArrow,
 });
 
-const popperSettings = {
+// eslint-disable-next-line no-unused-vars
+const popperSettings: { [key in PopperType]: PopperSettings } = {
 	helpInfo: configurePopperSetting('top', 10, true),
-	dropdownButton: configurePopperSetting('bottom-start', 10, false),
+	dropdownMenu: configurePopperSetting('bottom-start', 10, false),
+	inputSettings: configurePopperSetting('bottom', 10, false),
 };
 
 export function useFloatingPanel(popperType: PopperType) {
