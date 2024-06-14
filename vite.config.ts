@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
   ];
 
   if (mode === 'visualize') {
-    plugins.push(visualizer({ open: true }) as PluginOption);
+    plugins.push(visualizer({ open: true, filename: 'dist/stats.html' }) as PluginOption);
   }
 
   return {
