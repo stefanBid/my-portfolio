@@ -20,7 +20,7 @@ const configurePopperSetting = (placement: Placement, offsetValue: number, hasAr
 // eslint-disable-next-line no-unused-vars
 const popperSettings: { [key in PopperType]: PopperSettings } = {
 	helpInfo: configurePopperSetting('top', 10, true),
-	dropdownMenu: configurePopperSetting('bottom-start', 10, false),
+	dropdownMenu: configurePopperSetting('bottom-end', 10, false),
 	inputSettings: configurePopperSetting('bottom', 10, false),
 };
 

@@ -84,7 +84,7 @@ const handleClick = () => {
           width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'fit-content',
           height: typeof props.customHeight === 'number' ? `${props.customHeight}px` : 'fit-content',
         }"
-        class="box-border absolute z-50 border-2 rounded-lg shadow border-slate-700 bg-secondary w-fit shadow-white/30"
+        class="box-border absolute z-50 border-2 rounded-lg border-slate-700 bg-secondary w-fit shadow-sb-light"
       >
         <slot
           name="dropdown-section-content"
