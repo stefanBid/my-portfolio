@@ -22,7 +22,7 @@ const { xs, sm, md } = useCommonStyleSingleton();
 // Feature 0: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
 
-const { vOnClickOutside, fuctionToInvoke, listOfIgnoredElementsRef } = useClickOutside([anchor], () => changeToolTipVisibility('close'));
+const { vOnClickOutside, functionToInvoke, listOfIgnoredElementsRef } = useClickOutside([anchor], () => changeToolTipVisibility('close'));
 
 const closeMenu = () => {
 	changeToolTipVisibility('close');
@@ -78,7 +78,7 @@ const handleClick = () => {
       <div
         v-if="isOpen"
         ref="popper"
-        v-on-click-outside="[(_: Event) => fuctionToInvoke(), { ignore: listOfIgnoredElementsRef }]"
+        v-on-click-outside="[(_: Event) => functionToInvoke(), { ignore: listOfIgnoredElementsRef }]"
         :style="{
           ...popperStyle,
           width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'fit-content',
