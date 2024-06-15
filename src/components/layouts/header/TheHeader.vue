@@ -45,17 +45,12 @@ watch([xs, sm, md], () => {
 
 	// Handle changes within md, sm, and xs breakpoints
 	if (xs.value || sm.value || md.value) {
-
 		isMenuCollapsed.value = true;
-
 	}
 
 	if (!xs.value && !sm.value && !md.value) {
-
-		console.log('isMenuCollapsed', isMenuCollapsed.value);
 		isMenuCollapsed.value = false;
 		isMenuOpen.value = false;
-
 	}
 }, { immediate: true });
 
