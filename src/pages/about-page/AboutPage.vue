@@ -26,7 +26,6 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
     </template>
     <template #main-content>
       <BaseDropdownMenu
-        :custom-height="300"
         :custom-width="300"
       >
         <template #dropdown-button-content></template>
