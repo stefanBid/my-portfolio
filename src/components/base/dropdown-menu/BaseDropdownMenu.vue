@@ -81,8 +81,8 @@ const handleClick = () => {
         v-on-click-outside="[(_: Event) => functionToInvoke(), { ignore: listOfIgnoredElementsRef }]"
         :style="{
           ...popperStyle,
-          width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'fit-content',
-          height: typeof props.customHeight === 'number' ? `${props.customHeight}px` : 'fit-content',
+          width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'auto',
+          height: typeof props.customHeight === 'number' ? `${props.customHeight}px` : 'auto'
         }"
         class="box-border absolute z-50 border-2 rounded-lg border-slate-700 bg-secondary w-fit shadow-sb-light"
       >
