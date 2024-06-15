@@ -41,22 +41,21 @@ const onChangeMenuVisibility = (newVisibility: boolean) => {
 	isMenuOpen.value = newVisibility;
 };
 
-watch([xs, sm, md], ([newXs, newSm, newMd]) => {
+watch([xs, sm, md], () => {
 
 	// Handle changes within md, sm, and xs breakpoints
-	if (newXs || newSm || newMd) {
-		if (!isMenuCollapsed.value) {
-			isMenuCollapsed.value = true;
-		}
-	} else {
-		if (isMenuCollapsed.value) {
-			isMenuCollapsed.value = false;
-		}
+	if (xs.value || sm.value || md.value) {
+
+		isMenuCollapsed.value = true;
+
 	}
 
-	// Ensure the menu does not close if it's open
-	if (isMenuOpen.value && isMenuCollapsed.value) {
-		isMenuOpen.value = true;
+	if (!xs.value && !sm.value && !md.value) {
+
+		console.log('isMenuCollapsed', isMenuCollapsed.value);
+		isMenuCollapsed.value = false;
+		isMenuOpen.value = false;
+
 	}
 }, { immediate: true });
 

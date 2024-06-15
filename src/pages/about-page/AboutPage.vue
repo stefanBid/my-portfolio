@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { BaseDropdownMenu, IntroSection, ThePageContent } from '@/components';
+import { IntroSection, ThePageContent } from '@/components';
 import VintagePicture from '@/components/page-components/about/vintage-picture/VintagePicture.vue';
 import { useTypedI18nSingleton, useCommonStyleSingleton, useIntersectionObserver } from '@/hooks';
 
@@ -25,16 +25,6 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
       />
     </template>
     <template #main-content>
-      <BaseDropdownMenu
-        :custom-width="300"
-      >
-        <template #dropdown-button-content></template>
-        <template #dropdown-section-content>
-          <div class="w-full h-full">
-            Ciaooooooooooo
-          </div>
-        </template>
-      </BaseDropdownMenu>
       <section
         v-for="(section, index) in aboutMePageI18nContent.bioSections"
         :id="`bioSection-${index}`"

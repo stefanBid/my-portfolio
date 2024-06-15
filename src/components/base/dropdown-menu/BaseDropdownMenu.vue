@@ -49,16 +49,15 @@ const handleClick = () => {
       ref="anchor"
       no-style
       content-horizontal-orientation="between"
-      class="px-3.5 py-1.5 border-2 rounded-full border-slate-700 group gap-x-3"
+      class="border-2 rounded-full border-slate-700 group gap-x-3"
       :class="[
         {
           ' border-white bg-white text-black': isOpen,
           ' text-white hover:border-slate-700 hover:bg-slate-700 hover:text-white bg-secondary': !isOpen,
         },
         {
-          'text-sb-base': !xs && !sm && !md,
-          'text-sb-sm': md,
-          'text-sb-xs': sm || xs,
+          'text-sb-base px-3.5 py-1.5': !xs && !sm && !md,
+          'text-sb-xs px-2.5 py-1': sm || xs || md,
         }
       ]"
       @click.stop="handleClick()"
