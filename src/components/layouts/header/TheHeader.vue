@@ -34,23 +34,31 @@ const { xs, sm, md, containerPadding } = useCommonStyleSingleton();
 
 // Feature 3.1: Manage Menu Visibility
 const isMenuOpen = ref(false);
-const isMenuCollapsed = ref(true);
+const isMenuCollapsed = ref(false);
 
 const onChangeMenuVisibility = (newVisibility: boolean) => {
 	if (isMenuOpen.value === newVisibility) { return; }
 	isMenuOpen.value = newVisibility;
 };
 
-watch([xs, sm, md], () => {
-	if (xs.value || sm.value || md.value) {
-		isMenuCollapsed.value = true;
-		isMenuOpen.value = false;
+watch([xs, sm, md], ([newXs, newSm, newMd]) => {
+
+	// Handle changes within md, sm, and xs breakpoints
+	if (newXs || newSm || newMd) {
+		if (!isMenuCollapsed.value) {
+			isMenuCollapsed.value = true;
+		}
 	} else {
-		isMenuCollapsed.value = false;
+		if (isMenuCollapsed.value) {
+			isMenuCollapsed.value = false;
+		}
 	}
-}, {
-	immediate: true,
-});
+
+	// Ensure the menu does not close if it's open
+	if (isMenuOpen.value && isMenuCollapsed.value) {
+		isMenuOpen.value = true;
+	}
+}, { immediate: true });
 
 </script>
 
@@ -158,8 +166,8 @@ watch([xs, sm, md], () => {
 
     class="fixed top-0 left-0 z-40 w-full h-full mt-20 transition-all duration-300 ease-in-out bg-secondary"
     :class="{
-      'translate-y-0': isMenuOpen,
-      '-translate-y-full': !isMenuOpen,
+      'translate-x-0': isMenuOpen,
+      '-translate-x-full': !isMenuOpen,
     }"
   >
     <TheNavbar
@@ -188,6 +196,10 @@ watch([xs, sm, md], () => {
               v-for="lang in languageOptions"
               :key="lang.name"
               :tabindex="0"
+              :class="{
+                'text-sb-sm': xs || sm,
+                'text-sb-base': md,
+              }"
               class="flex items-center p-2 transition-all duration-300 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-slate-200 group ring-0 focus-visible:ring-2 ring-white"
               @keydown.enter="() => {
                 handleChangeLanguage(lang.name as 'it' | 'en')
