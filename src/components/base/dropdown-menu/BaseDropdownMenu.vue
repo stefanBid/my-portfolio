@@ -57,7 +57,8 @@ const handleClick = () => {
         },
         {
           'text-sb-base px-3.5 py-1.5': !xs && !sm && !md,
-          'text-sb-xs px-2.5 py-1': sm || xs || md,
+          'text-sb-sm px-3 py-1': md,
+          'text-sb-xs px-2.5 py-1': xs || sm ,
         }
       ]"
       @click.stop="handleClick()"

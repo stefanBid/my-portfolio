@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { CodeBracketIcon, XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
-import { ref, watch, } from 'vue';
+import { ref, watchEffect, } from 'vue';
 
 import { ItalyIcon, UkIcon } from '@/assets';
 import { BaseDropdownMenu, TheNavbar } from '@/components';
@@ -30,7 +30,7 @@ const handleChangeLanguage = (newLanguage: 'it' | 'en') => {
 // Feature 1: Manage Routes
 
 // Feaure 3: Manage Breakpoints and Style Classes
-const { xs, sm, md, containerPadding } = useCommonStyleSingleton();
+const { xs, sm, md, lg, xl, xxl, containerPadding } = useCommonStyleSingleton();
 
 // Feature 3.1: Manage Menu Visibility
 const isMenuOpen = ref(false);
@@ -41,18 +41,18 @@ const onChangeMenuVisibility = (newVisibility: boolean) => {
 	isMenuOpen.value = newVisibility;
 };
 
-watch([xs, sm, md], () => {
+watchEffect(() => {
 
-	// Handle changes within md, sm, and xs breakpoints
 	if (xs.value || sm.value || md.value) {
 		isMenuCollapsed.value = true;
+	} else {
+		isMenuCollapsed.value = false;
 	}
 
-	if (!xs.value && !sm.value && !md.value) {
-		isMenuCollapsed.value = false;
+	if (!xs.value && !sm.value && !md.value && (lg.value || xl.value || xxl.value) && isMenuOpen.value) {
 		isMenuOpen.value = false;
 	}
-}, { immediate: true });
+});
 
 </script>
 

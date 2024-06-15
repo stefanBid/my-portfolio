@@ -42,16 +42,16 @@ const { xs, sm, md } = useCommonStyleSingleton();
       },
 
       {
-        'py-4 px-8 text-sb-lg': !props.noStyle && !xs && !sm && !md,
+        'py-4 px-8 text-sb-lg': !props.noStyle && (!xs && !sm && !md),
         'py-3 px-6 text-sb-base': !props.noStyle && md,
-        'py-2 px-4 text-sb-sm': !props.noStyle && xs || sm,
+        'py-2 px-4 text-sb-sm ': !props.noStyle && (xs || sm),
       }
     ]"
   >
     <slot></slot>
     <component
       :is="props.icon"
-      class="shrink-0"
+      class="shrink-0 "
       :class="{
         'size-6': !xs && !sm && !md,
         'size-5': md,
