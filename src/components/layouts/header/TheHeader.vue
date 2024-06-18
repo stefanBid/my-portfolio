@@ -114,6 +114,7 @@ watchEffect(() => {
         <BaseDropdownMenu
           class="w-22 shrink-0 "
           :custom-width="200"
+          :custom-z-index="90"
         >
           <template #dropdown-button-content>
             <component
@@ -177,6 +178,7 @@ watchEffect(() => {
       <BaseDropdownMenu
         class="w-22 shrink-0 "
         :custom-width="200"
+        :custom-z-index="90"
       >
         <template #dropdown-button-content>
           <component

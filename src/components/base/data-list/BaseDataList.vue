@@ -62,7 +62,7 @@ const handleSelectItem = (item: T) => {
               'opacity-0 w-0': !isVisible[index],
               'opacity-100 w-full': isVisible[index],
               'border-white bg-white ': selectedItem && selectedItem.id === item.id,
-              'border-slate-700/50 bg-slate-700/50 hover:bg-slate-700 hover:border-slayte-700 ': (selectedItem && selectedItem.id !== item.id) || !selectedItem,
+              'border-slate-700/50 bg-slate-700/50 hover:bg-slate-700 hover:border-slate-700 ': (selectedItem && selectedItem.id !== item.id) || !selectedItem,
               'focus-visible:ring-2 ring-white ring-0': !xs && !sm && !md,
             }"
             class="flex items-center px-6 py-4 transition-all duration-300 ease-in-out border-2 rounded-full outline-none gap-x-2 font-roboto hover:cursor-pointer hover:shadow hover:shadow-slate-700/50 "

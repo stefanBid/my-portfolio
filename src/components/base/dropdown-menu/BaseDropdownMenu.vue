@@ -5,13 +5,15 @@ import { BaseButton } from '@/components';
 import { useFloatingPanel, useCommonStyleSingleton, useClickOutside } from '@/hooks';
 
 interface BaseDropdownMenuProps {
-  customWidth?: number | 'fit-content';
-  customHeight?: number | 'fit-content';
+  customWidth?: number | 'auto';
+  customHeight?: number | 'auto';
+  customZIndex?: number;
 }
 
 const props = withDefaults(defineProps<BaseDropdownMenuProps>(), {
-	customWidth: 'fit-content',
-	customHeight: 'fit-content',
+	customZIndex: 40,
+	customWidth: 'auto',
+	customHeight: 'auto',
 });
 
 defineOptions({ inheritAttrs: false });
@@ -19,7 +21,7 @@ defineOptions({ inheritAttrs: false });
 // Feature 0: Manage Style Classes
 const { xs, sm, md } = useCommonStyleSingleton();
 
-// Feature 0: Manage Open <--> Close State
+// Feature 1: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
 
 const { vOnClickOutside, functionToInvoke, listOfIgnoredElementsRef } = useClickOutside([anchor], () => changeToolTipVisibility('close'));
@@ -82,9 +84,10 @@ const handleClick = () => {
         :style="{
           ...popperStyle,
           width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'auto',
-          height: typeof props.customHeight === 'number' ? `${props.customHeight}px` : 'auto'
+          height: typeof props.customHeight === 'number' ? `${props.customHeight}px` : 'auto',
+          zIndex: props.customZIndex,
         }"
-        class="box-border absolute z-50 border-2 rounded-lg border-slate-700 bg-secondary w-fit shadow-sb-light"
+        class="box-border absolute border-2 rounded-lg border-slate-700 bg-secondary shadow-sb-light"
       >
         <slot
           name="dropdown-section-content"

@@ -3,7 +3,7 @@ import { ArrowRightIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 
 import { ICONS_MAP, type CustomIcon } from '@/assets';
-import { IntroSection, BaseButton, ThePageContent, BaseDataList, BaseToggle } from '@/components';
+import { IntroSection, BaseButton, ThePageContent, BaseDataList, BaseToggle, BaseInput } from '@/components';
 import PageUnderConstructionAlert from '@/components/temp/page-under-construction-alert/PageUnderConstructionAlert.vue';
 import { useCommonStyleSingleton, useTypedI18nSingleton, useIntersectionObserver } from '@/hooks';
 
@@ -68,6 +68,7 @@ const feSkills = [
 ] as { id:string, name: string; icon: string }[];
 
 const test = ref(false);
+const inputValue = ref('');
 </script>
 
 <template>
@@ -93,7 +94,6 @@ const test = ref(false);
         <BaseDataList
           v-if="false"
           :custom-width-css="'w-full'"
-
           :data="feSkills"
         >
           <template #item-extra-box="{singleDataItem}">
@@ -105,6 +105,18 @@ const test = ref(false);
           <template #content-box>
             <div class="h-full border">
               <BaseToggle v-model:enabled="test" />
+              <BaseInput
+                v-model:input-value="inputValue"
+                type="search"
+                :custom-input-width="500"
+                :custom-menu-height="300"
+                placeholder="Search a value"
+                with-menu
+              >
+                <template #input-menu-box>
+                  Ciao Bella gente
+                </template>
+              </BaseInput>
             </div>
           </template>
         </BaseDataList>
