@@ -41,11 +41,11 @@ onBeforeMount(() => {
     <div
       id="left-side"
       :class="{
-        'w-full p-5 border-r-2 ': isOpenMenu && (sm || xs || md),
-        'w-0 p-0 border-none': !isOpenMenu && (sm || xs || md),
-        'w-1/3 p-6': !md && !sm && !xs
+        'w-full p-6': isOpenMenu && (sm || xs || md),
+        'w-0  border-none p-0': !isOpenMenu && (sm || xs || md),
+        'w-1/3 p-6 ': !md && !sm && !xs,
       }"
-      class="box-border relative h-full transition-all duration-200 ease-in-out rounded-r-md bg-slate-700 border-slate-700"
+      class="box-border relative flex flex-col h-full transition-all duration-200 ease-in-out rounded-r-md bg-slate-700 border-slate-700"
     >
       <div
         v-if="sm || xs || md"
@@ -68,7 +68,7 @@ onBeforeMount(() => {
           'opacity-0': !isOpenMenu && (sm || xs || md),
           'opacity-100': isOpenMenu && (sm || xs || md),
         }"
-        class="w-full mb-4 overflow-hidden transition-all duration-300 ease-in-out "
+        class="w-full mb-6 transition-all duration-300 ease-in-out"
       >
         <slot name="left-side-header"></slot>
       </div>
@@ -77,7 +77,7 @@ onBeforeMount(() => {
           'opacity-0': !isOpenMenu && (sm || xs || md),
           'opacity-100': isOpenMenu && (sm || xs || md),
         }"
-        class="flex flex-col w-full h-full overflow-hidden transition-all duration-300 ease-in-out"
+        class="flex flex-col flex-1 w-full overflow-hidden transition-all duration-300 ease-in-out"
       >
         <slot name="left-side"></slot>
       </div>

@@ -60,10 +60,16 @@ const feSkills = [
 		name: 'Tailwind',
 		icon: 'TailwindIcon',
 	},
+	{
+		id: '10',
+		name: 'Bootstrap',
+		icon: 'BootstrapIcon',
+	}
 
 ] as { id:string, name: string; icon: string }[];
 
 const key = ref('');
+const selectedSkill = ref('');
 
 // Feature 3: Manage Visibility for effects
 const root = ref();
@@ -108,7 +114,7 @@ onMounted(() => {
         }"
       />
       <div class="flex justify-center">
-        <TheDataListContainer :height-px="900">
+        <TheDataListContainer :height-px="750">
           <template #left-side-header>
             <BaseInput
               v-model:input-value="key"
@@ -119,22 +125,26 @@ onMounted(() => {
           <template #left-side>
             <div
               ref="skillsRoot"
-              class="flex flex-col h-full pr-2 overflow-y-auto gap-y-6"
+              class="flex flex-col pr-2 overflow-y-auto gap-y-4"
             >
               <BaseCard
-                v-for="skill in [...feSkills, ...feSkills]"
+                v-for="skill in [...feSkills]"
                 :key="skill.id"
-                v-intersection-observer="[onIntersectionObserverSkills(skill.id), {root: skillsRoot, threshold: 0.5}]"
+                v-intersection-observer="[onIntersectionObserverSkills(skill.id), {root: skillsRoot, threshold: 0.2}]"
                 :class="{
                   'opacity-0 w-0': !skillsVisibilityMap.get(skill.id),
                   'opacity-100 w-full': skillsVisibilityMap.get(skill.id),
                 }"
                 :icon="ICONS_MAP[skill.icon as CustomIcon]"
                 :text-content="skill.name"
+                :is-selected="selectedSkill === skill.name"
+                @click="selectedSkill = skill.name"
               />
             </div>
           </template>
-          <template #right-side></template>
+          <template #right-side>
+            {{ selectedSkill }}
+          </template>
         </TheDataListContainer>
       </div>
     </template>
