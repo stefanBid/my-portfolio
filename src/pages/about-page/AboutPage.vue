@@ -1,8 +1,11 @@
 <script setup lang="ts">
 
-import { IntroSection, ThePageContent } from '@/components';
+import { vIntersectionObserver } from '@vueuse/components';
+import { onMounted, ref } from 'vue';
+
+import { IntroSection, ThePageContainer } from '@/components';
 import VintagePicture from '@/components/page-components/about/vintage-picture/VintagePicture.vue';
-import { useTypedI18nSingleton, useCommonStyleSingleton, useIntersectionObserver } from '@/hooks';
+import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
 
 // Feature 1: Manage Style Classes
 const { xs, sm, md, h2Size, h3Size, pSize } = useCommonStyleSingleton();
@@ -11,12 +14,23 @@ const { xs, sm, md, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 const { aboutMePageI18nContent } = useTypedI18nSingleton();
 
 // Feature 3: Manage Visibility for effects
-const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIntersectionObserver(aboutMePageI18nContent.value.bioSections.length);
+const root = ref();
+const sectionsVisibilityMap = ref(new Map<string, boolean>());
+
+const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+	sectionsVisibilityMap.value.set(`bioSection-${index}`, isIntersecting);
+};
+
+onMounted(() => {
+	aboutMePageI18nContent.value.bioSections.forEach((_, index) => {
+		sectionsVisibilityMap.value.set(`bioSection-${index}`, false);
+	});
+});
 
 </script>
 
 <template>
-  <ThePageContent
+  <ThePageContainer
     ref="root"
   >
     <template #intro-section>
@@ -34,8 +48,8 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
           'flex-row': index % 2 === 0 && !xs && !sm && !md,
           'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md,
           'flex-col items-center': xs || sm || md,
-          'opacity-0': !isVisible[index],
-          'opacity-100': isVisible[index],
+          'opacity-0': !sectionsVisibilityMap.get(`bioSection-${index}`),
+          'opacity-100': sectionsVisibilityMap.get(`bioSection-${index}`),
         }"
         class="flex items-start gap-12 px-4 transition-all duration-500 ease-in-out"
       >
@@ -80,5 +94,5 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
         </div>
       </section>
     </template>
-  </ThePageContent>
+  </ThePageContainer>
 </template>

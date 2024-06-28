@@ -1,15 +1,14 @@
 <script setup lang="ts">
-
 import { AdjustmentsVerticalIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { computed, onMounted, ref, watch } from 'vue';
+import { vOnClickOutside } from '@vueuse/components';
+import { computed, ref } from 'vue';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel, useClickOutside, useCommonStyleSingleton } from '@/hooks';
+import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 
 interface BaseInputProps {
   placeholder?: string;
   type?: 'text' | 'search';
-  customInputWidth?: number | 'full';
   customMenuHeight?: number | 'auto';
   customZIndex?: number;
   withMenu?: boolean;
@@ -19,8 +18,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
 	variant: 'primary',
 	placeholder: undefined,
 	type: 'text',
-	customInputWidth: 'full',
-	customMenuHeight: 'auto',
+	customMenuHeight: 400,
 	customZIndex: 40,
 	withMenu: false,
 });
@@ -30,20 +28,20 @@ const inputValue = defineModel<string>('inputValue', { required: true });
 // Feature 0: Manage Style Classes
 const { xs, sm, md } = useCommonStyleSingleton();
 
-const menuIconColor = ref<string>('text-white');
+const isInputFocused = ref(false);
 
-const handleFocus = () => {
-	menuIconColor.value = 'text-black';
-};
+const getMenuStyle = computed(() => {
 
-const handleBlur = () => {
-	menuIconColor.value = 'text-white';
-};
+	if (isInputFocused.value) {
+		return 'text-black hover:bg-black hover:text-white';
+	} else {
+		return 'text-white hover:bg-white hover:text-black';
+	}
+});
 
 // Feature 1: Manage differt input settings
 const buttonMenu = ref();
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('inputSettings');
-const { vOnClickOutside, functionToInvoke, listOfIgnoredElementsRef } = useClickOutside([anchor, buttonMenu], () => changeToolTipVisibility('close'));
 
 const getPlaceholder = computed(() => {
 	if (!props.placeholder) {
@@ -69,57 +67,45 @@ const handleClick = () => {
 	}
 };
 
-// Feature 2: Manage Popper Width
-const popperWidth = ref<string | number>('85%');
-const calculatePopperWidth = () => {
-	if (typeof props.customInputWidth === 'number') {
-		popperWidth.value = props.customInputWidth * 0.95; // 80% of input width
-	} else {
-		popperWidth.value = '85%';
+const handleFoculs = () => {
+	isInputFocused.value = true;
+	if (props.withMenu && isOpen.value) {
+		closeMenu();
 	}
 };
 
-onMounted(() => {
-	calculatePopperWidth();
-});
-
-watch(() => props.customInputWidth, calculatePopperWidth);
+const handleBlur = () => {
+	isInputFocused.value = false;
+};
 
 </script>
 
 <template>
-  <div
-    :style="{
-      width: typeof props.customInputWidth === 'number' ? `${props.customInputWidth}px` : '100%',
-    }"
-    tabindex="0"
-    class="relative flex items-center rounded-full"
-  >
+  <div class="relative">
     <input
       ref="anchor"
       v-model="inputValue"
+      tabindex="0"
       :type="props.type"
       :class="
         {
-          'text-sb-lg': !xs && !sm && !md,
-          'text-sb-base': md,
-          'text-sb-sm': xs || sm,
+          'text-sb-base': !xs && !sm && !md,
+          'text-sb-sm': md,
+          'text-sb-xs': xs || sm,
         }
       "
-      class="flex-1 py-3 pl-4 pr-12 text-white transition-all duration-300 ease-in-out border-2 rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 border-slate-700 bg-slate-700/50 hover:bg-slate-700 focus:border-white focus:bg-white focus:text-black"
+      class="w-full py-2 pl-4 pr-12 text-white truncate transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 bg-slate-700/50 hover:bg-slate-700 focus:bg-white focus:text-black"
       :placeholder="getPlaceholder"
-      @focus="handleFocus"
-      @blur="handleBlur"
+      @focus="handleFoculs()"
+      @blur="handleBlur()"
     />
     <BaseButton
       v-if="props.withMenu"
       ref="buttonMenu"
       no-style
-      class="absolute inset-y-0 right-0 mr-4 rounded-lg w-fit shrink-0 "
+      class="absolute right-0 mr-4 p-0.5 inset-y-2 w-fit h-fit  rounded-lg "
 
-      :class="[menuIconColor, {
-        'rotate-180': isOpen,
-      }]"
+      :class="[getMenuStyle, isOpen ? 'rotate-180': 'rotate-0']"
       :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
       @click="handleClick()"
     />
@@ -129,14 +115,13 @@ watch(() => props.customInputWidth, calculatePopperWidth);
       <div
         v-if="isOpen"
         ref="popper"
-        v-on-click-outside="[(_: Event) => functionToInvoke(), { ignore: listOfIgnoredElementsRef }]"
+        v-on-click-outside="[(_: Event) => closeMenu(), { ignore: [anchor, buttonMenu] }]"
         :style="{
           ...popperStyle,
-          width: typeof props.customInputWidth === 'number' ? `${popperWidth}px` : popperWidth,
           height: typeof props.customMenuHeight === 'number' ? `${props.customMenuHeight}px` : 'auto',
           zIndex: props.customZIndex,
         }"
-        class="box-border absolute border-2 rounded-lg border-slate-700 bg-secondary shadow-sb-light"
+        class="box-border absolute border-2 rounded-lg border-slate-700 bg-secondary shadow-sb-light w-80"
       >
         <slot
           name="input-menu-box"

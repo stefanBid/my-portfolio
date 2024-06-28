@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ThePageContent, IntroSection } from '@/components';
+import { ThePageContainer, IntroSection } from '@/components';
 import PageUnderConstructionAlert from '@/components/temp/page-under-construction-alert/PageUnderConstructionAlert.vue';
 import { useTypedI18nSingleton, useIntersectionObserver } from '@/hooks';
 
@@ -13,7 +13,7 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
 </script>
 
 <template>
-  <ThePageContent
+  <ThePageContainer
     ref="root"
   >
     <template #intro-section>
@@ -31,5 +31,5 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
         }"
       />
     </template>
-  </ThePageContent>
+  </ThePageContainer>
 </template>

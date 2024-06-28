@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
+import { vOnClickOutside } from '@vueuse/components';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel, useCommonStyleSingleton, useClickOutside } from '@/hooks';
+import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 
 interface BaseDropdownMenuProps {
   customWidth?: number | 'auto';
@@ -23,8 +24,6 @@ const { xs, sm, md } = useCommonStyleSingleton();
 
 // Feature 1: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
-
-const { vOnClickOutside, functionToInvoke, listOfIgnoredElementsRef } = useClickOutside([anchor], () => changeToolTipVisibility('close'));
 
 const closeMenu = () => {
 	changeToolTipVisibility('close');
@@ -80,7 +79,7 @@ const handleClick = () => {
       <div
         v-if="isOpen"
         ref="popper"
-        v-on-click-outside="[(_: Event) => functionToInvoke(), { ignore: listOfIgnoredElementsRef }]"
+        v-on-click-outside="[(_: Event) => closeMenu(), { ignore: [anchor] }]"
         :style="{
           ...popperStyle,
           width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'auto',

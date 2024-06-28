@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { TheMainContent } from '@/components';
+import { TheMainContainer } from '@/components';
 
 </script>
 
 <template>
-  <TheMainContent />
+  <TheMainContainer />
 </template>
