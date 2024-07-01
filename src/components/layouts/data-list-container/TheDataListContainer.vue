@@ -53,13 +53,16 @@ onBeforeMount(() => {
           '-right-5 w-8': isOpenMenu,
           '-right-10 w-12': !isOpenMenu,
         }"
-        class="absolute z-20 inline-flex items-center justify-center px-2 py-1 transition-all duration-300 ease-in-out bg-white rounded-r-lg rounded-l-md size-fit top-6 hover:cursor-pointer"
+        class="absolute z-20 inline-flex items-center justify-center px-2 py-1 transition-all duration-300 ease-in-out bg-white rounded-r-lg rounded-l-md size-fit top-[30px] hover:cursor-pointer"
         @click="toggleMenu"
       >
         <component
           :is="isOpenMenu ? BookmarkSlashIcon : BookmarkIcon"
-
-          class="-rotate-90 text-slate-700 size-6 shrink-0"
+          :class="{
+            'size-6': !xs && !sm,
+            'size-5': xs || sm,
+          }"
+          class="-rotate-90 text-slate-700 shrink-0"
         />
       </div>
       <div

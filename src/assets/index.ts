@@ -8,6 +8,7 @@ import ReactIcon from '@/assets/icons/react.svg';
 import TsIcon from '@/assets/icons/type-script.svg';
 import UkIcon from '@/assets/icons/uk-flag.svg';
 import VueIcon from '@/assets/icons/vue.svg';
+import ImgPreview from '@/assets/icons/img-pre.svg';
 
 
 const ICONS_MAP = {
@@ -20,12 +21,13 @@ const ICONS_MAP = {
   ReactIcon,
   TsIcon,
   UkIcon,
-  VueIcon
+  VueIcon,
+  ImgPreview,
 };
 
 
 type CustomIcon = keyof typeof ICONS_MAP;
 
-export { AngularIcon, CodeIcon, CssIcon, HtmlIcon, ItalyIcon, JsIcon, ReactIcon, TsIcon, UkIcon, VueIcon, ICONS_MAP, type CustomIcon };
+export { AngularIcon, CodeIcon, CssIcon, HtmlIcon, ItalyIcon, JsIcon, ReactIcon, TsIcon, UkIcon, VueIcon, ImgPreview, ICONS_MAP, type CustomIcon };
 
 

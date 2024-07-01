@@ -19,6 +19,7 @@
       }
     ]
   },
+  
   "homePageContent": {
     "firstHeading": "Salve a tutti!",
     "secondHeading": "Sono Stefano Biddau",
@@ -36,6 +37,7 @@
       "link": "/docs/Stefano-Biddau-CV.pdf"
     }
   },
+
   "aboutMePageContent": {
     "pageHeading": "Chi sono",
     "bioSections": [
@@ -53,6 +55,240 @@
         "contentParagraph":"Il mio ingresso nel mondo professionale dell'informatica ha avuto inizio con uno stage presso SI2001 a Battipaglia, Campania, che si è svolto da novembre 2022 a febbraio 2023. Durante questo periodo, ho acquisito competenze nello sviluppo di applicazioni distribuite, padroneggiando sia il back-end che il front-end. Questa esperienza mi ha permesso di impiegare tecnologie moderne e molto richieste sul mercato, affinando le mie abilità tecniche in un ambiente stimolante e dinamico. Con il completamento del mio stage, sono stato assunto come Full-Stack Developer dalla stessa azienda a marzo 2023, ruolo che continuo a ricoprire attualmente. Questo passaggio da stagista a membro effettivo del team di sviluppo mi ha offerto la possibilità di approfondire ulteriormente le mie conoscenze e competenze tecniche, lavorando su progetti più complessi e sfidanti. Sebbene il ruolo di full-stack developer richieda una buona versatilità tra diverse tecnologie e framework, la mia passione e il mio obiettivo principale rimangono focalizzati sul front-end. Sono continuamente alla ricerca di opportunità per eccellere in questo ambito, convinto che l'interfaccia utente non sia solo una questione di estetica, ma un cruciale punto di contatto che definisce l'esperienza dell'utente finale. La mia aspirazione è di diventare un punto di riferimento nel campo del front-end, portando innovazione e miglioramenti continui nei progetti a cui lavoro. In questo viaggio, la mia passione per l'informatica continua a guidarmi verso nuove sfide e traguardi, con l'obiettivo di eccellere in ogni aspetto del mio lavoro, pur mantenendo un focus chiaro sulla specializzazione che più mi appassiona.",
         "imagePath": "/images/work-img.jpg",
         "imageDescription": "Alla mia postazione di lavoro remota (2023)"
+      }
+    ]
+  },
+
+  "skillsPageContent": {
+    "pageHeading": "Conoscimi meglio!",
+    "skillsSections": [
+      {
+        "titleHeading": "Sviluppo Frontend",
+        "subTitleHeading": "La mia Passione e Competenza",
+        "contentParagraph": "Lo sviluppo frontend è la mia principale area di competenza e passione. Ho una solida base in HTML, CSS e JavaScript, che ho potuto perfezionare e ampliare attraverso i miei studi accademici e la mia esperienza professionale. Sono competente nell'utilizzo di framework e librerie moderni come React, Angular e Vue.js, che ho utilizzato in vari progetti per creare interfacce utente dinamiche e responsive. La mia esperienza nello sviluppo frontend mi ha permesso di lavorare su una vasta gamma di progetti, da semplici siti web ad applicazioni web complesse, concentrandomi sempre sulla creazione di un'esperienza utente fluida e coinvolgente. Esploro costantemente nuove tecnologie e best practice nello sviluppo frontend per rimanere aggiornato con le ultime tendenze e innovazioni nel campo."
+      },
+      {
+        "titleHeading": "Sviluppo Backend",
+        "subTitleHeading": "La mia Versatilità e Abilità",
+        "contentParagraph": "Sebbene lo sviluppo frontend sia il mio principale focus, ho anche esperienza nello sviluppo backend, che mi consente di lavorare su progetti full-stack e di avere una comprensione completa del processo di sviluppo. Ho esperienza nello sviluppo di API RESTful, nel lavoro con database e nel deployment di applicazioni su piattaforme cloud. Sono competente nell'utilizzo di Node.js ed Express per creare applicazioni lato server e ho esperienza con database relazionali e non relazionali come MySQL e MongoDB. La mia esperienza nello sviluppo backend completa le mie competenze frontend e mi consente di lavorare su una vasta gamma di progetti, da semplici siti web ad applicazioni web complesse. Cerco sempre opportunità per espandere le mie conoscenze e competenze nello sviluppo backend per diventare uno sviluppatore più versatile e completo."
+      },
+      {
+        "titleHeading": "Web Design",
+        "subTitleHeading": "La mia Estetica e Creatività",
+        "contentParagraph": "Oltre alle mie competenze tecniche, ho anche una passione per il web design e il design dell'interfaccia utente. Credo che un'interfaccia utente ben progettata sia essenziale per creare un'esperienza utente positiva e coinvolgere gli utenti con il contenuto di un sito web o di un'applicazione. Ho esperienza nell'utilizzo di strumenti di design come Figma e Adobe XD per creare wireframe e mockup per progetti web, oltre a implementare principi di design responsive per garantire che i siti web abbiano un bell'aspetto su tutti i dispositivi. La mia esperienza nel web design mi consente di lavorare a stretto contatto con designer e altri stakeholder per creare interfacce visivamente attraenti e user-friendly che soddisfino le esigenze e le aspettative degli utenti. Cerco sempre opportunità per migliorare le mie competenze di design e imparare nuove tecniche per creare interfacce utente innovative e coinvolgenti."
+      }
+    ],
+    "skillsList": [
+      {
+        "id": "1",
+        "name": "JavaScript",
+        "icon": "JsIcon",
+        "type": "feLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 9,
+          "librariesAndFrameworks": 8.5,
+          "debuggingAndProblemSolving": 8,
+          "bestPracticesAndDesignPatterns": 8,
+          "practicalExperience": 9
+        }
+      },
+      {
+        "id": "2",
+        "name": "TypeScript",
+        "icon": "TsIcon",
+        "type": "feLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 8.5,
+          "librariesAndFrameworks": 8,
+          "debuggingAndProblemSolving": 7.5,
+          "bestPracticesAndDesignPatterns": 8,
+          "practicalExperience": 8
+        }
+      },
+      {
+        "id": "3",
+        "name": "HTML",
+        "icon": "HtmlIcon",
+        "type": "feLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 9,
+          "librariesAndFrameworks": 7,
+          "debuggingAndProblemSolving": 7.5,
+          "bestPracticesAndDesignPatterns": 8.5,
+          "practicalExperience": 9
+        }
+      },
+      {
+        "id": "4",
+        "name": "CSS",
+        "icon": "CssIcon",
+        "type": "feLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 8.5,
+          "librariesAndFrameworks": 7.5,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 8,
+          "practicalExperience": 8.5
+        }
+      },
+      {
+        "id": "5",
+        "name": "Vue.js",
+        "icon": "VueIcon",
+        "type": "feFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 8.5,
+          "librariesAndFrameworks": 9,
+          "debuggingAndProblemSolving": 8,
+          "bestPracticesAndDesignPatterns": 8.5,
+          "practicalExperience": 8.5
+        }
+      },
+      {
+        "id": "6",
+        "name": "React",
+        "icon": "ReactIcon",
+        "type": "feFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 8,
+          "librariesAndFrameworks": 8.5,
+          "debuggingAndProblemSolving": 7.5,
+          "bestPracticesAndDesignPatterns": 8,
+          "practicalExperience": 8
+        }
+      },
+      {
+        "id": "7",
+        "name": "Angular",
+        "icon": "AngularIcon",
+        "type": "feFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 7.5,
+          "librariesAndFrameworks": 8,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 7.5,
+          "practicalExperience": 7.5
+        }
+      },
+      {
+        "id": "8",
+        "name": "Java",
+        "type": "beLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 7.5,
+          "librariesAndFrameworks": 7,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 7,
+          "practicalExperience": 7.5
+        }
+      },
+      {
+        "id": "9",
+        "name": "Python",
+        "type": "beLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 8,
+          "librariesAndFrameworks": 7.5,
+          "debuggingAndProblemSolving": 8,
+          "bestPracticesAndDesignPatterns": 7.5,
+          "practicalExperience": 8
+        }
+      },
+      {
+        "id": "10",
+        "name": "C",
+        "type": "beLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 6.5,
+          "librariesAndFrameworks": 6,
+          "debuggingAndProblemSolving": 6,
+          "bestPracticesAndDesignPatterns": 6,
+          "practicalExperience": 6.5
+        }
+      },
+      {
+        "id": "11",
+        "name": "C#",
+        "type": "beLanguage",
+        "overAllRating": {
+          "syntaxAndSemantics": 6.5,
+          "librariesAndFrameworks": 6,
+          "debuggingAndProblemSolving": 6,
+          "bestPracticesAndDesignPatterns": 6,
+          "practicalExperience": 6.5
+        }
+      },
+      {
+        "id": "12",
+        "name": "Spring",
+        "type": "beFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 7,
+          "librariesAndFrameworks": 7.5,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 7,
+          "practicalExperience": 7.5
+        }
+      },
+      {
+        "id": "13",
+        "name": "Hibernate",
+        "type": "beFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 7,
+          "librariesAndFrameworks": 7,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 7,
+          "practicalExperience": 7
+        }
+      },
+      {
+        "id": "14",
+        "name": "JPA",
+        "type": "beFramework",
+        "overAllRating": {
+          "syntaxAndSemantics": 6.5,
+          "librariesAndFrameworks": 6.5,
+          "debuggingAndProblemSolving": 6.5,
+          "bestPracticesAndDesignPatterns": 6.5,
+          "practicalExperience": 6.5
+        }
+      },
+      {
+        "id": "15",
+        "name": "GraphQL",
+        "type": "beDb",
+        "overAllRating": {
+          "syntaxAndSemantics": 7.5,
+          "librariesAndFrameworks": 7,
+          "debuggingAndProblemSolving": 7.5,
+          "bestPracticesAndDesignPatterns": 7,
+          "practicalExperience": 7.5
+        }
+      },
+      {
+        "id": "16",
+        "name": "MySQL",
+        "type": "beDb",
+        "overAllRating": {
+          "syntaxAndSemantics": 7.5,
+          "librariesAndFrameworks": 7,
+          "debuggingAndProblemSolving": 7,
+          "bestPracticesAndDesignPatterns": 7,
+          "practicalExperience": 7.5
+        }
+      },
+      {
+        "id": "17",
+        "name": "DB Browser",
+        "type": "beDb",
+        "overAllRating": {
+          "syntaxAndSemantics": 6.5,
+          "librariesAndFrameworks": 6,
+          "debuggingAndProblemSolving": 6,
+          "bestPracticesAndDesignPatterns": 6,
+          "practicalExperience": 6.5
+        }
       }
     ]
   }

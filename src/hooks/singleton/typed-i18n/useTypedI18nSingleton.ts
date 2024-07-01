@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ref, watch, } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { ComposerTranslation } from 'vue-i18n';
 
 interface HeaderContent {
 	navbarRoutes: {
@@ -28,64 +28,70 @@ interface AboutMePageContent {
 	}[];
 }
 
-const updateHeaderI18nContent = (t: ComposerTranslation): HeaderContent => ({
-	navbarRoutes: [
-		{ text: t('headerContent.navbarRoutes.0.text'), path: t('headerContent.navbarRoutes.0.path') },
-		{ text: t('headerContent.navbarRoutes.1.text'), path: t('headerContent.navbarRoutes.1.path') },
-		{ text: t('headerContent.navbarRoutes.2.text'), path: t('headerContent.navbarRoutes.2.path') },
-		{ text: t('headerContent.navbarRoutes.3.text'), path: t('headerContent.navbarRoutes.3.path') }
-	]
-});
+type Rating = 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6 | 6.5 | 7 | 7.5 | 8 | 8.5 | 9 | 9.5 | 10;
+interface SkillInfo {
+  id: string;
+  name: string;
+  icon?: string;
+	type: 'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'beDb';
+  overAllRating: {
+    syntaxAndSemantics: Rating;
+    librariesAndFrameworks: Rating;
+    debuggingAndProblemSolving: Rating;
+    bestPracticesAndDesignPatterns: Rating;
+    practicalExperience: Rating;
+  }
+}
 
-const updateHomePageI18nContent = (t: ComposerTranslation): HomePageContent => ({
-	firstHeading: t('homePageContent.firstHeading'),
-	secondHeading: t('homePageContent.secondHeading'),
-	thirdHeading: [t('homePageContent.thirdHeading.0'), t('homePageContent.thirdHeading.1'), t('homePageContent.thirdHeading.2')],
-	firstButton: { text: t('homePageContent.firstButton.text'), link: t('homePageContent.firstButton.link') },
-	secondButton: { text: t('homePageContent.secondButton.text'), link: t('homePageContent.secondButton.link') }
-});
+interface SkillsPageContent {
+	pageHeading: string;
+	skillsSections: {
+		titleHeading: string;
+		subTitleHeading: string;
+		contentParagraph: string;
+	}[];
+	skillsList: SkillInfo[];
+}
 
-const updateAboutMePageI18nContent = (t: ComposerTranslation): AboutMePageContent => ({
-	pageHeading: t('aboutMePageContent.pageHeading'),
-	bioSections: [
-		{
-			titleHeading: t('aboutMePageContent.bioSections.0.titleHeading'),
-			subTitleHeading: t('aboutMePageContent.bioSections.0.subTitleHeading'),
-			contentParagraph: t('aboutMePageContent.bioSections.0.contentParagraph'),
-			imagePath: t('aboutMePageContent.bioSections.0.imagePath'),
-			imageDescription: t('aboutMePageContent.bioSections.0.imageDescription')
-		},
-		{
-			titleHeading: t('aboutMePageContent.bioSections.1.titleHeading'),
-			subTitleHeading: t('aboutMePageContent.bioSections.1.subTitleHeading'),
-			contentParagraph: t('aboutMePageContent.bioSections.1.contentParagraph'),
-			imagePath: t('aboutMePageContent.bioSections.1.imagePath'),
-			imageDescription: t('aboutMePageContent.bioSections.1.imageDescription')
-		},
-	]
-});
+const updateHeaderI18nContent = (localeMessages: any): HeaderContent => {
+	return localeMessages.headerContent;
+};
+
+const updateHomePageI18nContent = (localeMessages: any): HomePageContent => {
+	return localeMessages.homePageContent;
+};
+
+const updateAboutMePageI18nContent = (localeMessages: any): AboutMePageContent => {
+	return localeMessages.aboutMePageContent;
+};
+
+const updateSkillsPageContent = (localeMessages: any): SkillsPageContent => {
+	return localeMessages.skillsPageContent;
+};
 
 let instance: ReturnType<typeof createTypedI18n> | undefined;
 
 function createTypedI18n() {
 
-	const { t, locale } = useI18n();
+	const { locale, messages } = useI18n();
 
-	const headerI18nContent = ref<HeaderContent>(updateHeaderI18nContent(t));
-	const homePageI18nContent = ref<HomePageContent>(updateHomePageI18nContent(t));
-	const aboutMePageI18nContent = ref<AboutMePageContent>(updateAboutMePageI18nContent(t));
+	const headerI18nContent = ref<HeaderContent>(updateHeaderI18nContent(messages.value[locale.value]));
+	const homePageI18nContent = ref<HomePageContent>(updateHomePageI18nContent(messages.value[locale.value]));
+	const aboutMePageI18nContent = ref<AboutMePageContent>(updateAboutMePageI18nContent(messages.value[locale.value]));
+	const skillsPageI18nContent = ref<SkillsPageContent>(updateSkillsPageContent(messages.value[locale.value]));
 
 	const changeLanguage = (lang: 'it' | 'en') => {
 		locale.value = lang;
 	};
 
 	watch(() => locale.value, () => {
-		headerI18nContent.value = updateHeaderI18nContent(t);
-		homePageI18nContent.value = updateHomePageI18nContent(t);
-		aboutMePageI18nContent.value = updateAboutMePageI18nContent(t);
+		headerI18nContent.value = updateHeaderI18nContent(messages.value[locale.value]);
+		homePageI18nContent.value = updateHomePageI18nContent(messages.value[locale.value]);
+		aboutMePageI18nContent.value = updateAboutMePageI18nContent(messages.value[locale.value]);
+		skillsPageI18nContent.value = updateSkillsPageContent(messages.value[locale.value]);
 	});
 
-	return { currentLanguage: locale, changeLanguage, headerI18nContent, homePageI18nContent, aboutMePageI18nContent };
+	return { currentLanguage: locale, changeLanguage, headerI18nContent, homePageI18nContent, aboutMePageI18nContent, skillsPageI18nContent };
 
 }
 

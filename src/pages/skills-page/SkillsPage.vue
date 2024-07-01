@@ -3,83 +3,34 @@
 import { vIntersectionObserver } from '@vueuse/components';
 import { onMounted, ref } from 'vue';
 
-import { ICONS_MAP, type CustomIcon } from '@/assets';
-import { IntroSection, ThePageContainer, TheDataListContainer, BaseCard } from '@/components';
-import BaseInput from '@/components/base/input/BaseInput.vue';
-import PageUnderConstructionAlert from '@/components/temp/page-under-construction-alert/PageUnderConstructionAlert.vue';
-import { useTypedI18nSingleton } from '@/hooks';
+import { ICONS_MAP, type CustomIcon, ImgPreview } from '@/assets';
+import { IntroSection, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle } from '@/components';
+import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
-// Feature 0: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+// Feature 1: Manage Style Classes
+const { xs, sm, md, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 
-// Feature 2: Manage Skills
-
-const feSkills = [
-	{
-		id: '1',
-		name: 'Angular',
-		icon: 'AngularIcon',
-	},
-	{
-		id: '2',
-		name: 'Vue',
-		icon: 'VueIcon',
-	},
-	{
-		id: '3',
-		name: 'React',
-		icon: 'ReactIcon',
-	},
-	{
-		id: '4',
-		name: 'TypeScript',
-		icon: 'TsIcon',
-	},
-	{
-		id: '5',
-		name: 'JavaScript',
-		icon: 'JsIcon',
-	},
-	{
-		id: '6',
-		name: 'Html',
-		icon: 'HtmlIcon',
-	},
-	{
-		id: '7',
-		name: 'Css',
-		icon: 'CssIcon',
-	},
-	{
-		id: '8',
-		name: 'Sass',
-		icon: 'SassIcon',
-	},
-	{
-		id: '9',
-		name: 'Tailwind',
-		icon: 'TailwindIcon',
-	},
-	{
-		id: '10',
-		name: 'Bootstrap',
-		icon: 'BootstrapIcon',
-	}
-
-] as { id:string, name: string; icon: string }[];
+// Feature 2: Internationalization (i18n)
+const { skillsPageI18nContent } = useTypedI18nSingleton();
 
 const key = ref('');
 const selectedSkill = ref('');
+
+const showingFilters = ref({
+	showAll: true,
+	showFe: true,
+	showBe: true,
+});
 
 // Feature 3: Manage Visibility for effects
 const root = ref();
 const skillsRoot = ref();
 
-const alertVisibility = ref(new Map<string, boolean>());
+const sectionsVisibilityMap = ref(new Map<string, boolean>());
 const skillsVisibilityMap = ref(new Map<string, boolean>());
 
-const onIntersectionObserverAlert = () => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-	alertVisibility.value.set('page-under-construction', isIntersecting);
+const onIntersectionObserver = (index: number) => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+	sectionsVisibilityMap.value.set(`skillsSection-${index}`, isIntersecting);
 };
 
 const onIntersectionObserverSkills = (id: string) => ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
@@ -87,8 +38,11 @@ const onIntersectionObserverSkills = (id: string) => ([{ isIntersecting }]: Inte
 };
 
 onMounted(() => {
-	alertVisibility.value.set('page-under-construction', false);
-	feSkills.forEach((skill) => {
+	skillsPageI18nContent.value.skillsSections.forEach((_, index) => {
+		sectionsVisibilityMap.value.set(`skillsSection-${index}`, false);
+	});
+
+	skillsPageI18nContent.value.skillsList.forEach((skill) => {
 		skillsVisibilityMap.value.set(skill.id, false);
 	});
 });
@@ -100,27 +54,88 @@ onMounted(() => {
   >
     <template #intro-section>
       <IntroSection
-        :title="currentLanguage === 'en' ? 'Get to know me!' : 'Conoscimi meglio!'"
+        :title="skillsPageI18nContent.pageHeading"
       />
     </template>
 
     <template #main-content>
-      <PageUnderConstructionAlert
-        v-intersection-observer="[onIntersectionObserverAlert(), {root, threshold: 0.5}]"
-        class="transition-all duration-500 ease-in-out"
-        :class="{
-          'opacity-0': !alertVisibility.get('page-under-construction'),
-          'opacity-100': alertVisibility.get('page-under-construction'),
+      <section
+        v-for="(section, index) in skillsPageI18nContent.skillsSections"
+        :id="`skillsSection-${index}`"
+        :key="index"
+        v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
+        :class=" {
+          'flex-row': index % 2 === 0 && !xs && !sm && !md,
+          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md,
+          'flex-col items-center': xs || sm || md,
+          'opacity-0': !sectionsVisibilityMap.get(`skillsSection-${index}`),
+          'opacity-100': sectionsVisibilityMap.get(`skillsSection-${index}`),
         }"
-      />
-      <div class="flex justify-center">
+        class="flex items-center gap-12 px-4 transition-all duration-500 ease-in-out"
+      >
+        <div class="flex items-center justify-center w-56 h-56 p-4 border-2 rounded-lg border-slate-700 bg-secondary">
+          <ImgPreview
+            class="size-24"
+          />
+        </div>
+        <div class="flex flex-col justify-center flex-1 ">
+          <h2
+            :id="`skillsSection-${index}-titleHeading`"
+            :class="[ h2Size, {
+              'text-center': xs || sm,
+              'text-left': !xs && !sm,
+            }]"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
+          >
+            {{ section.titleHeading }}
+          </h2>
+          <h3
+            :id="`skillsSection-${index}-subTitleHeading`"
+            :class="[ h3Size, {
+              'text-center': xs || sm,
+              'text-left': !xs && !sm,
+            }]"
+            class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+          >
+            ({{ section.subTitleHeading }})
+          </h3>
+          <div
+            :id="`skillsSection-${index}-contentParagraph`"
+            :class="[ pSize]"
+            class="p-4 mt-4 text-justify text-white whitespace-normal transition-all duration-300 ease-in-out rounded-lg font-roboto bg-secondary"
+          >
+            {{ section.contentParagraph }}
+          </div>
+        </div>
+      </section>
+      <div
+        v-if="false"
+        class="flex justify-center"
+      >
         <TheDataListContainer :height-px="750">
           <template #left-side-header>
             <BaseInput
               v-model:input-value="key"
               with-menu
               placeholder="Search a skill"
-            />
+            >
+              <template #input-menu-box>
+                <div class="grid grid-cols-1 gap-6 p-6">
+                  <BaseToggle
+                    v-model:enabled="showingFilters.showAll"
+                    label="Show all"
+                  />
+                  <BaseToggle
+                    v-model:enabled="showingFilters.showFe"
+                    label="Show FE"
+                  />
+                  <BaseToggle
+                    v-model:enabled="showingFilters.showBe"
+                    label="Show BE"
+                  />
+                </div>
+              </template>
+            </BaseInput>
           </template>
           <template #left-side>
             <div
@@ -128,7 +143,7 @@ onMounted(() => {
               class="flex flex-col pr-2 overflow-y-auto gap-y-4"
             >
               <BaseCard
-                v-for="skill in [...feSkills]"
+                v-for="skill in skillsPageI18nContent.skillsList"
                 :key="skill.id"
                 v-intersection-observer="[onIntersectionObserverSkills(skill.id), {root: skillsRoot, threshold: 0.2}]"
                 :class="{

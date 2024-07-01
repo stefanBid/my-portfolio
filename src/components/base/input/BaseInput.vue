@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AdjustmentsVerticalIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { vOnClickOutside } from '@vueuse/components';
-import { computed, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 
 import { BaseButton } from '@/components';
 import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
 	variant: 'primary',
 	placeholder: undefined,
 	type: 'text',
-	customMenuHeight: 400,
+	customMenuHeight: 'auto',
 	customZIndex: 40,
 	withMenu: false,
 });
@@ -28,6 +28,11 @@ const inputValue = defineModel<string>('inputValue', { required: true });
 // Feature 0: Manage Style Classes
 const { xs, sm, md } = useCommonStyleSingleton();
 
+// Feature 1: Manage Input Menu
+const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('inputSettings');
+
+const buttonMenuRef = ref();
+const inputWidth = ref('auto');
 const isInputFocused = ref(false);
 
 const getMenuStyle = computed(() => {
@@ -39,10 +44,6 @@ const getMenuStyle = computed(() => {
 	}
 });
 
-// Feature 1: Manage differt input settings
-const buttonMenu = ref();
-const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('inputSettings');
-
 const getPlaceholder = computed(() => {
 	if (!props.placeholder) {
 		return props.type === 'search' ? 'Search a value' : 'Enter text';
@@ -50,34 +51,42 @@ const getPlaceholder = computed(() => {
 	return props.placeholder;
 });
 
-const closeMenu = () => {
-	changeToolTipVisibility('close');
-};
-
-const openMenu = () => {
-	changeToolTipVisibility('open');
+const toggleMenu = (open?: boolean) => {
+	changeToolTipVisibility(open ? 'open' : 'close');
+	if (open) {
+		nextTick(() => {
+			updateInputWidth();
+		});
+	}
 };
 
 const handleClick = () => {
 	if (!props.withMenu) { return; }
-	if (isOpen.value) {
-		closeMenu();
-	} else {
-		openMenu();
+	toggleMenu(!isOpen.value);
+};
+
+const handleFocusBlur = (focused: boolean) => {
+	isInputFocused.value = focused;
+	if (props.withMenu && focused && isOpen.value) {
+		toggleMenu(false);
 	}
 };
 
-const handleFoculs = () => {
-	isInputFocused.value = true;
-	if (props.withMenu && isOpen.value) {
-		closeMenu();
+const updateInputWidth = () => {
+	if (anchor.value) {
+		let width = anchor.value.offsetWidth;
+		inputWidth.value = `${width * 0.97}px`; // Set width to 90% of input width
 	}
 };
 
-const handleBlur = () => {
-	isInputFocused.value = false;
-};
+onMounted(() => {
+	updateInputWidth();
+	window.addEventListener('resize', updateInputWidth);
+});
 
+onUnmounted(() => {
+	window.removeEventListener('resize', updateInputWidth);
+});
 </script>
 
 <template>
@@ -89,21 +98,21 @@ const handleBlur = () => {
       :type="props.type"
       :class="
         {
-          'text-sb-base': !xs && !sm && !md,
-          'text-sb-sm': md,
-          'text-sb-xs': xs || sm,
+          'text-sb-lg': !xs && !sm && !md,
+          'text-sb-base': md,
+          'text-sb-sm': xs || sm,
         }
       "
       class="w-full py-2 pl-4 pr-12 text-white truncate transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 bg-slate-700/50 hover:bg-slate-700 focus:bg-white focus:text-black"
       :placeholder="getPlaceholder"
-      @focus="handleFoculs()"
-      @blur="handleBlur()"
+      @focus="handleFocusBlur(true)"
+      @blur="handleFocusBlur(false)"
     />
     <BaseButton
       v-if="props.withMenu"
-      ref="buttonMenu"
+      ref="buttonMenuRef"
       no-style
-      class="absolute right-0 mr-4 p-0.5 inset-y-2 w-fit h-fit  rounded-lg "
+      class="absolute right-0 mr-4 p-0.5 inset-y-2.5 w-fit h-fit rounded-lg "
 
       :class="[getMenuStyle, isOpen ? 'rotate-180': 'rotate-0']"
       :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
@@ -115,18 +124,19 @@ const handleBlur = () => {
       <div
         v-if="isOpen"
         ref="popper"
-        v-on-click-outside="[(_: Event) => closeMenu(), { ignore: [anchor, buttonMenu] }]"
+        v-on-click-outside="[(_: Event) => toggleMenu(false), { ignore: [anchor, buttonMenuRef] }]"
         :style="{
           ...popperStyle,
           height: typeof props.customMenuHeight === 'number' ? `${props.customMenuHeight}px` : 'auto',
+          width: inputWidth,
           zIndex: props.customZIndex,
         }"
         class="box-border absolute border-2 rounded-lg border-slate-700 bg-secondary shadow-sb-light w-80"
       >
         <slot
           name="input-menu-box"
-          :open-menu="openMenu"
-          :close-menu="closeMenu"
+          :open-menu="() => toggleMenu(true)"
+          :close-menu="() => toggleMenu(false)"
         ></slot>
       </div>
     </transition>

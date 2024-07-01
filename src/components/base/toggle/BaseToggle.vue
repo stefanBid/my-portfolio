@@ -20,13 +20,13 @@ const { xs, sm, md, labelSize } = useCommonStyleSingleton();
 <template>
   <SwitchGroup>
     <div
-      :tabindex="0"
       class="flex flex-row-reverse items-center rounded-full w-fit"
       @keypress.prevent.enter="enabled = !enabled"
     >
       <SwitchLabel
         v-if="props.label"
-        class="ml-4 text-white transition-all duration-200 ease-in-out font-roboto text-sb-2 focus:cursor-pointer focus:opacity-100 hover:cursor-pointer"
+        :tabindex="0"
+        class="ml-4 text-white transition-all duration-200 ease-in-out outline-none font-roboto text-sb-2 focus:cursor-pointer focus:opacity-100 hover:cursor-pointer focus:underline ring-0 focus:ring-0 focus:outline-none"
         :class="[labelSize,{
           'opacity-50': !enabled,
           'opacity-100': enabled,
@@ -36,21 +36,22 @@ const { xs, sm, md, labelSize } = useCommonStyleSingleton();
       </SwitchLabel>
       <Switch
         v-model="enabled"
-        class="relative inline-flex items-center transition-all duration-200 ease-in-out rounded-full ring-1 ring-white ring-offset-2 focus:outline-none bg-slate-600"
+        :tabindex="1"
+        class="box-border relative inline-flex items-center transition-all duration-200 ease-in-out border-2 border-white rounded-full outline-none ring-0 focus:outline-none focus:ring-0 bg-slate-600"
         :class="{
           'opacity-50': !enabled,
           'opacity-100': enabled,
-          'h-5 w-9': xs || sm || md,
-          'h-6 w-11': !xs && !sm && !md,
+          'h-5 w-9': xs || sm,
+          'h-6 w-11': !xs && !sm
         }"
       >
         <span
           :class="{
-            'translate-x-6': enabled && (!xs || !sm || !md),
-            'translate-x-5': enabled && (xs || sm || md),
-            'translate-x-1': !enabled,
-            'size-3': xs || sm || md,
-            'size-4': !xs && !sm && !md,
+            ' translate-x-[22px]': enabled && (!xs || !sm || !md),
+            'translate-x-[18px]': enabled && (xs || sm || md),
+            'translate-x-0.5': !enabled,
+            'size-3': xs || sm,
+            'size-4': !xs && !sm
           }"
           class="inline-block transition-all duration-200 ease-in-out transform bg-white rounded-full"
         ></span>
