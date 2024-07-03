@@ -95,7 +95,8 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
             :id="`skillsSection-${index}-titleHeading`"
             :class="[ h2Size, {
               'text-center': xs || sm,
-              'text-left': !xs && !sm,
+              'text-left': (index % 2 === 0) && (md || lg),
+              'text-right': (index % 2 !== 0) && (md || lg),
             }]"
             class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
           >
@@ -105,7 +106,8 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
             :id="`skillsSection-${index}-subTitleHeading`"
             :class="[ h3Size, {
               'text-center': xs || sm,
-              'text-left': !xs && !sm,
+              'text-left': (index % 2 === 0) && (md || lg),
+              'text-right': (index % 2 !== 0) && (md || lg),
             }]"
             class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
           >

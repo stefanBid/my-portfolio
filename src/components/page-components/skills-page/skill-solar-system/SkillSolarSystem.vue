@@ -59,9 +59,9 @@ onMounted(() => {
 <template>
   <div
     :class="{
-      ' scale-50 -mb-32': xs && !sm && !md && !lg,
-      'scale-75 -mb-24': sm && !md && !lg && !xs,
-      'scale-90 mb-20': (md || lg) && !xs && !sm,
+      ' scale-50 -my-32': xs && !sm && !md && !lg,
+      'scale-75 -my-24': sm && !md && !lg && !xs,
+      'scale-90 my-20': (md || lg) && !xs && !sm,
 
     }"
     class="flex items-center justify-center overflow-hidden size-[600px] transition-all duration-300 ease-in-out"

@@ -8,7 +8,7 @@ import VintagePicture from '@/components/page-components/about-page/vintage-pict
 import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, h2Size, h3Size, pSize } = useCommonStyleSingleton();
+const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
 const { aboutMePageI18nContent } = useTypedI18nSingleton();
@@ -45,9 +45,9 @@ onMounted(() => {
         :key="index"
         v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
         :class=" {
-          'flex-row': index % 2 === 0 && !xs && !sm && !md,
-          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md,
-          'flex-col items-center': xs || sm || md,
+          'flex-row': index % 2 === 0 && !xs && !sm && !md && !lg,
+          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md && !lg,
+          'flex-col items-center': xs || sm || md || lg,
           'opacity-0': !sectionsVisibilityMap.get(`bioSection-${index}`),
           'opacity-100': sectionsVisibilityMap.get(`bioSection-${index}`),
         }"
@@ -68,7 +68,8 @@ onMounted(() => {
             :id="`bioSection-${index}-titleHeading`"
             :class="[ h2Size, {
               'text-center': xs || sm,
-              'text-left': !xs && !sm,
+              'text-left': (index % 2 === 0) && (md || lg),
+              'text-right': (index % 2 !== 0) && (md || lg),
             }]"
             class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
           >
@@ -78,7 +79,8 @@ onMounted(() => {
             :id="`bioSection-${index}-subTitleHeading`"
             :class="[ h3Size, {
               'text-center': xs || sm,
-              'text-left': !xs && !sm,
+              'text-left': (index % 2 === 0) && (md || lg),
+              'text-right': (index % 2 !== 0) && (md || lg),
             }]"
             class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
           >
