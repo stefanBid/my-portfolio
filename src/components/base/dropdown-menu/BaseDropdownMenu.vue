@@ -25,20 +25,12 @@ const { xs, sm, md } = useCommonStyleSingleton();
 // Feature 1: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
 
-const closeMenu = () => {
-	changeToolTipVisibility('close');
-};
-
-const openMenu = () => {
-	changeToolTipVisibility('open');
+const toggleMenu = (open?: boolean) => {
+	changeToolTipVisibility(open ? 'open' : 'close');
 };
 
 const handleClick = () => {
-	if (isOpen.value) {
-		closeMenu();
-	} else {
-		openMenu();
-	}
+	toggleMenu(!isOpen.value);
 };
 
 </script>
@@ -79,7 +71,7 @@ const handleClick = () => {
       <div
         v-if="isOpen"
         ref="popper"
-        v-on-click-outside="[(_: Event) => closeMenu(), { ignore: [anchor] }]"
+        v-on-click-outside="[(_: Event) => toggleMenu(false), { ignore: [anchor] }]"
         :style="{
           ...popperStyle,
           width: typeof props.customWidth === 'number' ? `${props.customWidth}px` : 'auto',
@@ -90,8 +82,8 @@ const handleClick = () => {
       >
         <slot
           name="dropdown-section-content"
-          :open-menu="openMenu"
-          :close-menu="closeMenu"
+          :open-menu="() => toggleMenu(true)"
+          :close-menu="() => toggleMenu(false)"
         ></slot>
       </div>
     </transition>

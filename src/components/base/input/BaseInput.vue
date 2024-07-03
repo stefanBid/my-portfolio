@@ -116,7 +116,7 @@ onUnmounted(() => {
 
       :class="[getMenuStyle, isOpen ? 'rotate-180': 'rotate-0']"
       :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
-      @click="handleClick()"
+      @click.stop="handleClick()"
     />
   </div>
   <teleport to="body">

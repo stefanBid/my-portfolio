@@ -1,14 +1,15 @@
 <script setup lang="ts">
 
 import { vIntersectionObserver } from '@vueuse/components';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
-import { ICONS_MAP, type CustomIcon, ImgPreview } from '@/assets';
+import { ICONS_MAP, type CustomIcon } from '@/assets';
 import { IntroSection, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle } from '@/components';
+import SkillSolarSystem from '@/components/page-components/skills-page/skill-solar-system/SkillSolarSystem.vue';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, h2Size, h3Size, pSize } = useCommonStyleSingleton();
+const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
 const { skillsPageI18nContent } = useTypedI18nSingleton();
@@ -46,6 +47,17 @@ onMounted(() => {
 		skillsVisibilityMap.value.set(skill.id, false);
 	});
 });
+
+// Extract Icons from SkillsList
+
+const feIcons = computed(() => skillsPageI18nContent.value.skillsList
+	.filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
+	.map((skill) => ICONS_MAP[skill.icon as CustomIcon]));
+
+const beIcons = computed(() => skillsPageI18nContent.value.skillsList
+	.filter((skill) => skill.type === 'beLanguage' || skill.type === 'beFramework')
+	.map((skill) => ICONS_MAP[skill.icon as CustomIcon]));
+
 </script>
 
 <template>
@@ -65,19 +77,19 @@ onMounted(() => {
         :key="index"
         v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
         :class=" {
-          'flex-row': index % 2 === 0 && !xs && !sm && !md,
-          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md,
-          'flex-col items-center': xs || sm || md,
+          'flex-row': index % 2 === 0 && !xs && !sm && !md || !lg,
+          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md || !lg,
+          'flex-col items-center': xs || sm || md || lg,
           'opacity-0': !sectionsVisibilityMap.get(`skillsSection-${index}`),
           'opacity-100': sectionsVisibilityMap.get(`skillsSection-${index}`),
         }"
         class="flex items-center gap-12 px-4 transition-all duration-500 ease-in-out"
       >
-        <div class="flex items-center justify-center w-56 h-56 p-4 border-2 rounded-lg border-slate-700 bg-secondary">
-          <ImgPreview
-            class="size-24"
-          />
-        </div>
+        <SkillSolarSystem
+          v-if="index !== skillsPageI18nContent.skillsSections.length - 1"
+          :planets-icons="index % 2 === 0 ? feIcons : beIcons"
+          :star-name="index % 2 === 0 ? 'Frontend' : 'Backend'"
+        />
         <div class="flex flex-col justify-center flex-1 ">
           <h2
             :id="`skillsSection-${index}-titleHeading`"

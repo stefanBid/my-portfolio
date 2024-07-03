@@ -34,7 +34,7 @@ function createCommonStyle() {
 
 	const containerGapElements = computed(() => {
 		if (xs.value || sm.value) { return 'gap-y-16'; }
-		if (md.value) { return 'gap-y-20'; }
+		if (md.value || lg.value) { return 'gap-y-20'; }
 		return ' gap-y-24';
 	});
 

@@ -3,7 +3,7 @@ import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/2
 import { computed, onMounted, ref } from 'vue';
 
 import { BaseButton } from '@/components';
-import HomePageCover from '@/components/page-components/home/home-page-cover/HomePageCover.vue';
+import HomePageCover from '@/components/page-components/home-page/home-page-cover/HomePageCover.vue';
 import { useCommonStyleSingleton, useTypingText, useTypedI18nSingleton } from '@/hooks';
 import { downloadCv, openLink } from '@/utils';
 

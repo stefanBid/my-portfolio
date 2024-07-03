@@ -4,7 +4,7 @@ import { vIntersectionObserver } from '@vueuse/components';
 import { onMounted, ref } from 'vue';
 
 import { IntroSection, ThePageContainer } from '@/components';
-import VintagePicture from '@/components/page-components/about/vintage-picture/VintagePicture.vue';
+import VintagePicture from '@/components/page-components/about-page/vintage-picture/VintagePicture.vue';
 import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
 
 // Feature 1: Manage Style Classes
