@@ -44,7 +44,7 @@ const scaleMargin = computed(() => {
 		margin = 0;
 	}
 
-	return `${-4 * (1 - scale) * margin}px`;
+	return `-${4 * (1 - scale) * margin}px`;
 });
 
 const orbits = ref<Orbits[]>([]);
@@ -96,7 +96,7 @@ onMounted(() => {
       :key="orbit.orbitId"
       :style="{ zIndex: orbit.orbitZIndex, height: `${orbit.orbitHeight}px`, width: `${orbit.orbitWidth}px`, animationDuration: `${orbit.orbitSpeed}s` }"
       :class="orbit.orbitSpeed"
-      class="absolute bg-transparent border rounded-full borde-white orbit"
+      class="absolute bg-transparent border border-white rounded-full orbit"
     >
       <div
         class="absolute top-0 flex items-center justify-center p-1 transform -translate-x-1/2 -translate-y-1/2 left-1/2"
