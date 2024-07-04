@@ -47,13 +47,14 @@ const scaleMargin = computed(() => {
 	return `-${4 * (1 - scale) * margin}px`;
 });
 
+// Feature 2: Create Solar System
+const maxNumberOfPlanets = 6;
 const orbits = ref<Orbits[]>([]);
 
-const createStarSistem = () => {
+const createStarSistem = (planets: Component[] | FunctionalComponent[] | string[]) => {
 	const baseSpeed = 12;
 	const baseOrbitSize = 100;
-	props.planetsIcons.forEach((icon, index) => {
-		if (index > 5) { return; }
+	planets.forEach((icon, index) => {
 		const newIndex = index + 1;
 		const newSpeed = baseSpeed * newIndex;
 		const newOrbitSize = baseOrbitSize + newIndex * 75.8;
@@ -73,7 +74,9 @@ const createStarSistem = () => {
 };
 
 onMounted(() => {
-	createStarSistem();
+	const icons: Component[] | FunctionalComponent[] | string[] = [...props.planetsIcons] as Component[] | FunctionalComponent[] | string[];
+	const randomIcons = icons.sort(() => Math.random() - 0.5).slice(0, maxNumberOfPlanets);
+	createStarSistem(randomIcons);
 });
 
 </script>

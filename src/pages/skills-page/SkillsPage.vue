@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 
 import { ICONS_MAP, type CustomIcon } from '@/assets';
 import { IntroSection, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle } from '@/components';
-import SkillSolarSystem from '@/components/page-components/skills-page/skill-solar-system/SkillSolarSystem.vue';
+import SolarSystem from '@/components/page-components/skills-page/solar-system/SolarSystem.vue';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 1: Manage Style Classes
@@ -85,7 +85,7 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
         }"
         class="flex items-center gap-12 px-4 transition-all duration-500 ease-in-out"
       >
-        <SkillSolarSystem
+        <SolarSystem
           v-if="index !== skillsPageI18nContent.skillsSections.length - 1"
           :planets-icons="index % 2 === 0 ? feIcons : beIcons"
           :star-name="index % 2 === 0 ? 'Frontend' : 'Backend'"
