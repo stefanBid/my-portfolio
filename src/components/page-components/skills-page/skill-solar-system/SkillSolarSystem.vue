@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, markRaw } from 'vue';
+import { ref, onMounted, markRaw, computed } from 'vue';
 import type { Component, FunctionalComponent } from 'vue';
 
 import { useCommonStyleSingleton } from '@/hooks';
 
-interface BublePictureProps {
+interface SkillSolarSystemProps {
   starName: string;
  planetsIcons: Component[] | FunctionalComponent[] | string[];
 }
@@ -14,12 +14,12 @@ interface Orbits {
   orbitZIndex: number;
   orbitHeight: number;
   orbitWidth: number;
-  orbitSpeed: string;
+  orbitSpeed: number;
   planetName: string;
   planetIcon: Component | FunctionalComponent | string;
 }
 
-const props = withDefaults(defineProps<BublePictureProps>(), {
+const props = withDefaults(defineProps<SkillSolarSystemProps>(), {
 	starName: 'Sun',
 
 });
@@ -27,19 +27,41 @@ const props = withDefaults(defineProps<BublePictureProps>(), {
 // Feature 1: Manage Style Classes
 const { xs, sm, md, lg } = useCommonStyleSingleton();
 
+const scaleMargin = computed(() => {
+	let scale = 1;
+	let margin = 0;
+
+	if (xs.value && !sm.value && !md.value && !lg.value) {
+		scale = 0.5;
+		margin = 64; // Original gap for xs (gap-y-16 in Tailwind is 64px)
+	} else if (sm.value && !md.value && !lg.value && !xs.value) {
+		scale = 0.75;
+		margin = 80; // Original gap for sm (gap-y-20 in Tailwind is 80px)
+	} else if ((md.value || lg.value) && !xs.value && !sm.value) {
+		scale = 0.9;
+		margin = 96; // Original gap for md/lg (gap-y-24 in Tailwind is 96px)
+	} else {
+		margin = 0;
+	}
+
+	return `${-4 * (1 - scale) * margin}px`;
+});
+
 const orbits = ref<Orbits[]>([]);
 
 const createStarSistem = () => {
+	const baseSpeed = 12;
+	const baseOrbitSize = 100;
 	props.planetsIcons.forEach((icon, index) => {
 		if (index > 5) { return; }
 		const newIndex = index + 1;
-		const newSpeed = `speed-${newIndex}`;
-
+		const newSpeed = baseSpeed * newIndex;
+		const newOrbitSize = baseOrbitSize + newIndex * 75.8;
 		orbits.value.push({
 			orbitId: `orbit-${newIndex}`,
 			orbitZIndex: newIndex,
-			orbitHeight: 100 + newIndex * 70,
-			orbitWidth: 100 + newIndex * 70,
+			orbitHeight: newOrbitSize,
+			orbitWidth: newOrbitSize,
 			orbitSpeed: newSpeed,
 			planetName: `planet-${newIndex}`,
 			// Fixes the error: Argument of type 'string | Component | FunctionalComponent<{}, {}, any, {}>' is not assignable to parameter of type 'object'.
@@ -59,20 +81,20 @@ onMounted(() => {
 <template>
   <div
     :class="{
-      ' scale-50 -my-32': xs && !sm && !md && !lg,
-      'scale-75 -my-24': sm && !md && !lg && !xs,
-      'scale-90 my-20': (md || lg) && !xs && !sm,
-
+      'scale-50': xs && !sm && !md && !lg,
+      'scale-75': sm && !md && !lg && !xs,
+      'scale-90': (md || lg) && !xs && !sm,
     }"
-    class="flex items-center justify-center overflow-hidden size-[600px] transition-all duration-300 ease-in-out"
+    :style="{ marginTop: scaleMargin, marginBottom: scaleMargin }"
+    class="flex items-center justify-center overflow-hidden size-[600px] transition-all duration-300 ease-in-out "
   >
-    <div class="absolute rounded-full size-[100px] sun z-40  flex justify-center items-center p-1">
+    <div class="absolute rounded-full size-[100px] sun z-40 flex justify-center items-center p-1">
       <span class="truncate font-bebas text-sb-2xl text-orange-950">{{ props.starName }}</span>
     </div>
     <div
       v-for="orbit in orbits"
       :key="orbit.orbitId"
-      :style="{ zIndex: orbit.orbitZIndex, height: `${orbit.orbitHeight}px`, width: `${orbit.orbitWidth}px`}"
+      :style="{ zIndex: orbit.orbitZIndex, height: `${orbit.orbitHeight}px`, width: `${orbit.orbitWidth}px`, animationDuration: `${orbit.orbitSpeed}s` }"
       :class="orbit.orbitSpeed"
       class="absolute bg-transparent border rounded-full borde-white orbit"
     >
@@ -106,34 +128,6 @@ onMounted(() => {
 
 .orbit {
   animation: rotate linear infinite;
-}
-
-.orbit.speed-1 {
-  animation-duration: 12s;
-}
-
-.orbit.speed-2 {
-  animation-duration: 14s;
-}
-
-.orbit.speed-3 {
-  animation-duration: 18s;
-}
-
-.orbit.speed-4 {
-  animation-duration: 24s;
-}
-
-.orbit.speed-5 {
-  animation-duration: 32s;
-}
-
-.orbit.speed-6 {
-  animation-duration: 42s;
-}
-
-.orbit.speed-7 {
-  animation-duration: 54s;
 }
 
 </style>

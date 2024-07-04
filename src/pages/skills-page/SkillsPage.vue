@@ -77,8 +77,8 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
         :key="index"
         v-intersection-observer="[onIntersectionObserver(index), {root, threshold: 0.2}]"
         :class=" {
-          'flex-row': index % 2 === 0 && !xs && !sm && !md || !lg,
-          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md || !lg,
+          'flex-row': index % 2 === 0 && !xs && !sm && !md && !lg,
+          'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md && !lg,
           'flex-col items-center': xs || sm || md || lg,
           'opacity-0': !sectionsVisibilityMap.get(`skillsSection-${index}`),
           'opacity-100': sectionsVisibilityMap.get(`skillsSection-${index}`),
