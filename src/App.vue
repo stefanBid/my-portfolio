@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { TheMainContainer } from '@/components';
+import { RouterView } from 'vue-router';
+
+import { TheHeader, LoadingPagePanel } from '@/components';
+import { useWindowTitleSingleton } from '@/hooks';
+
+useWindowTitleSingleton();
 
 </script>
 
 <template>
-  <TheMainContainer />
+  <div class="flex flex-col h-screen ">
+    <TheHeader />
+    <LoadingPagePanel class="loading-overlay" />
+    <router-view />
+  </div>
 </template>

@@ -25,7 +25,7 @@ const { h1Size, containerPadding, xs, sm, md } = useCommonStyleSingleton();
 <template>
   <div
     v-bind="$attrs"
-    class="h-screen"
+    class="h-full"
   >
     <div
       :class="[containerPadding]"

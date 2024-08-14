@@ -1,7 +1,6 @@
 // useCommonSTyle.ts
 import { useBreakpoints } from '@vueuse/core';
 import { computed } from 'vue';
-import type { StyleValue } from 'vue';
 
 let instance: ReturnType<typeof createCommonStyle> | undefined;
 
@@ -24,8 +23,6 @@ function createCommonStyle() {
 
 	// Common style for website elements
 
-	const containerStyle: StyleValue = { 'overflow-y': 'hidden' };
-
 	const containerPadding = computed(() => {
 		if (xs.value || sm.value) { return 'p-sb-side-sm'; }
 		if (md.value) { return 'p-sb-side-base'; }
@@ -47,7 +44,8 @@ function createCommonStyle() {
 	});
 
 	const h2Size = computed(() => {
-		if (xs.value || sm.value) { return 'text-sb-3xl'; }
+		if (xs.value) { return 'text-sb-2xl'; }
+		if (sm.value) { return 'text-sb-3xl'; }
 		if (md.value) { return 'text-sb-4xl'; }
 		return 'text-sb-5xl';
 	});
@@ -70,7 +68,7 @@ function createCommonStyle() {
 		return 'text-sb-base';
 	});
 
-	return { xs, sm, md, lg, xl, xxl, containerStyle, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
+	return { xs, sm, md, lg, xl, xxl, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
 }
 
 export function useCommonStyleSingleton() {

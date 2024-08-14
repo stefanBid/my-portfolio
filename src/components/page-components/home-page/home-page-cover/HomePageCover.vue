@@ -11,13 +11,12 @@ interface PageCoverProps {
 const props = defineProps<PageCoverProps>();
 
 // Feature 0: Manage Style Classes
-const { containerPadding, containerStyle } = useCommonStyleSingleton();
+const { containerPadding } = useCommonStyleSingleton();
 
 </script>
 
 <template>
   <div
-    :style="containerStyle"
     class="relative w-full h-screen overflow-x-hidden bg-black"
   >
     <!-- Background -->
@@ -25,12 +24,12 @@ const { containerPadding, containerStyle } = useCommonStyleSingleton();
       v-if="props.backgroundType === 'image'"
       :src="props.backgroundUrl "
       alt="Background"
-      class="absolute inset-0 object-cover object-center w-full h-full pt-20"
+      class="absolute inset-0 object-cover object-center w-full h-full"
     />
     <video
       v-if="props.backgroundType === 'clip'"
       :src="props.backgroundUrl"
-      class="absolute inset-0 object-cover object-center w-full h-full pt-20 pointer-events-none grayscale"
+      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none grayscale"
       autoplay
       loop
       muted
@@ -49,7 +48,7 @@ const { containerPadding, containerStyle } = useCommonStyleSingleton();
     <!-- Cover Content -->
     <div
       :class="[containerPadding]"
-      class="absolute inset-0 z-10 w-full h-full pt-20"
+      class="absolute inset-0 z-10 w-full h-full pt-20 "
     >
       <slot name="cover-content"></slot>
     </div>
