@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import { HomePage } from '@/pages';
 
-// Definisci le rotte
+// Root definition
 const routes = [
 	{
 		path: '/',
@@ -31,7 +31,7 @@ const routes = [
 	}
 ];
 
-// Crea l'istanza del router con la history mode
+// Create route instance
 const router = createRouter({
 	history: createWebHistory(),
 	routes
@@ -45,13 +45,13 @@ router.beforeEach((_, __, next) => {
 	next();
 });
 
-// Guarda di navigazione globale per nascondere il componente di caricamento
+//  Global navigation guard to hide the loading component
 router.afterEach(() => {
 	const loadingPanel = document.querySelector('.loading-overlay') as HTMLDivElement;
 	if (loadingPanel) {
 		setTimeout(() => {
 			loadingPanel.style.display = 'none';
-		}, 200); // Opzionale: aggiunge un piccolo ritardo prima di nascondere il loading panel
+		}, 200);
 	}
 });
 

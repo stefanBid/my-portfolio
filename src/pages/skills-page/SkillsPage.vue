@@ -98,7 +98,7 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
         </section>
       </BaseDiv>
       <div
-        v-if="true"
+        v-if="false"
         class="flex justify-center"
       >
         <TheDataListContainer :height-px="750">
