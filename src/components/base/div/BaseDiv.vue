@@ -3,7 +3,7 @@ import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref } from 'vue';
 
 interface BaseDivProps {
-  intersectionObserverSettings: {root:HTMLElement | null, threshold: number | number[] | undefined, cssVisibilityClassExtra?: string, cssNotVisibilityClassExtra?: string};
+  intersectionObserverSettings: {root: HTMLElement | null, threshold: number | number[] | undefined, cssVisibilityClassExtra?: string, cssNotVisibilityClassExtra?: string};
 }
 
 const props = defineProps<BaseDivProps>();

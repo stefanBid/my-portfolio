@@ -9,7 +9,7 @@ useWindowTitleSingleton();
 </script>
 
 <template>
-  <div class="flex flex-col h-screen ">
+  <div class="flex flex-col h-screen">
     <TheHeader />
     <LoadingPagePanel class="loading-overlay" />
     <router-view />
