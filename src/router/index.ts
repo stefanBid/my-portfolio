@@ -1,6 +1,9 @@
+import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { HomePage } from '@/pages';
+
+const isLoading = ref(true);
 
 // Root definition
 const routes = [
@@ -37,4 +40,13 @@ const router = createRouter({
 	routes
 });
 
-export default router;
+router.beforeEach((_, __, next) => {
+	isLoading.value = true; // Mostra il loader
+	next();
+});
+
+router.afterEach(() => {
+	isLoading.value = false; // Nascondi il loader
+});
+
+export { router, isLoading };
