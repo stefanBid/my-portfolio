@@ -41,12 +41,12 @@ const router = createRouter({
 });
 
 router.beforeEach((_, __, next) => {
-	isLoading.value = true; // Mostra il loader
+	isLoading.value = true; // Show loading spinner
 	next();
 });
 
 router.afterEach(() => {
-	isLoading.value = false; // Nascondi il loader
+	isLoading.value = false; // Hide loading spinner
 });
 
 export { router, isLoading };
