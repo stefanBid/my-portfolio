@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, Ref } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { TheHeader, BaseLoadingPagePanel } from '@/components';
 
-const isLoading = inject('isLoading');
+const isLoading = inject<Ref<boolean>>('isLoading');
 </script>
 
 <template>
