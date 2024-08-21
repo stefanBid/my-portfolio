@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import { IntroSection, ThePageContainer, BaseDiv } from '@/components';
-import VintagePicture from '@/components/page-components/about-page/vintage-picture/VintagePicture.vue';
+import { BaseHero, ThePageContainer, BaseDiv } from '@/components';
 import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
+import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
 
 // Feature 1: Manage Style Classes
 const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
@@ -15,15 +15,15 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
 <template>
   <ThePageContainer>
     <template #intro-section>
-      <IntroSection
+      <BaseHero
         :title="aboutMePageI18nContent.pageHeading"
       />
     </template>
-    <template #main-content="{root}">
+    <template #main-content>
       <BaseDiv
         v-for="(section, index) in aboutMePageI18nContent.bioSections"
         :key="index"
-        :intersection-observer-settings="{root, threshold: 0.2}"
+        :intersection-observer-settings="{root: null , threshold: 0.2}"
       >
         <section
           :id="`bioSection-${index}`"

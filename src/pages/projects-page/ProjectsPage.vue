@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ThePageContainer, IntroSection } from '@/components';
+import { ThePageContainer, BaseHero } from '@/components';
 import PageUnderConstructionAlert from '@/components/temp/page-under-construction-alert/PageUnderConstructionAlert.vue';
 import { useTypedI18nSingleton, useIntersectionObserver } from '@/hooks';
 
@@ -17,7 +17,7 @@ const { root, isVisible, onIntersectionObserver, vIntersectionObserver } = useIn
     ref="root"
   >
     <template #intro-section>
-      <IntroSection
+      <BaseHero
         :title="currentLanguage === 'en' ? 'My projects' : 'I miei progetti'"
       />
     </template>

@@ -37,22 +37,4 @@ const router = createRouter({
 	routes
 });
 
-router.beforeEach((_, __, next) => {
-	const loadingPanel = document.querySelector('.loading-overlay') as HTMLDivElement;
-	if (loadingPanel) {
-		loadingPanel.style.display = 'flex';
-	}
-	next();
-});
-
-//  Global navigation guard to hide the loading component
-router.afterEach(() => {
-	const loadingPanel = document.querySelector('.loading-overlay') as HTMLDivElement;
-	if (loadingPanel) {
-		setTimeout(() => {
-			loadingPanel.style.display = 'none';
-		}, 200);
-	}
-});
-
 export default router;

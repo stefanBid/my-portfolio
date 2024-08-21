@@ -2,9 +2,9 @@
 import { computed, ref } from 'vue';
 
 import { ICONS_MAP, type CustomIcon } from '@/assets';
-import { IntroSection, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle, BaseDiv } from '@/components';
-import SolarSystem from '@/components/page-components/skills-page/solar-system/SolarSystem.vue';
+import { BaseHero, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle, BaseDiv } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
 // Feature 1: Manage Style Classes
 const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
@@ -39,16 +39,16 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
 <template>
   <ThePageContainer>
     <template #intro-section>
-      <IntroSection
+      <BaseHero
         :title="skillsPageI18nContent.pageHeading"
       />
     </template>
 
-    <template #main-content="{root}">
+    <template #main-content>
       <BaseDiv
         v-for="(section, index) in skillsPageI18nContent.skillsSections"
         :key="index"
-        :intersection-observer-settings="{root, threshold: 0.2}"
+        :intersection-observer-settings="{root: null, threshold: 0.2}"
       >
         <section
           :id="`skillsSection-${index}`"

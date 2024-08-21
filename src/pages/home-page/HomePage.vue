@@ -3,8 +3,8 @@ import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/2
 import { computed, onMounted, ref } from 'vue';
 
 import { BaseButton } from '@/components';
-import HomePageCover from '@/components/page-components/home-page/home-page-cover/HomePageCover.vue';
 import { useCommonStyleSingleton, useTypingText, useTypedI18nSingleton } from '@/hooks';
+import HomePageCover from '@/pages/home-page/components/HomePageCover.vue';
 import { downloadCv, openLink } from '@/utils';
 
 // Feature 1: Manage Style Classes
@@ -42,18 +42,18 @@ onMounted(() => {
       <div
         id="homePageContent"
         :class="{
-          'flex-col h-full gap-y-20 justify-center w-full': xs || sm || md,
-          'items-center gap-x-4 h-full': !xs && !sm && !md,
+          'flex-col gap-y-20 justify-center w-full': xs || sm || md,
+          'items-center gap-x-4': !xs && !sm && !md,
 
         }"
-        class="flex "
+        class="flex h-full min-h-0 border border-yellow-500"
       >
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="space-y-4 transition-all duration-300 ease-in-out font-bebas"
+            class="flex flex-col items-center justify-center transition-all duration-300 ease-in-out border border-green-500 gap-y-4 font-bebas"
             :class="{
-              'text-left w-[75%] my-auto': !xs && !sm && !md,
+              'text-left w-[75%] h-full': !xs && !sm && !md,
               'text-center mx-auto': xs || sm || md,
             }"
           >
@@ -91,9 +91,9 @@ onMounted(() => {
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="space-y-4 text-center"
+            class="flex flex-col items-center justify-center border border-blue-500 gap-y-4"
             :class="{
-              'w-[25%] my-auto': !xs && !sm && !md,
+              'w-[25%] h-full': !xs && !sm && !md,
               'mx-auto': xs || sm || md,
             }"
           >

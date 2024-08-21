@@ -39,6 +39,9 @@ export default {
 				'sb-side-lg': '0 7%',
 			},
 			margin: {
+				'sb-side-sm': '0 5%',
+				'sb-side-base': '0 6%',
+				'sb-side-lg': '0 7%',
 				'sb-top-sm': '14% 0 0 0',
 				'sb-top-base': '15% 0 0 0',
 				'sb-top-lg': '16% 0 0 0',

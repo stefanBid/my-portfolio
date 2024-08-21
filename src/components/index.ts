@@ -1,14 +1,13 @@
 // BASE
-export { default as BaseButton } from '@/components/base/button/BaseButton.vue';
-export { default as BaseCard } from '@/components/base/card/BaseCard.vue';
-export { default as BaseDropdownMenu } from '@/components/base/dropdown-menu/BaseDropdownMenu.vue';
-export { default as BaseInput } from '@/components/base/input/BaseInput.vue';
-export { default as BaseToggle } from '@/components/base/toggle/BaseToggle.vue';
-export { default as BaseDiv } from '@/components/base/div/BaseDiv.vue';
+export { default as BaseButton } from '@/components/base/interactive-components/button/BaseButton.vue';
+export { default as BaseDropdownMenu } from '@/components/base/interactive-components/dropdown-menu/BaseDropdownMenu.vue';
+export { default as BaseInput } from '@/components/base/interactive-components/input/BaseInput.vue';
+export { default as BaseToggle } from '@/components/base/interactive-components/toggle/BaseToggle.vue';
 
-// COMMON
-export { default as IntroSection } from '@/components/common/intro-section/IntroSection.vue';
-export { default as LoadingPagePanel } from '@/components/common/loading-page-panel/LoadingPagePanel.vue';
+export { default as BaseCard } from '@/components/base/static-components/card/BaseCard.vue';
+export { default as BaseDiv } from '@/components/base/static-components/div/BaseDiv.vue';
+export { default as BaseHero } from '@/components/base/static-components/hero/BaseHero.vue';
+export { default as BaseLoadingPagePanel } from '@/components/base/static-components/loading-page-panel/BaseLoadingPagePanel.vue';
 
 // LAYOUTS
 export { default as TheDataListContainer } from '@/components/layouts/data-list-container/TheDataListContainer.vue';
