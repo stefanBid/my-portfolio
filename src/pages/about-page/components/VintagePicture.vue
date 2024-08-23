@@ -13,25 +13,25 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useCommonStyleSingleton();
+const { activeBreakpoint } = useCommonStyleSingleton();
 
 const getFrameDimension = computed(() => {
-	if (xs.value) {
+	if (activeBreakpoint.value === 'xs') {
 		return 'w-[280px] h-[340px] px-[15px] pt-[15px]';
-	} else if (sm.value) {
+	} else if (activeBreakpoint.value === 'sm') {
 		return 'w-[320px] h-[388px] px-[20px] pt-[20px]';
-	} else if (md.value) {
+	} else if (activeBreakpoint.value === 'md') {
 		return 'w-[360px] h-[436px] px-[24px] pt-[24px]';
 	}
 	return 'w-[400px] h-[484px] px-[28px] pt-[28px]';
 });
 
 const getPictureDimension = computed(() => {
-	if (xs.value) {
+	if (activeBreakpoint.value === 'xs') {
 		return 'h-[236px]';
-	} else if (sm.value) {
+	} else if (activeBreakpoint.value === 'sm') {
 		return 'h-[284px]';
-	} else if (md.value) {
+	} else if (activeBreakpoint.value === 'md') {
 		return 'h-[332px]';
 	}
 	return 'h-[380px]';
@@ -109,9 +109,9 @@ const flipPicture = () => {
         <p
           class="text-center text-white font-roboto"
           :class=" {
-            'text-sb-sm': xs || sm,
-            'text-sb-base': md,
-            'text-sb-lg': !xs && !sm && !md,
+            'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            'text-sb-base': activeBreakpoint === 'md',
+            'text-sb-lg': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
           }"
         >
           {{ props.text }}

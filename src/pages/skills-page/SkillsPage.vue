@@ -1,38 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
-import { ICONS_MAP, type CustomIcon } from '@/assets';
-import { BaseHero, ThePageContainer, TheDataListContainer, BaseCard, BaseInput, BaseToggle, BaseDiv } from '@/components';
+import { SKILLS_ICONS_MAP, type SkillIcon } from '@/assets';
+import { BaseHero, ThePageContainer, BaseDiv } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
+const { activeBreakpoint, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
 const { skillsPageI18nContent } = useTypedI18nSingleton();
 
-const key = ref('');
-const selectedSkill = ref('');
-
-const showingFilters = ref({
-	showAll: true,
-	showFe: true,
-	showBe: true,
-});
-
-// Feature 3: Manage Visibility for effects
-const skillsRoot = ref<HTMLElement | null>(null);
-
-// Extract Icons from SkillsList
-
 const feIcons = computed(() => skillsPageI18nContent.value.skillsList
 	.filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
-	.map((skill) => ICONS_MAP[skill.icon as CustomIcon]));
+	.map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]));
 
 const beIcons = computed(() => skillsPageI18nContent.value.skillsList
-	.filter((skill) => skill.type === 'beLanguage' || skill.type === 'beFramework')
-	.map((skill) => ICONS_MAP[skill.icon as CustomIcon]));
+	.filter((skill) => skill.type === 'beLanguage' || skill.type === 'beFramework' || skill.type === 'beDb')
+	.map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]));
 
 </script>
 
@@ -44,7 +30,7 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
       />
     </template>
 
-    <template #main-content>
+    <template #page-content>
       <BaseDiv
         v-for="(section, index) in skillsPageI18nContent.skillsSections"
         :key="index"
@@ -53,9 +39,9 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
         <section
           :id="`skillsSection-${index}`"
           :class=" {
-            'flex-row': index % 2 === 0 && !xs && !sm && !md && !lg,
-            'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md && !lg,
-            'flex-col items-center': xs || sm || md || lg,
+            'flex-row': index % 2 === 0 && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md' && activeBreakpoint !== 'lg',
+            'flex-row-reverse': index % 2 !== 0 && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md' && activeBreakpoint !== 'lg',
+            'flex-col items-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md' || activeBreakpoint === 'lg',
           }"
           class="flex items-center w-full gap-12 px-4"
         >
@@ -68,9 +54,9 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
             <h2
               :id="`skillsSection-${index}-titleHeading`"
               :class="[ h2Size, {
-                'text-center': xs || sm,
-                'text-left': (index % 2 === 0) && (md || lg),
-                'text-right': (index % 2 !== 0) && (md || lg),
+                'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                'text-left': (index % 2 === 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
+                'text-right': (index % 2 !== 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
               }]"
               class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
             >
@@ -79,9 +65,9 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
             <h3
               :id="`skillsSection-${index}-subTitleHeading`"
               :class="[ h3Size, {
-                'text-center': xs || sm,
-                'text-left': (index % 2 === 0) && (md || lg),
-                'text-right': (index % 2 !== 0) && (md || lg),
+                'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                'text-left': (index % 2 === 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
+                'text-right': (index % 2 !== 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
               }]"
               class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
             >
@@ -97,65 +83,6 @@ const beIcons = computed(() => skillsPageI18nContent.value.skillsList
           </div>
         </section>
       </BaseDiv>
-      <div
-        v-if="false"
-        class="flex justify-center"
-      >
-        <TheDataListContainer :height-px="750">
-          <template #left-side-header>
-            <BaseInput
-              v-model:input-value="key"
-              with-menu
-              placeholder="Search a skill"
-            >
-              <template #input-menu-box>
-                <div class="grid grid-cols-1 gap-6 p-6">
-                  <BaseToggle
-                    v-model:enabled="showingFilters.showAll"
-                    label="Show all"
-                  />
-                  <BaseToggle
-                    v-model:enabled="showingFilters.showFe"
-                    label="Show FE"
-                  />
-                  <BaseToggle
-                    v-model:enabled="showingFilters.showBe"
-                    label="Show BE"
-                  />
-                </div>
-              </template>
-            </BaseInput>
-          </template>
-          <template #left-side>
-            <div
-              ref="skillsRoot"
-              class="flex flex-col pr-2 overflow-y-auto gap-y-4"
-            >
-              <BaseDiv
-                v-for="skill in skillsPageI18nContent.skillsList"
-                :key="skill.id"
-                :intersection-observer-settings="{
-                  root: skillsRoot,
-                  threshold: 0.2,
-                  cssVisibilityClassExtra: 'w-full',
-                  cssNotVisibilityClassExtra: 'w-0',
-                }"
-              >
-                <BaseCard
-                  class="w-full"
-                  :icon="ICONS_MAP[skill.icon as CustomIcon]"
-                  :text-content="skill.name"
-                  :is-selected="selectedSkill === skill.name"
-                  @click="selectedSkill = skill.name"
-                />
-              </BaseDiv>
-            </div>
-          </template>
-          <template #right-side>
-            {{ selectedSkill }}
-          </template>
-        </TheDataListContainer>
-      </div>
     </template>
   </ThePageContainer>
 </template>

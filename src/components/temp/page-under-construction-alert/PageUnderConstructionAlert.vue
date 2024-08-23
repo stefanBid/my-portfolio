@@ -2,7 +2,7 @@
 import { CodeIcon } from '@/assets';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
-const { h2Size, h3Size, containerPadding, xs, sm, md } = useCommonStyleSingleton();
+const { h2Size, h3Size, containerPadding, activeBreakpoint } = useCommonStyleSingleton();
 
 const { currentLanguage } = useTypedI18nSingleton();
 
@@ -22,9 +22,9 @@ const { currentLanguage } = useTypedI18nSingleton();
     <CodeIcon
       class="transition-all duration-300 ease-in-out"
       :class="{
-        'size-80': !xs && !sm && !md,
-        'size-60': md ,
-        'size-40': sm || xs,
+        'size-80': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-60': activeBreakpoint === 'md',
+        'size-40': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
       }"
     />
     <h3

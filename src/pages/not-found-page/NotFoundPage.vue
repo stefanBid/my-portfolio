@@ -9,7 +9,7 @@ import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 const { currentLanguage } = useTypedI18nSingleton();
 
 // Feature 3: Manage Style Classes
-const { xs, sm, md, h1Size, h3Size, containerPadding } = useCommonStyleSingleton();
+const { activeBreakpoint, h1Size, h3Size, containerPadding } = useCommonStyleSingleton();
 
 // Feature 4: Navigation
 const router = useRouter();
@@ -29,9 +29,9 @@ const router = useRouter();
     <WindowIcon
       class="transition-all duration-300 ease-in-out text-slate-700 "
       :class="{
-        'size-72': !xs && !sm && !md,
-        'size-52': md ,
-        'size-32': sm || xs,
+        'size-72': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-52': activeBreakpoint === 'md',
+        'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
     <p

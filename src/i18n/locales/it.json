@@ -173,6 +173,7 @@
       {
         "id": "8",
         "name": "Java",
+        "icon": "JavaIcon",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": 7.5,
@@ -185,6 +186,7 @@
       {
         "id": "9",
         "name": "Python",
+        "icon": "PythonIcon",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": 8,
@@ -196,7 +198,8 @@
       },
       {
         "id": "10",
-        "name": "C",
+        "name": "C#",
+        "icon": "CsharpIcon",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": 6.5,
@@ -208,19 +211,8 @@
       },
       {
         "id": "11",
-        "name": "C#",
-        "type": "beLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": 6.5,
-          "librariesAndFrameworks": 6,
-          "debuggingAndProblemSolving": 6,
-          "bestPracticesAndDesignPatterns": 6,
-          "practicalExperience": 6.5
-        }
-      },
-      {
-        "id": "12",
         "name": "Spring",
+        "icon": "SpringIcon",
         "type": "beFramework",
         "overAllRating": {
           "syntaxAndSemantics": 7,
@@ -231,7 +223,7 @@
         }
       },
       {
-        "id": "13",
+        "id": "12",
         "name": "Hibernate",
         "type": "beFramework",
         "overAllRating": {
@@ -243,20 +235,9 @@
         }
       },
       {
-        "id": "14",
-        "name": "JPA",
-        "type": "beFramework",
-        "overAllRating": {
-          "syntaxAndSemantics": 6.5,
-          "librariesAndFrameworks": 6.5,
-          "debuggingAndProblemSolving": 6.5,
-          "bestPracticesAndDesignPatterns": 6.5,
-          "practicalExperience": 6.5
-        }
-      },
-      {
-        "id": "15",
+        "id": "13",
         "name": "GraphQL",
+        "icon": "GraphqlIcon",
         "type": "beDb",
         "overAllRating": {
           "syntaxAndSemantics": 7.5,
@@ -267,8 +248,9 @@
         }
       },
       {
-        "id": "16",
+        "id": "14",
         "name": "MySQL",
+        "icon": "MysqlIcon",
         "type": "beDb",
         "overAllRating": {
           "syntaxAndSemantics": 7.5,
@@ -276,18 +258,6 @@
           "debuggingAndProblemSolving": 7,
           "bestPracticesAndDesignPatterns": 7,
           "practicalExperience": 7.5
-        }
-      },
-      {
-        "id": "17",
-        "name": "DB Browser",
-        "type": "beDb",
-        "overAllRating": {
-          "syntaxAndSemantics": 6.5,
-          "librariesAndFrameworks": 6,
-          "debuggingAndProblemSolving": 6,
-          "bestPracticesAndDesignPatterns": 6,
-          "practicalExperience": 6.5
         }
       }
     ]

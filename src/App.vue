@@ -1,19 +1,7 @@
 <script setup lang="ts">
-import { inject, Ref } from 'vue';
-import { RouterView } from 'vue-router';
-
-import { TheHeader, BaseLoadingPagePanel } from '@/components';
-
-const isLoading = inject<Ref<boolean>>('isLoading');
+import { TheAppContainer } from '@/components';
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen">
-    <TheHeader class="opacity-100" />
-
-    <main class="flex-grow">
-      <BaseLoadingPagePanel v-if="isLoading" />
-      <RouterView v-else />
-    </main>
-  </div>
+  <TheAppContainer />
 </template>

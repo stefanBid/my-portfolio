@@ -16,7 +16,7 @@ const emits = defineEmits(['close-menu']);
 const route = useRoute();
 
 // Feaure 0: Manage Breakpoints and Style Classes
-const { containerPadding, xs, sm, md } = useCommonStyleSingleton();
+const { containerPadding, activeBreakpoint } = useCommonStyleSingleton();
 
 </script>
 
@@ -39,15 +39,15 @@ const { containerPadding, xs, sm, md } = useCommonStyleSingleton();
         props.variant === 'vertical' ? containerPadding : '',
         {
           'justify-center px-2 py-1 text-sb-base rounded-full hover:shadow-sb-light': props.variant === 'horizontal',
-          'py-6 text-sb-base': props.variant === 'vertical' && md,
-          'py-4 text-sb-sm': props.variant === 'vertical' && (sm || xs)
+          'py-6 text-sb-base': props.variant === 'vertical' && activeBreakpoint === 'md',
+          'py-4 text-sb-sm': props.variant === 'vertical' && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
         },
         {
           'text-main bg-white': route.path === routeItem.path,
           'text-white bg-slate-700/50 hover:bg-slate-700': route.path !== routeItem.path,
         },
         {
-          'focus-visible:ring-2 ring-white ring-0': !xs && !sm && !md,
+          'focus-visible:ring-2 ring-white ring-0': activeBreakpoint !== 'md' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'xs',
         }
       ]"
       @click="() => emits('close-menu')"

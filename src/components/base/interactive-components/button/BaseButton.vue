@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useCommonStyleSingleton();
+const { activeBreakpoint } = useCommonStyleSingleton();
 </script>
 
 <template>
@@ -42,10 +42,10 @@ const { xs, sm, md } = useCommonStyleSingleton();
       },
 
       {
-        'py-4 px-8 text-sb-lg': !props.noStyle && (!xs && !sm && !md),
-        'py-3 px-6 text-sb-base': !props.noStyle && md,
-        'py-2 px-4 text-sb-sm ': !props.noStyle && (xs || sm),
-      }
+        'py-4 px-8 text-sb-lg': !props.noStyle && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md'),
+        'py-3 px-6 text-sb-base': !props.noStyle && activeBreakpoint === 'md',
+        'py-2 px-4 text-sb-sm ': !props.noStyle && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+      },
     ]"
   >
     <slot></slot>
@@ -53,9 +53,9 @@ const { xs, sm, md } = useCommonStyleSingleton();
       :is="props.icon"
       class="shrink-0 "
       :class="{
-        'size-6': !xs && !sm && !md,
-        'size-5': md,
-        'size-4': xs || sm,
+        'size-6': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-5': activeBreakpoint === 'md',
+        'size-4': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
   </button>

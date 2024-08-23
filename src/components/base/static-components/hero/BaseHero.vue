@@ -18,7 +18,7 @@ onMounted(() => {
 });
 
 // Feature 1: Manage Style Classes
-const { h1Size, xs, sm, md } = useCommonStyleSingleton();
+const { h1Size, activeBreakpoint } = useCommonStyleSingleton();
 
 </script>
 
@@ -39,9 +39,9 @@ const { h1Size, xs, sm, md } = useCommonStyleSingleton();
       <ChevronDoubleDownIcon
         v-if="show"
         :class="{
-          'size-12': xs || sm,
-          'size-14': md,
-          'size-16': !xs && !sm && !md,
+          'size-12': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+          'size-14': activeBreakpoint === 'md',
+          'size-16': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
         }"
         class="mt-4 text-white transform animate-pulse"
       />

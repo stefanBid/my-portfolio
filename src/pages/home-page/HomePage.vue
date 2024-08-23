@@ -8,11 +8,11 @@ import HomePageCover from '@/pages/home-page/components/HomePageCover.vue';
 import { downloadCv, openLink } from '@/utils';
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, h1Size, h2Size } = useCommonStyleSingleton();
+const { activeBreakpoint, h1Size, h2Size } = useCommonStyleSingleton();
 
 const getButtonWidth = computed(() => {
-	if (xs.value || sm.value) { return 'w-44'; }
-	if (md.value) { return 'w-52'; }
+	if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'w-44'; }
+	if (activeBreakpoint.value === 'md') { return 'w-52'; }
 	return 'w-56';
 });
 
@@ -42,19 +42,19 @@ onMounted(() => {
       <div
         id="homePageContent"
         :class="{
-          'flex-col gap-y-20 justify-center w-full': xs || sm || md,
-          'items-center gap-x-4': !xs && !sm && !md,
+          'flex-col gap-y-20 justify-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
+          'items-center justify-between gap-x-4': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
 
         }"
-        class="flex h-full min-h-0 border border-yellow-500"
+        class="flex w-full h-full"
       >
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="flex flex-col items-center justify-center transition-all duration-300 ease-in-out border border-green-500 gap-y-4 font-bebas"
+            class="flex flex-col justify-center transition-all duration-300 ease-in-out gap-y-4 font-bebas"
             :class="{
-              'text-left w-[75%] h-full': !xs && !sm && !md,
-              'text-center mx-auto': xs || sm || md,
+              'flex-1 h-full items-start': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+              'text-center items-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
             }"
           >
             <h2
@@ -70,10 +70,10 @@ onMounted(() => {
               :class="[
                 h1Size,
                 {
-                  'px-1 py-0.5': xs || sm,
-                  'px-2 py-1': md,
-                  'mx-auto': xs || sm || md,
-                  'px-4 py-2': !xs && !sm && !md,
+                  'px-1 py-0.5': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                  'px-2 py-1': activeBreakpoint === 'md',
+                  'mx-auto': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
+                  'px-4 py-2': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
                 }
               ]"
             >
@@ -91,10 +91,10 @@ onMounted(() => {
         <transition name="scale-and-fade-slow">
           <div
             v-if="show"
-            class="flex flex-col items-center justify-center border border-blue-500 gap-y-4"
+            class="flex flex-col items-center justify-center gap-y-4 "
             :class="{
-              'w-[25%] h-full': !xs && !sm && !md,
-              'mx-auto': xs || sm || md,
+              'h-full shrink-0': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+
             }"
           >
             <BaseButton

@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
 const inputValue = defineModel<string>('inputValue', { required: true });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useCommonStyleSingleton();
+const { activeBreakpoint } = useCommonStyleSingleton();
 
 // Feature 1: Manage Input Menu
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('inputSettings');
@@ -98,9 +98,9 @@ onUnmounted(() => {
       :type="props.type"
       :class="
         {
-          'text-sb-lg': !xs && !sm && !md,
-          'text-sb-base': md,
-          'text-sb-sm': xs || sm,
+          'text-sb-lg': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          'text-sb-base': activeBreakpoint === 'md',
+          'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
         }
       "
       class="w-full py-2 pl-4 pr-12 text-white truncate transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 bg-slate-700/50 hover:bg-slate-700 focus:bg-white focus:text-black"

@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<BaseToggleProps>(), {
 const enabled = defineModel<boolean>('enabled', { default: false, required: true });
 
 // Feature 0: Manage Breakpoints and Style Classes
-const { xs, sm, md, labelSize } = useCommonStyleSingleton();
+const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
 </script>
 
 <template>
@@ -41,17 +41,17 @@ const { xs, sm, md, labelSize } = useCommonStyleSingleton();
         :class="{
           'opacity-50': !enabled,
           'opacity-100': enabled,
-          'h-5 w-9': xs || sm,
-          'h-6 w-11': !xs && !sm
+          'h-5 w-9': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+          'h-6 w-11': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
         }"
       >
         <span
           :class="{
-            ' translate-x-[22px]': enabled && (!xs || !sm || !md),
-            'translate-x-[18px]': enabled && (xs || sm || md),
+            ' translate-x-[22px]': enabled && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md'),
+            'translate-x-[18px]': enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md'),
             'translate-x-0.5': !enabled,
-            'size-3': xs || sm,
-            'size-4': !xs && !sm
+            'size-3': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            'size-4': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
           }"
           class="inline-block transition-all duration-200 ease-in-out transform bg-white rounded-full"
         ></span>

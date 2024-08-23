@@ -19,7 +19,7 @@ const { containerPadding, containerGapElements } = useCommonStyleSingleton();
       :class="[containerGapElements]"
     >
       <slot
-        name="main-content"
+        name="page-content"
       ></slot>
     </div>
   </div>

@@ -25,23 +25,23 @@ const props = withDefaults(defineProps<SkillSolarSystemProps>(), {
 });
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, lg } = useCommonStyleSingleton();
+const { activeBreakpoint } = useCommonStyleSingleton();
 
 const scaleMargin = computed(() => {
 	let scale = 1;
 	let margin = 0;
 
-	if (xs.value && !sm.value && !md.value && !lg.value) {
+	if (activeBreakpoint.value === 'xs') {
 		scale = 0.5;
 		margin = 64; // Original gap for xs (gap-y-16 in Tailwind is 64px)
-	} else if (sm.value && !md.value && !lg.value && !xs.value) {
+	}
+	if (activeBreakpoint.value === 'sm') {
 		scale = 0.75;
 		margin = 80; // Original gap for sm (gap-y-20 in Tailwind is 80px)
-	} else if ((md.value || lg.value) && !xs.value && !sm.value) {
+	}
+	if (activeBreakpoint.value !== 'xs' && activeBreakpoint.value !== 'sm') {
 		scale = 0.9;
 		margin = 96; // Original gap for md/lg (gap-y-24 in Tailwind is 96px)
-	} else {
-		margin = 0;
 	}
 
 	return `-${4 * (1 - scale) * margin}px`;
@@ -84,9 +84,9 @@ onMounted(() => {
 <template>
   <div
     :class="{
-      'scale-50': xs && !sm && !md && !lg,
-      'scale-75': sm && !md && !lg && !xs,
-      'scale-90': (md || lg) && !xs && !sm,
+      'scale-50': activeBreakpoint === 'xs',
+      'scale-75': activeBreakpoint === 'sm',
+      'scale-90': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
     }"
     :style="{ marginTop: scaleMargin, marginBottom: scaleMargin }"
     class="relative flex items-center justify-center size-[600px] transition-all duration-300 ease-in-out "

@@ -1,6 +1,7 @@
 // useCommonSTyle.ts
 import { useBreakpoints } from '@vueuse/core';
-import { computed } from 'vue';
+import { computed, ComputedRef } from 'vue';
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 let instance: ReturnType<typeof createCommonStyle> | undefined;
 
@@ -14,61 +15,67 @@ function createCommonStyle() {
 		xxl: 1536, // From 1536px and up
 	});
 
-	const xs = breakpoints.smaller('sm');
-	const sm = breakpoints.between('sm', 'md');
-	const md = breakpoints.between('md', 'lg');
-	const lg = breakpoints.between('lg', 'xl');
-	const xl = breakpoints.between('xl', 'xxl');
-	const xxl = breakpoints.greater('xxl');
+	/**
+	 * Returns the active breakpoint
+	 *
+	 * Breakpoints Range:
+	 * xs: 0 - 639px
+	 * sm: 640 - 767px
+	 * md: 768 - 1023px
+	 * lg: 1024 - 1279px
+	 * xl: 1280 - 1535px
+	 * xxl: 1536px and up
+	 */
+	const activeBreakpoint = breakpoints.active() as ComputedRef<Breakpoint | undefined>;
 
 	// Common style for website elements
 
 	const containerPadding = computed(() => {
-		if (xs.value || sm.value) { return 'p-sb-side-sm'; }
-		if (md.value) { return 'p-sb-side-base'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'p-sb-side-sm'; }
+		if (activeBreakpoint.value === 'md') { return 'p-sb-side-base'; }
 		return 'p-sb-side-lg';
 	});
 
 	const containerGapElements = computed(() => {
-		if (xs.value || sm.value) { return 'gap-y-16'; }
-		if (md.value || lg.value) { return 'gap-y-20'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'gap-y-16'; }
+		if (activeBreakpoint.value === 'md' || activeBreakpoint.value === 'lg') { return 'gap-y-20'; }
 		return ' gap-y-24';
 	});
 
 	// Common style for text elements
 
 	const h1Size = computed(() => {
-		if (xs.value || sm.value) { return 'text-sb-4xl'; }
-		if (md.value) { return 'text-sb-6xl'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-4xl'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-6xl'; }
 		return 'text-sb-7xl';
 	});
 
 	const h2Size = computed(() => {
-		if (xs.value) { return 'text-sb-2xl'; }
-		if (sm.value) { return 'text-sb-3xl'; }
-		if (md.value) { return 'text-sb-4xl'; }
+		if (activeBreakpoint.value === 'xs') { return 'text-sb-2xl'; }
+		if (activeBreakpoint.value === 'sm') { return 'text-sb-3xl'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-4xl'; }
 		return 'text-sb-5xl';
 	});
 
 	const h3Size = computed(() => {
-		if (xs.value || sm.value) { return 'text-sb-lg'; }
-		if (md.value) { return 'text-sb-xl'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-lg'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-xl'; }
 		return 'text-sb-2xl';
 	});
 
 	const pSize = computed(() => {
-		if (xs.value || sm.value) { return 'text-sb-sm'; }
-		if (md.value) { return 'text-sb-base'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-sm'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-base'; }
 		return 'text-sb-lg';
 	});
 
 	const labelSize = computed(() => {
-		if (xs.value || sm.value) { return 'text-sb-xs'; }
-		if (md.value) { return 'text-sb-sm'; }
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-xs'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-sm'; }
 		return 'text-sb-base';
 	});
 
-	return { xs, sm, md, lg, xl, xxl, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
+	return { activeBreakpoint, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
 }
 
 export function useCommonStyleSingleton() {

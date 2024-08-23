@@ -5,7 +5,7 @@ import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
 
 // Feature 1: Manage Style Classes
-const { xs, sm, md, lg, h2Size, h3Size, pSize } = useCommonStyleSingleton();
+const { activeBreakpoint, h2Size, h3Size, pSize } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
 const { aboutMePageI18nContent } = useTypedI18nSingleton();
@@ -19,7 +19,7 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
         :title="aboutMePageI18nContent.pageHeading"
       />
     </template>
-    <template #main-content>
+    <template #page-content>
       <BaseDiv
         v-for="(section, index) in aboutMePageI18nContent.bioSections"
         :key="index"
@@ -28,9 +28,9 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
         <section
           :id="`bioSection-${index}`"
           :class=" {
-            'flex-row': index % 2 === 0 && !xs && !sm && !md && !lg,
-            'flex-row-reverse': index % 2 !== 0 && !xs && !sm && !md && !lg,
-            'flex-col items-center': xs || sm || md || lg,
+            'flex-row': index % 2 === 0 && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md' && activeBreakpoint !== 'lg',
+            'flex-row-reverse': index % 2 !== 0 && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md' && activeBreakpoint !== 'lg',
+            'flex-col items-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md' || activeBreakpoint === 'lg',
           }"
           class="flex items-start gap-12 px-4"
         >
@@ -48,9 +48,9 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
             <h2
               :id="`bioSection-${index}-titleHeading`"
               :class="[ h2Size, {
-                'text-center': xs || sm,
-                'text-left': (index % 2 === 0) && (md || lg),
-                'text-right': (index % 2 !== 0) && (md || lg),
+                'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                'text-left': (index % 2 === 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
+                'text-right': (index % 2 !== 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
               }]"
               class="text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas"
             >
@@ -59,9 +59,9 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
             <h3
               :id="`bioSection-${index}-subTitleHeading`"
               :class="[ h3Size, {
-                'text-center': xs || sm,
-                'text-left': (index % 2 === 0) && (md || lg),
-                'text-right': (index % 2 !== 0) && (md || lg),
+                'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                'text-left': (index % 2 === 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
+                'text-right': (index % 2 !== 0) && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
               }]"
               class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
             >

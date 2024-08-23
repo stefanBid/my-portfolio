@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<BaseDropdownMenuProps>(), {
 defineOptions({ inheritAttrs: false });
 
 // Feature 0: Manage Style Classes
-const { xs, sm, md } = useCommonStyleSingleton();
+const { activeBreakpoint } = useCommonStyleSingleton();
 
 // Feature 1: Manage Open <--> Close State
 const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
@@ -49,9 +49,9 @@ const handleClick = () => {
           ' text-white hover:border-slate-700 hover:bg-slate-700 hover:text-white bg-secondary': !isOpen,
         },
         {
-          'text-sb-base px-3.5 py-1.5': !xs && !sm && !md,
-          'text-sb-sm px-3 py-1': md,
-          'text-sb-xs px-2.5 py-1': xs || sm ,
+          'text-sb-base px-3.5 py-1.5': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          'text-sb-sm px-3 py-1': activeBreakpoint === 'md',
+          'text-sb-xs px-2.5 py-1': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
         }
       ]"
       @click.stop="handleClick()"
