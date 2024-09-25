@@ -31,6 +31,7 @@ export default {
 		colors: {
 			'black': '#000000',
 			'white': '#ffffff',
+			'transparent': 'transparent',
 			'sb-main': '#0F0F20',
 			'sb-secondary': {
 				100: '#424a6e',
