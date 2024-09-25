@@ -9,7 +9,6 @@ import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 interface BaseInputProps {
   placeholder?: string;
   type?: 'text' | 'search';
-  customMenuHeight?: number | 'auto';
   customZIndex?: number;
   withMenu?: boolean;
 }
@@ -18,7 +17,6 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
 	variant: 'primary',
 	placeholder: undefined,
 	type: 'text',
-	customMenuHeight: 'auto',
 	customZIndex: 40,
 	withMenu: false,
 });
@@ -35,15 +33,6 @@ const buttonMenuRef = ref();
 const inputWidth = ref('auto');
 const isInputFocused = ref(false);
 
-const getMenuStyle = computed(() => {
-
-	if (isInputFocused.value) {
-		return 'text-black hover:bg-black hover:text-white';
-	} else {
-		return 'text-white hover:bg-white hover:text-black';
-	}
-});
-
 const getPlaceholder = computed(() => {
 	if (!props.placeholder) {
 		return props.type === 'search' ? 'Search a value' : 'Enter text';
@@ -51,12 +40,18 @@ const getPlaceholder = computed(() => {
 	return props.placeholder;
 });
 
+const updateInputWidth = () => {
+	if (anchor.value) {
+		let width = anchor.value.offsetWidth;
+		inputWidth.value = `${width * 0.97}px`; // Set width to 90% of input width
+	}
+};
+
 const toggleMenu = (open?: boolean) => {
 	changeToolTipVisibility(open ? 'open' : 'close');
 	if (open) {
-		nextTick(() => {
-			updateInputWidth();
-		});
+		nextTick();
+		updateInputWidth();
 	}
 };
 
@@ -69,13 +64,6 @@ const handleFocusBlur = (focused: boolean) => {
 	isInputFocused.value = focused;
 	if (props.withMenu && focused && isOpen.value) {
 		toggleMenu(false);
-	}
-};
-
-const updateInputWidth = () => {
-	if (anchor.value) {
-		let width = anchor.value.offsetWidth;
-		inputWidth.value = `${width * 0.97}px`; // Set width to 90% of input width
 	}
 };
 
@@ -98,12 +86,11 @@ onUnmounted(() => {
       :type="props.type"
       :class="
         {
-          'text-sb-lg': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-          'text-sb-base': activeBreakpoint === 'md',
-          'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+          'text-sb-sm': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          'text-sb-xs': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
         }
       "
-      class="w-full py-2 pl-4 pr-12 text-white truncate transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 bg-slate-700/50 hover:bg-slate-700 focus:bg-white focus:text-black"
+      class="w-full py-2 pl-4 pr-12 text-white truncate transition-all duration-300 ease-in-out bg-transparent border-2 border-white rounded-full outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 hover:bg-slate-700 focus:bg-white focus:text-black"
       :placeholder="getPlaceholder"
       @focus="handleFocusBlur(true)"
       @blur="handleFocusBlur(false)"
@@ -112,9 +99,9 @@ onUnmounted(() => {
       v-if="props.withMenu"
       ref="buttonMenuRef"
       no-style
-      class="absolute right-0 mr-4 p-0.5 inset-y-2.5 w-fit h-fit rounded-lg "
+      class="absolute inset-y-1.5 right-0 mr-4 rounded-lg hover:opacity-60"
 
-      :class="[getMenuStyle, isOpen ? 'rotate-180': 'rotate-0']"
+      :class="[ isOpen ? 'rotate-180': 'rotate-0', isInputFocused ? 'text-black': 'text-white']"
       :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
       @click.stop="handleClick()"
     />
@@ -127,11 +114,10 @@ onUnmounted(() => {
         v-on-click-outside="[(_: Event) => toggleMenu(false), { ignore: [anchor, buttonMenuRef] }]"
         :style="{
           ...popperStyle,
-          height: typeof props.customMenuHeight === 'number' ? `${props.customMenuHeight}px` : 'auto',
           width: inputWidth,
           zIndex: props.customZIndex,
         }"
-        class="box-border absolute border-2 rounded-lg border-slate-700 bg-secondary shadow-sb-light w-80"
+        class="box-border absolute border-2 rounded-lg shadow-2xl border-slate-400 bg-secondary shadow-slate-400 h-fit"
       >
         <slot
           name="input-menu-box"

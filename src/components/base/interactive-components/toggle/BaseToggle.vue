@@ -20,13 +20,12 @@ const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
 <template>
   <SwitchGroup>
     <div
-      class="flex flex-row-reverse items-center rounded-full w-fit"
+      class="flex flex-row-reverse items-center rounded-full "
       @keypress.prevent.enter="enabled = !enabled"
     >
       <SwitchLabel
         v-if="props.label"
-        :tabindex="0"
-        class="ml-4 text-white transition-all duration-200 ease-in-out outline-none font-roboto text-sb-2 focus:cursor-pointer focus:opacity-100 hover:cursor-pointer focus:underline ring-0 focus:ring-0 focus:outline-none"
+        class="ml-3 text-white transition-all duration-200 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[labelSize,{
           'opacity-50': !enabled,
           'opacity-100': enabled,
@@ -36,8 +35,8 @@ const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
       </SwitchLabel>
       <Switch
         v-model="enabled"
-        :tabindex="1"
-        class="box-border relative inline-flex items-center transition-all duration-200 ease-in-out border-2 border-white rounded-full outline-none ring-0 focus:outline-none focus:ring-0 bg-slate-600"
+        tabindex="0"
+        class="box-border relative inline-flex items-center transition-all duration-200 ease-in-out border-2 border-white rounded-full outline-none shrink-0 focus-visible:ring-4 ring-slate-600 bg-slate-600"
         :class="{
           'opacity-50': !enabled,
           'opacity-100': enabled,
@@ -47,8 +46,8 @@ const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
       >
         <span
           :class="{
-            ' translate-x-[22px]': enabled && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md'),
-            'translate-x-[18px]': enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md'),
+            ' translate-x-[22px]': enabled && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
+            'translate-x-[18px]': enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm' ),
             'translate-x-0.5': !enabled,
             'size-3': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
             'size-4': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',

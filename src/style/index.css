@@ -16,7 +16,7 @@
 
 body {
   overflow-x: hidden;
-  background-color: #0A0909;
+  background-color: #0F0F20;
 }
 
 
@@ -51,7 +51,7 @@ html {
 
   /* Scale and Fade (fast 0.3s) */
   .scale-and-fade-fast-enter-active {
-    transition: opacity 0.3s, transform 0.3s;
+    transition: opacity 0.5s, transform 0.5s;
   }
   .scale-and-fade-fast-enter-from {
     opacity: 0;
@@ -62,7 +62,7 @@ html {
     transform: scale(1);
   }
   .scale-and-fade-fast-leave-active {
-    transition: opacity 0.3s, transform 0.3s;
+    transition: opacity 0.5s, transform 0.5s;
   }
   .scale-and-fade-fast-leave-from {
     opacity: 1;
@@ -140,21 +140,19 @@ html {
   }
 
   /* Slide Down */
-  .slide-down-enter-active, .slide-down-leave-active {
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, height 0.5s ease-in-out;
+  .slide-left-enter-active, .slide-left-leave-active {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     overflow: hidden;
   }
   
-  .slide-down-enter-from, .slide-down-leave-to {
-    transform: translateY(-100%);
+  .slide-left-enter-from, .slide-left-leave-to {
+    transform: translateX(-100%);
     opacity: 0;
-    height: auto;
   }
   
-  .slide-down-enter-to, .slide-down-leave-from {
-    transform: translateY(0);
+  .slide-left-enter-to, .slide-left-leave-from {
+    transform: translateX(0);
     opacity: 1;
-    height: auto; /* Puoi impostare un valore specifico se necessario */
   }
 
 /* TRANSITIONS CSS END */

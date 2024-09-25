@@ -5,6 +5,7 @@ import { RouterView } from 'vue-router';
 import { TheHeader, BaseLoadingPagePanel } from '@/components';
 
 const isLoading = inject<Ref<boolean>>('isLoading');
+
 </script>
 
 <template>

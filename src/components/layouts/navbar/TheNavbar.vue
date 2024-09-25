@@ -23,10 +23,10 @@ const { containerPadding, activeBreakpoint } = useCommonStyleSingleton();
 <template>
   <nav
     v-bind="$attrs"
-    class="flex transition-all duration-300 ease-in-out bg-secondary"
+    class="flex bg-sb-secondary-200"
     :class="{
       'flex-col w-full': props.variant === 'vertical',
-      'flex-row items-center justify-end px-4 py-2 border-2 rounded-full  gap-x-6  border-slate-700': props.variant === 'horizontal',
+      'flex-row items-center justify-end px-4 py-2 border-2 rounded-full gap-x-6 border-sb-secondary-100': props.variant === 'horizontal',
     }"
   >
     <router-link
@@ -34,21 +34,19 @@ const { containerPadding, activeBreakpoint } = useCommonStyleSingleton();
       :key="index"
       :to="routeItem.path"
       tabindex="0"
-      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none min-w-24 font-roboto"
+      class="inline-flex items-center transition-all duration-500 ease-in-out outline-none min-w-24 font-roboto ring-0 focus-visible:ring-0"
       :class="[
         props.variant === 'vertical' ? containerPadding : '',
         {
-          'justify-center px-2 py-1 text-sb-base rounded-full hover:shadow-sb-light': props.variant === 'horizontal',
+          'justify-center px-2 py-1 text-sb-base rounded-full': props.variant === 'horizontal',
           'py-6 text-sb-base': props.variant === 'vertical' && activeBreakpoint === 'md',
           'py-4 text-sb-sm': props.variant === 'vertical' && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
         },
         {
-          'text-main bg-white': route.path === routeItem.path,
-          'text-white bg-slate-700/50 hover:bg-slate-700': route.path !== routeItem.path,
+          'text-black bg-sb-tertiary-100 shadow-[0_0_10px_3px_rgba(233,89,5,0.8)]': route.path === routeItem.path,
+          'text-white bg-sb-secondary-100 hover:bg-sb-tertiary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200': route.path !== routeItem.path,
         },
-        {
-          'focus-visible:ring-2 ring-white ring-0': activeBreakpoint !== 'md' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'xs',
-        }
+
       ]"
       @click="() => emits('close-menu')"
     >

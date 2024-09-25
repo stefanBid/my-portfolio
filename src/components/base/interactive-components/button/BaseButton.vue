@@ -27,17 +27,17 @@ const { activeBreakpoint } = useCommonStyleSingleton();
   <button
     v-bind="$attrs"
     type="button"
-    class="inline-flex items-center overflow-x-hidden transition-all duration-300 ease-in-out outline-none ring-0 font-roboto focus-visible:ring-2 focus-visible:ring-white"
+    class="inline-flex items-center overflow-x-hidden transition-all duration-500 ease-in-out outline-none"
     :tabindex="props.disabled ? -1 : 0"
     :class="[
       {
-        'gap-x-2 font-medium truncate border-2 border-white rounded-full': !props.noStyle,
+        'gap-x-2 font-medium truncate border-2  rounded-full ring-0 font-roboto focus-visible:ring-0': !props.noStyle,
       },
       {
         'pointer-events-none opacity-50': props.disabled,
         'justify-between': props.contentHorizontalOrientation === 'between',
         'justify-center': props.contentHorizontalOrientation === 'center',
-        'bg-secondary text-white hover:text-main hover:bg-white ': props.variant === 'primary' && !props.noStyle,
+        'bg-transparent/50 text-white border-white hover:text-black hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100 hover:shadow-[0_0_15px_5px_rgba(233,89,5,0.8)] active:text-black active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-[0_0_15px_5px_rgba(163,53,3,0.8)] focus-visible:text-black focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100 focus-visible:shadow-[0_0_15px_5px_rgba(233,89,5,0.8)] ': props.variant === 'primary' && !props.noStyle,
         'bg-white text-main hover:text-white hover:bg-secondary': props.variant === 'secondary' && !props.noStyle,
       },
 
@@ -53,9 +53,9 @@ const { activeBreakpoint } = useCommonStyleSingleton();
       :is="props.icon"
       class="shrink-0 "
       :class="{
-        'size-6': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'size-5': activeBreakpoint === 'md',
-        'size-4': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+        'size-7': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-6': activeBreakpoint === 'md',
+        'size-5': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
   </button>

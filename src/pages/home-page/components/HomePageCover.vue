@@ -24,12 +24,12 @@ const { containerPadding } = useCommonStyleSingleton();
       v-if="props.backgroundType === 'image'"
       :src="props.backgroundUrl "
       alt="Background"
-      class="absolute inset-0 object-cover object-center w-full h-full"
+      class="absolute inset-0 object-cover object-center w-full h-full pt-20"
     />
     <video
       v-if="props.backgroundType === 'clip'"
       :src="props.backgroundUrl"
-      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none grayscale"
+      class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none "
       autoplay
       loop
       muted
@@ -42,7 +42,7 @@ const { containerPadding } = useCommonStyleSingleton();
         'bg-black': props.overlayColor === 'black',
         'bg-white': props.overlayColor === 'white'
       }"
-      class="absolute inset-0 pt-20 opacity-60"
+      class="absolute inset-0 pt-20 opacity-30"
     ></div>
 
     <!-- Cover Content -->

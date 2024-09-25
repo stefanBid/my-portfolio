@@ -70,9 +70,8 @@ function createCommonStyle() {
 	});
 
 	const labelSize = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-xs'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-sm'; }
-		return 'text-sb-base';
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm' || activeBreakpoint.value === 'md') { return 'text-sb-xs'; }
+		return 'text-sb-sm';
 	});
 
 	return { activeBreakpoint, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };

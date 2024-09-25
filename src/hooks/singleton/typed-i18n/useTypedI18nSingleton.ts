@@ -2,6 +2,16 @@
 import { ref, watch, } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+// Global interfaces
+interface Section {
+	titleHeading: string;
+	subTitleHeading: string;
+	contentParagraph: string;
+	imagePath?: string;
+	imageDescription?: string;
+}
+
+// Interface for the content of the header
 interface HeaderContent {
 	navbarRoutes: {
 		text: string;
@@ -9,6 +19,7 @@ interface HeaderContent {
 	}[]
 }
 
+// Interface for the content of the home page
 interface HomePageContent {
 	firstHeading: string;
 	secondHeading: string;
@@ -17,23 +28,22 @@ interface HomePageContent {
 	secondButton: {text:string, link: string};
 }
 
+// Interface for the content of the about me page
 interface AboutMePageContent {
 	pageHeading: string;
-	bioSections: {
-		titleHeading: string;
-		subTitleHeading: string;
-		contentParagraph: string;
-		imagePath: string;
-		imageDescription: string;
-	}[];
+	bioSections: Section[];
 }
 
+// Interfaces and types for the content of the skills page
+type skillSection = 'FE' | 'BE' | 'WD';
+type SkillType = 'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'beDb';
 type Rating = 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6 | 6.5 | 7 | 7.5 | 8 | 8.5 | 9 | 9.5 | 10;
+
 interface SkillInfo {
   id: string;
   name: string;
   icon?: string;
-	type: 'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'beDb';
+	type: SkillType;
   overAllRating: {
     syntaxAndSemantics: Rating;
     librariesAndFrameworks: Rating;
@@ -45,11 +55,7 @@ interface SkillInfo {
 
 interface SkillsPageContent {
 	pageHeading: string;
-	skillsSections: {
-		titleHeading: string;
-		subTitleHeading: string;
-		contentParagraph: string;
-	}[];
+	skillsSections: (Section & { sectionType: skillSection })[];
 	skillsList: SkillInfo[];
 }
 

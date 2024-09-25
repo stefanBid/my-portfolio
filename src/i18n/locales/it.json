@@ -63,16 +63,19 @@
     "pageHeading": "Conoscimi meglio!",
     "skillsSections": [
       {
+        "sectionType": "FE",
         "titleHeading": "Sviluppo Frontend",
         "subTitleHeading": "La mia Passione e Competenza",
         "contentParagraph": "Lo sviluppo frontend è la mia principale area di competenza e passione. Ho una solida base in HTML, CSS e JavaScript, che ho potuto perfezionare e ampliare attraverso i miei studi accademici e la mia esperienza professionale. Sono competente nell'utilizzo di framework e librerie moderni come React, Angular e Vue.js, che ho utilizzato in vari progetti per creare interfacce utente dinamiche e responsive. La mia esperienza nello sviluppo frontend mi ha permesso di lavorare su una vasta gamma di progetti, da semplici siti web ad applicazioni web complesse, concentrandomi sempre sulla creazione di un'esperienza utente fluida e coinvolgente. Esploro costantemente nuove tecnologie e best practice nello sviluppo frontend per rimanere aggiornato con le ultime tendenze e innovazioni nel campo."
       },
       {
+        "sectionType": "BE",
         "titleHeading": "Sviluppo Backend",
         "subTitleHeading": "La mia Versatilità e Abilità",
         "contentParagraph": "Sebbene lo sviluppo frontend sia il mio principale focus, ho anche esperienza nello sviluppo backend, che mi consente di lavorare su progetti full-stack e di avere una comprensione completa del processo di sviluppo. Ho esperienza nello sviluppo di API RESTful, nel lavoro con database e nel deployment di applicazioni su piattaforme cloud. Sono competente nell'utilizzo di Node.js ed Express per creare applicazioni lato server e ho esperienza con database relazionali e non relazionali come MySQL e MongoDB. La mia esperienza nello sviluppo backend completa le mie competenze frontend e mi consente di lavorare su una vasta gamma di progetti, da semplici siti web ad applicazioni web complesse. Cerco sempre opportunità per espandere le mie conoscenze e competenze nello sviluppo backend per diventare uno sviluppatore più versatile e completo."
       },
       {
+        "sectionType": "WD",
         "titleHeading": "Web Design",
         "subTitleHeading": "La mia Estetica e Creatività",
         "contentParagraph": "Oltre alle mie competenze tecniche, ho anche una passione per il web design e il design dell'interfaccia utente. Credo che un'interfaccia utente ben progettata sia essenziale per creare un'esperienza utente positiva e coinvolgere gli utenti con il contenuto di un sito web o di un'applicazione. Ho esperienza nell'utilizzo di strumenti di design come Figma e Adobe XD per creare wireframe e mockup per progetti web, oltre a implementare principi di design responsive per garantire che i siti web abbiano un bell'aspetto su tutti i dispositivi. La mia esperienza nel web design mi consente di lavorare a stretto contatto con designer e altri stakeholder per creare interfacce visivamente attraenti e user-friendly che soddisfino le esigenze e le aspettative degli utenti. Cerco sempre opportunità per migliorare le mie competenze di design e imparare nuove tecniche per creare interfacce utente innovative e coinvolgenti."

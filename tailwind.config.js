@@ -28,11 +28,20 @@ export default {
       'sb-6xl': '4.5rem',   // 6 extra large, 
       'sb-7xl': '5.5rem'    // 7 extra large, 
 		},
-		extend: {
-			colors: {
-				main: '#0A0909',
-				secondary: '#1F1E1E',
+		colors: {
+			'black': '#000000',
+			'white': '#ffffff',
+			'sb-main': '#0F0F20',
+			'sb-secondary': {
+				100: '#424a6e',
+				200: '#011e41'
 			},
+			'sb-tertiary': {
+				100: '#e95905',
+				200: '#a33503'
+			},
+		},
+		extend: {
 			padding: {
 				'sb-side-sm': '0 5%',
 				'sb-side-base': '0 6%',
@@ -45,9 +54,6 @@ export default {
 				'sb-top-sm': '14% 0 0 0',
 				'sb-top-base': '15% 0 0 0',
 				'sb-top-lg': '16% 0 0 0',
-			},
-			boxShadow: {
-				'sb-light': '0 10px 20px rgba(255, 255, 255, 0.15), 0 5px 10px rgba(255, 255, 255, 0.1), 0 2px 4px rgba(255, 255, 255, 0.05)'
 			},
 		},
 	},

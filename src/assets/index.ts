@@ -14,7 +14,6 @@ import SpringIcon from '@/assets/icons/spring.svg';
 import TsIcon from '@/assets/icons/type-script.svg';
 import UkIcon from '@/assets/icons/uk-flag.svg';
 import VueIcon from '@/assets/icons/vue.svg';
-import ImgPreview from '@/assets/icons/img-pre.svg';
 
 
 const SKILLS_ICONS_MAP = {
@@ -36,6 +35,6 @@ const SKILLS_ICONS_MAP = {
 
 type SkillIcon = keyof typeof SKILLS_ICONS_MAP;
 
-export {  CodeIcon, ItalyIcon, UkIcon, ImgPreview, SKILLS_ICONS_MAP, type SkillIcon };
+export {  CodeIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
 
 

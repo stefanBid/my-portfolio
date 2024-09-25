@@ -43,7 +43,7 @@ const { h1Size, activeBreakpoint } = useCommonStyleSingleton();
           'size-14': activeBreakpoint === 'md',
           'size-16': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
         }"
-        class="mt-4 text-white transform animate-pulse"
+        class="mt-4 transform text-sb-tertiary-100 animate-pulse"
       />
     </transition>
   </div>
