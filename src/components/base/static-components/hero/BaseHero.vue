@@ -18,7 +18,7 @@ onMounted(() => {
 });
 
 // Feature 1: Manage Style Classes
-const { h1Size, activeBreakpoint } = useCommonStyleSingleton();
+const { textSizeXXL, activeBreakpoint } = useCommonStyleSingleton();
 
 </script>
 
@@ -29,7 +29,7 @@ const { h1Size, activeBreakpoint } = useCommonStyleSingleton();
     <transition name="stretch">
       <h1
         v-if="show"
-        :class="[h1Size]"
+        :class="[textSizeXXL]"
         class="text-center text-white whitespace-normal transition-all duration-300 ease-in-out font-bebas "
       >
         {{ props.title }}

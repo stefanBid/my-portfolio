@@ -2,7 +2,7 @@
 import { CodeIcon } from '@/assets';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
-const { h2Size, h3Size, containerPadding, activeBreakpoint } = useCommonStyleSingleton();
+const { textSizeXL, textSizeL, containerPadding, activeBreakpoint } = useCommonStyleSingleton();
 
 const { currentLanguage } = useTypedI18nSingleton();
 
@@ -14,7 +14,7 @@ const { currentLanguage } = useTypedI18nSingleton();
     class="flex flex-col items-center justify-center h-screen text-center text-white gap-y-4"
   >
     <h1
-      :class="[h2Size]"
+      :class="[textSizeXL]"
       class="whitespace-normal transition-all duration-300 ease-in-out font-bebas "
     >
       {{ currentLanguage === 'en' ? 'Work in progress!' : 'Lavori in corso!' }}
@@ -28,7 +28,7 @@ const { currentLanguage } = useTypedI18nSingleton();
       }"
     />
     <h3
-      :class="[h3Size]"
+      :class="[textSizeL]"
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto"
     >
       {{ currentLanguage === 'en' ? 'This page is under construction. Please come back later.' : 'Questa pagina è in costruzione. Torna più tardi.' }}

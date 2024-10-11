@@ -9,7 +9,7 @@ import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 const { currentLanguage } = useTypedI18nSingleton();
 
 // Feature 3: Manage Style Classes
-const { activeBreakpoint, h1Size, h3Size, containerPadding } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXXL, textSizeL, containerPadding } = useCommonStyleSingleton();
 
 // Feature 4: Navigation
 const router = useRouter();
@@ -21,7 +21,7 @@ const router = useRouter();
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
     <h1
-      :class="[h1Size]"
+      :class="[textSizeXXL]"
       class="whitespace-normal transition-all duration-300 ease-in-out font-bebas "
     >
       {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
@@ -35,7 +35,7 @@ const router = useRouter();
       }"
     />
     <p
-      :class="[h3Size]"
+      :class="[textSizeL]"
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto "
     >
       {{ currentLanguage === 'en' ? 'The page you are looking for does not exist.' : 'La pagina che stai cercando non esiste.' }}

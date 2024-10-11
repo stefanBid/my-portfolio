@@ -19,7 +19,11 @@ defineOptions({ inheritAttrs: false });
 const { activeBreakpoint } = useCommonStyleSingleton();
 
 // Feature 1: Manage Open <--> Close State
-const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel('dropdownMenu');
+const { isOpen, anchor, popper, popperStyle, changeToolTipVisibility } = useFloatingPanel({
+	placement: 'bottom-start',
+	strategy: 'fixed',
+	offsetValue: 15,
+});
 
 const toggleMenu = (open?: boolean) => {
 	changeToolTipVisibility(open ? 'open' : 'close');

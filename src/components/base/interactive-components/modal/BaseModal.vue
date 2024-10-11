@@ -18,11 +18,8 @@ interface ModalProps {
   modalSize?: 'small' | 'medium' | 'large';
   modalTitle?: string;
   modalSubtitle?: string;
-}
-
-interface ModalEmits {
   // eslint-disable-next-line no-unused-vars
-  (e: 'closeModal'): void;
+  onCloseModal: (falsyValue: false) => void;
 }
 
 const props = withDefaults(defineProps<ModalProps>(), {
@@ -33,10 +30,8 @@ const props = withDefaults(defineProps<ModalProps>(), {
 	customZIndex: 50,
 });
 
-const emits = defineEmits <ModalEmits>();
-
 // Feature 1: Manage Style Classes
-const { containerPadding, h3Size, pSize } = useCommonStyleSingleton();
+const { containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
 
 const getSizeClass = computed(() => {
 	switch (props.modalSize) {
@@ -53,7 +48,7 @@ const getSizeClass = computed(() => {
 
 // Feature 2: Send Close Modal Event
 const handleCloseModal = () => {
-	emits('closeModal');
+	props.onCloseModal(false);
 };
 
 </script>
@@ -79,7 +74,7 @@ const handleCloseModal = () => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-main/95"></div>
+        <div class="fixed inset-0 bg-black/95"></div>
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto">
@@ -98,11 +93,11 @@ const handleCloseModal = () => {
           >
             <DialogPanel
               :class="[getSizeClass]"
-              class="flex flex-col p-6 overflow-hidden transition-all transform border-2 rounded-lg gap-y-6 shadow-sb-light border-slate-700 bg-secondary"
+              class="flex flex-col p-6 overflow-hidden transition-all transform border-2 rounded-lg shadow-lg gap-y-6 shadow-sb-secondary-100 border-slate-700 border-sb-secondary-100 bg-sb-main"
             >
               <div
                 id="modal-header"
-                class="flex justify-between overflow-hidden border border-white shrink-0 gap-x-4"
+                class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-4"
               >
                 <div
                   :class="{
@@ -115,7 +110,7 @@ const handleCloseModal = () => {
                   <h3
                     v-show="props.modalTitle"
                     id="modal-title"
-                    :class="[h3Size]"
+                    :class="[textSizeL]"
                     class="font-medium text-white truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
                   >
                     {{ props.modalTitle }}
@@ -123,8 +118,8 @@ const handleCloseModal = () => {
                   <p
                     v-show="props.modalSubtitle"
                     id="modal-subtitle"
-                    :class="[ pSize]"
-                    class="mt-2 text-sm text-gray-500 truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+                    :class="[ textSizeS]"
+                    class="mt-2 text-sm truncate transition-all duration-300 ease-in-out text-white/60 font-roboto"
                   >
                     {{ props.modalSubtitle }}
                   </p>

@@ -8,13 +8,7 @@ import HomePageCover from '@/pages/home-page/components/HomePageCover.vue';
 import { downloadCv, openLink } from '@/utils';
 
 // Feature 1: Manage Style Classes
-const { activeBreakpoint, h1Size, h2Size } = useCommonStyleSingleton();
-
-const getButtonWidth = computed(() => {
-	if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'w-44'; }
-	if (activeBreakpoint.value === 'md') { return 'w-52'; }
-	return 'w-56';
-});
+const { activeBreakpoint, textSizeXXL, textSizeXL } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
 const { homePageI18nContent, currentLanguage } = useTypedI18nSingleton();
@@ -60,7 +54,7 @@ onMounted(() => {
             <h2
               id="firstHeading"
               class="text-white whitespace-normal"
-              :class="[h2Size]"
+              :class="[textSizeXL]"
             >
               {{ homePageI18nContent.firstHeading }}
             </h2>
@@ -68,7 +62,7 @@ onMounted(() => {
               id="secondHeading"
               class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit rotate-3"
               :class="[
-                h1Size,
+                textSizeXXL,
                 {
                   'px-1 py-0.5': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
                   'px-2 py-1': activeBreakpoint === 'md',
@@ -82,7 +76,7 @@ onMounted(() => {
             <h2
               id="thirdHeading"
               class="text-white whitespace-normal transition-all duration-300 ease-in-out "
-              :class="[h2Size]"
+              :class="[textSizeXL]"
             >
               {{ currentLanguage === 'en' ? `And I'm a`: `E sono uno` }} {{ currentTxt }}_
             </h2>
@@ -99,7 +93,7 @@ onMounted(() => {
           >
             <BaseButton
               id="firstButton"
-              :class="[getButtonWidth]"
+              class="w-60"
               :icon="ChatBubbleLeftRightIcon"
               @click="openLink(homePageI18nContent.firstButton.link)"
             >
@@ -108,14 +102,14 @@ onMounted(() => {
 
             <span
               class="block text-white transition-all duration-300 ease-in-out font-bebas"
-              :class="[h2Size]"
+              :class="[textSizeXL]"
             >
               {{ currentLanguage === 'en' ? 'Or' : 'Oppure' }}
             </span>
 
             <BaseButton
               id="secondButton"
-              :class="[getButtonWidth]"
+              class="w-60"
               :icon="DocumentArrowDownIcon"
               @click="downloadCv(homePageI18nContent.secondButton.link)"
             >

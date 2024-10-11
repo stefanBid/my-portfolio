@@ -9,7 +9,9 @@ import ItalyIcon from '@/assets/icons/it-flag.svg';
 import JsIcon from '@/assets/icons/java-script.svg';
 import JavaIcon from '@/assets/icons/java.svg';
 import MysqlIcon from '@/assets/icons/mysql.svg';
+import PythonIcon from '@/assets/icons/python.svg';
 import ReactIcon from '@/assets/icons/react.svg';
+import RocketIcon from '@/assets/icons/rocket.svg';
 import SpringIcon from '@/assets/icons/spring.svg';
 import TsIcon from '@/assets/icons/type-script.svg';
 import UkIcon from '@/assets/icons/uk-flag.svg';
@@ -26,6 +28,7 @@ const SKILLS_ICONS_MAP = {
   JsIcon,
   JavaIcon,
   MysqlIcon,
+  PythonIcon,
   ReactIcon,
   SpringIcon,
   TsIcon,
@@ -35,6 +38,6 @@ const SKILLS_ICONS_MAP = {
 
 type SkillIcon = keyof typeof SKILLS_ICONS_MAP;
 
-export {  CodeIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
+export {RocketIcon, CodeIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
 
 

@@ -44,37 +44,43 @@ function createCommonStyle() {
 
 	// Common style for text elements
 
-	const h1Size = computed(() => {
+	const textSizeXXL = computed(() => {
 		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-4xl'; }
 		if (activeBreakpoint.value === 'md') { return 'text-sb-6xl'; }
 		return 'text-sb-7xl';
 	});
 
-	const h2Size = computed(() => {
+	const textSizeXL = computed(() => {
 		if (activeBreakpoint.value === 'xs') { return 'text-sb-2xl'; }
 		if (activeBreakpoint.value === 'sm') { return 'text-sb-3xl'; }
 		if (activeBreakpoint.value === 'md') { return 'text-sb-4xl'; }
 		return 'text-sb-5xl';
 	});
 
-	const h3Size = computed(() => {
+	const textSizeL = computed(() => {
 		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-lg'; }
 		if (activeBreakpoint.value === 'md') { return 'text-sb-xl'; }
 		return 'text-sb-2xl';
 	});
 
-	const pSize = computed(() => {
+	const textSizeM = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-base'; }
+		if (activeBreakpoint.value === 'md') { return 'text-sb-lg'; }
+		return 'text-sb-xl';
+	});
+
+	const textSizeS = computed(() => {
 		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-sm'; }
 		if (activeBreakpoint.value === 'md') { return 'text-sb-base'; }
 		return 'text-sb-lg';
 	});
 
-	const labelSize = computed(() => {
+	const textSizeXS = computed(() => {
 		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm' || activeBreakpoint.value === 'md') { return 'text-sb-xs'; }
 		return 'text-sb-sm';
 	});
 
-	return { activeBreakpoint, containerPadding, containerGapElements, h1Size, h2Size, h3Size, pSize, labelSize };
+	return { activeBreakpoint, containerPadding, containerGapElements, textSizeXXL, textSizeXL, textSizeL, textSizeM, textSizeS, textSizeXS };
 }
 
 export function useCommonStyleSingleton() {

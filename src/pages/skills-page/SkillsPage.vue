@@ -1,19 +1,20 @@
 <script setup lang="ts">
-// import { CodeBracketSquareIcon } from '@heroicons/vue/24/outline';
-import { computed, ref, /* watch */ } from 'vue';
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import { computed, ref, } from 'vue';
 
-import { SKILLS_ICONS_MAP, type SkillIcon } from '@/assets';
-import { BaseHero, ThePageContainer, /* BaseDiv, BaseButton, BaseModal, BaseInput, BaseToggle, */ BaseSection } from '@/components';
-import { /* useCommonStyleSingleton, */ useTypedI18nSingleton } from '@/hooks';
+import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
+import { BaseHero, ThePageContainer, BaseButton, BaseSection } from '@/components';
+import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import SkillsModal from '@/pages/skills-page/components/SkillsModal.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
 // const SkillsRootRef = ref<HTMLElement | null>(null);
 
 // Feature 1: Manage Style Classes
-// const { activeBreakpoint } = useCommonStyleSingleton();
+const { textSizeXL, textSizeL, activeBreakpoint } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
-const { skillsPageI18nContent, /* currentLanguage */ } = useTypedI18nSingleton();
+const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
 const skillsList = ref(skillsPageI18nContent.value.skillsList);
 
 // Feature 3: Manage Skills for Solar System Component
@@ -26,67 +27,12 @@ const beIcons = computed(() => skillsList.value
 	.map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]));
 
 // Feature 4: Manage Modal State
-/*
 const isModalOpen = ref(false);
 
-const handleOpenModal = () => {
-	isModalOpen.value = true;
+const changeVisibility = (newVisibility: boolean) => {
+	if (newVisibility === isModalOpen.value) { return; }
+	isModalOpen.value = newVisibility;
 };
-const handleCloseModal = () => {
-	isModalOpen.value = false;
-};
-
-// Feature 5: Mnaage Skills Search
-interface FiltersSkills {
-  feLanguages: boolean;
-  feFrameworks: boolean;
-  beLanguages: boolean;
-  beFrameworks: boolean;
-  beDbs: boolean;
-}
-const searchSkillKey = ref('');
-
-const filtersSkills = ref<FiltersSkills>({
-	feLanguages: true,
-	feFrameworks: true,
-	beLanguages: true,
-	beFrameworks: true,
-	beDbs: true,
-}
-);
-
-const FILTERS_MAP: Record<keyof FiltersSkills, string> = {
-	feLanguages: 'Show Frontend Languages',
-	feFrameworks: 'Show Frontend Frameworks',
-	beLanguages: 'Show Backend Languages',
-	beFrameworks: 'Show Backend Frameworks',
-	beDbs: 'Show Backend Databases',
-};
-const debouncedSkillSearchKey = ref('');
-let searchTimeout: ReturnType<typeof setTimeout> | null = null;
-
-const filteredSkillsList = computed(() => {
-	return skillsList.value.filter((skill) => {
-		return skill.name.toLowerCase().includes(searchSkillKey.value.toLowerCase());
-	});
-});
-
-const handleSearchInput = (newValue: string) => {
-	// Clear the timeout if the user is still typing
-	if (searchTimeout) {
-		clearTimeout(searchTimeout);
-	}
-
-	// Set a new timeout to update the debounced value after 300ms
-	searchTimeout = setTimeout(() => {
-		searchSkillKey.value = newValue;
-	}, 300);
-};
-
-watch(debouncedSkillSearchKey, (newValue) => {
-	handleSearchInput(newValue);
-});
-*/
 </script>
 
 <template>
@@ -98,6 +44,36 @@ watch(debouncedSkillSearchKey, (newValue) => {
     </template>
 
     <template #page-content>
+      <div class="flex flex-col items-center justify-center w-full p-8 mb-32 border-2 border-dashed rounded-lg border-sb-secondary-100">
+        <RocketIcon
+          class="transition-all duration-500 ease-in-out "
+          :class="{
+            'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            'size-44': activeBreakpoint === 'md',
+            'size-48': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          }"
+        />
+        <span
+          :class="[textSizeXL]"
+          class="mt-4 text-center font-bebas text-sb-tertiary-100"
+        >
+          {{ currentLanguage === 'en' ? `Looking for a skilled professional?`: `Cerchi un professionista qualificato?` }}
+        </span>
+        <span
+          :class="[textSizeL]"
+          class="mb-4 text-center text-white font-bebas"
+        >
+          {{ currentLanguage === 'en' ? `Discover my top skills and how I can add value to your team`: `Scopri le mie principali competenze e come posso contribuire alla tua squadra` }}
+        </span>
+        <BaseButton
+          variant="primary"
+          class="w-fit"
+          :icon="MagnifyingGlassIcon"
+          @click="changeVisibility(!isModalOpen)"
+        >
+          {{ currentLanguage === 'en' ? `Explore My Skills`: `Esplora le mie competenze` }}
+        </BaseButton>
+      </div>
       <BaseSection
         v-for="(section, index) in skillsPageI18nContent.skillsSections"
         :id="`skillsSection-${index}`"
@@ -115,83 +91,11 @@ watch(debouncedSkillSearchKey, (newValue) => {
           />
         </template>
       </BaseSection>
-      <!--
-      <BaseButton
-        variant="secondary"
-        class="mt-4 w-fit"
-        :icon="CodeBracketSquareIcon"
-        @click="handleOpenModal()"
-      >
-        {{ currentLanguage === 'en' ? `Show Skills`: `Mostra le competenze` }}
-      </BaseButton>
-      -->
     </template>
   </ThePageContainer>
-<!--
-  <BaseModal
-    :is-open="isModalOpen"
-    header-orientation="left"
-    :modal-title="currentLanguage === 'en' ? 'Skills' : 'Competenze '"
-    :modal-subtitle="currentLanguage === 'en' ? 'List of skills' : 'Lista delle competenze'"
-    @close-modal="() => handleCloseModal()"
-  >
-    <template #modal-content>
-      <div class="flex h-full overflow-hidden border border-white">
-        <div
-          :class="{
-            'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'w-1/3': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
-          }"
-          class="flex flex-col p-4 transition-all duration-300 ease-in-out transform"
-        >
-          <BaseInput
-            v-model:input-value="searchSkillKey"
-            placeholder="Search a specific skill"
-            :custom-z-index="60"
-            :with-menu="true"
-          >
-            <template #input-menu-box>
-              <div
-                class="flex flex-wrap gap-3 p-2 rounded-lg bg-secondary"
-              >
-                <template
-                  v-for="filterKey in (Object.keys(FILTERS_MAP) as (keyof FiltersSkills)[])"
-                  :key="filterKey"
-                >
-                  <BaseToggle
-                    v-model:enabled="filtersSkills[filterKey as keyof typeof filtersSkills]"
-                    :label="FILTERS_MAP[filterKey]"
-                  />
-                </template>
-              </div>
-            </template>
-          </BaseInput>
-          <div
-            ref="SkillsRootRef"
-            class="flex flex-col w-full gap-4 mt-8 overflow-y-auto"
-          >
-            <BaseDiv
-              v-for="(skill, index) in filteredSkillsList"
-              :key="index"
-              class="p-4 bg-white rounded-full "
-              :intersection-observer-settings="{root: SkillsRootRef, threshold: 0.4, visibilityCss: 'fade-and-slide'}"
-            >
-              {{ skill.name }}
-            </BaseDiv>
-          </div>
-        </div>
-        <transition name="fade">
-          <div
-            v-if="activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'"
-            class="w-2/3 bg-slate-400"
-          >
-            <p class="text-white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget
-            </p>
-          </div>
-        </transition>
-      </div>
-    </template>
-  </BaseModal>
-  -->
+  <SkillsModal
+    :is-modal-open="isModalOpen"
+    :skills-list="skillsList"
+    :handle-close-modal="falsyValue => changeVisibility(falsyValue)"
+  />
 </template>

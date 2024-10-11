@@ -1,47 +1,33 @@
 import { useFloating, flip, shift, autoUpdate, offset, arrow } from '@floating-ui/vue';
 import type { Placement, Strategy } from '@floating-ui/vue';
-import { ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-type PopperType = 'dropdownMenu' | 'helpInfo' | 'inputSettings'
-
-interface PopperSettings {
+interface FloatingSettings {
 	placement: Placement;
 	strategy: Strategy;
 	offsetValue: number;
-	hasArrow: boolean;
+	hasArrow?: boolean;
+	hasResize?: boolean;
 }
 
-// This helper function is used to configure the popper settings for each popper type in complete security
-const configurePopperSetting = (placement: Placement, strategy: Strategy, offsetValue: number, hasArrow?: boolean) : PopperSettings => ({
-	placement,
-	strategy,
-	offsetValue,
-	hasArrow: hasArrow ?? false,
-});
-
-// eslint-disable-next-line no-unused-vars
-const popperSettings: { [key in PopperType]: PopperSettings } = {
-	helpInfo: configurePopperSetting('top', 'absolute', 10, true),
-	dropdownMenu: configurePopperSetting('bottom-end', 'absolute', 20),
-	inputSettings: configurePopperSetting('bottom', 'absolute', 10),
-};
-
-export function useFloatingPanel(popperType: PopperType) {
-	const anchor = ref();
-	const popper = ref();
-	const popperArrow = ref();
-	const isOpen = ref();
+export function useFloatingPanel(settings: FloatingSettings) {
+	const anchor = ref<HTMLElement | null>(null);
+	const popper = ref<HTMLElement | null>(null);
+	const popperArrow = ref<HTMLElement | null>(null);
+	const isOpen = ref(false);
+	const resizeObserver = ref<ResizeObserver | null>(null);
+	let isObserving = false;
 
 	const { floatingStyles, placement, middlewareData } = useFloating(anchor, popper, {
 		open: isOpen,
-		placement: popperSettings[popperType].placement,
-		strategy: popperSettings[popperType].strategy,
+		placement: settings.placement,
+		strategy: settings.strategy,
 		transform: false,
 		middleware: [
-			offset(popperSettings[popperType].offsetValue),
+			offset(settings.offsetValue),
 			flip(),
 			shift(),
-			...popperSettings[popperType].hasArrow ? [arrow({ element: popperArrow })] : [],
+			...settings.hasArrow ? [arrow({ element: popperArrow })] : []
 		],
 		whileElementsMounted: autoUpdate,
 	});
@@ -53,6 +39,41 @@ export function useFloatingPanel(popperType: PopperType) {
 			isOpen.value = false;
 		}
 	};
+
+	const syncPopperWidthWithAnchor = () => {
+		if (popper.value && anchor.value) {
+			popper.value.style.width = `${anchor.value.offsetWidth * 0.95}px`;
+		}
+	};
+
+	watch(isOpen, async (newVal) => {
+		if (newVal) {
+			await nextTick();
+			syncPopperWidthWithAnchor();
+		}
+	});
+
+	watch(anchor, (newAnchor) => {
+		if (newAnchor && settings.hasResize && !isObserving) {
+			isObserving = true;
+			resizeObserver.value = new ResizeObserver(syncPopperWidthWithAnchor);
+			resizeObserver.value.observe(newAnchor);
+		}
+	});
+
+	onMounted(() => {
+		if (settings.hasResize && anchor.value) {
+			isObserving = true;
+			resizeObserver.value = new ResizeObserver(syncPopperWidthWithAnchor);
+			resizeObserver.value.observe(anchor.value);
+		}
+	});
+
+	onUnmounted(() => {
+		if (settings.hasResize) {
+			resizeObserver.value?.disconnect();
+		}
+	});
 
 	return {
 		anchor,

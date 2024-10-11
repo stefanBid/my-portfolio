@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<BaseToggleProps>(), {
 const enabled = defineModel<boolean>('enabled', { default: false, required: true });
 
 // Feature 0: Manage Breakpoints and Style Classes
-const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const { activeBreakpoint, labelSize } = useCommonStyleSingleton();
       <SwitchLabel
         v-if="props.label"
         class="ml-3 text-white transition-all duration-200 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
-        :class="[labelSize,{
+        :class="[textSizeXS,{
           'opacity-50': !enabled,
           'opacity-100': enabled,
         }]"

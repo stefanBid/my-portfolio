@@ -1,54 +1,111 @@
 <script setup lang="ts">
-import { CubeTransparentIcon } from '@heroicons/vue/24/outline';
-import type { Component, FunctionalComponent } from 'vue';
+import { PhotoIcon } from '@heroicons/vue/24/outline';
+import { computed, ref } from 'vue';
 
+import { SKILLS_ICONS_MAP } from '@/assets';
+import { BaseDiv } from '@/components';
 import { useCommonStyleSingleton } from '@/hooks';
+import type { SkillInfo } from '@/types';
 
 interface SkillCardProps {
-  skillIcon?: Component | FunctionalComponent | string;
-  textContent: string;
-  isSelected?: boolean;
+  rootElement: HTMLElement | null;
+  skill: SkillInfo
 }
 
-const props = withDefaults(defineProps<SkillCardProps>(), {
-	isSelected: false,
-	skillIcon: CubeTransparentIcon
-});
+const props = defineProps<SkillCardProps>();
 
-// Feature 1: Manage Style Classes
-const { activeBreakpoint } = useCommonStyleSingleton();
+// Feature 0: Manage Style Classes
+const { textSizeM, textSizeS, activeBreakpoint } = useCommonStyleSingleton();
+
+const detailsPanelIsOpen = ref(false);
+
+const changeVisibilityOfDetailsPanel = (newVisibility: boolean) => {
+	if (newVisibility === detailsPanelIsOpen.value) { return; }
+	detailsPanelIsOpen.value = newVisibility;
+};
+
+const getSkillValutationAverage = computed(() => {
+	const ratings = props.skill.overAllRating;
+	const total = ratings.syntaxAndSemantics + ratings.librariesAndFrameworks + ratings.debuggingAndProblemSolving + ratings.bestPracticesAndDesignPatterns + ratings.practicalExperience;
+	const average = total / 5;
+	return average.toFixed(1);
+});
 
 </script>
 
 <template>
-  <div
-    v-bind="$attrs"
+  <BaseDiv
+    :id="props.skill.id"
+    class="cursor-pointer w- flex flex-col transition-all duration-500 ease-in-out hover:shadow-[0_0_10px_3px_rgba(66,74,110,0.8)] box-border relative overflow-hidden border-2 rounded-lg bg-sb-secondary-200   border-sb-secondary-100"
     :class="{
-      'bg-white text-black border-white scale-95': props.isSelected,
-      'text-white border-slate-700 bg-secondary hover:bg-slate-700 hover:border-secondary': !props.isSelected,
+      'w-72 h-60': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+      'w-64 h-56': activeBreakpoint === 'md',
+      'w-60 h-52': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
     }"
-    class="box-border inline-flex items-center px-8 py-4 transition-all duration-300 ease-in-out border-2 rounded-full shadow-md font-roboto hover:cursor-pointer gap-x-6"
+    :intersection-observer-settings="{ root: props.rootElement, threshold: 0.35, visibilityCss: 'fade' }"
+    @click="changeVisibilityOfDetailsPanel(!detailsPanelIsOpen)"
   >
-    <component
-      :is="props.skillIcon"
-      :class="{
-        'size-10': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'size-8': activeBreakpoint === 'md',
-        'size-6': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-        'text-white': !props.isSelected,
-        'text-black': props.isSelected,
-      }"
-      class="transition-all duration-300 ease-in-out shrink-0"
-    />
-    <span
-      :class="{
-        'text-sb-lg': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'text-sb-base': activeBreakpoint === 'md',
-        'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-      }"
-      class="flex-1 truncate"
-    >
-      {{ props.textContent }}
-    </span>
-  </div>
+    <div class="absolute flex flex-col items-center justify-between w-full h-full p-4">
+      <h4
+        :class="[textSizeM]"
+        class="font-medium z-[2] text-white font-roboto transition-all duration-300 ease-in-out"
+      >
+        {{ props.skill.name }}
+      </h4>
+      <component
+        :is="props.skill.icon? SKILLS_ICONS_MAP[props.skill.icon] : PhotoIcon"
+        :class="{
+          'text-white': !props.skill.icon,
+          'size-20': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          'size-16': activeBreakpoint === 'md',
+          'size-14': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+        }
+        "
+        class="my-4 transition-all duration-500 ease-in-out shrink-0"
+      />
+      <span
+        :class="[textSizeS]"
+        class="text-white text-sb-base font-roboto"
+      >
+        Skill level:
+        <span
+          :class="[textSizeM]"
+          class="font-medium text-sb-lg"
+        >{{ getSkillValutationAverage }}</span>
+      </span>
+    </div>
+    <transition name="slide-fade">
+      <div
+        v-if="detailsPanelIsOpen"
+        class="absolute z-[1] w-full h-full bg-sb-secondary-100"
+      >
+      </div>
+    </transition>
+  </BaseDiv>
 </template>
+
+<style scoped>
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.slide-fade-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+</style>

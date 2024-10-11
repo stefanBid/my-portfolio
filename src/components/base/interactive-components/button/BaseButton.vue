@@ -27,11 +27,11 @@ const { activeBreakpoint } = useCommonStyleSingleton();
   <button
     v-bind="$attrs"
     type="button"
-    class="inline-flex items-center overflow-x-hidden transition-all duration-500 ease-in-out outline-none"
+    class="inline-flex items-center transition-all duration-500 ease-in-out outline-none"
     :tabindex="props.disabled ? -1 : 0"
     :class="[
       {
-        'gap-x-2 font-medium truncate border-2  rounded-full ring-0 font-roboto focus-visible:ring-0': !props.noStyle,
+        'gap-x-2 font-medium border-2  rounded-full ring-0 font-roboto focus-visible:ring-0': !props.noStyle,
       },
       {
         'pointer-events-none opacity-50': props.disabled,
@@ -53,9 +53,9 @@ const { activeBreakpoint } = useCommonStyleSingleton();
       :is="props.icon"
       class="shrink-0 "
       :class="{
-        'size-7': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'size-6': activeBreakpoint === 'md',
-        'size-5': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+        'size-6': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-5': activeBreakpoint === 'md',
+        'size-4': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
   </button>

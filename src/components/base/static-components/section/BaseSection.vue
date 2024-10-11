@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<BaseSectionProps>(), {
 });
 
 // Feature 1: Manage Style Classes
-const { activeBreakpoint, h2Size, h3Size, pSize } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXL, textSizeL, textSizeS } = useCommonStyleSingleton();
 
 // Feature 2:  Other Features
 const getIds = computed(() => {
@@ -52,7 +52,7 @@ const getRootElement = computed(() => {
     <div class="flex flex-col justify-center flex-1 ">
       <h2
         :id="getIds.titleHeading"
-        :class="[ h2Size, {
+        :class="[ textSizeXL, {
           'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
           'text-left': (props.extraSidePosition === 'left') && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
           'text-right': (props.extraSidePosition === 'right') && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
@@ -64,7 +64,7 @@ const getRootElement = computed(() => {
       <h3
         v-if="props.subtitle"
         :id="getIds.subTitleHeading"
-        :class="[ h3Size, {
+        :class="[ textSizeL, {
           'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
           'text-left': (props.extraSidePosition === 'left') && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
           'text-right': (props.extraSidePosition === 'right') && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
@@ -75,7 +75,7 @@ const getRootElement = computed(() => {
       </h3>
       <div
         :id="getIds.contentParagraph"
-        :class="[ pSize]"
+        :class="[ textSizeS]"
         class="p-4 mt-4 text-justify text-white whitespace-normal transition-all duration-300 ease-in-out border-2 rounded-lg font-roboto bg-sb-secondary-200 border-sb-secondary-100"
       >
         {{ props.paragraph }}
