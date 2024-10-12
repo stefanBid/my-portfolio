@@ -3,15 +3,15 @@ import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { computed, ref, } from 'vue';
 
 import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
-import { BaseHero, ThePageContainer, BaseButton, BaseSection } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { BaseHero, ThePageContainer, BaseButton, BaseSection, BaseDiv } from '@/components';
+import { useCommonStyleSingleton, useTypedI18nSingleton, useStarEffect } from '@/hooks';
 import SkillsModal from '@/pages/skills-page/components/SkillsModal.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
-// const SkillsRootRef = ref<HTMLElement | null>(null);
-
 // Feature 1: Manage Style Classes
 const { textSizeXL, textSizeL, activeBreakpoint } = useCommonStyleSingleton();
+
+const { stars } = useStarEffect(150);
 
 // Feature 2: Internationalization (i18n)
 const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
@@ -44,36 +44,46 @@ const changeVisibility = (newVisibility: boolean) => {
     </template>
 
     <template #page-content>
-      <div class="flex flex-col items-center justify-center w-full p-8 mb-32 border-2 border-dashed rounded-lg border-sb-secondary-100">
-        <RocketIcon
-          class="transition-all duration-500 ease-in-out "
-          :class="{
-            'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'size-44': activeBreakpoint === 'md',
-            'size-48': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-          }"
-        />
+      <BaseDiv
+        :intersection-observer-settings="{ root: null, threshold: 0.35, visibilityCss: 'fade' }"
+        class="relative flex flex-col items-center justify-center w-full p-8 mb-32 border-2 border-dashed rounded-lg border-sb-secondary-100"
+      >
+        <div class="absolute top-0 left-0 z-10 w-full h-full overflow-hidden border rounded-lg pointer-events-none ">
+          <div
+            v-for="(star, index) in stars"
+            :key="index"
+            :style="star"
+          ></div>
+        </div>
         <span
           :class="[textSizeXL]"
-          class="mt-4 text-center font-bebas text-sb-tertiary-100"
+          class="z-20 text-center font-bebas text-sb-tertiary-100 "
         >
           {{ currentLanguage === 'en' ? `Looking for a skilled professional?`: `Cerchi un professionista qualificato?` }}
         </span>
         <span
           :class="[textSizeL]"
-          class="mb-4 text-center text-white font-bebas"
+          class="z-20 text-center text-white font-bebas "
         >
           {{ currentLanguage === 'en' ? `Discover my top skills and how I can add value to your team`: `Scopri le mie principali competenze e come posso contribuire alla tua squadra` }}
         </span>
+        <RocketIcon
+          class="z-20 my-4 transition-all duration-500 ease-in-out "
+          :class="{
+            'size-16': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            'size-20': activeBreakpoint === 'md',
+            'size-32': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+          }"
+        />
         <BaseButton
           variant="primary"
-          class="w-fit"
+          class="z-20 w-fit"
           :icon="MagnifyingGlassIcon"
           @click="changeVisibility(!isModalOpen)"
         >
           {{ currentLanguage === 'en' ? `Explore My Skills`: `Esplora le mie competenze` }}
         </BaseButton>
-      </div>
+      </BaseDiv>
       <BaseSection
         v-for="(section, index) in skillsPageI18nContent.skillsSections"
         :id="`skillsSection-${index}`"

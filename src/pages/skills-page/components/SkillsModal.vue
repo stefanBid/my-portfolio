@@ -55,7 +55,7 @@ watch(() => props.isModalOpen, newValue => {
           }"
           placeholder="Search a specific skill"
           :custom-z-index="60"
-          :with-menu="true"
+          :with-menu="false"
         >
           <template #input-menu-box>
             <div class="h-56">
