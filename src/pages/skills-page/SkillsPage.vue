@@ -45,7 +45,7 @@ const changeVisibility = (newVisibility: boolean) => {
 
     <template #page-content>
       <BaseDiv
-        :intersection-observer-settings="{ root: null, threshold: 0.35, visibilityCss: 'fade' }"
+        :intersection-observer-settings="{ root: null, threshold: 0.2, visibilityCss: 'fade' }"
         class="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed rounded-lg border-sb-secondary-100"
       >
         <div :style="starsContainerStyle">
