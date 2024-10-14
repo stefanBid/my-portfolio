@@ -90,7 +90,7 @@ const getPaginatedSkillRating = computed(() => {
     <transition name="slide-fade">
       <div
         v-if="detailsPanelIsOpen"
-        class="absolute px-4 pb-4 pt-[75px]  z-[1] w-full h-full flex flex-col bg-sb-secondary-100 border-2 border-sb-secondary-100"
+        class="absolute px-4 pb-4 pt-[75px] z-[1] w-full h-full flex flex-col bg-sb-secondary-100 border-2 border-sb-secondary-100"
       >
         <XMarkIcon
           class="absolute text-white transition-all duration-500 ease-in-out cursor-pointer top-4 right-4 hover:rotate-90"
