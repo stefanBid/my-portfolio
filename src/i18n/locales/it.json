@@ -88,11 +88,11 @@
         "icon": "JsIcon",
         "type": "feLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 9,
-          "librariesAndFrameworks": 8.5,
-          "debuggingAndProblemSolving": 8,
-          "bestPracticesAndDesignPatterns": 8,
-          "practicalExperience": 9
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 9 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 8.5 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 8 },
+          "renderingAndInteractivity": { "name": "Rendering e Interattività", "value": 8.5 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 9 }
         }
       },
       {
@@ -101,11 +101,11 @@
         "icon": "TsIcon",
         "type": "feLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 8.5,
-          "librariesAndFrameworks": 8,
-          "debuggingAndProblemSolving": 7.5,
-          "bestPracticesAndDesignPatterns": 8,
-          "practicalExperience": 8
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 8.5 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 8 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 7.5 },
+          "renderingAndInteractivity": { "name": "Rendering e Interattività", "value": 8 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 8 }
         }
       },
       {
@@ -114,11 +114,11 @@
         "icon": "HtmlIcon",
         "type": "feLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 9,
-          "librariesAndFrameworks": 7,
-          "debuggingAndProblemSolving": 7.5,
-          "bestPracticesAndDesignPatterns": 8.5,
-          "practicalExperience": 9
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 9 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 7.5 },
+          "renderingAndInteractivity": { "name": "Rendering e Interattività", "value": 8 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 9 }
         }
       },
       {
@@ -127,11 +127,11 @@
         "icon": "CssIcon",
         "type": "feLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 8.5,
-          "librariesAndFrameworks": 7.5,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 8,
-          "practicalExperience": 8.5
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 8.5 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7.5 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 7 },
+          "renderingAndInteractivity": { "name": "Rendering e Interattività", "value": 8.5 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 8.5 }
         }
       },
       {
@@ -140,11 +140,11 @@
         "icon": "VueIcon",
         "type": "feFramework",
         "overAllRating": {
-          "syntaxAndSemantics": 8.5,
-          "librariesAndFrameworks": 9,
-          "debuggingAndProblemSolving": 8,
-          "bestPracticesAndDesignPatterns": 8.5,
-          "practicalExperience": 8.5
+          "architectureAndStructure": { "name": "Architettura e Struttura", "value": 8.5 },
+          "integrationAndConfiguration": { "name": "Integrazione e Configurazione", "value": 9 },
+          "extensibility": { "name": "Estensibilità", "value": 8.5 },
+          "toolingAndAutomation": { "name": "Tooling e Automazione", "value": 8.5 },
+          "communityAndSupport": { "name": "Comunità e Supporto", "value": 8.5 }
         }
       },
       {
@@ -153,11 +153,11 @@
         "icon": "ReactIcon",
         "type": "feFramework",
         "overAllRating": {
-          "syntaxAndSemantics": 8,
-          "librariesAndFrameworks": 8.5,
-          "debuggingAndProblemSolving": 7.5,
-          "bestPracticesAndDesignPatterns": 8,
-          "practicalExperience": 8
+          "architectureAndStructure": { "name": "Architettura e Struttura", "value": 8 },
+          "integrationAndConfiguration": { "name": "Integrazione e Configurazione", "value": 8.5 },
+          "extensibility": { "name": "Estensibilità", "value": 7.5 },
+          "toolingAndAutomation": { "name": "Tooling e Automazione", "value": 8 },
+          "communityAndSupport": { "name": "Comunità e Supporto", "value": 8 }
         }
       },
       {
@@ -166,11 +166,11 @@
         "icon": "AngularIcon",
         "type": "feFramework",
         "overAllRating": {
-          "syntaxAndSemantics": 7.5,
-          "librariesAndFrameworks": 8,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 7.5,
-          "practicalExperience": 7.5
+          "architectureAndStructure": { "name": "Architettura e Struttura", "value": 7.5 },
+          "integrationAndConfiguration": { "name": "Integrazione e Configurazione", "value": 8 },
+          "extensibility": { "name": "Estensibilità", "value": 7 },
+          "toolingAndAutomation": { "name": "Tooling e Automazione", "value": 7.5 },
+          "communityAndSupport": { "name": "Comunità e Supporto", "value": 7.5 }
         }
       },
       {
@@ -179,11 +179,11 @@
         "icon": "JavaIcon",
         "type": "beLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 7.5,
-          "librariesAndFrameworks": 7,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 7,
-          "practicalExperience": 7.5
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 7.5 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 7 },
+          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 7 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 7.5 }
         }
       },
       {
@@ -192,24 +192,24 @@
         "icon": "PythonIcon",
         "type": "beLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 8,
-          "librariesAndFrameworks": 7.5,
-          "debuggingAndProblemSolving": 8,
-          "bestPracticesAndDesignPatterns": 7.5,
-          "practicalExperience": 8
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 8 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7.5 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 8 },
+          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 7.5 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 8 }
         }
       },
       {
         "id": "10",
         "name": "C#",
-        "icon": "CsharpIcon",
+        "icon": "CSharpIcon",
         "type": "beLanguage",
         "overAllRating": {
-          "syntaxAndSemantics": 6.5,
-          "librariesAndFrameworks": 6,
-          "debuggingAndProblemSolving": 6,
-          "bestPracticesAndDesignPatterns": 6,
-          "practicalExperience": 6.5
+          "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 6.5 },
+          "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 6 },
+          "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 6 },
+          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 6 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 6.5 }
         }
       },
       {
@@ -218,23 +218,24 @@
         "icon": "SpringIcon",
         "type": "beFramework",
         "overAllRating": {
-          "syntaxAndSemantics": 7,
-          "librariesAndFrameworks": 7.5,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 7,
-          "practicalExperience": 7.5
+          "architectureAndStructure": { "name": "Architettura e Struttura", "value": 7 },
+          "integrationAndConfiguration": { "name": "Integrazione e Configurazione", "value": 7.5 },
+          "extensibility": { "name": "Estensibilità", "value": 7 },
+          "toolingAndAutomation": { "name": "Tooling e Automazione", "value": 7 },
+          "communityAndSupport": { "name": "Comunità e Supporto", "value": 7.5 }
         }
       },
       {
         "id": "12",
         "name": "Hibernate",
+        "icon": "HibernateIcon",
         "type": "beFramework",
         "overAllRating": {
-          "syntaxAndSemantics": 7,
-          "librariesAndFrameworks": 7,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 7,
-          "practicalExperience": 7
+          "architectureAndStructure": { "name": "Architettura e Struttura", "value": 7 },
+          "integrationAndConfiguration": { "name": "Integrazione e Configurazione", "value": 7 },
+          "extensibility": { "name": "Estensibilità", "value": 7 },
+          "toolingAndAutomation": { "name": "Tooling e Automazione", "value": 7 },
+          "communityAndSupport": { "name": "Comunità e Supporto", "value": 7 }
         }
       },
       {
@@ -243,11 +244,11 @@
         "icon": "GraphqlIcon",
         "type": "beDb",
         "overAllRating": {
-          "syntaxAndSemantics": 7.5,
-          "librariesAndFrameworks": 7,
-          "debuggingAndProblemSolving": 7.5,
-          "bestPracticesAndDesignPatterns": 7,
-          "practicalExperience": 7.5
+          "querySkills": { "name": "Competenze nelle Query", "value": 7.5 },
+          "performanceOptimization": { "name": "Ottimizzazione delle Prestazioni", "value": 7 },
+          "dataModeling": { "name": "Modellazione dei Dati", "value": 7 },
+          "securityAndIntegrity": { "name": "Sicurezza e Integrità", "value": 7 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 7.5 }
         }
       },
       {
@@ -256,11 +257,11 @@
         "icon": "MysqlIcon",
         "type": "beDb",
         "overAllRating": {
-          "syntaxAndSemantics": 7.5,
-          "librariesAndFrameworks": 7,
-          "debuggingAndProblemSolving": 7,
-          "bestPracticesAndDesignPatterns": 7,
-          "practicalExperience": 7.5
+          "querySkills": { "name": "Competenze nelle Query", "value": 7.5 },
+          "performanceOptimization": { "name": "Ottimizzazione delle Prestazioni", "value": 7 },
+          "dataModeling": { "name": "Modellazione dei Dati", "value": 7 },
+          "securityAndIntegrity": { "name": "Sicurezza e Integrità", "value": 7 },
+          "practicalExperience": { "name": "Esperienza Pratica", "value": 7.5 }
         }
       }
     ]

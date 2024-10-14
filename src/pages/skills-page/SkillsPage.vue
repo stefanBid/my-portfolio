@@ -15,7 +15,7 @@ const { stars, starsContainerStyle } = useStarEffect(150);
 
 // Feature 2: Internationalization (i18n)
 const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
-const skillsList = ref(skillsPageI18nContent.value.skillsList);
+const skillsList = computed(() => skillsPageI18nContent.value.skillsList);
 
 // Feature 3: Manage Skills for Solar System Component
 const feIcons = computed(() => skillsList.value

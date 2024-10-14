@@ -32,8 +32,10 @@ const changeVisibilityOfDetailsPanel = (newVisibility: boolean) => {
 };
 
 const getSkillValutationAverage = computed(() => {
-	const ratings = props.skill.overAllRating;
-	const total = ratings.syntaxAndSemantics + ratings.librariesAndFrameworks + ratings.debuggingAndProblemSolving + ratings.bestPracticesAndDesignPatterns + ratings.practicalExperience;
+	const total = ratingsKeys.value.reduce((acc, key) => {
+		const ratingValue = props.skill.overAllRating[key]?.value ?? 0;
+		return acc + ratingValue;
+	}, 0);
 	const average = total / 5;
 	return average.toFixed(1);
 });
@@ -104,8 +106,8 @@ const getPaginatedSkillRating = computed(() => {
             v-for="rating in getPaginatedSkillRating"
             :key="rating"
             scale="decimal"
-            :label="rating"
-            :level="props.skill.overAllRating[rating]"
+            :label="props.skill.overAllRating[rating]?.name ?? ''"
+            :level="props.skill.overAllRating[rating]?.value ?? 0"
           />
         </div>
         <div class="inline-flex items-center justify-end gap-x-2">
