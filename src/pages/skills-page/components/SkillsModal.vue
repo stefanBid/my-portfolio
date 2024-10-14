@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { FaceFrownIcon } from '@heroicons/vue/24/solid';
+import { computed, ref, watch } from 'vue';
 
 import { BaseModal, BaseInput } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
@@ -19,7 +20,7 @@ const props = defineProps<SkillsModalProps>();
 const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Feature 0: Manage Style Classes
-const { activeBreakpoint } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXL } = useCommonStyleSingleton();
 // Feature 1: Internationalization (i18n)
 const { currentLanguage } = useTypedI18nSingleton();
 
@@ -27,12 +28,25 @@ const { currentLanguage } = useTypedI18nSingleton();
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
 
+const filteredSkillsList = computed<SkillInfo[]>(() => {
+	if (!debouncedSearchSkillKey.value) {
+		return props.skillsList;
+	}
+	return props.skillsList.filter((skill) => skill.name.toLowerCase().includes(debouncedSearchSkillKey.value.toLowerCase()));
+});
+
 watch(() => props.isModalOpen, newValue => {
 	if (newValue) {
 		searchSkillKey.value = '';
 		debouncedSearchSkillKey.value = '';
 	}
 });
+
+watch(() => searchSkillKey.value, newValue => {
+	setTimeout(() => {
+		debouncedSearchSkillKey.value = newValue;
+	}, 300);
+}, {});
 
 </script>
 
@@ -45,7 +59,7 @@ watch(() => props.isModalOpen, newValue => {
     :on-close-modal=" falsyValue => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
-      <div class="flex flex-col items-center h-full pt-6 overflow-hidden gap-y-6">
+      <div class="flex flex-col items-center w-full h-full pt-6 overflow-hidden gap-y-6">
         <BaseInput
           v-model:input-value="searchSkillKey"
           class="w-3/5"
@@ -65,15 +79,35 @@ watch(() => props.isModalOpen, newValue => {
         </BaseInput>
 
         <div
+          v-if="filteredSkillsList.length !== 0"
           ref="skillContainerRef"
           class="flex flex-wrap justify-center flex-1 w-full gap-8 p-6 overflow-y-auto"
         >
           <SkillCard
-            v-for="skill in props.skillsList"
+            v-for="skill in filteredSkillsList"
             :key="skill.id"
             :root-element="skillContainerRef"
             :skill="skill"
           />
+        </div>
+        <div
+          v-else
+          class="flex flex-col items-center justify-center flex-1 w-full p-6"
+        >
+          <FaceFrownIcon
+            :class="{
+              'size-16': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+              'size-12': activeBreakpoint === 'md',
+              'size-10': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            }"
+            class=" text-sb-tertiary-100 shrink-0"
+          />
+          <span
+            :class="[textSizeXL]"
+            class="w-full text-center text-white truncate font-bebas"
+          >
+            {{ currentLanguage === 'en' ? 'No skills found !' : 'Nessuna competenza trovata !' }}
+          </span>
         </div>
       </div>
     </template>

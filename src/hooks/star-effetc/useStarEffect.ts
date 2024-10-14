@@ -1,25 +1,38 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted, type StyleValue } from 'vue';
 
 export function useStarEffect(numStars?: number) {
 	const DEFAULT_STARS = 50;
 	const stars = ref<Array<Record<string, string>>>([]);
+	const starsContainerStyle: StyleValue = {
+		position: 'absolute',
+		top: '0',
+		left: '0',
+		zIndex: '10',
+		width: '100%',
+		height: '100%',
+		overflow: 'hidden',
+		borderRadius: '8px',
+		pointerEvents: 'none',
+	};
 
-	// Funzione per aggiungere dinamicamente i keyframes nel DOM
+	let styleSheetIndex: number | null = null;
+
+	// Add keyframes to the document dynamically
 	const addKeyframes = () => {
 		const styleSheet = document.styleSheets[0];
 		const keyframes = `
       @keyframes pulse {
         0% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.5); opacity: 0.4; }
+        50% { transform: scale(1.5); opacity: 0.1; }
         100% { transform: scale(1); opacity: 0.9; }
       }
     `;
 
-		// Usa solo insertRule, poiché addRule è deprecato
 		styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+		styleSheetIndex = styleSheet.cssRules.length - 1;
 	};
 
-	// Funzione per generare le stelle con gli stili
+	// Generate stars with random styles
 	const generateStars = () => {
 		const newNumStars = numStars || DEFAULT_STARS;
 		stars.value = Array.from({ length: newNumStars }, () => {
@@ -45,11 +58,19 @@ export function useStarEffect(numStars?: number) {
 		});
 	};
 
-	// Usa onMounted per eseguire le funzioni al montaggio del DOM
+	// Use onMounted to generate stars and add keyframes
 	onMounted(() => {
-		addKeyframes(); // Aggiunge i keyframes al montaggio
-		generateStars(); // Genera le stelle al montaggio
+		addKeyframes();
+		generateStars();
 	});
 
-	return { stars };
+	onUnmounted(() => {
+		// Remove keyframes from the document
+		if (styleSheetIndex !== null) {
+			const styleSheet = document.styleSheets[0];
+			styleSheet.deleteRule(styleSheetIndex);
+		}
+	});
+
+	return { stars, starsContainerStyle };
 }

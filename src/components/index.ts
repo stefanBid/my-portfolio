@@ -7,6 +7,7 @@ export { default as BaseToggle } from '@/components/base/interactive-components/
 
 export { default as BaseDiv } from '@/components/base/static-components/div/BaseDiv.vue';
 export { default as BaseHero } from '@/components/base/static-components/hero/BaseHero.vue';
+export { default as BaseLevelBar } from '@/components/base/static-components/level-bar/BaseLevelBar.vue';
 export { default as BaseLoadingPagePanel } from '@/components/base/static-components/loading-page-panel/BaseLoadingPagePanel.vue';
 export { default as BaseSection } from '@/components/base/static-components/section/BaseSection.vue';
 

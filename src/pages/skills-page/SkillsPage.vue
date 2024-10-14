@@ -11,7 +11,7 @@ import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 // Feature 1: Manage Style Classes
 const { textSizeXL, textSizeL, activeBreakpoint } = useCommonStyleSingleton();
 
-const { stars } = useStarEffect(150);
+const { stars, starsContainerStyle } = useStarEffect(150);
 
 // Feature 2: Internationalization (i18n)
 const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
@@ -46,9 +46,9 @@ const changeVisibility = (newVisibility: boolean) => {
     <template #page-content>
       <BaseDiv
         :intersection-observer-settings="{ root: null, threshold: 0.35, visibilityCss: 'fade' }"
-        class="relative flex flex-col items-center justify-center w-full p-8 mb-32 border-2 border-dashed rounded-lg border-sb-secondary-100"
+        class="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed rounded-lg border-sb-secondary-100"
       >
-        <div class="absolute top-0 left-0 z-10 w-full h-full overflow-hidden border rounded-lg pointer-events-none ">
+        <div :style="starsContainerStyle">
           <div
             v-for="(star, index) in stars"
             :key="index"

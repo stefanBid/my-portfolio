@@ -81,12 +81,12 @@ const flipPicture = () => {
       :key="index"
       :style="style"
       :class="[getFrameDimension]"
-      class="absolute w-full h-full border border-gray-400 rounded shadow-md bg-slate-100"
+      class="absolute w-full h-full bg-white border rounded shadow-md border-sb-secondary-200"
     ></div>
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border border-gray-400 rounded shadow-md gap-y-2 "
+      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border rounded shadow-md border-sb-secondary-200 gap-y-2 "
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
@@ -103,7 +103,7 @@ const flipPicture = () => {
         v-show="delayedFlip"
         id="picture-description"
         :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-secondary"
+        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
       >
         <p
