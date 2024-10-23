@@ -1,5 +1,5 @@
 import { useFloating, flip, shift, autoUpdate, offset, arrow } from '@floating-ui/vue';
-import type { Placement, Strategy } from '@floating-ui/vue';
+import type { FloatingElement, Placement, Strategy } from '@floating-ui/vue';
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 interface FloatingSettings {
@@ -11,14 +11,14 @@ interface FloatingSettings {
 }
 
 export function useFloatingPanel(settings: FloatingSettings) {
-	const anchor = ref<HTMLElement | null>(null);
-	const popper = ref<HTMLElement | null>(null);
+	const reference = ref<HTMLElement | null>(null);
+	const floating = ref<FloatingElement | null>(null);
 	const popperArrow = ref<HTMLElement | null>(null);
 	const isOpen = ref(false);
 	const resizeObserver = ref<ResizeObserver | null>(null);
 	let isObserving = false;
 
-	const { floatingStyles, placement, middlewareData } = useFloating(anchor, popper, {
+	const { floatingStyles, placement, middlewareData } = useFloating(reference, floating, {
 		open: isOpen,
 		placement: settings.placement,
 		strategy: settings.strategy,
@@ -32,40 +32,36 @@ export function useFloatingPanel(settings: FloatingSettings) {
 		whileElementsMounted: autoUpdate,
 	});
 
-	const changeToolTipVisibility = (state: 'open' | 'close') => {
-		if (state === 'open') {
-			isOpen.value = true;
-		} else {
-			isOpen.value = false;
-		}
+	const changeFloatingVisibility = (newState: boolean) => {
+		isOpen.value = newState;
 	};
 
 	const syncPopperWidthWithAnchor = () => {
-		if (popper.value && anchor.value) {
-			popper.value.style.width = `${anchor.value.offsetWidth * 0.95}px`;
+		if (floating.value && reference.value) {
+			floating.value.style.width = `${reference.value.offsetWidth * 0.95}px`;
 		}
 	};
 
 	watch(isOpen, async (newVal) => {
-		if (newVal) {
+		if (newVal && settings.hasResize && isObserving) {
 			await nextTick();
 			syncPopperWidthWithAnchor();
 		}
 	});
 
-	watch(anchor, (newAnchor) => {
-		if (newAnchor && settings.hasResize && !isObserving) {
+	watch(reference, (newReference) => {
+		if (newReference && settings.hasResize && !isObserving) {
 			isObserving = true;
 			resizeObserver.value = new ResizeObserver(syncPopperWidthWithAnchor);
-			resizeObserver.value.observe(newAnchor);
+			resizeObserver.value.observe(newReference);
 		}
 	});
 
 	onMounted(() => {
-		if (settings.hasResize && anchor.value) {
+		if (settings.hasResize && reference.value) {
 			isObserving = true;
 			resizeObserver.value = new ResizeObserver(syncPopperWidthWithAnchor);
-			resizeObserver.value.observe(anchor.value);
+			resizeObserver.value.observe(reference.value);
 		}
 	});
 
@@ -76,13 +72,13 @@ export function useFloatingPanel(settings: FloatingSettings) {
 	});
 
 	return {
-		anchor,
-		popper,
+		reference,
+		floating,
 		popperArrow,
 		isOpen,
-		popperPosition: placement,
-		popperStyle: floatingStyles,
-		popperArrowStyle: middlewareData,
-		changeToolTipVisibility,
+		floatingPosition: placement,
+		floatingStyles,
+		floatingArrowStyles: middlewareData,
+		changeFloatingVisibility
 	};
 }

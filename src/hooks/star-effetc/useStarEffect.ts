@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, type StyleValue } from 'vue';
+import { ref, onMounted, type StyleValue } from 'vue';
 
 export function useStarEffect(numStars?: number) {
 	const DEFAULT_STARS = 50;
@@ -13,23 +13,6 @@ export function useStarEffect(numStars?: number) {
 		overflow: 'hidden',
 		borderRadius: '8px',
 		pointerEvents: 'none',
-	};
-
-	let styleSheetIndex: number | null = null;
-
-	// Add keyframes to the document dynamically
-	const addKeyframes = () => {
-		const styleSheet = document.styleSheets[0];
-		const keyframes = `
-      @keyframes pulse {
-        0% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.5); opacity: 0.1; }
-        100% { transform: scale(1); opacity: 0.9; }
-      }
-    `;
-
-		styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-		styleSheetIndex = styleSheet.cssRules.length - 1;
 	};
 
 	// Generate stars with random styles
@@ -53,23 +36,14 @@ export function useStarEffect(numStars?: number) {
 				'border-radius': '50%',
 				'box-shadow': '0px 0px 10px rgba(255, 255, 255, 0.5)',
 				opacity: '0.9',
-				animation: `pulse ${duration} infinite ease-in-out`,
+				animation: `star-pulse ${duration} infinite ease-in-out`,
 			};
 		});
 	};
 
-	// Use onMounted to generate stars and add keyframes
+	// Use onMounted to generate stars
 	onMounted(() => {
-		addKeyframes();
 		generateStars();
-	});
-
-	onUnmounted(() => {
-		// Remove keyframes from the document
-		if (styleSheetIndex !== null) {
-			const styleSheet = document.styleSheets[0];
-			styleSheet.deleteRule(styleSheetIndex);
-		}
 	});
 
 	return { stars, starsContainerStyle };

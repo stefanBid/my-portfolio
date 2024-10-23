@@ -1,5 +1,4 @@
 import AngularIcon from '@/assets/icons/angular.svg';
-import CodeIcon from '@/assets/icons/coding.svg';
 import CSharpIcon from '@/assets/icons/c-sharp.svg';
 import CssIcon from '@/assets/icons/css.svg';
 import GraphqlIcon from '@/assets/icons/graphql.svg';
@@ -38,6 +37,6 @@ const SKILLS_ICONS_MAP = {
 
 type SkillIcon = keyof typeof SKILLS_ICONS_MAP;
 
-export {RocketIcon, CodeIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
+export {RocketIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
 
 

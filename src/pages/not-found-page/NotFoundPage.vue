@@ -22,12 +22,12 @@ const router = useRouter();
   >
     <h1
       :class="[textSizeXXL]"
-      class="whitespace-normal transition-all duration-300 ease-in-out font-bebas "
+      class="whitespace-normal transition-sb-slow font-bebas "
     >
       {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
     </h1>
     <WindowIcon
-      class="transition-all duration-300 ease-in-out text-slate-700 "
+      class="transition-sb-slow text-slate-700 "
       :class="{
         'size-72': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
         'size-52': activeBreakpoint === 'md',
@@ -36,7 +36,7 @@ const router = useRouter();
     />
     <p
       :class="[textSizeL]"
-      class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto "
+      class="font-medium whitespace-normal transition-sb-slow font-roboto "
     >
       {{ currentLanguage === 'en' ? 'The page you are looking for does not exist.' : 'La pagina che stai cercando non esiste.' }}
     </p>

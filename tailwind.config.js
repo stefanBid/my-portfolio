@@ -11,6 +11,19 @@ export default {
 			xl: { min: '1280px', max: '1535px' },
 			'2xl': { min: '1536px' },
 		},
+		zIndex: {
+			'sb-base-1': 100,
+			'sb-base-2': 200,
+			'sb-base-3': 300,
+			'sb-base-4': 400,
+			'sb-base-5': 500,
+			'sb-header-collapsed': 950,
+			'sb-header': 1000,
+			'sb-dialog-overlay': 1050,
+			'sb-dialog': 1100,
+			'sb-dropdown': 1200,
+			'sb-tooltip': 1300,
+		},
 		fontFamily: {
 			bebas: ['Bebas Neue', 'sans-serif'],
 			roboto: ['Roboto', 'sans-serif'],
@@ -34,8 +47,9 @@ export default {
 			'transparent': 'transparent',
 			'sb-main': '#0F0F20',
 			'sb-secondary': {
-				100: '#424a6e',
-				200: '#011e41'
+				100: '#707890',
+				200: '#424a6e',
+				300: '#011e41'
 			},
 			'sb-tertiary': {
 				100: '#e95905',
@@ -43,19 +57,12 @@ export default {
 			},
 		},
 		extend: {
-			padding: {
-				'sb-side-sm': '0 5%',
-				'sb-side-base': '0 6%',
-				'sb-side-lg': '0 7%',
+      boxShadow: {
+        'sb-ring-sm': '0 0 10px 3px var(--tw-shadow-color)',
+        'sb-ring': '0 0 15px 5px var(--tw-shadow-color)',
+        'sb-ring-lg': '0 0 20px 7px var(--tw-shadow-color)',
 			},
-			margin: {
-				'sb-side-sm': '0 5%',
-				'sb-side-base': '0 6%',
-				'sb-side-lg': '0 7%',
-				'sb-top-sm': '14% 0 0 0',
-				'sb-top-base': '15% 0 0 0',
-				'sb-top-lg': '16% 0 0 0',
-			},
+			
 		},
 	},
 	plugins: [
@@ -63,8 +70,24 @@ export default {
       addUtilities({
         '.text-shadow-luminous': {
            textShadow: '0 0 10px rgba(156, 163, 175, 0.7), 0 0 20px rgba(156, 163, 175, 0.6), 0 0 30px rgba(156, 163, 175, 0.5)',
+				},
+				'.transition-sb-fast': {
+          'transition-property': 'all',
+          'transition-duration': '150ms',
+          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
         },
-      }, ['responsive', 'hover']);
+        '.transition-sb-normal': {
+          'transition-property': 'all',
+          'transition-duration': '300ms',
+          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        '.transition-sb-slow': {
+          'transition-property': 'all',
+          'transition-duration': '500ms',
+          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
+				},
+				
+      }, ['responsive', 'hover', 'focus-visible', 'focus', 'active', 'disabled']);
     }
   ],
 };

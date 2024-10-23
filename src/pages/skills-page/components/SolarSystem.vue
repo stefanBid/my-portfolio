@@ -89,7 +89,7 @@ onMounted(() => {
       'scale-90': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
     }"
     :style="{ marginTop: scaleMargin, marginBottom: scaleMargin }"
-    class="relative flex items-center justify-center size-[600px] transition-all duration-300 ease-in-out "
+    class="relative flex items-center justify-center size-[600px] transition-sb-slow "
   >
     <div class="absolute rounded-full size-[100px] sun z-40 flex justify-center items-center p-1">
       <span class="truncate font-bebas text-sb-2xl text-orange-950">{{ props.starName }}</span>

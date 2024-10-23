@@ -2,19 +2,19 @@
 import { inject, Ref } from 'vue';
 import { RouterView } from 'vue-router';
 
-import { TheHeader, BaseLoadingPagePanel } from '@/components';
+import { TheHeader, ThePageLoader } from '@/components';
 
 const isLoading = inject<Ref<boolean>>('isLoading');
 
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen">
-    <TheHeader />
-
-    <main class="flex-grow">
-      <BaseLoadingPagePanel v-if="isLoading" />
-      <RouterView v-else />
-    </main>
+  <TheHeader />
+  <ThePageLoader v-if="isLoading" />
+  <div
+    v-else
+    class="min-h-screen "
+  >
+    <RouterView />
   </div>
 </template>

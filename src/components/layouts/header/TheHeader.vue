@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
 import { XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
-import { vOnClickOutside } from '@vueuse/components';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { ItalyIcon, UkIcon } from '@/assets';
-import { BaseDropdownMenu, TheNavbar } from '@/components';
+import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 
 // Feature 0: Internationalization (i18n)
@@ -40,11 +39,9 @@ const getBackgroundByRoute = computed(() => {
 	}
 });
 // Feaure 3: Manage Breakpoints and Style Classes
-const { containerPadding, activeBreakpoint } = useCommonStyleSingleton();
+const { containerPadding, activeBreakpoint, textSizeXS, iconSizeM, iconSizeXS } = useCommonStyleSingleton();
 
 // Feature 3.1: Manage Menu Visibility
-const headerRef = ref();
-const buttonRef = ref();
 const isMenuOpen = ref(false);
 
 // Computed Properties for Screen Size and Menu State
@@ -59,12 +56,22 @@ const isMenuCollapsed = computed(() => {
 
 const onChangeMenuVisibility = (newVisibility: boolean) => {
 	if (!isMenuCollapsed.value) { return; }
+
 	isMenuOpen.value = newVisibility;
+
+	if (isMenuOpen.value) {
+		document.body.classList.add('no-scroll');
+		document.documentElement.classList.add('no-scroll');
+	} else {
+		document.body.classList.remove('no-scroll');
+		document.documentElement.classList.remove('no-scroll');
+	}
 };
 
 watch(isMenuCollapsed, () => {
 	if (!isMenuCollapsed.value) {
 		isMenuOpen.value = false;
+		document.body.classList.remove('no-scroll');
 	}
 });
 
@@ -72,142 +79,135 @@ watch(isMenuCollapsed, () => {
 
 <template>
   <header
-    ref="headerRef"
     :class="[containerPadding, getBackgroundByRoute]"
-    class="fixed left-0 z-40 w-full h-20 transition-all duration-300 ease-in-out transform"
+    class="fixed left-0 w-full h-20 z-sb-header"
   >
     <div
-      class="flex items-center justify-between h-20 p-sb-side gap-x-4"
+      class="flex items-center h-20 p-sb-side gap-x-4"
     >
       <!-- Logo Section-->
-      <router-link
-        to="/"
-        class="flex items-center text-white gap-x-4 group"
-        @click="onChangeMenuVisibility(false)"
-      >
-        <img
-          src="@/assets/logo/logo.png"
-          alt="logo"
-          class="object-cover object-center h-auto transition-all duration-300 ease-in-out"
-          :class="{
-            'size-10': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-            'size-8': activeBreakpoint === 'md',
-            'size-6': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
-          }"
-        />
-
-        <span
-          class="flex-1 font-semibold transition-all duration-300 ease-in-out font-bebas group-hover:text-shadow-luminous"
-          :class="{
-            'text-sb-3xl': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-            'text-sb-2xl': activeBreakpoint === 'md',
-            'text-sb-xl': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
-          }"
+      <div class="inline-flex items-center flex-1 transition-sb-slow">
+        <router-link
+          to="/"
+          class="flex items-center text-white gap-x-4 group"
+          @click="onChangeMenuVisibility(false)"
         >
-          Stefano Biddau
-        </span>
-      </router-link>
-      <!-- Menu Mobile Section -->
-      <div ref="buttonRef">
-        <component
-          :is="isMenuOpen ? XMarkIcon : Bars3Icon"
-          v-if="isMenuCollapsed"
-          class="flex-none text-white transition-all duration-300 ease-in-out cursor-pointer active:rotate-90"
-          :class="{
-            'size-8': activeBreakpoint === 'md',
-            'size-6': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
-          }"
-          @click.stop="onChangeMenuVisibility(!isMenuOpen) "
-        />
+          <img
+            src="@/assets/logo/logo.png"
+            alt="logo"
+            class="object-cover object-center h-auto transition-sb-slow"
+            :class="[iconSizeM]"
+          />
+
+          <span
+            class="flex-1 font-semibold transition-sb-slow font-bebas group-hover:text-shadow-luminous"
+            :class="{
+              'text-sb-3xl': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+              'text-sb-2xl': activeBreakpoint === 'md',
+              'text-sb-xl': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
+            }"
+          >
+            Stefano Biddau
+          </span>
+        </router-link>
       </div>
 
       <!-- Route Section and Menu -->
-      <div
-        v-if="!isMenuCollapsed"
-        class="flex items-center w-fit gap-x-4"
-      >
-        <!-- Route -->
-        <TheNavbar
-          :routes="headerI18nContent.navbarRoutes"
-          class="flex-1"
-          variant="horizontal"
-        />
+      <transition name="fade">
+        <div
+          v-if="!isMenuCollapsed"
+          class="flex items-center w-fit gap-x-4"
+        >
+          <!-- Route -->
+          <TheInlineNavbar
+            :routes="headerI18nContent.navbarRoutes"
+            class="flex-1"
+          />
 
-        <!-- Menu -->
-        <BaseDropdownMenu class="w-20 shrink-0 ">
-          <template #dropdown-button-content>
-            <component
-              :is="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-              class="shrink-0 size-5"
-            />
-          </template>
-          <template #dropdown-section-content="{closeMenu}">
-            <div class="p-2 text-sm break-words whitespace-normal w-44">
-              <span
-                v-for="lang in languageOptions"
-                :key="lang.name"
-                :tabindex="0"
-                class="flex items-center p-2 transition-all duration-500 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-sb-secondary-100 group ring-0 focus-visible:bg-sb-secondary-100 "
-                @keydown.enter="() => {
-                  handleChangeLanguage(lang.name as 'it' | 'en')
-                  closeMenu()
-                }"
-                @click="() => {
-                  handleChangeLanguage(lang.name as 'it' | 'en')
-                  closeMenu()
-                }"
-              >
-                <component
-                  :is="lang.icon"
-                  class="shrink-0 size-5"
-                />
+          <!-- Menu -->
+          <BaseDropdownMenu
+            menu-strategy="fixed"
+            :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+          >
+            <template #dropdown-section-content="{closeMenu}">
+              <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
                 <span
-                  :class="{ 'font-semibold underline': currentLanguage === lang.name}"
-                  class="flex-1 text-white text-roboto"
+                  v-for="lang in languageOptions"
+                  :key="lang.name"
+                  :tabindex="0"
+                  :class="{
+                    'bg-sb-secondary-200': currentLanguage === lang.name
+                  }"
+                  class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200 "
+                  @keydown.enter="() => {
+                    handleChangeLanguage(lang.name as 'it' | 'en')
+                    closeMenu()
+                  }"
+                  @click="() => {
+                    handleChangeLanguage(lang.name as 'it' | 'en')
+                    closeMenu()
+                  }"
                 >
-                  {{ lang.label }}
+                  <component
+                    :is="lang.icon"
+                    :class="[iconSizeXS]"
+                    class="shrink-0"
+                  />
+                  <span
+                    :class="[textSizeXS]"
+                    class="flex-1 text-white text-roboto"
+                  >
+                    {{ lang.label }}
+                  </span>
                 </span>
-              </span>
-            </div>
-          </template>
-        </BaseDropdownMenu>
+              </div>
+            </template>
+          </BaseDropdownMenu>
+        </div>
+      </transition>
+      <!-- Menu Mobile Section -->
+      <div v-if="isMenuCollapsed">
+        <component
+          :is="isMenuOpen ? XMarkIcon : Bars3Icon"
+
+          class="flex-none text-white cursor-pointer active:rotate-90 transition-sb-slow"
+          :class="[iconSizeM]"
+          @click.stop="onChangeMenuVisibility(!isMenuOpen) "
+        />
       </div>
     </div>
   </header>
   <transition name="slide-left">
     <div
       v-if="isMenuCollapsed && isMenuOpen"
-      v-on-click-outside="[(_: Event) => onChangeMenuVisibility(false), { ignore: [headerRef, buttonRef] }]"
-      class="fixed left-0 z-30 w-full h-full pt-20 bg-sb-main "
+
+      class="fixed left-0 w-full h-full pt-20 bg-sb-main z-sb-header-collapsed"
     >
-      <TheNavbar
+      <TheSideNavbar
         :routes="headerI18nContent.navbarRoutes"
-        variant="vertical"
         @close-menu="onChangeMenuVisibility(false)"
       />
       <div
-        :class="[containerPadding, (activeBreakpoint === 'xs' || activeBreakpoint === 'sm') ? 'py-4 text-sb-sm' : 'py-6 text-sb-base']"
+        :class="[containerPadding, textSizeXS, (activeBreakpoint === 'xs' || activeBreakpoint === 'sm') ? 'py-4' : 'py-6']"
         class="inline-flex items-center w-full text-white gap-x-4 "
       >
         {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
-        <BaseDropdownMenu class="w-20 shrink-0">
-          <template #dropdown-button-content>
-            <component
-              :is="currentLanguage === 'it' ? ItalyIcon : UkIcon"
-              class="shrink-0 size-5"
-            />
-          </template>
-          <template #dropdown-section-content="{ closeMenu }">
-            <div class="p-2 text-sm break-words w-44 whitespace-normals">
+        <BaseDropdownMenu
+          menu-strategy="fixed"
+          :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+        >
+          <template #dropdown-section-content="{closeMenu}">
+            <div
+              class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2"
+            >
               <span
                 v-for="lang in languageOptions"
                 :key="lang.name"
                 :tabindex="0"
                 :class="{
-                  'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-                  'text-sb-base': activeBreakpoint === 'md'
+                  'bg-sb-secondary-200': currentLanguage === lang.name
                 }"
-                class="flex items-center p-2 transition-all duration-500 ease-in-out outline-none cursor-pointer rounded-xl gap-x-2 hover:bg-sb-secondary-100 group ring-0 focus-visible:bg-sb-secondary-100 "
+                class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200 "
                 @keydown.enter="() => {
                   handleChangeLanguage(lang.name as 'it' | 'en')
                   closeMenu()
@@ -219,10 +219,11 @@ watch(isMenuCollapsed, () => {
               >
                 <component
                   :is="lang.icon"
-                  class="shrink-0 size-5"
+                  :class="[iconSizeXS]"
+                  class="shrink-0"
                 />
                 <span
-                  :class="{ 'font-semibold underline': currentLanguage === lang.name}"
+                  :class="[textSizeXS]"
                   class="flex-1 text-white text-roboto"
                 >
                   {{ lang.label }}

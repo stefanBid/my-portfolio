@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { FaceFrownIcon } from '@heroicons/vue/24/solid';
+import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
-import { BaseModal, BaseInput } from '@/components';
+import { BaseDialog, BaseInput } from '@/components';
 import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 import type { SkillInfo } from '@/types';
 
@@ -20,7 +20,7 @@ const props = defineProps<SkillsModalProps>();
 const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXL } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS } = useCommonStyleSingleton();
 // Feature 1: Internationalization (i18n)
 const { currentLanguage } = useTypedI18nSingleton();
 
@@ -51,7 +51,7 @@ watch(() => searchSkillKey.value, newValue => {
 </script>
 
 <template>
-  <BaseModal
+  <BaseDialog
     :is-open="isModalOpen"
     header-orientation="left"
     :modal-title="currentLanguage === 'en' ? 'Skills' : 'Competenze '"
@@ -60,24 +60,35 @@ watch(() => searchSkillKey.value, newValue => {
   >
     <template #modal-content>
       <div class="flex flex-col items-center w-full h-full pt-6 overflow-hidden gap-y-6">
-        <BaseInput
-          v-model:input-value="searchSkillKey"
-          class="w-3/5"
+        <div
           :class="{
             'w-4/6': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-            'w-5/6': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
+            'w-5/6': activeBreakpoint === 'md',
+            'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm' ,
           }"
-          placeholder="Search a specific skill"
-          :custom-z-index="60"
-          :with-menu="false"
         >
-          <template #input-menu-box>
-            <div class="h-56">
-              Prova
-            </div>
-          </template>
-        </BaseInput>
-
+          <BaseInput
+            v-model:input-value="searchSkillKey"
+            placeholder="Search a specific skill"
+            :custom-z-index="60"
+            :with-menu="false"
+          >
+            <template #input-menu-box>
+              <div class="h-56">
+                Prova
+              </div>
+            </template>
+          </BaseInput>
+        </div>
+        <div class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse">
+          <CursorArrowRaysIcon :class="[iconSizeXS]" />
+          <span
+            :class="[textSizeXS]"
+            class="text-white  transition-sb-slow font-roboto text-shadow-luminous"
+          >
+            {{ currentLanguage === 'en' ? 'Click on a skill to see its details' : 'Clicca su una competenza per vedere i dettagli' }}
+          </span>
+        </div>
         <div
           v-if="filteredSkillsList.length !== 0"
           ref="skillContainerRef"
@@ -111,5 +122,5 @@ watch(() => searchSkillKey.value, newValue => {
         </div>
       </div>
     </template>
-  </BaseModal>
+  </BaseDialog>
 </template>

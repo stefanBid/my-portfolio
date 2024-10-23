@@ -11,30 +11,28 @@ import { computed } from 'vue';
 import { BaseButton } from '@/components';
 import { useCommonStyleSingleton } from '@/hooks';
 
-interface ModalProps {
+interface DialogProps {
   isOpen: boolean;
-  customZIndex?: number;
   headerOrientation?: 'left' | 'center' | 'right';
-  modalSize?: 'small' | 'medium' | 'large';
-  modalTitle?: string;
-  modalSubtitle?: string;
+  dialogSize?: 'small' | 'medium' | 'large';
+  dialogTitle?: string;
+  dialogSubtitle?: string;
   // eslint-disable-next-line no-unused-vars
   onCloseModal: (falsyValue: false) => void;
 }
 
-const props = withDefaults(defineProps<ModalProps>(), {
-	modalSize: undefined,
-	modalTitle: undefined,
-	modalSubtitle: undefined,
+const props = withDefaults(defineProps<DialogProps>(), {
+	dialogSize: 'large',
+	dialogTitle: undefined,
+	dialogSubtitle: undefined,
 	headerOrientation: 'left',
-	customZIndex: 50,
 });
 
 // Feature 1: Manage Style Classes
 const { containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
 
 const getSizeClass = computed(() => {
-	switch (props.modalSize) {
+	switch (props.dialogSize) {
 		case 'small':
 			return 'w-3/6 h-3/6';
 		case 'medium':
@@ -62,7 +60,6 @@ const handleCloseModal = () => {
     <Dialog
       as="div"
       class="relative overflow-hidden"
-      :style="{ zIndex: props.customZIndex }"
       @close="handleCloseModal"
     >
       <TransitionChild
@@ -74,10 +71,10 @@ const handleCloseModal = () => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black/95"></div>
+        <div class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"></div>
       </TransitionChild>
 
-      <div class="fixed inset-0 overflow-y-auto">
+      <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
         <div
           :class="[containerPadding]"
           class="flex items-center justify-center h-screen py-8"
@@ -93,7 +90,7 @@ const handleCloseModal = () => {
           >
             <DialogPanel
               :class="[getSizeClass]"
-              class="flex flex-col p-6 overflow-hidden transition-all transform border-2 rounded-lg shadow-lg gap-y-6 shadow-sb-secondary-100 border-slate-700 border-sb-secondary-100 bg-sb-main"
+              class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
               <div
                 id="modal-header"
@@ -108,20 +105,20 @@ const handleCloseModal = () => {
                   class="flex-1 overflow-x-hidden"
                 >
                   <h3
-                    v-show="props.modalTitle"
+                    v-show="props.dialogTitle"
                     id="modal-title"
                     :class="[textSizeL]"
-                    class="font-medium text-white truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+                    class="font-medium text-white truncate whitespace-normal transition-sb-slow font-roboto"
                   >
-                    {{ props.modalTitle }}
+                    {{ props.dialogTitle }}
                   </h3>
                   <p
-                    v-show="props.modalSubtitle"
+                    v-show="props.dialogSubtitle"
                     id="modal-subtitle"
                     :class="[ textSizeS]"
-                    class="mt-2 text-sm truncate transition-all duration-300 ease-in-out text-white/60 font-roboto"
+                    class="mt-2 text-sm truncate transition-sb-slow text-white/60 font-roboto"
                   >
-                    {{ props.modalSubtitle }}
+                    {{ props.dialogSubtitle }}
                   </p>
                 </div>
                 <BaseButton

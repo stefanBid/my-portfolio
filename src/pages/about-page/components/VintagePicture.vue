@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { activeBreakpoint } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeS } = useCommonStyleSingleton();
 
 const getFrameDimension = computed(() => {
 	if (activeBreakpoint.value === 'xs') {
@@ -81,12 +81,12 @@ const flipPicture = () => {
       :key="index"
       :style="style"
       :class="[getFrameDimension]"
-      class="absolute w-full h-full bg-white border rounded shadow-md border-sb-secondary-200"
+      class="absolute w-full h-full bg-white rounded shadow-md shadow-black "
     ></div>
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white border rounded shadow-md border-sb-secondary-200 gap-y-2 "
+      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md transition-sb-slow shadow-black gap-y-2 "
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
@@ -96,23 +96,19 @@ const flipPicture = () => {
         :src="props.imageUrl"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
-        class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
+        class="object-cover object-center w-full rounded transition-sb-slow"
         :style="{ transform: 'rotateY(0deg)' }"
       />
       <div
         v-show="delayedFlip"
         id="picture-description"
         :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100"
+        class="flex items-center justify-center w-full p-2 rounded transition-sb-slow bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
       >
         <p
           class="text-center text-white font-roboto"
-          :class=" {
-            'text-sb-sm': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'text-sb-base': activeBreakpoint === 'md',
-            'text-sb-lg': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-          }"
+          :class="[textSizeS]"
         >
           {{ props.text }}
         </p>

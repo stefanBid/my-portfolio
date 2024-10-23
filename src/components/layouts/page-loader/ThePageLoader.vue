@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed inset-0 z-20 flex flex-col items-center justify-center w-full h-screen transition-all duration-300 ease-in-out bg-sb-main"
+    class="fixed inset-0 flex flex-col items-center justify-center w-full h-screen transition-sb-slow z-sb-base-5 bg-sb-main"
     role="alert"
     aria-live="assertive"
   >

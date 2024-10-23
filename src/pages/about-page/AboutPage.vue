@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { BaseHero, ThePageContainer, BaseSection } from '@/components';
+import { ThePageContainer, BaseSection } from '@/components';
 import { useTypedI18nSingleton } from '@/hooks';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
 
@@ -10,23 +10,19 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
 </script>
 
 <template>
-  <ThePageContainer>
-    <template #intro-section>
-      <BaseHero
-        :title="aboutMePageI18nContent.pageHeading"
-      />
-    </template>
+  <ThePageContainer :page-intro-text="aboutMePageI18nContent.pageHeading">
     <template #page-content>
       <BaseSection
         v-for="(section, index) in aboutMePageI18nContent.bioSections"
         :id="`bioSection-${index}`"
         :key="index"
-        :extra-side-position="index % 2 === 0 ? 'left' : 'right'"
+        :inverted="index % 2 === 0 ? false : true"
         :title="section.titleHeading"
         :subtitle="section.subTitleHeading"
         :paragraph="section.contentParagraph"
+        :intersection-observer-settings="{ rootElement: null, threshold: 0.2, rootMargin: '-80px 0px 0px 0px'}"
       >
-        <template #extra-side-content>
+        <template #extra-content>
           <VintagePicture
             v-if="section.imagePath"
             :id="`bioSection-${index}-image`"

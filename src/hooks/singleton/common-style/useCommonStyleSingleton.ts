@@ -31,9 +31,9 @@ function createCommonStyle() {
 	// Common style for website elements
 
 	const containerPadding = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'p-sb-side-sm'; }
-		if (activeBreakpoint.value === 'md') { return 'p-sb-side-base'; }
-		return 'p-sb-side-lg';
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'px-[5%]'; }
+		if (activeBreakpoint.value === 'md') { return 'px-[6%]'; }
+		return 'px-[7%]';
 	});
 
 	const containerGapElements = computed(() => {
@@ -43,7 +43,6 @@ function createCommonStyle() {
 	});
 
 	// Common style for text elements
-
 	const textSizeXXL = computed(() => {
 		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-4xl'; }
 		if (activeBreakpoint.value === 'md') { return 'text-sb-6xl'; }
@@ -80,7 +79,42 @@ function createCommonStyle() {
 		return 'text-sb-sm';
 	});
 
-	return { activeBreakpoint, containerPadding, containerGapElements, textSizeXXL, textSizeXL, textSizeL, textSizeM, textSizeS, textSizeXS };
+	// Common style for icons elements
+	const iconSizeXXL = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-16'; }
+		if (activeBreakpoint.value === 'md') { return 'size-20'; }
+		return 'size-32';
+	});
+	const iconSizeXL = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-14'; }
+		if (activeBreakpoint.value === 'md') { return 'size-16'; }
+		return 'size-20';
+	});
+
+	const iconSizeL = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-12'; }
+		if (activeBreakpoint.value === 'md') { return 'size-14'; }
+		return 'size-16';
+	});
+
+	const iconSizeM = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-6'; }
+		if (activeBreakpoint.value === 'md') { return 'size-8'; }
+		return 'size-10';
+	});
+
+	const iconSizeS = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm' || activeBreakpoint.value === 'md') { return 'size-5'; }
+		return 'size-6';
+	});
+
+	const iconSizeXS = computed(() => {
+		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-3.5'; }
+		if (activeBreakpoint.value === 'md') { return 'size-4'; }
+		return 'size-5';
+	});
+
+	return { activeBreakpoint, containerPadding, containerGapElements, textSizeXXL, textSizeXL, textSizeL, textSizeM, textSizeS, textSizeXS, iconSizeXS, iconSizeS, iconSizeM, iconSizeL, iconSizeXL, iconSizeXXL };
 }
 
 export function useCommonStyleSingleton() {
