@@ -3,6 +3,7 @@ import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/2
 import { computed, onMounted, ref } from 'vue';
 
 import { BaseButton } from '@/components';
+import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
 import { useCommonStyleSingleton, useTypingText, useTypedI18nSingleton } from '@/hooks';
 import { downloadCv, openLink } from '@/utils';
 
@@ -23,6 +24,17 @@ const show = ref(false);
 onMounted(() => {
   show.value = true;
 });
+
+// Feature 5: Manage Contact Me Dialog Form
+
+const isModalOpen = ref(false);
+const openContactMeFormDialog = (): void => {
+  isModalOpen.value = true;
+};
+
+const changeVisibility = (falsyValue: boolean): void => {
+  isModalOpen.value = falsyValue;
+};
 </script>
 
 <template>
@@ -114,7 +126,7 @@ onMounted(() => {
             id="firstButton"
             class="w-full"
             :icon="ChatBubbleLeftRightIcon"
-            @click="openLink(homePageI18nContent.firstButton.link)"
+            @click.stop="() => openContactMeFormDialog()"
           >
             {{ homePageI18nContent.firstButton.text }}
           </BaseButton>
@@ -135,4 +147,8 @@ onMounted(() => {
       </transition>
     </div>
   </div>
+  <ContactMeFormDialog
+    :is-modal-open="isModalOpen"
+    :handle-close-modal="(falsyValue) => changeVisibility(falsyValue)"
+  />
 </template>

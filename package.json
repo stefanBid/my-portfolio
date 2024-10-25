@@ -13,6 +13,7 @@
     "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.js"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@floating-ui/vue": "^1.1.5",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.1.5",
