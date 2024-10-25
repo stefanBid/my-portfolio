@@ -4,11 +4,11 @@ type SkillSection = 'FE' | 'BE' | 'WD';
 type SkillType = 'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'beDb';
 
 interface Section {
-	titleHeading: string;
-	subTitleHeading: string;
-	contentParagraph: string;
-	imagePath?: string;
-	imageDescription?: string;
+  titleHeading: string;
+  subTitleHeading: string;
+  contentParagraph: string;
+  imagePath?: string;
+  imageDescription?: string;
 }
 
 interface Rating {
@@ -43,7 +43,7 @@ interface SkillInfo {
   id: string;
   name: string;
   icon?: SkillIcon;
-	type: SkillType;
+  type: SkillType;
   overAllRating: Overall;
 }
 

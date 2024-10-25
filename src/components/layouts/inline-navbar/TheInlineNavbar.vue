@@ -5,13 +5,12 @@ interface InlineNavbarProps {
   routes: {
     path: string;
     text: string;
-  }[]
+  }[];
 }
 
 const props = defineProps<InlineNavbarProps>();
 
 const route = useRoute();
-
 </script>
 
 <template>
@@ -27,10 +26,11 @@ const route = useRoute();
       class="inline-flex items-center justify-center px-2 py-1 rounded-full outline-none transition-sb-slow min-w-24 font-roboto ring-0 focus-visible:ring-0 text-sb-base"
       :class="[
         {
-          'text-black bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80': route.path === routeItem.path,
-          'text-white bg-sb-secondary-200 hover:bg-sb-tertiary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200': route.path !== routeItem.path,
+          'text-black bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80':
+            route.path === routeItem.path,
+          'text-white bg-sb-secondary-200 hover:bg-sb-tertiary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
+            route.path !== routeItem.path,
         },
-
       ]"
     >
       {{ routeItem.text }}

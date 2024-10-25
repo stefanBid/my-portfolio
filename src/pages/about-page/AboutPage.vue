@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
 import { ThePageContainer, BaseSection } from '@/components';
 import { useTypedI18nSingleton } from '@/hooks';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
 
 // Feature 1: Internationalization (i18n)
 const { aboutMePageI18nContent } = useTypedI18nSingleton();
-
 </script>
 
 <template>
@@ -20,7 +18,11 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
         :title="section.titleHeading"
         :subtitle="section.subTitleHeading"
         :paragraph="section.contentParagraph"
-        :intersection-observer-settings="{ rootElement: null, threshold: 0.2, rootMargin: '-80px 0px 0px 0px'}"
+        :intersection-observer-settings="{
+          rootElement: null,
+          threshold: 0.2,
+          rootMargin: '-80px 0px 0px 0px',
+        }"
       >
         <template #extra-content>
           <VintagePicture
