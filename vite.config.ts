@@ -3,19 +3,14 @@ import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import { resolve } from 'path';
 import viteCompression from 'vite-plugin-compression';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
   const plugins: PluginOption[] = [
     vue(),
     svgLoader({ defaultImport: 'component' }),
     viteCompression()
   ];
-
-  if (mode === 'visualize') {
-    plugins.push(visualizer({ open: true, filename: 'dist/stats.html' }) as PluginOption);
-  }
 
   return {
     plugins,
