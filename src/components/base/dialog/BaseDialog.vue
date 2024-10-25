@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-	TransitionRoot,
-	TransitionChild,
-	Dialog,
-	DialogPanel,
-} from '@headlessui/vue';
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 
@@ -17,51 +12,42 @@ interface DialogProps {
   dialogSize?: 'small' | 'medium' | 'large';
   dialogTitle?: string;
   dialogSubtitle?: string;
-  // eslint-disable-next-line no-unused-vars
+
   onCloseModal: (falsyValue: false) => void;
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
-	dialogSize: 'large',
-	dialogTitle: undefined,
-	dialogSubtitle: undefined,
-	headerOrientation: 'left',
+  dialogSize: 'large',
+  dialogTitle: undefined,
+  dialogSubtitle: undefined,
+  headerOrientation: 'left',
 });
 
 // Feature 1: Manage Style Classes
 const { containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
 
 const getSizeClass = computed(() => {
-	switch (props.dialogSize) {
-		case 'small':
-			return 'w-3/6 h-3/6';
-		case 'medium':
-			return 'w-4/6 h-4/6';
-		case 'large':
-			return 'w-5/6 h-5/6';
-		default:
-			return 'w-full h-full';
-	}
+  switch (props.dialogSize) {
+    case 'small':
+      return 'w-3/6 h-3/6';
+    case 'medium':
+      return 'w-4/6 h-4/6';
+    case 'large':
+      return 'w-5/6 h-5/6';
+    default:
+      return 'w-full h-full';
+  }
 });
 
 // Feature 2: Send Close Modal Event
-const handleCloseModal = () => {
-	props.onCloseModal(false);
+const handleCloseModal = (): void => {
+  props.onCloseModal(false);
 };
-
 </script>
 
 <template>
-  <TransitionRoot
-    appear
-    :show="props.isOpen"
-    as="template"
-  >
-    <Dialog
-      as="div"
-      class="relative overflow-hidden"
-      @close="handleCloseModal"
-    >
+  <TransitionRoot appear :show="props.isOpen" as="template">
+    <Dialog as="div" class="relative overflow-hidden" @close="handleCloseModal">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
@@ -75,10 +61,7 @@ const handleCloseModal = () => {
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
-        <div
-          :class="[containerPadding]"
-          class="flex items-center justify-center h-screen py-8"
-        >
+        <div :class="[containerPadding]" class="flex items-center justify-center h-screen py-8">
           <TransitionChild
             as="template"
             enter="duration-300 ease-out"
@@ -115,7 +98,7 @@ const handleCloseModal = () => {
                   <p
                     v-show="props.dialogSubtitle"
                     id="modal-subtitle"
-                    :class="[ textSizeS]"
+                    :class="[textSizeS]"
                     class="mt-2 text-sm truncate transition-sb-slow text-white/60 font-roboto"
                   >
                     {{ props.dialogSubtitle }}

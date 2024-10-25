@@ -20,31 +20,26 @@ const router = useRouter();
     :class="[containerPadding]"
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
-    <h1
-      :class="[textSizeXXL]"
-      class="whitespace-normal transition-sb-slow font-bebas "
-    >
+    <h1 :class="[textSizeXXL]" class="whitespace-normal transition-sb-slow font-bebas">
       {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
     </h1>
     <WindowIcon
-      class="transition-sb-slow text-slate-700 "
+      class="transition-sb-slow text-slate-700"
       :class="{
-        'size-72': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+        'size-72':
+          activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
         'size-52': activeBreakpoint === 'md',
         'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
-    <p
-      :class="[textSizeL]"
-      class="font-medium whitespace-normal transition-sb-slow font-roboto "
-    >
-      {{ currentLanguage === 'en' ? 'The page you are looking for does not exist.' : 'La pagina che stai cercando non esiste.' }}
+    <p :class="[textSizeL]" class="font-medium whitespace-normal transition-sb-slow font-roboto">
+      {{
+        currentLanguage === 'en'
+          ? 'The page you are looking for does not exist.'
+          : 'La pagina che stai cercando non esiste.'
+      }}
     </p>
-    <BaseButton
-      :icon="HomeIcon"
-      variant="secondary"
-      @click="router.push({ name: 'HomePage' })"
-    >
+    <BaseButton :icon="HomeIcon" variant="secondary" @click="router.push({ name: 'HomePage' })">
       {{ currentLanguage === 'en' ? 'Go Home' : 'Torna alla Home' }}
     </BaseButton>
   </div>

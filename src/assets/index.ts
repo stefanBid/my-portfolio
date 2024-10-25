@@ -1,21 +1,20 @@
-import AngularIcon from '@/assets/icons/angular.svg';
-import CSharpIcon from '@/assets/icons/c-sharp.svg';
-import CssIcon from '@/assets/icons/css.svg';
-import GraphqlIcon from '@/assets/icons/graphql.svg';
-import HibernateIcon from '@/assets/icons/hibernate.svg';
-import HtmlIcon from '@/assets/icons/html.svg';
-import ItalyIcon from '@/assets/icons/it-flag.svg';
-import JsIcon from '@/assets/icons/java-script.svg';
-import JavaIcon from '@/assets/icons/java.svg';
-import MysqlIcon from '@/assets/icons/mysql.svg';
-import PythonIcon from '@/assets/icons/python.svg';
-import ReactIcon from '@/assets/icons/react.svg';
-import RocketIcon from '@/assets/icons/rocket.svg';
-import SpringIcon from '@/assets/icons/spring.svg';
-import TsIcon from '@/assets/icons/type-script.svg';
-import UkIcon from '@/assets/icons/uk-flag.svg';
-import VueIcon from '@/assets/icons/vue.svg';
-
+import AngularIcon from './icons/angular.svg?component';
+import CSharpIcon from './icons/c-sharp.svg?component';
+import CssIcon from './icons/css.svg?component';
+import GraphqlIcon from './icons/graphql.svg?component';
+import HibernateIcon from './icons/hibernate.svg?component';
+import HtmlIcon from './icons/html.svg?component';
+import ItalyIcon from './icons/it-flag.svg?component';
+import JsIcon from './icons/java-script.svg?component';
+import JavaIcon from './icons/java.svg?component';
+import MysqlIcon from './icons/mysql.svg?component';
+import PythonIcon from './icons/python.svg?component';
+import ReactIcon from './icons/react.svg?component';
+import RocketIcon from './icons/rocket.svg?component';
+import SpringIcon from './icons/spring.svg?component';
+import TsIcon from './icons/type-script.svg?component';
+import UkIcon from './icons/uk-flag.svg?component';
+import VueIcon from './icons/vue.svg?component';
 
 const SKILLS_ICONS_MAP = {
   AngularIcon,
@@ -34,9 +33,6 @@ const SKILLS_ICONS_MAP = {
   VueIcon,
 };
 
-
 type SkillIcon = keyof typeof SKILLS_ICONS_MAP;
 
-export {RocketIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };
-
-
+export { RocketIcon, ItalyIcon, UkIcon, SKILLS_ICONS_MAP, type SkillIcon };

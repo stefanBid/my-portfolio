@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/**/*", // Includi tutti i file della cartella src
+    "vite.config.ts", // Includi file di configurazione o altri file specifici da lintare
+    "scripts/**/*", // Se hai una cartella con script TypeScript che vuoi lintare
+    "test/**/*" // Se hai dei test TypeScript che vuoi lintare
+  ],
+  "exclude": [
+    "node_modules", // Escludi le dipendenze
+    "dist", // Escludi la cartella di build
+    "**/*.js", // Escludi eventuali file JavaScript (se non vuoi lintarli)
+    "**/*.d.ts",// Escludi i file di definizione dei tipi
+    "**/*.svg",// Escludi i file SVG
+  ]
+}

@@ -5,121 +5,201 @@ type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 let instance: ReturnType<typeof createCommonStyle> | undefined;
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function createCommonStyle() {
-	const breakpoints = useBreakpoints({
-		xs: 0, // From 0 to 639px
-		sm: 640, // From 640px to 767px
-		md: 768, // From 768px to 1023px
-		lg: 1024, // From 1024px to 1279px
-		xl: 1280, // From 1280px to 1535px
-		xxl: 1536, // From 1536px and up
-	});
+  const breakpoints = useBreakpoints({
+    xs: 0, // From 0 to 639px
+    sm: 640, // From 640px to 767px
+    md: 768, // From 768px to 1023px
+    lg: 1024, // From 1024px to 1279px
+    xl: 1280, // From 1280px to 1535px
+    xxl: 1536, // From 1536px and up
+  });
 
-	/**
-	 * Returns the active breakpoint
-	 *
-	 * Breakpoints Range:
-	 * xs: 0 - 639px
-	 * sm: 640 - 767px
-	 * md: 768 - 1023px
-	 * lg: 1024 - 1279px
-	 * xl: 1280 - 1535px
-	 * xxl: 1536px and up
-	 */
-	const activeBreakpoint = breakpoints.active() as ComputedRef<Breakpoint | undefined>;
+  /**
+   * Returns the active breakpoint
+   *
+   * Breakpoints Range:
+   * xs: 0 - 639px
+   * sm: 640 - 767px
+   * md: 768 - 1023px
+   * lg: 1024 - 1279px
+   * xl: 1280 - 1535px
+   * xxl: 1536px and up
+   */
+  const activeBreakpoint = breakpoints.active() as ComputedRef<Breakpoint | undefined>;
 
-	// Common style for website elements
+  // Common style for website elements
 
-	const containerPadding = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'px-[5%]'; }
-		if (activeBreakpoint.value === 'md') { return 'px-[6%]'; }
-		return 'px-[7%]';
-	});
+  const containerPadding = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'px-[5%]';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'px-[6%]';
+    }
+    return 'px-[7%]';
+  });
 
-	const containerGapElements = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'gap-y-16'; }
-		if (activeBreakpoint.value === 'md' || activeBreakpoint.value === 'lg') { return 'gap-y-20'; }
-		return ' gap-y-24';
-	});
+  const containerGapElements = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'gap-y-16';
+    }
+    if (activeBreakpoint.value === 'md' || activeBreakpoint.value === 'lg') {
+      return 'gap-y-20';
+    }
+    return ' gap-y-24';
+  });
 
-	// Common style for text elements
-	const textSizeXXL = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-4xl'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-6xl'; }
-		return 'text-sb-7xl';
-	});
+  // Common style for text elements
+  const textSizeXXL = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'text-sb-4xl';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'text-sb-6xl';
+    }
+    return 'text-sb-7xl';
+  });
 
-	const textSizeXL = computed(() => {
-		if (activeBreakpoint.value === 'xs') { return 'text-sb-2xl'; }
-		if (activeBreakpoint.value === 'sm') { return 'text-sb-3xl'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-4xl'; }
-		return 'text-sb-5xl';
-	});
+  const textSizeXL = computed(() => {
+    if (activeBreakpoint.value === 'xs') {
+      return 'text-sb-2xl';
+    }
+    if (activeBreakpoint.value === 'sm') {
+      return 'text-sb-3xl';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'text-sb-4xl';
+    }
+    return 'text-sb-5xl';
+  });
 
-	const textSizeL = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-lg'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-xl'; }
-		return 'text-sb-2xl';
-	});
+  const textSizeL = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'text-sb-lg';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'text-sb-xl';
+    }
+    return 'text-sb-2xl';
+  });
 
-	const textSizeM = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-base'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-lg'; }
-		return 'text-sb-xl';
-	});
+  const textSizeM = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'text-sb-base';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'text-sb-lg';
+    }
+    return 'text-sb-xl';
+  });
 
-	const textSizeS = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'text-sb-sm'; }
-		if (activeBreakpoint.value === 'md') { return 'text-sb-base'; }
-		return 'text-sb-lg';
-	});
+  const textSizeS = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'text-sb-sm';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'text-sb-base';
+    }
+    return 'text-sb-lg';
+  });
 
-	const textSizeXS = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm' || activeBreakpoint.value === 'md') { return 'text-sb-xs'; }
-		return 'text-sb-sm';
-	});
+  const textSizeXS = computed(() => {
+    if (
+      activeBreakpoint.value === 'xs' ||
+      activeBreakpoint.value === 'sm' ||
+      activeBreakpoint.value === 'md'
+    ) {
+      return 'text-sb-xs';
+    }
+    return 'text-sb-sm';
+  });
 
-	// Common style for icons elements
-	const iconSizeXXL = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-16'; }
-		if (activeBreakpoint.value === 'md') { return 'size-20'; }
-		return 'size-32';
-	});
-	const iconSizeXL = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-14'; }
-		if (activeBreakpoint.value === 'md') { return 'size-16'; }
-		return 'size-20';
-	});
+  // Common style for icons elements
+  const iconSizeXXL = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-16';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'size-20';
+    }
+    return 'size-32';
+  });
+  const iconSizeXL = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-14';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'size-16';
+    }
+    return 'size-20';
+  });
 
-	const iconSizeL = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-12'; }
-		if (activeBreakpoint.value === 'md') { return 'size-14'; }
-		return 'size-16';
-	});
+  const iconSizeL = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-12';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'size-14';
+    }
+    return 'size-16';
+  });
 
-	const iconSizeM = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-6'; }
-		if (activeBreakpoint.value === 'md') { return 'size-8'; }
-		return 'size-10';
-	});
+  const iconSizeM = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-6';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'size-8';
+    }
+    return 'size-10';
+  });
 
-	const iconSizeS = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm' || activeBreakpoint.value === 'md') { return 'size-5'; }
-		return 'size-6';
-	});
+  const iconSizeS = computed(() => {
+    if (
+      activeBreakpoint.value === 'xs' ||
+      activeBreakpoint.value === 'sm' ||
+      activeBreakpoint.value === 'md'
+    ) {
+      return 'size-5';
+    }
+    return 'size-6';
+  });
 
-	const iconSizeXS = computed(() => {
-		if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') { return 'size-3.5'; }
-		if (activeBreakpoint.value === 'md') { return 'size-4'; }
-		return 'size-5';
-	});
+  const iconSizeXS = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-3.5';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'size-4';
+    }
+    return 'size-5';
+  });
 
-	return { activeBreakpoint, containerPadding, containerGapElements, textSizeXXL, textSizeXL, textSizeL, textSizeM, textSizeS, textSizeXS, iconSizeXS, iconSizeS, iconSizeM, iconSizeL, iconSizeXL, iconSizeXXL };
+  return {
+    activeBreakpoint,
+    containerPadding,
+    containerGapElements,
+    textSizeXXL,
+    textSizeXL,
+    textSizeL,
+    textSizeM,
+    textSizeS,
+    textSizeXS,
+    iconSizeXS,
+    iconSizeS,
+    iconSizeM,
+    iconSizeL,
+    iconSizeXL,
+    iconSizeXXL,
+  };
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function useCommonStyleSingleton() {
-	if (!instance) {
-		instance = createCommonStyle();
-	}
-	return instance;
+  if (!instance) {
+    instance = createCommonStyle();
+  }
+  return instance;
 }

@@ -8,9 +8,9 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "visualize": "vite build --mode visualize",
-    "lint": "eslint . --ext .ts,.vue",
-    "lint:fix": "eslint . --ext .ts,.vue --fix",
-    "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.cjs"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.js"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.5",
@@ -18,6 +18,7 @@
     "@heroicons/vue": "^2.1.5",
     "@vueuse/components": "^11.1.0",
     "@vueuse/core": "^11.1.0",
+    "prettier": "^3.3.3",
     "vue": "^3.5.10",
     "vue-i18n": "^10.0.4",
     "vue-router": "^4.4.5"
@@ -29,8 +30,9 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.13.0",
-    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.29.1",
     "postcss": "^8.4.47",
     "svgo": "^3.3.2",
@@ -39,6 +41,7 @@
     "vite": "^5.4.8",
     "vite-plugin-compression": "^0.5.1",
     "vite-svg-loader": "^5.1.0",
+    "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.1.6"
   },
   "engines": {

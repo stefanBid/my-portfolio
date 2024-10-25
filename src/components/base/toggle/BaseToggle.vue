@@ -4,11 +4,11 @@ import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
 import { useCommonStyleSingleton } from '@/hooks';
 
 interface BaseToggleProps {
-  label?: string
+  label?: string;
 }
 
 const props = withDefaults(defineProps<BaseToggleProps>(), {
-	label: undefined
+  label: undefined,
 });
 
 const enabled = defineModel<boolean>('enabled', { default: false, required: true });
@@ -20,16 +20,19 @@ const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
 <template>
   <SwitchGroup>
     <div
-      class="flex flex-row-reverse items-center rounded-full "
+      class="flex flex-row-reverse items-center rounded-full"
       @keypress.prevent.enter="enabled = !enabled"
     >
       <SwitchLabel
         v-if="props.label"
         class="ml-3 text-white transition-all duration-200 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
-        :class="[textSizeXS,{
-          'opacity-50': !enabled,
-          'opacity-100': enabled,
-        }]"
+        :class="[
+          textSizeXS,
+          {
+            'opacity-50': !enabled,
+            'opacity-100': enabled,
+          },
+        ]"
       >
         {{ props.label }}
       </SwitchLabel>
@@ -46,8 +49,10 @@ const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
       >
         <span
           :class="{
-            ' translate-x-[22px]': enabled && (activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm'),
-            'translate-x-[18px]': enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm' ),
+            ' translate-x-[22px]':
+              enabled && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+            'translate-x-[18px]':
+              enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
             'translate-x-0.5': !enabled,
             'size-3': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
             'size-4': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
