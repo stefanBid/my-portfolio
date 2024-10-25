@@ -39,7 +39,7 @@ const router = useRouter();
           : 'La pagina che stai cercando non esiste.'
       }}
     </p>
-    <BaseButton :icon="HomeIcon" @click="router.push({ name: 'HomePage' })">
+    <BaseButton :icon="HomeIcon" @click="router.push({ name: 'homePage' })">
       {{ currentLanguage === 'en' ? 'Go Home' : 'Torna alla Home' }}
     </BaseButton>
   </div>
