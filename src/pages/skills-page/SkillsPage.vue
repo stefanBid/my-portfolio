@@ -91,7 +91,6 @@ const changeVisibility = (newVisibility: boolean): void => {
         </span>
         <RocketIcon class="my-4 transition-sb-slow z-sb-base-1" :class="[iconSizeXXL]" />
         <BaseButton
-          variant="primary"
           class="z-sb-base-1 w-fit"
           :icon="MagnifyingGlassIcon"
           @click="changeVisibility(!isModalOpen)"

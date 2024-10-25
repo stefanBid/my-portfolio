@@ -8,7 +8,7 @@ import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
 
 interface InputProps {
   placeholder?: string;
-  type?: 'text' | 'search';
+  type?: 'text' | 'search' | 'email';
   withMenu?: boolean;
   intersectionObserverSettings?: {
     rootElement: HTMLElement | null;
@@ -18,7 +18,6 @@ interface InputProps {
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
-  variant: 'primary',
   placeholder: undefined,
   type: 'text',
   withMenu: false,
@@ -47,7 +46,15 @@ const isInputFocused = ref(false);
 
 const getPlaceholder = computed(() => {
   if (!props.placeholder) {
-    return props.type === 'search' ? 'Search a value' : 'Enter text';
+    if (props.type === 'search') {
+      return 'Search a value';
+    }
+    if (props.type === 'email') {
+      return 'Enter an email address (ex: example@ex.com)';
+    }
+    if (props.type === 'text') {
+      return 'Enter a value';
+    }
   }
   return props.placeholder;
 });
@@ -98,7 +105,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           'text-sb-xs':
             activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
         }"
-        class="w-full py-2 pl-4 pr-12 text-white truncate bg-transparent border-2 border-white rounded-full outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 hover:bg-slate-700 focus:bg-white focus:shadow-sb-ring-sm focus:shadow-white focus:text-black"
+        class="w-full py-2 pl-4 pr-12 text-white truncate bg-transparent border-2 border-white rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 hover:bg-slate-700 focus:bg-white focus:shadow-sb-ring-sm focus:shadow-white focus:text-black"
         :placeholder="getPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"

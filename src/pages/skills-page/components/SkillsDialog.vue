@@ -20,7 +20,8 @@ const props = defineProps<SkillsModalProps>();
 const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS } = useCommonStyleSingleton();
+const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS, iconSizeL } =
+  useCommonStyleSingleton();
 // Feature 1: Internationalization (i18n)
 const { currentLanguage } = useTypedI18nSingleton();
 
@@ -116,15 +117,13 @@ watch(
         </div>
         <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
           <FaceFrownIcon
-            :class="{
-              'size-16':
-                activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-              'size-12': activeBreakpoint === 'md',
-              'size-10': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            }"
-            class="text-sb-tertiary-100 shrink-0"
+            :class="[iconSizeL]"
+            class="text-sb-tertiary-100 shrink-0 transition-sb-slow"
           />
-          <span :class="[textSizeXL]" class="w-full text-center text-white truncate font-bebas">
+          <span
+            :class="[textSizeXL]"
+            class="w-full text-center text-white truncate font-bebas transition-sb-slow"
+          >
             {{ currentLanguage === 'en' ? 'No skills found !' : 'Nessuna competenza trovata !' }}
           </span>
         </div>

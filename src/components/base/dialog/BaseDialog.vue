@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
 import { XMarkIcon } from '@heroicons/vue/24/outline';
-import { computed } from 'vue';
 
 import { BaseButton } from '@/components';
 import { useCommonStyleSingleton } from '@/hooks';
@@ -24,20 +23,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
 });
 
 // Feature 1: Manage Style Classes
-const { containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
-
-const getSizeClass = computed(() => {
-  switch (props.dialogSize) {
-    case 'small':
-      return 'w-3/6 h-3/6';
-    case 'medium':
-      return 'w-4/6 h-4/6';
-    case 'large':
-      return 'w-5/6 h-5/6';
-    default:
-      return 'w-full h-full';
-  }
-});
+const { activeBreakpoint, containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
 
 // Feature 2: Send Close Modal Event
 const handleCloseModal = (): void => {
@@ -72,7 +58,29 @@ const handleCloseModal = (): void => {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              :class="[getSizeClass]"
+              :class="{
+                'w-3/6 h-3/6':
+                  props.dialogSize === 'small' &&
+                  activeBreakpoint !== 'xs' &&
+                  activeBreakpoint !== 'sm',
+                'w-4/6 h-4/6':
+                  props.dialogSize === 'medium' &&
+                  activeBreakpoint !== 'xs' &&
+                  activeBreakpoint !== 'sm',
+                'w-5/6 h-5/6':
+                  props.dialogSize === 'large' &&
+                  activeBreakpoint !== 'xs' &&
+                  activeBreakpoint !== 'sm',
+                'w-full h-3/6':
+                  props.dialogSize === 'small' &&
+                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+                'w-full h-4/6':
+                  props.dialogSize === 'medium' &&
+                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+                'w-full h-5/6':
+                  props.dialogSize === 'large' &&
+                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+              }"
               class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
               <div
