@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import { BaseButton } from '@/components';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
 import { useCommonStyleSingleton, useTypingText, useTypedI18nSingleton } from '@/hooks';
-import { downloadCv, openLink } from '@/utils';
+import { downloadCv } from '@/utils';
 
 // Feature 1: Manage Style Classes
 const { activeBreakpoint, containerPadding, textSizeXXL, textSizeXL } = useCommonStyleSingleton();
