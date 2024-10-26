@@ -82,6 +82,7 @@ watch(
         message: '',
       };
       sendingStatus.value = null;
+      sendingEmail.value = false;
     }
   },
 );
@@ -106,11 +107,14 @@ watch(
         id="contact-me-form"
         class="flex flex-col items-center w-full h-full overflow-hidden gap-y-6"
         @submit.prevent="sendEmail()"
+        @reset="() => (contactObject = { name: '', email: '', message: '' })"
       >
-        <div class="flex flex-col flex-1 w-full p-4 overflow-y-auto gap-y-6">
+        <div class="flex flex-col flex-1 w-full px-3 overflow-y-auto gap-y-6">
           <BaseInput
-            id="contact-name-input"
+            id="contact-name-id"
             v-model:input-value="contactObject.name"
+            name="contact-name-name"
+            label="Full Name*"
             :placeholder="
               currentLanguage === 'en'
                 ? 'Insert your name Ex: John Miller'
@@ -119,8 +123,10 @@ watch(
           />
 
           <BaseInput
-            id="contact-email-input"
+            id="contact-email-id"
             v-model:input-value="contactObject.email"
+            name="contact-email-name"
+            label="Email*"
             type="email"
             :placeholder="
               currentLanguage === 'en'
@@ -129,14 +135,16 @@ watch(
             "
           />
           <BaseTextArea
-            id="contact-message-input"
+            id="contact-message-id"
             v-model:input-value="contactObject.message"
+            name="contact-message-name"
+            label="Message"
             :placeholder="
               currentLanguage === 'en' ? 'Insert your message' : 'Inserisci il tuo messaggio'
             "
           />
         </div>
-        <div class="flex items-center justify-end w-full p-4 gap-x-6">
+        <div class="flex items-center justify-end w-full px-3 pb-3 gap-x-6">
           <BaseButton
             id="contact-reset-button"
             type="reset"
@@ -171,16 +179,14 @@ watch(
           :class="[textSizeXL]"
           class="w-full text-center text-white truncate font-bebas transition-sb-slow"
         >
-          {{
-            currentLanguage === 'en' ? 'Email sent successfully!' : 'Email inviata con successo!'
-          }}
-        </span>
-        <span
-          v-else
-          :class="[textSizeXL]"
-          class="w-full text-center text-white truncate font-bebas transition-sb-slow"
-        >
-          {{ currentLanguage === 'en' ? 'Email not sent!' : 'Email non inviata!' }}
+          <template v-if="sendingStatus === true">
+            {{
+              currentLanguage === 'en' ? 'Email sent successfully!' : 'Email inviata con successo!'
+            }}
+          </template>
+          <template v-else>
+            {{ currentLanguage === 'en' ? 'Email not sent!' : 'Email non inviata!' }}
+          </template>
         </span>
       </div>
     </template>

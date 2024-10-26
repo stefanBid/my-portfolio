@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
 });
 
 // Feature 0: Manage Style Classes
-const { activeBreakpoint, iconSizeXS } = useCommonStyleSingleton();
+const { iconSizeXS } = useCommonStyleSingleton();
 
 // Feature 1: Manage Open <--> Close State
 const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } = useFloatingPanel({
@@ -66,27 +66,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       ]"
       no-style
       content-size="small"
-      class="justify-between py-1 border-2 rounded-full group focus-visible:ring-0 ring-0"
+      class="justify-between px-3 py-1.5 border-2 rounded-full group focus-visible:ring-0 ring-0"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 text-black shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
         'text-white hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
           !isOpen,
-        'px-4 ':
-          activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'px-3': activeBreakpoint === 'md',
-        'px-2': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
       @click.stop="handleClick()"
     >
-      <span class="inline-flex items-center gap-x-3">
-        <span v-if="props.label">
-          {{ props.label }}
-        </span>
+      <span class="inline-flex items-center gap-x-2">
+        <span v-if="props.label"> {{ props.label }} </span>
         <component :is="props.icon" v-if="props.icon" class="shrink-0" :class="[iconSizeXS]" />
       </span>
       <ChevronDownIcon
-        class="ml-3 transition-sb-slow shrink-0"
+        class="ml-3.5 transition-sb-slow shrink-0"
         :class="[
           iconSizeXS,
           {
