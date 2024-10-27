@@ -2,7 +2,7 @@
 import { useCommonStyleSingleton } from '@/hooks';
 import type { NotificationType } from '@/types';
 import { InformationCircleIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/vue/24/solid';
-import { type Component, computed, type FunctionalComponent } from 'vue';
+import { type Component, computed, type FunctionalComponent, ref, watch } from 'vue';
 
 interface TheNotificationBannerProps {
   message: string;
@@ -14,6 +14,7 @@ const props = defineProps<TheNotificationBannerProps>();
 
 const { activeBreakpoint, containerPadding, iconSizeM, textSizeXS } = useCommonStyleSingleton();
 
+// Feature 2: Manage Icons
 const notificationIcon = computed<FunctionalComponent | Component | string>(() => {
   switch (props.type) {
     case 'success':
@@ -26,6 +27,40 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
       return InformationCircleIcon;
   }
 });
+
+// Feature 3: Manage Countdown
+const countdown = ref(3);
+let interval: ReturnType<typeof setInterval> | null = null;
+
+const startCountdown = (): void => {
+  stopCountdown();
+  interval = setInterval(() => {
+    if (countdown.value > 0) {
+      countdown.value--;
+    } else {
+      stopCountdown();
+    }
+  }, 1000);
+};
+
+const stopCountdown = (): void => {
+  if (interval) {
+    clearInterval(interval);
+    interval = null;
+  }
+};
+
+watch(
+  () => props.show,
+  (newValue) => {
+    if (newValue) {
+      countdown.value = 3;
+      startCountdown();
+    } else {
+      stopCountdown();
+    }
+  },
+);
 </script>
 
 <template>
@@ -35,28 +70,33 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
       :class="[
         containerPadding,
         {
-          'justify-start w-fit': activeBreakpoint !== 'xs',
-          'justify-center w-full': activeBreakpoint === 'xs',
+          'w-fit justify-start': activeBreakpoint !== 'xs',
+          'w-full justify-center': activeBreakpoint === 'xs',
         },
       ]"
       class="fixed flex z-sb-notification bottom-5"
     >
       <div
-        class="flex items-center px-4 py-1.5 overflow-hidden border-2 rounded-lg shadow-2xl transition-sb-slow shadow-black gap-x-3 z-sb-notification bg-sb-secondary-100 border-sb-secondary-100"
+        class="flex gap-x-4 items-end justify-between px-4 py-1.5 border-2 rounded-lg shadow-2xl transition-sb-slow shadow-black z-sb-notification bg-sb-secondary-100 border-sb-secondary-100"
         :class="{
-          'w-56': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
-          'w-72': activeBreakpoint === 'md',
-          'w-80':
+          'w-72': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
+          'w-80': activeBreakpoint === 'md',
+          'w-96':
             activeBreakpoint !== 'md' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'xs',
         }"
       >
-        <component
-          :is="notificationIcon"
-          :class="[iconSizeM]"
-          class="text-sb-tertiary-100 shrink-0"
-        />
-        <span :class="[textSizeXS]" class="flex-1 text-left text-white text-sb-base font-roboto">
-          {{ props.message }}
+        <div class="inline-flex items-center flex-1 gap-x-2">
+          <component
+            :is="notificationIcon"
+            :class="[iconSizeM]"
+            class="text-sb-tertiary-100 shrink-0"
+          />
+          <span :class="[textSizeXS]" class="text-left text-white text-sb-base font-roboto">
+            {{ props.message }}
+          </span>
+        </div>
+        <span :class="[textSizeXS]" class="text-left text-white text-sb-base font-roboto">
+          {{ countdown }}s
         </span>
       </div>
     </div>
