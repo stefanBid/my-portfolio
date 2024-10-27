@@ -23,6 +23,7 @@ export default {
 			'sb-dialog': 1100,
 			'sb-dropdown': 1200,
 			'sb-tooltip': 1300,
+			'sb-notification': 1400,
 		},
 		fontFamily: {
 			bebas: ['Bebas Neue', 'sans-serif'],

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
+import { useTypedI18nSingleton } from '@/hooks';
+import { useNotificationStore } from '@/stores';
 import { BaseDialog, BaseInput, BaseButton, BaseTextArea } from '@/components';
 import { computed, ref, watch } from 'vue';
-import { FaceSmileIcon, FaceFrownIcon } from '@heroicons/vue/24/outline';
 import emailjs from '@emailjs/browser';
 
 interface ContactMeFormDialogProps {
   isModalOpen: boolean;
-  handleCloseModal: (falsyValue: boolean) => void;
+  handleCloseModal: (falsyValue: false) => void;
 }
 
 const props = defineProps<ContactMeFormDialogProps>();
 
-const { currentLanguage } = useTypedI18nSingleton();
+const ns = useNotificationStore();
 
-const { textSizeXL, iconSizeL } = useCommonStyleSingleton();
+const { currentLanguage } = useTypedI18nSingleton();
 
 const contactObject = ref({
   name: '',
@@ -37,9 +37,8 @@ const disableResetButton = computed(() => {
 });
 
 const sendingEmail = ref(false);
-const sendingStatus = ref<boolean | null>(null);
 
-const sendEmail = (): void => {
+const sendEmail = async (): Promise<void> => {
   sendingEmail.value = true;
 
   const templateParams = {
@@ -48,27 +47,30 @@ const sendEmail = (): void => {
     message: contactObject.value.message,
   };
 
-  emailjs
-    .send(
+  let notificationMsg = '';
+
+  try {
+    await emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       templateParams,
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-    )
-    .then(
-      () => {
-        contactObject.value.name = '';
-        contactObject.value.email = '';
-        contactObject.value.message = '';
-        sendingStatus.value = true; // Chiudi il modal dopo l'invio
-      },
-      (_) => {
-        sendingStatus.value = false;
-      },
-    )
-    .finally(() => {
-      sendingEmail.value = false;
-    });
+    );
+
+    notificationMsg =
+      currentLanguage.value === 'en' ? `Email sent successfully!` : `Email inviata con successo!`;
+    ns.showNotification(notificationMsg, 'success');
+
+    contactObject.value.name = '';
+    contactObject.value.email = '';
+    contactObject.value.message = '';
+  } catch {
+    notificationMsg = currentLanguage.value === 'en' ? 'Email not sent!' : 'Email non inviata!';
+    ns.showNotification(notificationMsg, 'error');
+  } finally {
+    sendingEmail.value = false;
+    props.handleCloseModal(false);
+  }
 };
 
 // Manage Modal State
@@ -81,7 +83,6 @@ watch(
         email: '',
         message: '',
       };
-      sendingStatus.value = null;
       sendingEmail.value = false;
     }
   },
@@ -103,7 +104,6 @@ watch(
   >
     <template #modal-content>
       <form
-        v-if="sendingStatus === null"
         id="contact-me-form"
         class="flex flex-col items-center w-full h-full overflow-hidden gap-y-6"
         @submit.prevent="sendEmail()"
@@ -165,30 +165,6 @@ watch(
           </BaseButton>
         </div>
       </form>
-      <div
-        v-else
-        class="flex flex-col items-center justify-center w-full h-full p-6 overflow-hidden gap-x-6"
-      >
-        <component
-          :is="sendingStatus === true ? FaceSmileIcon : FaceFrownIcon"
-          :class="[iconSizeL]"
-          class="text-sb-tertiary-100 shrink-0 transition-sb-slow"
-        />
-        <span
-          v-if="sendingStatus === true"
-          :class="[textSizeXL]"
-          class="w-full text-center text-white truncate font-bebas transition-sb-slow"
-        >
-          <template v-if="sendingStatus === true">
-            {{
-              currentLanguage === 'en' ? 'Email sent successfully!' : 'Email inviata con successo!'
-            }}
-          </template>
-          <template v-else>
-            {{ currentLanguage === 'en' ? 'Email not sent!' : 'Email non inviata!' }}
-          </template>
-        </span>
-      </div>
     </template>
   </BaseDialog>
 </template>
