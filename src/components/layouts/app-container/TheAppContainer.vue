@@ -3,13 +3,15 @@ import { inject, Ref, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import { useTitle } from '@vueuse/core';
 import { useTypedI18nSingleton } from '@/hooks';
+import { useNotificationStore } from '@/stores';
 
-import { TheHeader, ThePageLoader } from '@/components';
+import { TheHeader, ThePageLoader, TheNotificationBanner } from '@/components';
 
 const isLoading = inject<Ref<boolean>>('isLoading');
 const route = useRoute();
 const { currentLanguage } = useTypedI18nSingleton();
 const title = useTitle();
+const ns = useNotificationStore();
 
 const ROUTER_TITLE_MAP = {
   homePage: {
@@ -51,8 +53,15 @@ watch(
 
 <template>
   <TheHeader />
+
   <ThePageLoader v-if="isLoading" />
-  <div v-else class="min-h-screen">
+  <div v-if="!isLoading" class="min-h-screen">
     <RouterView />
   </div>
+
+  <TheNotificationBanner
+    :show="ns.isNotificationVisible"
+    :type="ns.notificationType"
+    :message="ns.notificationMessage"
+  />
 </template>

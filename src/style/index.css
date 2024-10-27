@@ -167,6 +167,27 @@ html {
     transform: scale(0);
   }
 
+  /* Stretch fast */
+  .stretch-fast-enter-active {
+    transition: transform 0.3s ease-out;
+  }
+  .stretch-fast-enter-from {
+    transform: scale(0);
+  }
+  .stretch-fast-enter-to {
+    transform: scale(1);
+  }
+  .stretch-fast-leave-active {
+    transition: transform 0.3s ease-in;
+  }
+  .stretch-fast-leave-from {
+    transform: scale(1);
+  }
+  .stretch-fast-leave-to {
+    transform: scale(0);
+  }
+  
+
   /* Slide Down */
   .slide-left-enter-active, .slide-left-leave-active {
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;

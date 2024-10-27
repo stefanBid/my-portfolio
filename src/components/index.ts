@@ -10,6 +10,7 @@ export { default as BaseTextArea } from '@/components/base/text-area/BaseTextAre
 
 // LAYOUTS
 export { default as TheAppContainer } from '@/components/layouts/app-container/TheAppContainer.vue';
+export { default as TheNotificationBanner } from '@/components/layouts/notification-banner/TheNotificationBanner.vue';
 export { default as ThePageContainer } from '@/components/layouts/page-container/ThePageContainer.vue';
 export { default as ThePageLoader } from '@/components/layouts/page-loader/ThePageLoader.vue';
 export { default as TheHeader } from '@/components/layouts/header/TheHeader.vue';

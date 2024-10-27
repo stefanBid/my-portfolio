@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DocumentArrowDownIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid';
+import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted, ref } from 'vue';
 
 import { BaseButton } from '@/components';
@@ -125,7 +125,7 @@ const changeVisibility = (falsyValue: boolean): void => {
           <BaseButton
             id="firstButton"
             class="w-full"
-            :icon="ChatBubbleLeftRightIcon"
+            :icon="EnvelopeIcon"
             @click.stop="() => openContactMeFormDialog()"
           >
             {{ homePageI18nContent.firstButton.text }}

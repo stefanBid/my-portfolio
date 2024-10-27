@@ -1,5 +1,8 @@
 import { type SkillIcon } from '@/assets';
+/** GLOBAL **/
+type NotificationType = 'info' | 'success' | 'error';
 
+/** SKILLS PAGE **/
 type SkillSection = 'FE' | 'BE' | 'WD';
 type SkillType = 'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'beDb';
 
@@ -47,4 +50,4 @@ interface SkillInfo {
   overAllRating: Overall;
 }
 
-export type { Section, SkillSection, SkillType, Rating, SkillInfo };
+export type { Section, SkillSection, SkillType, Rating, SkillInfo, NotificationType };

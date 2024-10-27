@@ -59,33 +59,25 @@ const handleCloseModal = (): void => {
           >
             <DialogPanel
               :class="{
-                'w-3/6 h-3/6':
+                'w-[45%]':
                   props.dialogSize === 'small' &&
                   activeBreakpoint !== 'xs' &&
                   activeBreakpoint !== 'sm',
-                'w-4/6 h-4/6':
+                'w-[65%]':
                   props.dialogSize === 'medium' &&
                   activeBreakpoint !== 'xs' &&
                   activeBreakpoint !== 'sm',
-                'w-5/6 h-5/6':
+                'w-[85%]':
                   props.dialogSize === 'large' &&
                   activeBreakpoint !== 'xs' &&
                   activeBreakpoint !== 'sm',
-                'w-full h-3/6':
-                  props.dialogSize === 'small' &&
-                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
-                'w-full h-4/6':
-                  props.dialogSize === 'medium' &&
-                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
-                'w-full h-5/6':
-                  props.dialogSize === 'large' &&
-                  (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+                'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
               }"
-              class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
+              class="flex max-h-[95%] h-fit flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
               <div
                 id="modal-header"
-                class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-4"
+                class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6"
               >
                 <div
                   :class="{
