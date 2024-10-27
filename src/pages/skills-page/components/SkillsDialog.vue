@@ -63,8 +63,7 @@ watch(
   <BaseDialog
     :is-open="isModalOpen"
     header-orientation="left"
-    :modal-title="currentLanguage === 'en' ? 'Skills' : 'Competenze '"
-    :modal-subtitle="currentLanguage === 'en' ? 'List of skills' : 'Lista delle competenze'"
+    :dialog-title="currentLanguage === 'en' ? 'List of skills' : 'Lista delle competenze'"
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>

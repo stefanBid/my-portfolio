@@ -29,7 +29,7 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
 </script>
 
 <template>
-  <transition name="scale-and-fade-fast">
+  <transition name="stretch-fast">
     <div
       v-if="props.show"
       :class="[
@@ -39,10 +39,10 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
           'justify-center w-full': activeBreakpoint === 'xs',
         },
       ]"
-      class="fixed flex z-sb-notification bottom-10"
+      class="fixed flex z-sb-notification bottom-5"
     >
       <div
-        class="flex items-center px-4 py-1.5 overflow-hidden border-2 rounded-full shadow-2xl transition-sb-slow shadow-black gap-x-3 z-sb-notification bg-sb-secondary-100 border-sb-secondary-100"
+        class="flex items-center px-4 py-1.5 overflow-hidden border-2 rounded-lg shadow-2xl transition-sb-slow shadow-black gap-x-3 z-sb-notification bg-sb-secondary-100 border-sb-secondary-100"
         :class="{
           'w-56': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
           'w-72': activeBreakpoint === 'md',
@@ -55,10 +55,7 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
           :class="[iconSizeM]"
           class="text-sb-tertiary-100 shrink-0"
         />
-        <span
-          :class="[textSizeXS]"
-          class="flex-1 text-left text-white truncate text-sb-base font-roboto"
-        >
+        <span :class="[textSizeXS]" class="flex-1 text-left text-white text-sb-base font-roboto">
           {{ props.message }}
         </span>
       </div>

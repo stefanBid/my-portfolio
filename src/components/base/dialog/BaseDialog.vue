@@ -73,7 +73,7 @@ const handleCloseModal = (): void => {
                   activeBreakpoint !== 'sm',
                 'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
               }"
-              class="flex max-h-[90%] h-fit flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
+              class="flex max-h-[95%] h-fit flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
               <div
                 id="modal-header"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTypedI18nSingleton } from '@/hooks';
+import { useTypedI18nSingleton, useCommonStyleSingleton } from '@/hooks';
 import { useNotificationStore } from '@/stores';
 import { BaseDialog, BaseInput, BaseButton, BaseTextArea } from '@/components';
 import { computed, ref, watch } from 'vue';
@@ -15,6 +15,14 @@ const props = defineProps<ContactMeFormDialogProps>();
 const ns = useNotificationStore();
 
 const { currentLanguage } = useTypedI18nSingleton();
+const { textSizeXS } = useCommonStyleSingleton();
+
+const getInformation = computed(() => {
+  if (currentLanguage.value === 'en') {
+    return `To get in touch, please fill out the form with your full name, email, and message. Ensure you provide a valid email address to receive a prompt response. In compliance with the GDPR (EU Regulation 2016/679), we inform you that your personal data, including your name and message, will not be stored or retained after the completion of your request. This ensures the confidentiality and protection of your personal information, and no explicit consent is required for this limited processing.`;
+  }
+  return `Per contattarmi, compila il modulo inserendo il tuo nome completo, l'email e il messaggio. Assicurati di fornire un indirizzo email valido per ricevere una risposta tempestiva. In ottemperanza al GDPR (Regolamento UE 2016/679), ti informiamo che i tuoi dati personali, incluso il nome e il messaggio, non verranno memorizzati o trattenuti una volta completata la tua richiesta. Questo garantisce la riservatezza e la protezione delle tue informazioni personali, e non è richiesto un consenso esplicito per questo trattamento limitato.`;
+});
 
 const contactObject = ref({
   name: '',
@@ -95,14 +103,17 @@ watch(
     header-orientation="left"
     dialog-size="medium"
     :dialog-title="currentLanguage === 'en' ? 'Contact me' : 'Contattami'"
-    :dialog-subtitle="
-      currentLanguage === 'en'
-        ? 'Fill out the form to contact me'
-        : 'Compila il form per contattarmi'
-    "
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
+      <div class="inline-flex items-center justify-center w-full text-white gap-x-2">
+        <span
+          :class="[textSizeXS]"
+          class="text-justify text-white transition-sb-slow font-roboto text-shadow-luminous"
+        >
+          {{ getInformation }}
+        </span>
+      </div>
       <form
         id="contact-me-form"
         class="flex flex-col items-center w-full h-full overflow-hidden gap-y-6"
