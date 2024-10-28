@@ -3,15 +3,14 @@ import { HomeIcon, WindowIcon } from '@heroicons/vue/24/outline';
 import { useRouter } from 'vue-router';
 
 import { BaseButton } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
+import { useI18nStore } from '@/stores';
 
-// Feature 2: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+// Stores declarations
+const i18nStore = useI18nStore();
 
-// Feature 3: Manage Style Classes
+// Hooks declarations
 const { activeBreakpoint, textSizeXXL, textSizeL, containerPadding } = useCommonStyleSingleton();
-
-// Feature 4: Navigation
 const router = useRouter();
 </script>
 
@@ -21,8 +20,11 @@ const router = useRouter();
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
     <h1 :class="[textSizeXXL]" class="whitespace-normal transition-sb-slow font-bebas">
-      {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
+      {{ i18nStore.notFoundPageI18nContent.firstHeading }}
     </h1>
+    <p :class="[textSizeL]" class="font-medium whitespace-normal transition-sb-slow font-roboto">
+      {{ i18nStore.notFoundPageI18nContent.secondHeading }}
+    </p>
     <WindowIcon
       class="transition-sb-slow text-slate-700"
       :class="{
@@ -32,15 +34,14 @@ const router = useRouter();
         'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
       }"
     />
-    <p :class="[textSizeL]" class="font-medium whitespace-normal transition-sb-slow font-roboto">
-      {{
-        currentLanguage === 'en'
-          ? 'The page you are looking for does not exist.'
-          : 'La pagina che stai cercando non esiste.'
-      }}
-    </p>
-    <BaseButton :icon="HomeIcon" @click="router.push({ name: 'homePage' })">
-      {{ currentLanguage === 'en' ? 'Go Home' : 'Torna alla Home' }}
+
+    <BaseButton
+      id="goHomeButton"
+      name="go_home_button"
+      :icon="HomeIcon"
+      @click="router.push({ name: 'homePage' })"
+    >
+      {{ i18nStore.notFoundPageI18nContent.goHomeButton.text }}
     </BaseButton>
   </div>
 </template>

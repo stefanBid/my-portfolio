@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useCommonStyleSingleton } from '@/hooks';
-import type { NotificationType } from '@/types';
+import type { NotificationCategory } from '@/types';
 import { InformationCircleIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/vue/24/solid';
 import { type Component, computed, type FunctionalComponent, ref, watch } from 'vue';
 
 interface TheNotificationBannerProps {
   message: string;
-  type: NotificationType;
+  type: NotificationCategory;
   show: boolean;
 }
 

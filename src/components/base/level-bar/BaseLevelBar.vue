@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 import { useCommonStyleSingleton } from '@/hooks';
 
-interface Rating {
+interface Range {
   min: number;
   max: number;
 }
@@ -20,7 +20,7 @@ const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
 
 // Feature 1: Level Bar
 
-const RATING_MAP: Record<string, Rating> = {
+const RANGE_MAP: Record<string, Range> = {
   percentage: {
     min: 0,
     max: 100,
@@ -32,22 +32,22 @@ const RATING_MAP: Record<string, Rating> = {
 };
 
 const getLevelBarWidth = computed(() => {
-  const rating = RATING_MAP[props.scale];
-  const level = Math.max(rating.min, Math.min(rating.max, props.level));
-  return `${((level - rating.min) / (rating.max - rating.min)) * 100}%`;
+  const r = RANGE_MAP[props.scale];
+  const level = Math.max(r.min, Math.min(r.max, props.level));
+  return `${((level - r.min) / (r.max - r.min)) * 100}%`;
 });
 
 const getScore = computed(() => {
-  const rating = RATING_MAP[props.scale];
-  const level = Math.max(rating.min, Math.min(rating.max, props.level));
+  const r = RANGE_MAP[props.scale];
+  const level = Math.max(r.min, Math.min(r.max, props.level));
 
   if (props.scale === 'percentage') {
     return `${level.toFixed(1)}%`;
   } else {
-    if (level === rating.max) {
-      return `${level} / ${rating.max}`;
+    if (level === r.max) {
+      return `${level} / ${r.max}`;
     }
-    return `${level.toFixed(1)} / ${rating.max}`;
+    return `${level.toFixed(1)} / ${r.max}`;
   }
 });
 </script>

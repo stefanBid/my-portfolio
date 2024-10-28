@@ -2,16 +2,19 @@
 import { inject, Ref, watch } from 'vue';
 import { RouterView, useRoute } from 'vue-router';
 import { useTitle } from '@vueuse/core';
-import { useTypedI18nSingleton } from '@/hooks';
-import { useNotificationStore } from '@/stores';
+import { useNotificationStore, useI18nStore } from '@/stores';
 
 import { TheHeader, ThePageLoader, TheNotificationBanner } from '@/components';
 
-const isLoading = inject<Ref<boolean>>('isLoading');
+// Store Declarations
+const i18nStore = useI18nStore();
+const notificationStore = useNotificationStore();
+
+// Composable Declarations
 const route = useRoute();
-const { currentLanguage } = useTypedI18nSingleton();
 const title = useTitle();
-const ns = useNotificationStore();
+
+const isLoading = inject<Ref<boolean>>('isLoading');
 
 const ROUTER_TITLE_MAP = {
   homePage: {
@@ -38,12 +41,11 @@ const ROUTER_TITLE_MAP = {
 
 const getTitleFromRoute = (): string => {
   const routeName = route.name as keyof typeof ROUTER_TITLE_MAP;
-  const language = currentLanguage.value as 'en' | 'it';
-  return ROUTER_TITLE_MAP[routeName]?.[language] || '';
+  return ROUTER_TITLE_MAP[routeName]?.[i18nStore.currentLanguage as 'it' | 'en'] || '';
 };
 
 watch(
-  () => [route.name, currentLanguage.value],
+  () => [route.name, i18nStore.currentLanguage],
   () => {
     title.value = `Stefano Biddau | ${getTitleFromRoute()}`;
   },
@@ -60,8 +62,8 @@ watch(
   </div>
 
   <TheNotificationBanner
-    :show="ns.isNotificationVisible"
-    :type="ns.notificationType"
-    :message="ns.notificationMessage"
+    :show="notificationStore.isNotificationVisible"
+    :type="notificationStore.notificationType"
+    :message="notificationStore.notificationMessage"
   />
 </template>

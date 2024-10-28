@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { ThePageContainer } from '@/components';
-import { useTypedI18nSingleton } from '@/hooks';
+import { useI18nStore, useNotificationStore } from '@/stores';
+import { onMounted } from 'vue';
 
-// Feature 1: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+// Store Declarations
+const i18nStore = useI18nStore();
+const notificationStore = useNotificationStore();
+
+// Lifecycle Hooks
+onMounted(() => {
+  notificationStore.showNotification(
+    i18nStore.currentLanguage === 'en'
+      ? 'This page is under construction'
+      : 'Questa pagina è in costruzione',
+    'info',
+  );
+});
 </script>
 
 <template>
   <ThePageContainer
-    :page-intro-text="currentLanguage === 'en' ? 'My projects' : 'I miei progetti'"
+    :page-intro-text="i18nStore.currentLanguage === 'en' ? 'My projects' : 'I miei progetti'"
   />
 </template>

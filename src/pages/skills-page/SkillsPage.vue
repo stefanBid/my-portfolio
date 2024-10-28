@@ -5,7 +5,8 @@ import { computed, ref } from 'vue';
 
 import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
 import { ThePageContainer, BaseButton, BaseSection } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton, useStarEffect } from '@/hooks';
+import { useCommonStyleSingleton, useStarEffect } from '@/hooks';
+import { useI18nStore } from '@/stores';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
@@ -13,8 +14,8 @@ import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 const { textSizeXL, textSizeL, iconSizeXXL } = useCommonStyleSingleton();
 
 // Feature 2: Internationalization (i18n)
-const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
-const skillsList = computed(() => skillsPageI18nContent.value.skillsList);
+const i18nStore = useI18nStore();
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 
 // Feature 3: Manage Skills for Solar System Component
 const feIcons = computed(() =>
@@ -53,7 +54,7 @@ const changeVisibility = (newVisibility: boolean): void => {
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="skillsPageI18nContent.pageHeading">
+  <ThePageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
     <template #page-content>
       <div
         v-intersection-observer="[
@@ -73,34 +74,27 @@ const changeVisibility = (newVisibility: boolean): void => {
           :class="[textSizeXL]"
           class="text-center z-sb-base-1 font-bebas text-sb-tertiary-100 transition-sb-slow"
         >
-          {{
-            currentLanguage === 'en'
-              ? `Looking for a skilled professional?`
-              : `Cerchi un professionista qualificato?`
-          }}
+          {{ i18nStore.skillsPageI18nContent.callToActionFirstHeading }}
         </span>
         <span
           :class="[textSizeL]"
           class="text-center text-white z-sb-base-1 font-bebas transition-sb-slow"
         >
-          {{
-            currentLanguage === 'en'
-              ? `Discover my top skills and how I can add value to your team`
-              : `Scopri le mie principali competenze e come posso contribuire alla tua squadra`
-          }}
+          {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
         <RocketIcon class="my-4 transition-sb-slow z-sb-base-1" :class="[iconSizeXXL]" />
         <BaseButton
+          id="exploreSkillsButton"
+          name="explore_skills_button"
           class="z-sb-base-1 w-fit"
           :icon="MagnifyingGlassIcon"
           @click="changeVisibility(!isModalOpen)"
         >
-          {{ currentLanguage === 'en' ? `Explore My Skills` : `Esplora le mie competenze` }}
+          {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}
         </BaseButton>
       </div>
       <BaseSection
-        v-for="(section, index) in skillsPageI18nContent.skillsSections"
-        :id="`skillsSection-${index}`"
+        v-for="(section, index) in i18nStore.skillsPageI18nContent.skillsSections"
         :key="index"
         :inverted="index % 2 === 0 ? false : true"
         :title="section.titleHeading"
@@ -114,9 +108,9 @@ const changeVisibility = (newVisibility: boolean): void => {
       >
         <template #extra-content>
           <SolarSystem
-            v-if="section.sectionType === 'BE' || section.sectionType === 'FE'"
-            :planets-icons="section.sectionType === 'FE' ? feIcons : beIcons"
-            :star-name="section.sectionType === 'FE' ? 'Frontend' : 'Backend'"
+            v-if="index !== 2"
+            :planets-icons="index === 0 ? feIcons : beIcons"
+            :star-name="index === 0 ? 'Frontend' : 'Backend'"
           />
         </template>
       </BaseSection>
@@ -124,7 +118,6 @@ const changeVisibility = (newVisibility: boolean): void => {
   </ThePageContainer>
   <SkillsDialog
     :is-modal-open="isModalOpen"
-    :skills-list="skillsList"
     :handle-close-modal="(falsyValue) => changeVisibility(falsyValue)"
   />
 </template>

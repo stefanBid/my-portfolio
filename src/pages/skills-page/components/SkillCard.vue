@@ -6,8 +6,9 @@ import { computed, ref } from 'vue';
 
 import { SKILLS_ICONS_MAP } from '@/assets';
 import { BaseLevelBar, BaseButton } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
 import type { SkillInfo } from '@/types';
+import { useI18nStore } from '@/stores';
 
 interface SkillCardProps {
   rootElement: HTMLElement | null;
@@ -20,7 +21,7 @@ const props = defineProps<SkillCardProps>();
 const { activeBreakpoint, textSizeM, textSizeS, iconSizeXL } = useCommonStyleSingleton();
 
 // Feature 1: Manage I18n
-const { currentLanguage } = useTypedI18nSingleton();
+const i18nStore = useI18nStore();
 
 // Manage Intersection Observer
 const isVisible = ref(false);
@@ -116,7 +117,7 @@ const goPrevious = (): void => {
       class="my-4 transition-sb-slow shrink-0"
     />
     <span :class="[textSizeS]" class="text-center text-white font-roboto">
-      {{ currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
+      {{ i18nStore.currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
       <span :class="[textSizeM]" class="font-medium">{{ getSkillValutationAverage }}</span>
     </span>
 

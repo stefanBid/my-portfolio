@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import type { NotificationType } from '@/types';
+import type { NotificationCategory } from '@/types';
 
 export const useNotificationStore = defineStore('notification', {
   state: () => ({
     isNotificationVisible: false,
     notificationMessage: '',
-    notificationType: 'info' as NotificationType,
+    notificationType: 'info' as NotificationCategory,
   }),
 
   actions: {

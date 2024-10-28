@@ -5,27 +5,25 @@ import { useRoute } from 'vue-router';
 
 import { ItalyIcon, UkIcon } from '@/assets';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
+import { useI18nStore } from '@/stores';
+import type { Locale } from '@/types';
 
 // Feature 0: Internationalization (i18n)
-const { changeLanguage, currentLanguage, headerI18nContent } = useTypedI18nSingleton();
 
+const i18nStore = useI18nStore();
 const languageOptions = [
   {
-    name: 'it',
+    name: 'it' as Locale,
     label: 'Italiano',
     icon: ItalyIcon,
   },
   {
-    name: 'en',
+    name: 'en' as Locale,
     label: 'English',
     icon: UkIcon,
   },
 ];
-
-const handleChangeLanguage = (newLanguage: 'it' | 'en'): void => {
-  changeLanguage(newLanguage);
-};
 
 // Feature 1: Manage Routes
 const route = useRoute();
@@ -120,12 +118,14 @@ watch(isMenuCollapsed, () => {
       <transition name="fade">
         <div v-if="!isMenuCollapsed" class="flex items-center w-fit gap-x-4">
           <!-- Route -->
-          <TheInlineNavbar :routes="headerI18nContent.navbarRoutes" class="flex-1" />
+          <TheInlineNavbar :routes="i18nStore.headerI18nContent.navbarRoutes" class="flex-1" />
 
           <!-- Menu -->
           <BaseDropdownMenu
+            id="changeLanguageButton"
+            name="change_language_button"
             menu-strategy="fixed"
-            :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+            :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
           >
             <template #dropdown-section-content="{ closeMenu }">
               <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
@@ -134,18 +134,18 @@ watch(isMenuCollapsed, () => {
                   :key="lang.name"
                   :tabindex="0"
                   :class="{
-                    'bg-sb-secondary-200': currentLanguage === lang.name,
+                    'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
                   }"
                   class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
                   @keydown.enter="
                     () => {
-                      handleChangeLanguage(lang.name as 'it' | 'en');
+                      i18nStore.changeLanguage(lang.name);
                       closeMenu();
                     }
                   "
                   @click="
                     () => {
-                      handleChangeLanguage(lang.name as 'it' | 'en');
+                      i18nStore.changeLanguage(lang.name);
                       closeMenu();
                     }
                   "
@@ -177,7 +177,7 @@ watch(isMenuCollapsed, () => {
       class="fixed left-0 w-full h-full pt-20 bg-sb-main z-sb-header-collapsed"
     >
       <TheSideNavbar
-        :routes="headerI18nContent.navbarRoutes"
+        :routes="i18nStore.headerI18nContent.navbarRoutes"
         @close-menu="onChangeMenuVisibility(false)"
       />
       <div
@@ -188,10 +188,12 @@ watch(isMenuCollapsed, () => {
         ]"
         class="inline-flex items-center w-full text-white gap-x-4"
       >
-        {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
+        {{ i18nStore.currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
         <BaseDropdownMenu
+          id="changeLanguageButton"
+          name="change_language_button"
           menu-strategy="fixed"
-          :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+          :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
         >
           <template #dropdown-section-content="{ closeMenu }">
             <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
@@ -200,18 +202,18 @@ watch(isMenuCollapsed, () => {
                 :key="lang.name"
                 :tabindex="0"
                 :class="{
-                  'bg-sb-secondary-200': currentLanguage === lang.name,
+                  'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
                 }"
                 class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
                 @keydown.enter="
                   () => {
-                    handleChangeLanguage(lang.name as 'it' | 'en');
+                    i18nStore.changeLanguage(lang.name);
                     closeMenu();
                   }
                 "
                 @click="
                   () => {
-                    handleChangeLanguage(lang.name as 'it' | 'en');
+                    i18nStore.changeLanguage(lang.name);
                     closeMenu();
                   }
                 "

@@ -3,15 +3,14 @@ import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
 import { BaseDialog, BaseInput } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useCommonStyleSingleton } from '@/hooks';
+import { useI18nStore } from '@/stores';
 import type { SkillInfo } from '@/types';
 
 import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
 
 interface SkillsModalProps {
   isModalOpen: boolean;
-  skillsList: SkillInfo[];
-
   handleCloseModal: (falsyValue: false) => void;
 }
 
@@ -22,8 +21,10 @@ const skillContainerRef = ref<HTMLElement | null>(null);
 // Feature 0: Manage Style Classes
 const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS, iconSizeL } =
   useCommonStyleSingleton();
+
 // Feature 1: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+const i18nStore = useI18nStore();
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 
 // Feature 2: Manage Skills Search
 const searchSkillKey = ref('');
@@ -31,9 +32,9 @@ const debouncedSearchSkillKey = ref('');
 
 const filteredSkillsList = computed<SkillInfo[]>(() => {
   if (!debouncedSearchSkillKey.value) {
-    return props.skillsList;
+    return skillsList.value;
   }
-  return props.skillsList.filter((skill) =>
+  return skillsList.value.filter((skill) =>
     skill.name.toLowerCase().includes(debouncedSearchSkillKey.value.toLowerCase()),
   );
 });
@@ -63,7 +64,7 @@ watch(
   <BaseDialog
     :is-open="isModalOpen"
     header-orientation="left"
-    :dialog-title="currentLanguage === 'en' ? 'List of skills' : 'Lista delle competenze'"
+    :dialog-title="i18nStore.skillsPageI18nContent.skillsDialog.title"
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
@@ -77,8 +78,11 @@ watch(
           }"
         >
           <BaseInput
+            id="searchSkillKey"
             v-model:input-value="searchSkillKey"
-            placeholder="Search a specific skill"
+            name="search_skill_key"
+            :label="i18nStore.skillsPageI18nContent.skillsDialog.searchField.label"
+            :placeholder="i18nStore.skillsPageI18nContent.skillsDialog.searchField.placeholder"
             :custom-z-index="60"
             :with-menu="false"
           >
@@ -95,11 +99,7 @@ watch(
             :class="[textSizeXS]"
             class="text-white transition-sb-slow font-roboto text-shadow-luminous"
           >
-            {{
-              currentLanguage === 'en'
-                ? 'Click on a skill to see its details'
-                : 'Clicca su una competenza per vedere i dettagli'
-            }}
+            {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
         </div>
         <div
@@ -123,7 +123,11 @@ watch(
             :class="[textSizeXL]"
             class="w-full text-center text-white truncate font-bebas transition-sb-slow"
           >
-            {{ currentLanguage === 'en' ? 'No skills found !' : 'Nessuna competenza trovata !' }}
+            {{
+              i18nStore.currentLanguage === 'en'
+                ? 'No skills found !'
+                : 'Nessuna competenza trovata !'
+            }}
           </span>
         </div>
       </div>

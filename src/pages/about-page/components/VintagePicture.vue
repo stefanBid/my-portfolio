@@ -91,7 +91,6 @@ const flipPicture = (): void => {
     >
       <img
         v-show="!delayedFlip"
-        id="picture"
         :src="props.imageUrl"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
@@ -100,7 +99,6 @@ const flipPicture = (): void => {
       />
       <div
         v-show="delayedFlip"
-        id="picture-description"
         :class="[getPictureDimension]"
         class="flex items-center justify-center w-full p-2 rounded transition-sb-slow bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
