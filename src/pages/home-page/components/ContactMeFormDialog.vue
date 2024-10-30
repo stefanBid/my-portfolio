@@ -62,14 +62,14 @@ const sendEmail = async (): Promise<void> => {
       i18nStore.currentLanguage === 'en'
         ? `Email sent successfully!`
         : `Email inviata con successo!`;
-    notificationStore.showNotification(notificationMsg, 'success');
+    notificationStore.pushNotification(notificationMsg, 'success');
 
     contactObject.value.name = '';
     contactObject.value.email = '';
     contactObject.value.message = '';
   } catch {
     notificationMsg = i18nStore.currentLanguage === 'en' ? 'Email not sent!' : 'Email non inviata!';
-    notificationStore.showNotification(notificationMsg, 'error');
+    notificationStore.pushNotification(notificationMsg, 'error');
   } finally {
     sendingEmail.value = false;
     props.handleCloseModal(false);

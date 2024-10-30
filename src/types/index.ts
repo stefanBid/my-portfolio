@@ -4,6 +4,13 @@ import { type SkillIcon } from '@/assets';
 type NotificationCategory = 'info' | 'success' | 'error';
 type Locale = 'en' | 'it';
 
+interface Notification {
+  id: string;
+  message: string;
+  type: NotificationCategory;
+  visibilityDuration: number;
+}
+
 interface InputField {
   label: string;
   placeholder: string;
@@ -115,6 +122,7 @@ interface NotFoundPageContent {
 
 export type {
   Locale,
+  Notification,
   NotificationCategory,
   HeaderContent,
   HomePageContent,

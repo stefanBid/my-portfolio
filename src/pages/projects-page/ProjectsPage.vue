@@ -9,7 +9,7 @@ const notificationStore = useNotificationStore();
 
 // Lifecycle Hooks
 onMounted(() => {
-  notificationStore.showNotification(
+  notificationStore.pushNotification(
     i18nStore.currentLanguage === 'en'
       ? 'This page is under construction'
       : 'Questa pagina è in costruzione',

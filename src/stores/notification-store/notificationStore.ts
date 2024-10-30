@@ -1,22 +1,36 @@
 import { defineStore } from 'pinia';
-import type { NotificationCategory } from '@/types';
+import type { Notification, NotificationCategory } from '@/types';
+import { ref } from 'vue';
+import { nanoid } from 'nanoid';
 
-export const useNotificationStore = defineStore('notification', {
-  state: () => ({
-    isNotificationVisible: false,
-    notificationMessage: '',
-    notificationType: 'info' as NotificationCategory,
-  }),
+export const useNotificationStore = defineStore('notification', () => {
+  // Reactive state for notification
+  const notifications = ref<Notification[]>([]);
 
-  actions: {
-    showNotification(message: string, type: 'info' | 'success' | 'warning' | 'error') {
-      this.isNotificationVisible = true;
-      this.notificationMessage = message;
-      this.notificationType = type;
+  const removeNotification = (notificationId: string): void => {
+    notifications.value = notifications.value.filter((n) => n.id !== notificationId);
+  };
+  const pushNotification = (
+    message: string,
+    type: NotificationCategory,
+    duration: number = 3000,
+  ): void => {
+    const notificationId = nanoid();
 
-      setTimeout(() => {
-        this.isNotificationVisible = false;
-      }, 3000);
-    },
-  },
+    notifications.value.push({
+      id: notificationId,
+      message,
+      type,
+      visibilityDuration: duration,
+    });
+
+    setTimeout(() => {
+      removeNotification(notificationId);
+    }, duration);
+  };
+
+  return {
+    notifications,
+    pushNotification,
+  };
 });
