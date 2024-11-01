@@ -1,29 +1,43 @@
 <script setup lang="ts">
 import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
 import { BaseButton } from '@/components';
 import { useTypingText } from '@/hooks';
-import { useI18nStore, useStyleStore } from '@/stores';
+import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
 import { downloadCv } from '@/utils';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
+const titleStore = useTitleStore();
 
-// Feature 3: Machine Typing Effect
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('Home');
+    } else {
+      titleStore.setTitleSuffix('Home');
+    }
+  },
+  { immediate: true },
+);
+
+// Feature 2: Machine Typing Effect
 const texts = computed(() => i18nStore.homePageI18nContent.thirdHeading);
 
 const { currentTxt } = useTypingText(texts);
 
-// Feature 4: Manage effects
+// Feature 3: Manage effects
 const show = ref(false);
 
 onMounted(() => {
   show.value = true;
 });
 
-// Feature 5: Manage Contact Me Dialog Form
+// Feature 4: Manage Contact Me Dialog Form
 
 const isModalOpen = ref(false);
 const openContactMeFormDialog = (): void => {

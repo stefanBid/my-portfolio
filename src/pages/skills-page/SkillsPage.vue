@@ -1,24 +1,38 @@
 <script setup lang="ts">
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { vIntersectionObserver } from '@vueuse/components';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
 import { ThePageContainer, BaseButton, BaseSection } from '@/components';
 import { useStarEffect } from '@/hooks';
-import { useI18nStore, useStyleStore } from '@/stores';
+import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
+const titleStore = useTitleStore();
 
 // Hooks Declarations
 const { stars, starsContainerStyle } = useStarEffect(150);
 
-// Feature 1: Manage Skills for Solar System Component
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('Abilità');
+    } else {
+      titleStore.setTitleSuffix('Skills');
+    }
+  },
+  { immediate: true },
+);
+
+// Feature 2: Manage Skills for Solar System Component
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 const feIcons = computed(() =>
   skillsList.value
     .filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')

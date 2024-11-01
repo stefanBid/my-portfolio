@@ -1,10 +1,25 @@
 <script setup lang="ts">
 import { ThePageContainer, BaseSection } from '@/components';
-import { useI18nStore } from '@/stores';
+import { useI18nStore, useTitleStore } from '@/stores';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
+import { watch } from 'vue';
 
-// Feature 1: Internationalization (i18n)
+// Store Declarations
 const i18nStore = useI18nStore();
+const titleStore = useTitleStore();
+
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('Chi sono');
+    } else {
+      titleStore.setTitleSuffix('About Me');
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
