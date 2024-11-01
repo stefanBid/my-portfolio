@@ -119,7 +119,6 @@ watch(
             name="search_skill_key"
             :label="i18nStore.skillsPageI18nContent.skillsDialog.searchField.label"
             :placeholder="i18nStore.skillsPageI18nContent.skillsDialog.searchField.placeholder"
-            :custom-z-index="60"
             with-menu
           >
             <template #input-menu-box>
