@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
-
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface BaseToggleProps {
   label?: string;
@@ -13,8 +12,8 @@ const props = withDefaults(defineProps<BaseToggleProps>(), {
 
 const enabled = defineModel<boolean>('enabled', { default: false, required: true });
 
-// Feature 0: Manage Breakpoints and Style Classes
-const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 </script>
 
 <template>
@@ -27,7 +26,7 @@ const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
         v-if="props.label"
         class="ml-3 text-white transition-all duration-200 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[
-          textSizeXS,
+          styleStore.textSizeXS,
           {
             'opacity-50': !enabled,
             'opacity-100': enabled,
@@ -39,25 +38,28 @@ const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
       <Switch
         v-model="enabled"
         tabindex="0"
-        class="box-border relative inline-flex items-center transition-all duration-200 ease-in-out border-2 border-white rounded-full outline-none shrink-0 focus-visible:ring-4 ring-slate-600 bg-slate-600"
+        class="box-border relative inline-flex items-center border-2 border-white rounded-full outline-none cursor-pointer transition-sb-normal shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
         :class="{
-          'opacity-50': !enabled,
-          'opacity-100': enabled,
-          'h-5 w-9': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-          'h-6 w-11': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+          'bg-sb-tertiary-100': enabled,
+          'bg-sb-tertiary-100/50': !enabled,
+          'h-5 w-9': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          'h-6 w-11': styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
         }"
       >
         <span
           :class="{
             ' translate-x-[22px]':
-              enabled && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+              enabled &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm',
             'translate-x-[18px]':
-              enabled && (activeBreakpoint === 'xs' || activeBreakpoint === 'sm'),
+              enabled &&
+              (styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm'),
             'translate-x-0.5': !enabled,
-            'size-3': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'size-4': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+            'size-3': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            'size-4': styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
           }"
-          class="inline-block transition-all duration-200 ease-in-out transform bg-white rounded-full"
+          class="inline-block transform bg-white rounded-full transition-sb-normal"
         ></span>
       </Switch>
     </div>

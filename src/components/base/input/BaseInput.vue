@@ -144,7 +144,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ref="buttonMenuRef"
         variant="custom"
         content-size="custom"
-        class="absolute inset-y-1.5 right-0 mr-4 rounded-lg hover:opacity-60"
+        class="absolute inset-y-1.5 right-0 mr-3 rounded-lg hover:opacity-60"
         :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
         :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
         @click.stop="handleClick()"
@@ -160,7 +160,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             { ignore: [reference, buttonMenuRef] },
           ]"
           :style="floatingStyles"
-          class="absolute border-2 rounded-lg shadow-lg z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
+          class="absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
         >
           <slot name="input-menu-box"></slot>
         </div>

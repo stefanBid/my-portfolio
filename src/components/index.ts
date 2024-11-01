@@ -6,7 +6,7 @@ export { default as BaseInput } from '@/components/base/input/BaseInput.vue';
 export { default as BaseLevelBar } from '@/components/base/level-bar/BaseLevelBar.vue';
 export { default as BaseSection } from '@/components/base/section/BaseSection.vue';
 export { default as BaseTextArea } from '@/components/base/text-area/BaseTextArea.vue';
-// export { default as BaseToggle } from '@/components/base/interactive-components/toggle/BaseToggle.vue';
+export { default as BaseToggle } from '@/components/base/toggle/BaseToggle.vue';
 
 // LAYOUTS
 export { default as TheAppContainer } from '@/components/layouts/app-container/TheAppContainer.vue';

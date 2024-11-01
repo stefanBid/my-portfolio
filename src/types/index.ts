@@ -131,5 +131,6 @@ export type {
   AboutMePageContent,
   SkillsPageContent,
   SkillInfo,
+  SkillType,
   NotFoundPageContent,
 };
