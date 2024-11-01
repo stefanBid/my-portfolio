@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface VintagePictureProps {
   imageUrl: string;
@@ -12,26 +11,26 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
   text: undefined,
 });
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 const getFrameDimension = computed(() => {
-  if (activeBreakpoint.value === 'xs') {
+  if (styleStore.activeBreakpoint === 'xs') {
     return 'w-[280px] h-[340px] px-[15px] pt-[15px]';
-  } else if (activeBreakpoint.value === 'sm') {
+  } else if (styleStore.activeBreakpoint === 'sm') {
     return 'w-[320px] h-[388px] px-[20px] pt-[20px]';
-  } else if (activeBreakpoint.value === 'md') {
+  } else if (styleStore.activeBreakpoint === 'md') {
     return 'w-[360px] h-[436px] px-[24px] pt-[24px]';
   }
   return 'w-[400px] h-[484px] px-[28px] pt-[28px]';
 });
 
 const getPictureDimension = computed(() => {
-  if (activeBreakpoint.value === 'xs') {
+  if (styleStore.activeBreakpoint === 'xs') {
     return 'h-[236px]';
-  } else if (activeBreakpoint.value === 'sm') {
+  } else if (styleStore.activeBreakpoint === 'sm') {
     return 'h-[284px]';
-  } else if (activeBreakpoint.value === 'md') {
+  } else if (styleStore.activeBreakpoint === 'md') {
     return 'h-[332px]';
   }
   return 'h-[380px]';
@@ -91,7 +90,6 @@ const flipPicture = (): void => {
     >
       <img
         v-show="!delayedFlip"
-        id="picture"
         :src="props.imageUrl"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
@@ -100,12 +98,11 @@ const flipPicture = (): void => {
       />
       <div
         v-show="delayedFlip"
-        id="picture-description"
         :class="[getPictureDimension]"
         class="flex items-center justify-center w-full p-2 rounded transition-sb-slow bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
       >
-        <p class="text-center text-white font-roboto" :class="[textSizeS]">
+        <p class="text-center text-white font-roboto" :class="[styleStore.textSizeS]">
           {{ props.text }}
         </p>
       </div>

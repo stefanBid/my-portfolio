@@ -6,8 +6,8 @@ import { computed, ref } from 'vue';
 
 import { SKILLS_ICONS_MAP } from '@/assets';
 import { BaseLevelBar, BaseButton } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
 import type { SkillInfo } from '@/types';
+import { useI18nStore, useStyleStore } from '@/stores';
 
 interface SkillCardProps {
   rootElement: HTMLElement | null;
@@ -16,11 +16,9 @@ interface SkillCardProps {
 
 const props = defineProps<SkillCardProps>();
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeM, textSizeS, iconSizeXL } = useCommonStyleSingleton();
-
-// Feature 1: Manage I18n
-const { currentLanguage } = useTypedI18nSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
+const i18nStore = useI18nStore();
 
 // Manage Intersection Observer
 const isVisible = ref(false);
@@ -55,7 +53,7 @@ const getSkillValutationAverage = computed(() => {
 });
 
 const getPaginatedSkillRating = computed(() => {
-  if (activeBreakpoint.value === 'xs') {
+  if (styleStore.activeBreakpoint === 'xs') {
     return ratingsKeys.value.slice(paginationIndex.value, paginationIndex.value + 1);
   }
   return ratingsKeys.value.slice(paginationIndex.value * 2, (paginationIndex.value + 1) * 2);
@@ -63,9 +61,9 @@ const getPaginatedSkillRating = computed(() => {
 
 const goNext = (): void => {
   if (
-    (activeBreakpoint.value !== 'xs' &&
+    (styleStore.activeBreakpoint !== 'xs' &&
       paginationIndex.value === Math.ceil(ratingsKeys.value.length / 2) - 1) ||
-    (activeBreakpoint.value === 'xs' && paginationIndex.value === ratingsKeys.value.length - 1)
+    (styleStore.activeBreakpoint === 'xs' && paginationIndex.value === ratingsKeys.value.length - 1)
   ) {
     return;
   }
@@ -87,9 +85,11 @@ const goPrevious = (): void => {
     class="relative flex flex-col items-center justify-between p-4 overflow-hidden border-2 rounded-lg outline-none cursor-pointer transition-sb-slow bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="{
       'w-80 h-64':
-        activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-      'w-72 h-60': activeBreakpoint === 'md',
-      'w-64 h-56': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+        styleStore.activeBreakpoint !== 'xs' &&
+        styleStore.activeBreakpoint !== 'sm' &&
+        styleStore.activeBreakpoint !== 'md',
+      'w-72 h-60': styleStore.activeBreakpoint === 'md',
+      'w-64 h-56': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
       'opacity-0': !isVisible,
       'opacity-100': isVisible,
       'hover:shadow-sb-ring-sm hover:shadow-sb-secondary-200 focus-visible:shadow-sb-ring-sm focus-visible:shadow-sb-secondary-200':
@@ -100,7 +100,7 @@ const goPrevious = (): void => {
     @click="changeVisibilityOfDetailsPanel(true)"
   >
     <h4
-      :class="[textSizeM]"
+      :class="[styleStore.textSizeM]"
       class="font-medium text-white z-sb-base-3 font-roboto transition-sb-slow"
     >
       {{ props.skill.name }}
@@ -108,16 +108,18 @@ const goPrevious = (): void => {
     <component
       :is="props.skill.icon ? SKILLS_ICONS_MAP[props.skill.icon] : PhotoIcon"
       :class="[
-        iconSizeXL,
+        styleStore.iconSizeXL,
         {
           'text-white': !props.skill.icon,
         },
       ]"
       class="my-4 transition-sb-slow shrink-0"
     />
-    <span :class="[textSizeS]" class="text-center text-white font-roboto">
-      {{ currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
-      <span :class="[textSizeM]" class="font-medium">{{ getSkillValutationAverage }}</span>
+    <span :class="[styleStore.textSizeS]" class="text-center text-white font-roboto">
+      {{ i18nStore.currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
+      <span :class="[styleStore.textSizeM]" class="font-medium">{{
+        getSkillValutationAverage
+      }}</span>
     </span>
 
     <transition name="slide-fade">
@@ -126,9 +128,9 @@ const goPrevious = (): void => {
         class="absolute top-0 w-full h-full px-2 pb-2 pt-[45px] z-sb-base-2 flex flex-col bg-sb-secondary-200"
       >
         <BaseButton
-          no-style
           class="absolute text-white w-fit h-fit hover:rotate-90 top-2 right-2"
-          content-size="small"
+          content-size="custom"
+          variant="custom"
           :icon="XMarkIcon"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
         />
@@ -143,30 +145,31 @@ const goPrevious = (): void => {
         </div>
         <div class="inline-flex items-center justify-end gap-x-4">
           <BaseButton
-            no-style
-            class="text-white border rounded-md w-fit h-fit"
+            class="text-white border-2 w-fit h-fit"
             :class="{
               'cursor-pointer hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200':
                 paginationIndex > 0,
               'pointer-events-none opacity-30': paginationIndex === 0,
             }"
+            variant="custom"
             content-size="small"
             :icon="ChevronLeftIcon"
             @click.stop="() => goPrevious()"
           />
           <BaseButton
-            no-style
-            class="text-white border rounded-md w-fit h-fit"
+            class="text-white border-2 w-fit h-fit"
             :class="{
               'cursor-pointer hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200':
-                (activeBreakpoint !== 'xs' &&
+                (styleStore.activeBreakpoint !== 'xs' &&
                   paginationIndex < Math.ceil(ratingsKeys.length) - 1) ||
-                (activeBreakpoint === 'xs' && paginationIndex < ratingsKeys.length - 1),
+                (styleStore.activeBreakpoint === 'xs' && paginationIndex < ratingsKeys.length - 1),
               'pointer-events-none opacity-30':
-                (activeBreakpoint !== 'xs' &&
+                (styleStore.activeBreakpoint !== 'xs' &&
                   paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||
-                (activeBreakpoint === 'xs' && paginationIndex === ratingsKeys.length - 1),
+                (styleStore.activeBreakpoint === 'xs' &&
+                  paginationIndex === ratingsKeys.length - 1),
             }"
+            variant="custom"
             content-size="small"
             :icon="ChevronRightIcon"
             @click.stop="() => goNext()"

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { vIntersectionObserver } from '@vueuse/components';
 import { ref } from 'vue';
+import { useStyleStore } from '@/stores';
 
-import { useCommonStyleSingleton } from '@/hooks';
 interface BaseSectionProps {
   title: string;
   subtitle?: string;
@@ -26,8 +26,8 @@ const props = withDefaults(defineProps<BaseSectionProps>(), {
   inverted: false,
 });
 
-// Feature 1: Manage Style Classes
-const { activeBreakpoint, textSizeXL, textSizeL, textSizeS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 2:  Other Features
 const isVisible = ref(false);
@@ -53,21 +53,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     :class="{
       'flex-row':
         !props.inverted &&
-        activeBreakpoint !== 'xs' &&
-        activeBreakpoint !== 'sm' &&
-        activeBreakpoint !== 'md' &&
-        activeBreakpoint !== 'lg',
+        styleStore.activeBreakpoint !== 'xs' &&
+        styleStore.activeBreakpoint !== 'sm' &&
+        styleStore.activeBreakpoint !== 'md' &&
+        styleStore.activeBreakpoint !== 'lg',
       'flex-row-reverse':
         props.inverted &&
-        activeBreakpoint !== 'xs' &&
-        activeBreakpoint !== 'sm' &&
-        activeBreakpoint !== 'md' &&
-        activeBreakpoint !== 'lg',
+        styleStore.activeBreakpoint !== 'xs' &&
+        styleStore.activeBreakpoint !== 'sm' &&
+        styleStore.activeBreakpoint !== 'md' &&
+        styleStore.activeBreakpoint !== 'lg',
       'flex-col items-center':
-        activeBreakpoint === 'xs' ||
-        activeBreakpoint === 'sm' ||
-        activeBreakpoint === 'md' ||
-        activeBreakpoint === 'lg',
+        styleStore.activeBreakpoint === 'xs' ||
+        styleStore.activeBreakpoint === 'sm' ||
+        styleStore.activeBreakpoint === 'md' ||
+        styleStore.activeBreakpoint === 'lg',
       'opacity-0': !isVisible,
       'opacity-100': isVisible,
     }"
@@ -78,11 +78,18 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <h2
         :id="`${$attrs.id || 'section'}-titleHeading`"
         :class="[
-          textSizeXL,
+          styleStore.textSizeXL,
           {
-            'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'text-left': !props.inverted && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
-            'text-right': props.inverted && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+            'text-center':
+              styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            'text-left':
+              !props.inverted &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm',
+            'text-right':
+              props.inverted &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm',
           },
         ]"
         class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
@@ -93,11 +100,18 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         v-if="props.subtitle"
         :id="`${$attrs.id || 'section'}-subTitleHeading`"
         :class="[
-          textSizeL,
+          styleStore.textSizeL,
           {
-            'text-center': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-            'text-left': !props.inverted && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
-            'text-right': props.inverted && activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+            'text-center':
+              styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            'text-left':
+              !props.inverted &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm',
+            'text-right':
+              props.inverted &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm',
           },
         ]"
         class="font-medium text-white whitespace-normal transition-sb-slow font-roboto"
@@ -106,7 +120,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       </h3>
       <div
         :id="`${$attrs.id || 'section'}-contentParagraph`"
-        :class="[textSizeS]"
+        :class="[styleStore.textSizeS]"
         class="p-4 mt-4 text-justify text-white whitespace-normal border-2 rounded-lg transition-sb-slow font-roboto bg-sb-secondary-300 border-sb-secondary-200"
       >
         {{ props.paragraph }}

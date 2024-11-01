@@ -1,18 +1,32 @@
 <script setup lang="ts">
 import { ThePageContainer, BaseSection } from '@/components';
-import { useTypedI18nSingleton } from '@/hooks';
+import { useI18nStore, useTitleStore } from '@/stores';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
+import { watch } from 'vue';
 
-// Feature 1: Internationalization (i18n)
-const { aboutMePageI18nContent } = useTypedI18nSingleton();
+// Store Declarations
+const i18nStore = useI18nStore();
+const titleStore = useTitleStore();
+
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('Chi sono');
+    } else {
+      titleStore.setTitleSuffix('About Me');
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="aboutMePageI18nContent.pageHeading">
+  <ThePageContainer :page-intro-text="i18nStore.aboutMePageI18nContent.pageHeading">
     <template #page-content>
       <BaseSection
-        v-for="(section, index) in aboutMePageI18nContent.bioSections"
-        :id="`bioSection-${index}`"
+        v-for="(section, index) in i18nStore.aboutMePageI18nContent.bioSections"
         :key="index"
         :inverted="index % 2 === 0 ? false : true"
         :title="section.titleHeading"
@@ -27,7 +41,6 @@ const { aboutMePageI18nContent } = useTypedI18nSingleton();
         <template #extra-content>
           <VintagePicture
             v-if="section.imagePath"
-            :id="`bioSection-${index}-image`"
             :image-url="section.imagePath"
             :text="section.imageDescription"
             :class="{

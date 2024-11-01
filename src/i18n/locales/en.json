@@ -1,5 +1,5 @@
 {
-  "headerContent": {
+  "header": {
     "navbarRoutes": [
       {
         "text": "Home",
@@ -20,7 +20,7 @@
     ]
   },
 
-  "homePageContent": {
+  "homePage": {
     "firstHeading": "Hello Everyone!",
     "secondHeading": "I'm Stefano Biddau",
     "thirdHeading": [
@@ -28,17 +28,38 @@
       "Web Designer",
       "Backend Developer"
     ],
-    "firstButton": {
-      "text": "Contact me",
-      "link": "https://www.linkedin.com/in/stefano-biddau-669149214/"
+    "contactMeButton": {
+      "text": "Contact me"
     },
-    "secondButton": {
+    "downloadCvButton": {
       "text": "Download CV",
       "link": "/docs/Stefano-Biddau-CV.pdf"
+    },
+    "contactMeForm": {
+      "title": "Contact me",
+      "info": "To get in touch, please fill out the form with your full name, email, and message. Ensure you provide a valid email address to receive a prompt response. In compliance with the GDPR (EU Regulation 2016/679), we inform you that your personal data, including your name and message, will not be stored or retained after the completion of your request. This ensures the confidentiality and protection of your personal information, and no explicit consent is required for this limited processing.",
+      "fullNameField": {
+        "label": "Full Name*",
+        "placeholder": "Insert your name Ex: John Miller"
+      },
+      "emailField": {
+        "label": "Email*",
+        "placeholder": "Insert your email (ex: example@ex.com)"
+      },
+      "messageField": {
+        "label": "Message*",
+        "placeholder": "Insert your message"
+      },
+      "submitButton": {
+        "text": "Send"
+      },
+      "resetButton": {
+        "text": "Reset"
+      }
     }
   },
 
-  "aboutMePageContent": {
+  "aboutMePage": {
     "pageHeading": "Who am I?",
     "bioSections": [
       {
@@ -59,29 +80,40 @@
     ]
   },
 
-  "skillsPageContent":{
+  "skillsPage":{
     "pageHeading": "Get to know me!",
+    "callToActionFirstHeading": "Looking for a skilled professional?",
+    "callToActionSecondHeading": "Discover my top skills and how I can add value to your team",
+    "exploreSkillsButton": {
+      "text": "Explore my skills"
+    },
+
     "skillsSections": [
       {
-        "sectionType": "FE",
         "titleHeading": "Frontend Development",
         "subTitleHeading": "My Passion and Expertise",
         "contentParagraph": "Frontend development is my main area of expertise and passion. I have a solid foundation in HTML, CSS, and JavaScript, which I have been able to refine and expand through my academic studies and professional experience. I am proficient in using modern frameworks and libraries such as React, Angular, and Vue.js, which I have used in various projects to create dynamic and responsive user interfaces. My experience in frontend development has allowed me to work on a wide range of projects, from simple websites to complex web applications, always focusing on creating a seamless and engaging user experience. I am constantly exploring new technologies and best practices in frontend development to stay up-to-date with the latest trends and innovations in the field."
       },
 
       {
-        "sectionType": "BE",
         "titleHeading": "Backend Development",
         "subTitleHeading": "My Versatility and Skills",
         "contentParagraph": "While frontend development is my main focus, I also have experience in backend development, which allows me to work on full-stack projects and have a comprehensive understanding of the development process. I have experience in developing RESTful APIs, working with databases, and deploying applications to cloud platforms. I am proficient in using Node.js and Express to create server-side applications and have experience with relational and non-relational databases such as MySQL and MongoDB. My experience in backend development complements my frontend skills and allows me to work on a wide range of projects, from simple websites to complex web applications. I am always looking for opportunities to expand my knowledge and skills in backend development to become a more versatile and well-rounded developer."
       },
       {
-        "sectionType": "WD",
         "titleHeading": "Web Design",
         "subTitleHeading": "My Aesthetic and Creativity",
         "contentParagraph": "In addition to my technical skills, I also have a passion for web design and user interface design. I believe that a well-designed user interface is essential for creating a positive user experience and engaging users with the content of a website or application. I have experience in using design tools such as Figma and Adobe XD to create wireframes and mockups for web projects, as well as implementing responsive design principles to ensure that websites look great on all devices. My experience in web design allows me to work closely with designers and other stakeholders to create visually appealing and user-friendly interfaces that meet the needs and expectations of users. I am always looking for opportunities to improve my design skills and learn new techniques to create innovative and engaging user interfaces."
       }
     ],
+    "skillsDialog": {
+      "title": "List of skills",
+      "info": "Click on a skill to see its details",
+      "searchField": {
+        "label": "Search",
+        "placeholder": "Search by skill name (ex: HTML)"
+      }
+    },
     "skillsList": [
       {
         "id": "1",
@@ -266,5 +298,12 @@
         }
       }
     ]
+  },
+  "notFoundPage": {
+    "firstHeading": "404 - Page Not Found",
+    "secondHeading": "The page you are looking for does not exist.",
+    "goHomeButton": {
+      "text": "Go Home"
+    }
   }
 }

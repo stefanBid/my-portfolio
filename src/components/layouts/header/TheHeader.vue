@@ -5,30 +5,32 @@ import { useRoute } from 'vue-router';
 
 import { ItalyIcon, UkIcon } from '@/assets';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
+import type { Locale } from '@/types';
 
-// Feature 0: Internationalization (i18n)
-const { changeLanguage, currentLanguage, headerI18nContent } = useTypedI18nSingleton();
+// Store Declarations
+const i18nStore = useI18nStore();
+const styleStore = useStyleStore();
 
+// Composable Declarations
+const route = useRoute();
+
+// Feature 1: Manage Language Options
 const languageOptions = [
   {
-    name: 'it',
+    name: 'it' as Locale,
     label: 'Italiano',
     icon: ItalyIcon,
   },
   {
-    name: 'en',
+    name: 'en' as Locale,
     label: 'English',
     icon: UkIcon,
   },
 ];
 
-const handleChangeLanguage = (newLanguage: 'it' | 'en'): void => {
-  changeLanguage(newLanguage);
-};
-
-// Feature 1: Manage Routes
-const route = useRoute();
+// Feature 2: Manage Header Style
+const isMenuOpen = ref(false);
 
 const getBackgroundByRoute = computed(() => {
   if (route.path === '/' || route.path === '/home') {
@@ -37,20 +39,12 @@ const getBackgroundByRoute = computed(() => {
     return 'bg-sb-main';
   }
 });
-// Feaure 3: Manage Breakpoints and Style Classes
-const { containerPadding, activeBreakpoint, textSizeXS, iconSizeM, iconSizeXS } =
-  useCommonStyleSingleton();
-
-// Feature 3.1: Manage Menu Visibility
-const isMenuOpen = ref(false);
-
-// Computed Properties for Screen Size and Menu State
 
 const isMenuCollapsed = computed(() => {
   if (
-    activeBreakpoint.value === 'xs' ||
-    activeBreakpoint.value === 'sm' ||
-    activeBreakpoint.value === 'md'
+    styleStore.activeBreakpoint === 'xs' ||
+    styleStore.activeBreakpoint === 'sm' ||
+    styleStore.activeBreakpoint === 'md'
   ) {
     return true;
   } else {
@@ -74,17 +68,20 @@ const onChangeMenuVisibility = (newVisibility: boolean): void => {
   }
 };
 
-watch(isMenuCollapsed, () => {
-  if (!isMenuCollapsed.value) {
-    isMenuOpen.value = false;
-    document.body.classList.remove('no-scroll');
-  }
-});
+watch(
+  () => isMenuCollapsed.value,
+  (newValue) => {
+    if (!newValue) {
+      isMenuOpen.value = false;
+      document.documentElement.classList.remove('no-scroll');
+    }
+  },
+);
 </script>
 
 <template>
   <header
-    :class="[containerPadding, getBackgroundByRoute]"
+    :class="[styleStore.containerPadding, getBackgroundByRoute]"
     class="fixed left-0 w-full h-20 z-sb-header"
   >
     <div class="flex items-center h-20 p-sb-side gap-x-4">
@@ -99,16 +96,19 @@ watch(isMenuCollapsed, () => {
             src="@/assets/logo/logo.png"
             alt="logo"
             class="object-cover object-center h-auto transition-sb-slow"
-            :class="[iconSizeM]"
+            :class="[styleStore.iconSizeM]"
           />
 
           <span
             class="flex-1 font-semibold transition-sb-slow font-bebas group-hover:text-shadow-luminous"
             :class="{
               'text-sb-3xl':
-                activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-              'text-sb-2xl': activeBreakpoint === 'md',
-              'text-sb-xl': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+              'text-sb-2xl': styleStore.activeBreakpoint === 'md',
+              'text-sb-xl':
+                styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
             }"
           >
             Stefano Biddau
@@ -120,12 +120,14 @@ watch(isMenuCollapsed, () => {
       <transition name="fade">
         <div v-if="!isMenuCollapsed" class="flex items-center w-fit gap-x-4">
           <!-- Route -->
-          <TheInlineNavbar :routes="headerI18nContent.navbarRoutes" class="flex-1" />
+          <TheInlineNavbar :routes="i18nStore.headerI18nContent.navbarRoutes" class="flex-1" />
 
           <!-- Menu -->
           <BaseDropdownMenu
+            id="changeLanguageButton"
+            name="change_language_button"
             menu-strategy="fixed"
-            :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+            :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
           >
             <template #dropdown-section-content="{ closeMenu }">
               <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
@@ -134,24 +136,24 @@ watch(isMenuCollapsed, () => {
                   :key="lang.name"
                   :tabindex="0"
                   :class="{
-                    'bg-sb-secondary-200': currentLanguage === lang.name,
+                    'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
                   }"
                   class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
                   @keydown.enter="
                     () => {
-                      handleChangeLanguage(lang.name as 'it' | 'en');
+                      i18nStore.changeLanguage(lang.name);
                       closeMenu();
                     }
                   "
                   @click="
                     () => {
-                      handleChangeLanguage(lang.name as 'it' | 'en');
+                      i18nStore.changeLanguage(lang.name);
                       closeMenu();
                     }
                   "
                 >
-                  <component :is="lang.icon" :class="[iconSizeXS]" class="shrink-0" />
-                  <span :class="[textSizeXS]" class="flex-1 text-white text-roboto">
+                  <component :is="lang.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
+                  <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
                     {{ lang.label }}
                   </span>
                 </span>
@@ -165,7 +167,7 @@ watch(isMenuCollapsed, () => {
         <component
           :is="isMenuOpen ? XMarkIcon : Bars3Icon"
           class="flex-none text-white cursor-pointer active:rotate-90 transition-sb-slow"
-          :class="[iconSizeM]"
+          :class="[styleStore.iconSizeM]"
           @click.stop="onChangeMenuVisibility(!isMenuOpen)"
         />
       </div>
@@ -177,21 +179,25 @@ watch(isMenuCollapsed, () => {
       class="fixed left-0 w-full h-full pt-20 bg-sb-main z-sb-header-collapsed"
     >
       <TheSideNavbar
-        :routes="headerI18nContent.navbarRoutes"
+        :routes="i18nStore.headerI18nContent.navbarRoutes"
         @close-menu="onChangeMenuVisibility(false)"
       />
       <div
         :class="[
-          containerPadding,
-          textSizeXS,
-          activeBreakpoint === 'xs' || activeBreakpoint === 'sm' ? 'py-4' : 'py-6',
+          styleStore.containerPadding,
+          styleStore.textSizeXS,
+          styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm'
+            ? 'py-4'
+            : 'py-6',
         ]"
         class="inline-flex items-center w-full text-white gap-x-4"
       >
-        {{ currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
+        {{ i18nStore.currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
         <BaseDropdownMenu
+          id="changeLanguageButton"
+          name="change_language_button"
           menu-strategy="fixed"
-          :icon="currentLanguage === 'it' ? ItalyIcon : UkIcon"
+          :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
         >
           <template #dropdown-section-content="{ closeMenu }">
             <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
@@ -200,24 +206,24 @@ watch(isMenuCollapsed, () => {
                 :key="lang.name"
                 :tabindex="0"
                 :class="{
-                  'bg-sb-secondary-200': currentLanguage === lang.name,
+                  'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
                 }"
                 class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
                 @keydown.enter="
                   () => {
-                    handleChangeLanguage(lang.name as 'it' | 'en');
+                    i18nStore.changeLanguage(lang.name);
                     closeMenu();
                   }
                 "
                 @click="
                   () => {
-                    handleChangeLanguage(lang.name as 'it' | 'en');
+                    i18nStore.changeLanguage(lang.name);
                     closeMenu();
                   }
                 "
               >
-                <component :is="lang.icon" :class="[iconSizeXS]" class="shrink-0" />
-                <span :class="[textSizeXS]" class="flex-1 text-white text-roboto">
+                <component :is="lang.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
+                <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
                   {{ lang.label }}
                 </span>
               </span>

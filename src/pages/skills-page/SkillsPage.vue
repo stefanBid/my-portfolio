@@ -1,22 +1,38 @@
 <script setup lang="ts">
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { vIntersectionObserver } from '@vueuse/components';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
 import { ThePageContainer, BaseButton, BaseSection } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton, useStarEffect } from '@/hooks';
+import { useStarEffect } from '@/hooks';
+import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
-// Feature 1: Manage Style Classes
-const { textSizeXL, textSizeL, iconSizeXXL } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
+const i18nStore = useI18nStore();
+const titleStore = useTitleStore();
 
-// Feature 2: Internationalization (i18n)
-const { skillsPageI18nContent, currentLanguage } = useTypedI18nSingleton();
-const skillsList = computed(() => skillsPageI18nContent.value.skillsList);
+// Hooks Declarations
+const { stars, starsContainerStyle } = useStarEffect(150);
 
-// Feature 3: Manage Skills for Solar System Component
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('Abilità');
+    } else {
+      titleStore.setTitleSuffix('Skills');
+    }
+  },
+  { immediate: true },
+);
+
+// Feature 2: Manage Skills for Solar System Component
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 const feIcons = computed(() =>
   skillsList.value
     .filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
@@ -32,9 +48,8 @@ const beIcons = computed(() =>
     .map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]),
 );
 
-// Feature 4: Manage Stars Effect
+// Feature 2: Manage Stars Effect
 const isVisible = ref(false);
-const { stars, starsContainerStyle } = useStarEffect(150);
 
 const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
   if (isIntersecting !== isVisible.value) {
@@ -42,7 +57,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
   }
 };
 
-// Feature 5: Manage Modal State
+// Feature 3: Manage Modal State
 const isModalOpen = ref(false);
 const changeVisibility = (newVisibility: boolean): void => {
   if (newVisibility === isModalOpen.value) {
@@ -53,7 +68,7 @@ const changeVisibility = (newVisibility: boolean): void => {
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="skillsPageI18nContent.pageHeading">
+  <ThePageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
     <template #page-content>
       <div
         v-intersection-observer="[
@@ -70,37 +85,30 @@ const changeVisibility = (newVisibility: boolean): void => {
           <div v-for="(star, index) in stars" :key="index" :style="star"></div>
         </div>
         <span
-          :class="[textSizeXL]"
+          :class="[styleStore.textSizeXL]"
           class="text-center z-sb-base-1 font-bebas text-sb-tertiary-100 transition-sb-slow"
         >
-          {{
-            currentLanguage === 'en'
-              ? `Looking for a skilled professional?`
-              : `Cerchi un professionista qualificato?`
-          }}
+          {{ i18nStore.skillsPageI18nContent.callToActionFirstHeading }}
         </span>
         <span
-          :class="[textSizeL]"
+          :class="[styleStore.textSizeL]"
           class="text-center text-white z-sb-base-1 font-bebas transition-sb-slow"
         >
-          {{
-            currentLanguage === 'en'
-              ? `Discover my top skills and how I can add value to your team`
-              : `Scopri le mie principali competenze e come posso contribuire alla tua squadra`
-          }}
+          {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
-        <RocketIcon class="my-4 transition-sb-slow z-sb-base-1" :class="[iconSizeXXL]" />
+        <RocketIcon class="my-4 transition-sb-slow z-sb-base-1" :class="[styleStore.iconSizeXXL]" />
         <BaseButton
+          id="exploreSkillsButton"
+          name="explore_skills_button"
           class="z-sb-base-1 w-fit"
           :icon="MagnifyingGlassIcon"
           @click="changeVisibility(!isModalOpen)"
         >
-          {{ currentLanguage === 'en' ? `Explore My Skills` : `Esplora le mie competenze` }}
+          {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}
         </BaseButton>
       </div>
       <BaseSection
-        v-for="(section, index) in skillsPageI18nContent.skillsSections"
-        :id="`skillsSection-${index}`"
+        v-for="(section, index) in i18nStore.skillsPageI18nContent.skillsSections"
         :key="index"
         :inverted="index % 2 === 0 ? false : true"
         :title="section.titleHeading"
@@ -114,9 +122,9 @@ const changeVisibility = (newVisibility: boolean): void => {
       >
         <template #extra-content>
           <SolarSystem
-            v-if="section.sectionType === 'BE' || section.sectionType === 'FE'"
-            :planets-icons="section.sectionType === 'FE' ? feIcons : beIcons"
-            :star-name="section.sectionType === 'FE' ? 'Frontend' : 'Backend'"
+            v-if="index !== 2"
+            :planets-icons="index === 0 ? feIcons : beIcons"
+            :star-name="index === 0 ? 'Frontend' : 'Backend'"
           />
         </template>
       </BaseSection>
@@ -124,7 +132,6 @@ const changeVisibility = (newVisibility: boolean): void => {
   </ThePageContainer>
   <SkillsDialog
     :is-modal-open="isModalOpen"
-    :skills-list="skillsList"
     :handle-close-modal="(falsyValue) => changeVisibility(falsyValue)"
   />
 </template>

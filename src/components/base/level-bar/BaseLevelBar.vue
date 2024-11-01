@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useStyleStore } from '@/stores';
 
-import { useCommonStyleSingleton } from '@/hooks';
-
-interface Rating {
+interface Range {
   min: number;
   max: number;
 }
@@ -15,12 +14,12 @@ interface BaseLevelBarProps {
 }
 const props = defineProps<BaseLevelBarProps>();
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 1: Level Bar
 
-const RATING_MAP: Record<string, Rating> = {
+const RANGE_MAP: Record<string, Range> = {
   percentage: {
     min: 0,
     max: 100,
@@ -32,38 +31,42 @@ const RATING_MAP: Record<string, Rating> = {
 };
 
 const getLevelBarWidth = computed(() => {
-  const rating = RATING_MAP[props.scale];
-  const level = Math.max(rating.min, Math.min(rating.max, props.level));
-  return `${((level - rating.min) / (rating.max - rating.min)) * 100}%`;
+  const r = RANGE_MAP[props.scale];
+  const level = Math.max(r.min, Math.min(r.max, props.level));
+  return `${((level - r.min) / (r.max - r.min)) * 100}%`;
 });
 
 const getScore = computed(() => {
-  const rating = RATING_MAP[props.scale];
-  const level = Math.max(rating.min, Math.min(rating.max, props.level));
+  const r = RANGE_MAP[props.scale];
+  const level = Math.max(r.min, Math.min(r.max, props.level));
 
   if (props.scale === 'percentage') {
     return `${level.toFixed(1)}%`;
   } else {
-    if (level === rating.max) {
-      return `${level} / ${rating.max}`;
+    if (level === r.max) {
+      return `${level} / ${r.max}`;
     }
-    return `${level.toFixed(1)} / ${rating.max}`;
+    return `${level.toFixed(1)} / ${r.max}`;
   }
 });
 </script>
 
 <template>
   <div v-bind="$attrs" class="flex flex-col">
-    <span v-if="props.label" :class="[textSizeXS]" class="text-white font-roboto">
+    <span v-if="props.label" :class="[styleStore.textSizeXS]" class="text-white font-roboto">
       {{ props.label }}
     </span>
     <div class="flex items-center">
       <div
         :class="{
           'h-2.5':
-            activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
           'h-2':
-            activeBreakpoint === 'md' || activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            styleStore.activeBreakpoint === 'md' ||
+            styleStore.activeBreakpoint === 'xs' ||
+            styleStore.activeBreakpoint === 'sm',
         }"
         class="relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200"
       >
@@ -72,7 +75,7 @@ const getScore = computed(() => {
           :style="{ width: getLevelBarWidth }"
         ></div>
       </div>
-      <span :class="[textSizeXS]" class="ml-2 text-white font-roboto">
+      <span :class="[styleStore.textSizeXS]" class="ml-2 text-white font-roboto">
         {{ getScore }}
       </span>
     </div>

@@ -2,7 +2,7 @@
 import { ref, onMounted, markRaw, computed } from 'vue';
 import type { Component, FunctionalComponent } from 'vue';
 
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface SkillSolarSystemProps {
   starName: string;
@@ -23,22 +23,22 @@ const props = withDefaults(defineProps<SkillSolarSystemProps>(), {
   starName: 'Sun',
 });
 
-// Feature 1: Manage Style Classes
-const { activeBreakpoint } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 const scaleMargin = computed(() => {
   let scale = 1;
   let margin = 0;
 
-  if (activeBreakpoint.value === 'xs') {
+  if (styleStore.activeBreakpoint === 'xs') {
     scale = 0.5;
     margin = 64; // Original gap for xs (gap-y-16 in Tailwind is 64px)
   }
-  if (activeBreakpoint.value === 'sm') {
+  if (styleStore.activeBreakpoint === 'sm') {
     scale = 0.75;
     margin = 80; // Original gap for sm (gap-y-20 in Tailwind is 80px)
   }
-  if (activeBreakpoint.value !== 'xs' && activeBreakpoint.value !== 'sm') {
+  if (styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm') {
     scale = 0.9;
     margin = 96; // Original gap for md/lg (gap-y-24 in Tailwind is 96px)
   }
@@ -85,9 +85,9 @@ onMounted(() => {
 <template>
   <div
     :class="{
-      'scale-50': activeBreakpoint === 'xs',
-      'scale-75': activeBreakpoint === 'sm',
-      'scale-90': activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm',
+      'scale-50': styleStore.activeBreakpoint === 'xs',
+      'scale-75': styleStore.activeBreakpoint === 'sm',
+      'scale-90': styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
     }"
     :style="{ marginTop: scaleMargin, marginBottom: scaleMargin }"
     class="relative flex items-center justify-center size-[600px] transition-sb-slow"

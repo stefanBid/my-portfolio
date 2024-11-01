@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router';
-
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface SideNavbarProps {
   routes: {
@@ -12,10 +11,12 @@ interface SideNavbarProps {
 
 const props = defineProps<SideNavbarProps>();
 const emits = defineEmits(['close-menu']);
-const route = useRoute();
 
-// Feaure 0: Manage Breakpoints and Style Classes
-const { containerPadding, activeBreakpoint, textSizeS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
+
+// Hooks Declarations
+const route = useRoute();
 </script>
 
 <template>
@@ -27,11 +28,11 @@ const { containerPadding, activeBreakpoint, textSizeS } = useCommonStyleSingleto
       tabindex="0"
       class="inline-flex items-center outline-none transition-sb-slow min-w-24 font-roboto ring-0 focus-visible:ring-0"
       :class="[
-        containerPadding,
-        textSizeS,
+        styleStore.containerPadding,
+        styleStore.textSizeS,
         {
-          'py-6': activeBreakpoint === 'md',
-          'py-4': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+          'py-6': styleStore.activeBreakpoint === 'md',
+          'py-4': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         },
         {
           'text-black bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80':

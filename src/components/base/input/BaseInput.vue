@@ -5,7 +5,8 @@ import { computed, ref } from 'vue';
 import { nanoid } from 'nanoid';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
+import { useFloatingPanel } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface InputProps {
   label?: string;
@@ -37,8 +38,8 @@ const props = withDefaults(defineProps<InputProps>(), {
 
 const inputValue = defineModel<string>('inputValue', { required: true });
 
-// Feature 0: Manage Style Classes
-const { textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 1: Manage Input Properties
 const uniqueId = nanoid();
@@ -102,7 +103,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       v-if="props.label"
       :for="inputId"
       tabindex="0"
-      :class="[textSizeXS]"
+      :class="[styleStore.textSizeXS]"
       class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
     >
       {{ props.label }}
@@ -127,7 +128,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         tabindex="0"
         :type="props.type"
         :class="[
-          textSizeXS,
+          styleStore.textSizeXS,
           {
             'bg-sb-secondary-100/50 border-sb-secondary-100 ': inputValue.length > 0,
             'bg-transparent border-white': inputValue.length === 0,
@@ -141,8 +142,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <BaseButton
         v-if="props.withMenu"
         ref="buttonMenuRef"
-        no-style
-        content-size="small"
+        variant="custom"
+        content-size="custom"
         class="absolute inset-y-1.5 right-0 mr-4 rounded-lg hover:opacity-60"
         :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
         :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"

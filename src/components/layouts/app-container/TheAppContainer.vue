@@ -1,54 +1,15 @@
 <script setup lang="ts">
-import { inject, Ref, watch } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
-import { useTitle } from '@vueuse/core';
-import { useTypedI18nSingleton } from '@/hooks';
-import { useNotificationStore } from '@/stores';
+import { inject, Ref } from 'vue';
+import { RouterView } from 'vue-router';
+import { useNotificationStore, useStyleStore } from '@/stores';
 
 import { TheHeader, ThePageLoader, TheNotificationBanner } from '@/components';
 
+// Store Declarations
+const styleStore = useStyleStore();
+const notificationStore = useNotificationStore();
+
 const isLoading = inject<Ref<boolean>>('isLoading');
-const route = useRoute();
-const { currentLanguage } = useTypedI18nSingleton();
-const title = useTitle();
-const ns = useNotificationStore();
-
-const ROUTER_TITLE_MAP = {
-  homePage: {
-    en: 'Home',
-    it: 'Home',
-  },
-  aboutPage: {
-    en: 'About Me',
-    it: 'Chi sono',
-  },
-  skillsPage: {
-    en: 'Skills',
-    it: 'Competenze',
-  },
-  projectsPage: {
-    en: 'Projects',
-    it: 'Progetti',
-  },
-  notFoundPage: {
-    en: '404 Not Found',
-    it: '404 Pagina non trovata',
-  },
-};
-
-const getTitleFromRoute = (): string => {
-  const routeName = route.name as keyof typeof ROUTER_TITLE_MAP;
-  const language = currentLanguage.value as 'en' | 'it';
-  return ROUTER_TITLE_MAP[routeName]?.[language] || '';
-};
-
-watch(
-  () => [route.name, currentLanguage.value],
-  () => {
-    title.value = `Stefano Biddau | ${getTitleFromRoute()}`;
-  },
-  { immediate: true },
-);
 </script>
 
 <template>
@@ -59,9 +20,24 @@ watch(
     <RouterView />
   </div>
 
-  <TheNotificationBanner
-    :show="ns.isNotificationVisible"
-    :type="ns.notificationType"
-    :message="ns.notificationMessage"
-  />
+  <div
+    :class="{
+      'bottom-5 right-[5%] w-fit': styleStore.activeBreakpoint !== 'xs',
+      'bottom-5 right-[6%] w-fit': styleStore.activeBreakpoint === 'md',
+      'bottom-5 right-[7%] w-fit':
+        styleStore.activeBreakpoint !== 'xs' &&
+        styleStore.activeBreakpoint !== 'sm' &&
+        styleStore.activeBreakpoint !== 'md',
+      'bottom-5 left-1/2 transform -translate-x-1/2 w-fit': styleStore.activeBreakpoint === 'xs',
+    }"
+    class="fixed flex flex-col items-center z-sb-notification w-fit gap-y-6"
+  >
+    <transition-group name="scale-and-fade-fast">
+      <TheNotificationBanner
+        v-for="notification in notificationStore.notifications"
+        :key="notification.id"
+        :notification="notification"
+      />
+    </transition-group>
+  </div>
 </template>

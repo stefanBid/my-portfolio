@@ -1,12 +1,9 @@
-// useCommonSTyle.ts
+import { defineStore } from 'pinia';
 import { useBreakpoints } from '@vueuse/core';
+import type { Breakpoint } from '@/types';
 import { computed, ComputedRef } from 'vue';
-type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
-let instance: ReturnType<typeof createCommonStyle> | undefined;
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function createCommonStyle() {
+export const useStyleStore = defineStore('style', () => {
   const breakpoints = useBreakpoints({
     xs: 0, // From 0 to 639px
     sm: 640, // From 640px to 767px
@@ -16,20 +13,8 @@ function createCommonStyle() {
     xxl: 1536, // From 1536px and up
   });
 
-  /**
-   * Returns the active breakpoint
-   *
-   * Breakpoints Range:
-   * xs: 0 - 639px
-   * sm: 640 - 767px
-   * md: 768 - 1023px
-   * lg: 1024 - 1279px
-   * xl: 1280 - 1535px
-   * xxl: 1536px and up
-   */
+  // Reactive state for style
   const activeBreakpoint = breakpoints.active() as ComputedRef<Breakpoint | undefined>;
-
-  // Common style for website elements
 
   const containerPadding = computed(() => {
     if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
@@ -157,11 +142,10 @@ function createCommonStyle() {
   });
 
   const iconSizeS = computed(() => {
-    if (
-      activeBreakpoint.value === 'xs' ||
-      activeBreakpoint.value === 'sm' ||
-      activeBreakpoint.value === 'md'
-    ) {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'size-4';
+    }
+    if (activeBreakpoint.value === 'md') {
       return 'size-5';
     }
     return 'size-6';
@@ -187,19 +171,11 @@ function createCommonStyle() {
     textSizeM,
     textSizeS,
     textSizeXS,
-    iconSizeXS,
-    iconSizeS,
-    iconSizeM,
-    iconSizeL,
-    iconSizeXL,
     iconSizeXXL,
+    iconSizeXL,
+    iconSizeL,
+    iconSizeM,
+    iconSizeS,
+    iconSizeXS,
   };
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function useCommonStyleSingleton() {
-  if (!instance) {
-    instance = createCommonStyle();
-  }
-  return instance;
-}
+});

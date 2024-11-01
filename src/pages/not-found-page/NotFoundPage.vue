@@ -1,46 +1,66 @@
 <script setup lang="ts">
 import { HomeIcon, WindowIcon } from '@heroicons/vue/24/outline';
 import { useRouter } from 'vue-router';
+import { watch } from 'vue';
 
 import { BaseButton } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
 
-// Feature 2: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+// Stores declarations
+const styleStore = useStyleStore();
+const i18nStore = useI18nStore();
+const titleStore = useTitleStore();
 
-// Feature 3: Manage Style Classes
-const { activeBreakpoint, textSizeXXL, textSizeL, containerPadding } = useCommonStyleSingleton();
-
-// Feature 4: Navigation
+// Hooks declarations
 const router = useRouter();
+
+// Feature 1: Page Title
+watch(
+  () => i18nStore.currentLanguage,
+  (newValue) => {
+    if (newValue === 'it') {
+      titleStore.setTitleSuffix('404 Pagina non trovata');
+    } else {
+      titleStore.setTitleSuffix('404 Page Not Found');
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <div
-    :class="[containerPadding]"
+    :class="[styleStore.containerPadding]"
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
-    <h1 :class="[textSizeXXL]" class="whitespace-normal transition-sb-slow font-bebas">
-      {{ currentLanguage === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
+    <h1 :class="[styleStore.textSizeXXL]" class="whitespace-normal transition-sb-slow font-bebas">
+      {{ i18nStore.notFoundPageI18nContent.firstHeading }}
     </h1>
+    <p
+      :class="[styleStore.textSizeL]"
+      class="font-medium whitespace-normal transition-sb-slow font-roboto"
+    >
+      {{ i18nStore.notFoundPageI18nContent.secondHeading }}
+    </p>
     <WindowIcon
       class="transition-sb-slow text-slate-700"
       :class="{
         'size-72':
-          activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-        'size-52': activeBreakpoint === 'md',
-        'size-32': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+          styleStore.activeBreakpoint !== 'xs' &&
+          styleStore.activeBreakpoint !== 'sm' &&
+          styleStore.activeBreakpoint !== 'md',
+        'size-52': styleStore.activeBreakpoint === 'md',
+        'size-32': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
       }"
     />
-    <p :class="[textSizeL]" class="font-medium whitespace-normal transition-sb-slow font-roboto">
-      {{
-        currentLanguage === 'en'
-          ? 'The page you are looking for does not exist.'
-          : 'La pagina che stai cercando non esiste.'
-      }}
-    </p>
-    <BaseButton :icon="HomeIcon" @click="router.push({ name: 'homePage' })">
-      {{ currentLanguage === 'en' ? 'Go Home' : 'Torna alla Home' }}
+
+    <BaseButton
+      id="goHomeButton"
+      name="go_home_button"
+      :icon="HomeIcon"
+      @click="router.push({ name: 'homePage' })"
+    >
+      {{ i18nStore.notFoundPageI18nContent.goHomeButton.text }}
     </BaseButton>
   </div>
 </template>

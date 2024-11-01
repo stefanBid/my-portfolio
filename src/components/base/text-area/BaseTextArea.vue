@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { nanoid } from 'nanoid';
-
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface TextAreaProps {
   label?: string;
@@ -22,8 +21,8 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
 
 const inputValue = defineModel<string>('inputValue', { required: true });
 
-// Feature 0: Manage Style Classes
-const { textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 1: Manage TextArea Properties
 const uniqueId = nanoid();
@@ -50,7 +49,7 @@ const handleFocusBlur = (focused: boolean): void => {
       v-if="props.label"
       :for="textAreaId"
       tabindex="0"
-      :class="[textSizeXS]"
+      :class="[styleStore.textSizeXS]"
       class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
     >
       {{ props.label }}
@@ -63,7 +62,7 @@ const handleFocusBlur = (focused: boolean): void => {
       tabindex="0"
       :maxlength="props.maxlength"
       :class="[
-        textSizeXS,
+        styleStore.textSizeXS,
         {
           'bg-sb-secondary-100/50 border-sb-secondary-100 ': inputValue.length > 0,
           'bg-transparent border-white': inputValue.length === 0,
@@ -75,7 +74,7 @@ const handleFocusBlur = (focused: boolean): void => {
       @blur="handleFocusBlur(false)"
     >
     </textarea>
-    <div :class="[textSizeXS]" class="flex justify-end w-full font-light text-white">
+    <div :class="[styleStore.textSizeXS]" class="flex justify-end w-full font-light text-white">
       {{ inputValue.length }} / {{ props.maxlength }}
     </div>
   </div>

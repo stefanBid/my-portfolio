@@ -3,15 +3,13 @@ import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
 import { BaseDialog, BaseInput } from '@/components';
-import { useCommonStyleSingleton, useTypedI18nSingleton } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
 import type { SkillInfo } from '@/types';
 
 import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
 
 interface SkillsModalProps {
   isModalOpen: boolean;
-  skillsList: SkillInfo[];
-
   handleCloseModal: (falsyValue: false) => void;
 }
 
@@ -19,21 +17,21 @@ const props = defineProps<SkillsModalProps>();
 
 const skillContainerRef = ref<HTMLElement | null>(null);
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS, iconSizeL } =
-  useCommonStyleSingleton();
-// Feature 1: Internationalization (i18n)
-const { currentLanguage } = useTypedI18nSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
+const i18nStore = useI18nStore();
 
-// Feature 2: Manage Skills Search
+// Feature 1: Manage Skills Search
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
 
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
+
 const filteredSkillsList = computed<SkillInfo[]>(() => {
   if (!debouncedSearchSkillKey.value) {
-    return props.skillsList;
+    return skillsList.value;
   }
-  return props.skillsList.filter((skill) =>
+  return skillsList.value.filter((skill) =>
     skill.name.toLowerCase().includes(debouncedSearchSkillKey.value.toLowerCase()),
   );
 });
@@ -63,7 +61,8 @@ watch(
   <BaseDialog
     :is-open="isModalOpen"
     header-orientation="left"
-    :dialog-title="currentLanguage === 'en' ? 'List of skills' : 'Lista delle competenze'"
+    block-dialog-height
+    :dialog-title="i18nStore.skillsPageI18nContent.skillsDialog.title"
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
@@ -71,14 +70,20 @@ watch(
         <div
           :class="{
             'w-4/6':
-              activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-            'w-5/6': activeBreakpoint === 'md',
-            'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'w-5/6': styleStore.activeBreakpoint === 'md',
+            'w-full': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
           }"
+          class="px-2"
         >
           <BaseInput
+            id="searchSkillKey"
             v-model:input-value="searchSkillKey"
-            placeholder="Search a specific skill"
+            name="search_skill_key"
+            :label="i18nStore.skillsPageI18nContent.skillsDialog.searchField.label"
+            :placeholder="i18nStore.skillsPageI18nContent.skillsDialog.searchField.placeholder"
             :custom-z-index="60"
             :with-menu="false"
           >
@@ -90,16 +95,12 @@ watch(
         <div
           class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse"
         >
-          <CursorArrowRaysIcon :class="[iconSizeXS]" />
+          <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" />
           <span
-            :class="[textSizeXS]"
+            :class="[styleStore.textSizeXS]"
             class="text-white transition-sb-slow font-roboto text-shadow-luminous"
           >
-            {{
-              currentLanguage === 'en'
-                ? 'Click on a skill to see its details'
-                : 'Clicca su una competenza per vedere i dettagli'
-            }}
+            {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
         </div>
         <div
@@ -116,14 +117,18 @@ watch(
         </div>
         <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
           <FaceFrownIcon
-            :class="[iconSizeL]"
+            :class="[styleStore.iconSizeL]"
             class="text-sb-tertiary-100 shrink-0 transition-sb-slow"
           />
           <span
-            :class="[textSizeXL]"
+            :class="[styleStore.textSizeXL]"
             class="w-full text-center text-white truncate font-bebas transition-sb-slow"
           >
-            {{ currentLanguage === 'en' ? 'No skills found !' : 'Nessuna competenza trovata !' }}
+            {{
+              i18nStore.currentLanguage === 'en'
+                ? 'No skills found !'
+                : 'Nessuna competenza trovata !'
+            }}
           </span>
         </div>
       </div>
