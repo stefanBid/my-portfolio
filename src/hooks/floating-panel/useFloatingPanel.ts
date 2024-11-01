@@ -39,7 +39,7 @@ export function useFloatingPanel(settings: FloatingSettings) {
 
   const syncPopperWidthWithAnchor = (): void => {
     if (floating.value && reference.value) {
-      floating.value.style.width = `${reference.value.offsetWidth * 0.95}px`;
+      floating.value.style.width = `${reference.value.offsetWidth}px`;
     }
   };
 
