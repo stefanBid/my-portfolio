@@ -9,14 +9,15 @@ interface DialogProps {
   isOpen: boolean;
   headerOrientation?: 'left' | 'center' | 'right';
   dialogSize?: 'small' | 'medium' | 'large';
+  blockDialogHeight?: boolean;
   dialogTitle?: string;
   onCloseModal: (falsyValue: false) => void;
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
   dialogSize: 'large',
+  blockDialogHeight: false,
   dialogTitle: undefined,
-  dialogSubtitle: undefined,
   headerOrientation: 'left',
 });
 
@@ -74,8 +75,10 @@ const handleCloseModal = (): void => {
                   styleStore.activeBreakpoint !== 'sm',
                 'w-full':
                   styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                'h-fit max-h-full': !props.blockDialogHeight,
+                'h-full': props.blockDialogHeight,
               }"
-              class="flex max-h-[95%] h-fit flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
+              class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
               <div
                 id="modal-header"

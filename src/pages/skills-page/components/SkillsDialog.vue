@@ -61,6 +61,7 @@ watch(
   <BaseDialog
     :is-open="isModalOpen"
     header-orientation="left"
+    block-dialog-height
     :dialog-title="i18nStore.skillsPageI18nContent.skillsDialog.title"
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
