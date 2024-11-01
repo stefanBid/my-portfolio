@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useCommonStyleSingleton } from '@/hooks';
-import { useNotificationStore, useI18nStore } from '@/stores';
+import { useNotificationStore, useI18nStore, useStyleStore } from '@/stores';
 import { BaseDialog, BaseInput, BaseButton, BaseTextArea } from '@/components';
 import { computed, ref, watch } from 'vue';
 import emailjs from '@emailjs/browser';
@@ -12,11 +11,12 @@ interface ContactMeFormDialogProps {
 
 const props = defineProps<ContactMeFormDialogProps>();
 
+// Store Declarations
+const styleStore = useStyleStore();
 const notificationStore = useNotificationStore();
 const i18nStore = useI18nStore();
 
-const { textSizeXS } = useCommonStyleSingleton();
-
+// Feature 1: Manage Contact Me Form
 const contactObject = ref({
   name: '',
   email: '',
@@ -103,7 +103,7 @@ watch(
     <template #modal-content>
       <div class="inline-flex items-center justify-center w-full text-white gap-x-2">
         <span
-          :class="[textSizeXS]"
+          :class="[styleStore.textSizeXS]"
           class="text-justify text-white transition-sb-slow font-roboto text-shadow-luminous"
         >
           {{ i18nStore.homePageI18nContent.contactMeForm.info }}

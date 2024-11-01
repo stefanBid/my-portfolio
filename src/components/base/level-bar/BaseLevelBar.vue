@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface Range {
   min: number;
@@ -15,8 +14,8 @@ interface BaseLevelBarProps {
 }
 const props = defineProps<BaseLevelBarProps>();
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 1: Level Bar
 
@@ -54,16 +53,20 @@ const getScore = computed(() => {
 
 <template>
   <div v-bind="$attrs" class="flex flex-col">
-    <span v-if="props.label" :class="[textSizeXS]" class="text-white font-roboto">
+    <span v-if="props.label" :class="[styleStore.textSizeXS]" class="text-white font-roboto">
       {{ props.label }}
     </span>
     <div class="flex items-center">
       <div
         :class="{
           'h-2.5':
-            activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
           'h-2':
-            activeBreakpoint === 'md' || activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+            styleStore.activeBreakpoint === 'md' ||
+            styleStore.activeBreakpoint === 'xs' ||
+            styleStore.activeBreakpoint === 'sm',
         }"
         class="relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200"
       >
@@ -72,7 +75,7 @@ const getScore = computed(() => {
           :style="{ width: getLevelBarWidth }"
         ></div>
       </div>
-      <span :class="[textSizeXS]" class="ml-2 text-white font-roboto">
+      <span :class="[styleStore.textSizeXS]" class="ml-2 text-white font-roboto">
         {{ getScore }}
       </span>
     </div>

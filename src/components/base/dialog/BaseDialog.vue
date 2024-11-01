@@ -3,15 +3,13 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessu
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 
 import { BaseButton } from '@/components';
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface DialogProps {
   isOpen: boolean;
   headerOrientation?: 'left' | 'center' | 'right';
   dialogSize?: 'small' | 'medium' | 'large';
   dialogTitle?: string;
-  dialogSubtitle?: string;
-
   onCloseModal: (falsyValue: false) => void;
 }
 
@@ -22,10 +20,10 @@ const props = withDefaults(defineProps<DialogProps>(), {
   headerOrientation: 'left',
 });
 
-// Feature 1: Manage Style Classes
-const { activeBreakpoint, containerPadding, textSizeL, textSizeS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
-// Feature 2: Send Close Modal Event
+// Feature 1: Send Close Modal Event
 const handleCloseModal = (): void => {
   props.onCloseModal(false);
 };
@@ -47,7 +45,10 @@ const handleCloseModal = (): void => {
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
-        <div :class="[containerPadding]" class="flex items-center justify-center h-screen py-8">
+        <div
+          :class="[styleStore.containerPadding]"
+          class="flex items-center justify-center h-screen py-8"
+        >
           <TransitionChild
             as="template"
             enter="duration-300 ease-out"
@@ -61,17 +62,18 @@ const handleCloseModal = (): void => {
               :class="{
                 'w-[45%]':
                   props.dialogSize === 'small' &&
-                  activeBreakpoint !== 'xs' &&
-                  activeBreakpoint !== 'sm',
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm',
                 'w-[65%]':
                   props.dialogSize === 'medium' &&
-                  activeBreakpoint !== 'xs' &&
-                  activeBreakpoint !== 'sm',
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm',
                 'w-[85%]':
                   props.dialogSize === 'large' &&
-                  activeBreakpoint !== 'xs' &&
-                  activeBreakpoint !== 'sm',
-                'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm',
+                'w-full':
+                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
               }"
               class="flex max-h-[95%] h-fit flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
@@ -90,24 +92,17 @@ const handleCloseModal = (): void => {
                   <h3
                     v-show="props.dialogTitle"
                     id="modal-title"
-                    :class="[textSizeL]"
+                    :class="[styleStore.textSizeL]"
                     class="font-medium text-white truncate whitespace-normal transition-sb-slow font-roboto"
                   >
                     {{ props.dialogTitle }}
                   </h3>
-                  <p
-                    v-show="props.dialogSubtitle"
-                    id="modal-subtitle"
-                    :class="[textSizeS]"
-                    class="mt-2 text-sm truncate transition-sb-slow text-white/60 font-roboto"
-                  >
-                    {{ props.dialogSubtitle }}
-                  </p>
                 </div>
                 <BaseButton
-                  no-style
                   class="text-white w-fit h-fit hover:rotate-90"
                   :icon="XMarkIcon"
+                  variant="custom"
+                  content-size="custom"
                   @click.stop="handleCloseModal"
                   @keydown.enter.stop="handleCloseModal"
                 />

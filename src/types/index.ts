@@ -1,6 +1,7 @@
 import { type SkillIcon } from '@/assets';
 
 /** GLOBAL **/
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type NotificationCategory = 'info' | 'success' | 'error';
 type Locale = 'en' | 'it';
 
@@ -121,6 +122,7 @@ interface NotFoundPageContent {
 }
 
 export type {
+  Breakpoint,
   Locale,
   Notification,
   NotificationCategory,

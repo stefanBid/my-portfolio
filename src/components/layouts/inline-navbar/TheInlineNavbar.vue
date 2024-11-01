@@ -9,7 +9,6 @@ interface InlineNavbarProps {
 }
 
 const props = defineProps<InlineNavbarProps>();
-
 const route = useRoute();
 </script>
 

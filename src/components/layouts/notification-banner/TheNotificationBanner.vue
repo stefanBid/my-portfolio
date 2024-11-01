@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCommonStyleSingleton } from '@/hooks';
+import { useStyleStore } from '@/stores';
 import type { Notification } from '@/types';
 import { InformationCircleIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/vue/24/solid';
 import {
@@ -17,9 +17,10 @@ interface TheNotificationBannerProps {
 
 const props = defineProps<TheNotificationBannerProps>();
 
-const { activeBreakpoint, iconSizeM, textSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
-// Feature 2: Manage Icons
+// Feature 1: Manage Nofitification Icon
 const notificationIcon = computed<FunctionalComponent | Component | string>(() => {
   switch (props.notification.type) {
     case 'success':
@@ -33,7 +34,7 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
   }
 });
 
-// Feature 3: Manage Countdown
+// Feature 2: Manage Countdown
 const countdown = ref(Math.ceil(props.notification.visibilityDuration / 1000));
 let interval: ReturnType<typeof setInterval> | null = null;
 
@@ -56,22 +57,25 @@ onUnmounted(() => {
   <div
     class="flex gap-x-4 items-end justify-between px-4 py-1.5 border-2 rounded-lg shadow-2xl transition-sb-slow shadow-black bg-sb-secondary-100 border-sb-secondary-100"
     :class="{
-      'w-72': activeBreakpoint === 'sm' || activeBreakpoint === 'xs',
-      'w-80': activeBreakpoint === 'md',
-      'w-96': activeBreakpoint !== 'md' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'xs',
+      'w-72': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+      'w-80': styleStore.activeBreakpoint === 'md',
+      'w-96':
+        styleStore.activeBreakpoint !== 'md' &&
+        styleStore.activeBreakpoint !== 'sm' &&
+        styleStore.activeBreakpoint !== 'xs',
     }"
   >
     <div class="inline-flex items-center flex-1 gap-x-2">
       <component
         :is="notificationIcon"
-        :class="[iconSizeM]"
+        :class="[styleStore.iconSizeM]"
         class="text-sb-tertiary-100 shrink-0"
       />
-      <span :class="[textSizeXS]" class="text-left text-white text-sb-base font-roboto">
+      <span :class="[styleStore.textSizeXS]" class="text-left text-white text-sb-base font-roboto">
         {{ props.notification.message }}
       </span>
     </div>
-    <span :class="[textSizeXS]" class="text-left text-white text-sb-base font-roboto">
+    <span :class="[styleStore.textSizeXS]" class="text-left text-white text-sb-base font-roboto">
       {{ countdown }}s
     </span>
   </div>

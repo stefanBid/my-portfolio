@@ -4,7 +4,8 @@ import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
 import type { Component, FunctionalComponent } from 'vue';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel, useCommonStyleSingleton } from '@/hooks';
+import { useFloatingPanel } from '@/hooks';
+import { useStyleStore } from '@/stores';
 
 interface DropdownMenuProps {
   label?: string;
@@ -30,8 +31,8 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
   }),
 });
 
-// Feature 0: Manage Style Classes
-const { iconSizeXS } = useCommonStyleSingleton();
+// Store Declarations
+const styleStore = useStyleStore();
 
 // Feature 1: Manage Open <--> Close State
 const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } = useFloatingPanel({
@@ -64,9 +65,9 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           rootMargin: props.intersectionObserverSettings.rootMargin,
         },
       ]"
-      no-style
       content-size="small"
-      class="justify-between px-3 py-1.5 border-2 rounded-full group focus-visible:ring-0 ring-0"
+      variant="custom"
+      class="group !justify-between border-2"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 text-black shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
@@ -77,12 +78,17 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     >
       <span class="inline-flex items-center gap-x-2">
         <span v-if="props.label"> {{ props.label }} </span>
-        <component :is="props.icon" v-if="props.icon" class="shrink-0" :class="[iconSizeXS]" />
+        <component
+          :is="props.icon"
+          v-if="props.icon"
+          class="shrink-0"
+          :class="[styleStore.iconSizeXS]"
+        />
       </span>
       <ChevronDownIcon
-        class="ml-3.5 transition-sb-slow shrink-0"
+        class="ml-2 transition-sb-slow shrink-0"
         :class="[
-          iconSizeXS,
+          styleStore.iconSizeXS,
           {
             'rotate-180 text-black': isOpen,
             'rotate-0 text-white ': !isOpen,

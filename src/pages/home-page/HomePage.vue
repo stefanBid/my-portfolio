@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted, ref } from 'vue';
-
-import { BaseButton } from '@/components';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
-import { useCommonStyleSingleton, useTypingText } from '@/hooks';
-import { useI18nStore } from '@/stores';
+import { BaseButton } from '@/components';
+import { useTypingText } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
 import { downloadCv } from '@/utils';
 
-// Feature 1: Common Style
-const { activeBreakpoint, containerPadding, textSizeXXL, textSizeXL } = useCommonStyleSingleton();
-
-// Feature 2: Internationalization (i18n)
+// Store Declarations
+const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // Feature 3: Machine Typing Effect
@@ -55,12 +52,16 @@ const changeVisibility = (falsyValue: boolean): void => {
 
     <div
       :class="[
-        containerPadding,
+        styleStore.containerPadding,
         {
           'flex-col gap-y-12 justify-center items-center':
-            activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
+            styleStore.activeBreakpoint === 'xs' ||
+            styleStore.activeBreakpoint === 'sm' ||
+            styleStore.activeBreakpoint === 'md',
           'items-center justify-between':
-            activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
         },
       ]"
       class="absolute inset-0 flex w-full h-full pt-20 z-sb-base-2"
@@ -71,35 +72,46 @@ const changeVisibility = (falsyValue: boolean): void => {
           class="flex flex-col justify-center w-full border-white transition-sb-slow gap-y-4 font-bebas"
           :class="{
             'h-full':
-              activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
             'text-center items-center':
-              activeBreakpoint === 'xs' || activeBreakpoint === 'sm' || activeBreakpoint === 'md',
+              styleStore.activeBreakpoint === 'xs' ||
+              styleStore.activeBreakpoint === 'sm' ||
+              styleStore.activeBreakpoint === 'md',
           }"
         >
-          <h2 class="text-white whitespace-normal transition-sb-slow" :class="[textSizeXL]">
+          <h2
+            class="text-white whitespace-normal transition-sb-slow"
+            :class="[styleStore.textSizeXL]"
+          >
             {{ i18nStore.homePageI18nContent.firstHeading }}
           </h2>
           <h1
             class="text-black whitespace-normal bg-white transition-sb-slow rounded-xl w-fit rotate-3"
             :class="[
-              textSizeXXL,
+              styleStore.textSizeXXL,
               {
-                'px-1 py-0.5': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
-                'px-2 py-1': activeBreakpoint === 'md',
+                'px-1 py-0.5':
+                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                'px-2 py-1': styleStore.activeBreakpoint === 'md',
                 'mx-auto':
-                  activeBreakpoint === 'xs' ||
-                  activeBreakpoint === 'sm' ||
-                  activeBreakpoint === 'md',
+                  styleStore.activeBreakpoint === 'xs' ||
+                  styleStore.activeBreakpoint === 'sm' ||
+                  styleStore.activeBreakpoint === 'md',
                 'px-4 py-2':
-                  activeBreakpoint !== 'xs' &&
-                  activeBreakpoint !== 'sm' &&
-                  activeBreakpoint !== 'md',
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
               },
             ]"
           >
             {{ i18nStore.homePageI18nContent.secondHeading }}
           </h1>
-          <h2 class="text-white whitespace-normal transition-sb-slow" :class="[textSizeXL]">
+          <h2
+            class="text-white whitespace-normal transition-sb-slow"
+            :class="[styleStore.textSizeXL]"
+          >
             {{ i18nStore.currentLanguage === 'en' ? `And I'm a` : `E sono uno` }} {{ currentTxt }}_
           </h2>
         </div>
@@ -110,7 +122,9 @@ const changeVisibility = (falsyValue: boolean): void => {
           class="flex flex-col items-center justify-center w-fit gap-y-4"
           :class="{
             'h-full shrink-0':
-              activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
           }"
         >
           <BaseButton
@@ -123,7 +137,10 @@ const changeVisibility = (falsyValue: boolean): void => {
             {{ i18nStore.homePageI18nContent.contactMeButton.text }}
           </BaseButton>
 
-          <span class="block text-white transition-sb-slow font-bebas" :class="[textSizeXL]">
+          <span
+            class="block text-white transition-sb-slow font-bebas"
+            :class="[styleStore.textSizeXL]"
+          >
             {{ i18nStore.currentLanguage === 'en' ? 'Or' : 'Oppure' }}
           </span>
 

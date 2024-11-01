@@ -3,8 +3,7 @@ import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
 import { BaseDialog, BaseInput } from '@/components';
-import { useCommonStyleSingleton } from '@/hooks';
-import { useI18nStore } from '@/stores';
+import { useI18nStore, useStyleStore } from '@/stores';
 import type { SkillInfo } from '@/types';
 
 import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
@@ -18,17 +17,15 @@ const props = defineProps<SkillsModalProps>();
 
 const skillContainerRef = ref<HTMLElement | null>(null);
 
-// Feature 0: Manage Style Classes
-const { activeBreakpoint, textSizeXL, textSizeXS, iconSizeXS, iconSizeL } =
-  useCommonStyleSingleton();
-
-// Feature 1: Internationalization (i18n)
+// Store Declarations
+const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 
-// Feature 2: Manage Skills Search
+// Feature 1: Manage Skills Search
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
+
+const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 
 const filteredSkillsList = computed<SkillInfo[]>(() => {
   if (!debouncedSearchSkillKey.value) {
@@ -72,10 +69,13 @@ watch(
         <div
           :class="{
             'w-4/6':
-              activeBreakpoint !== 'xs' && activeBreakpoint !== 'sm' && activeBreakpoint !== 'md',
-            'w-5/6': activeBreakpoint === 'md',
-            'w-full': activeBreakpoint === 'xs' || activeBreakpoint === 'sm',
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'w-5/6': styleStore.activeBreakpoint === 'md',
+            'w-full': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
           }"
+          class="px-2"
         >
           <BaseInput
             id="searchSkillKey"
@@ -94,9 +94,9 @@ watch(
         <div
           class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse"
         >
-          <CursorArrowRaysIcon :class="[iconSizeXS]" />
+          <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" />
           <span
-            :class="[textSizeXS]"
+            :class="[styleStore.textSizeXS]"
             class="text-white transition-sb-slow font-roboto text-shadow-luminous"
           >
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
@@ -116,11 +116,11 @@ watch(
         </div>
         <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
           <FaceFrownIcon
-            :class="[iconSizeL]"
+            :class="[styleStore.iconSizeL]"
             class="text-sb-tertiary-100 shrink-0 transition-sb-slow"
           />
           <span
-            :class="[textSizeXL]"
+            :class="[styleStore.textSizeXL]"
             class="w-full text-center text-white truncate font-bebas transition-sb-slow"
           >
             {{
