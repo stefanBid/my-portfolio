@@ -10,6 +10,7 @@ interface BaseButtonProps {
   loading?: boolean;
   icon?: FunctionalComponent | Component | string;
   contentSize?: 'small' | 'medium' | 'custom';
+  dataTestid?: string;
 }
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
   disabled: false,
   loading: false,
   icon: undefined,
+  dataTestid: 'base-button',
 });
 
 // Store Declarations
@@ -27,8 +29,10 @@ const styleStore = useStyleStore();
 
 <template>
   <button
+    :data-testid="props.dataTestid"
     v-bind="$attrs"
     :type="props.type"
+    :disabled="props.disabled || props.loading"
     class="inline-flex items-center justify-center font-medium rounded-full outline-none ring-0 focus-visible:ring-0 transition-sb-slow font-roboto"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
