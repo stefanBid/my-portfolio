@@ -6,6 +6,7 @@ import { BaseButton } from '@/components';
 import { useStyleStore } from '@/stores';
 
 interface DialogProps {
+  dataTestid?: string;
   isOpen: boolean;
   headerOrientation?: 'left' | 'center' | 'right';
   dialogSize?: 'small' | 'medium' | 'large';
@@ -15,6 +16,7 @@ interface DialogProps {
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
+  dataTestid: 'base-dialog',
   dialogSize: 'large',
   blockDialogHeight: false,
   dialogTitle: undefined,
@@ -60,6 +62,7 @@ const handleCloseModal = (): void => {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
+              :data-testid="props.dataTestid"
               :class="{
                 'w-[45%]':
                   props.dialogSize === 'small' &&
