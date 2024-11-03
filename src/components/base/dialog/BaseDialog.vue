@@ -62,7 +62,7 @@ const handleCloseModal = (): void => {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              :data-testid="props.dataTestid"
+              :data-testid="`${props.dataTestid}-panel`"
               :class="{
                 'w-[45%]':
                   props.dialogSize === 'small' &&
@@ -105,6 +105,7 @@ const handleCloseModal = (): void => {
                   </h3>
                 </div>
                 <BaseButton
+                  :data-testid="`${props.dataTestid}-close-button`"
                   class="text-white w-fit h-fit hover:rotate-90"
                   :icon="XMarkIcon"
                   variant="custom"
