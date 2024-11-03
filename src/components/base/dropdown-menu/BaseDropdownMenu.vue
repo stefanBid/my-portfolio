@@ -8,6 +8,7 @@ import { useFloatingPanel } from '@/hooks';
 import { useStyleStore } from '@/stores';
 
 interface DropdownMenuProps {
+  dataTestid?: string;
   label?: string;
   icon?: FunctionalComponent | Component | string;
   zIndex?: 'z-sb-base-5' | 'z-sb-dropdown';
@@ -20,6 +21,7 @@ interface DropdownMenuProps {
 }
 
 const props = withDefaults(defineProps<DropdownMenuProps>(), {
+  dataTestid: 'base-dropdown-menu',
   label: undefined,
   icon: undefined,
   zIndex: 'z-sb-dropdown',
@@ -65,6 +67,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           rootMargin: props.intersectionObserverSettings.rootMargin,
         },
       ]"
+      :data-testid="`${props.dataTestid}-button`"
       content-size="small"
       variant="custom"
       class="group !justify-between border-2"
@@ -105,9 +108,10 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             (_: Event) => changeFloatingVisibility(false),
             { ignore: [reference] },
           ]"
+          :data-testid="`${props.dataTestid}-floating-panel`"
           :style="floatingStyles"
           :class="[props.zIndex]"
-          class="box-border absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-black w-fit h-fit"
+          class="box-border border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-black w-fit h-fit"
         >
           <slot
             name="dropdown-section-content"
