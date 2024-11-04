@@ -9,6 +9,7 @@ import { useFloatingPanel } from '@/hooks';
 import { useStyleStore } from '@/stores';
 
 interface InputProps {
+  dataTestid?: string;
   label?: string;
   id?: string;
   name?: string;
@@ -23,6 +24,7 @@ interface InputProps {
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
+  dataTestid: 'base-input',
   label: undefined,
   id: undefined,
   name: undefined,
@@ -101,6 +103,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
   <div class="flex flex-col w-full gap-y-2">
     <label
       v-if="props.label"
+      :data-testid="`${props.dataTestid}-label`"
       :for="inputId"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
@@ -124,6 +127,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         :id="inputId"
         ref="reference"
         v-model="inputValue"
+        :data-testid="`${props.dataTestid}`"
         :name="inputName"
         tabindex="0"
         :type="props.type"
@@ -142,6 +146,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <BaseButton
         v-if="props.withMenu"
         ref="buttonMenuRef"
+        :data-testid="`${props.dataTestid}-button-menu`"
         variant="custom"
         content-size="custom"
         class="absolute inset-y-1.5 right-0 mr-3 rounded-lg hover:opacity-60"
@@ -159,6 +164,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             (_: Event) => changeFloatingVisibility(false),
             { ignore: [reference, buttonMenuRef] },
           ]"
+          :data-testid="`${props.dataTestid}-input-menu-box`"
           :style="floatingStyles"
           class="absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
         >
