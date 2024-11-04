@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/vue';
+import { render, fireEvent, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseDropdownMenu } from '@/components';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
@@ -107,6 +107,11 @@ describe('BaseDropdownMenu.vue', () => {
       const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
         props: {
           dataTestid: 'base-dropdown-menu',
+          intersectionObserverSettings: {
+            rootElement: null,
+            rootMargin: '-80px 0px 0px 0px',
+            threshold: 0.05,
+          },
         },
       });
 
@@ -116,8 +121,8 @@ describe('BaseDropdownMenu.vue', () => {
       const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
       expect(floatingPanel).toBeVisible();
 
-      await fireEvent.click(document.body);
-      expect(floatingPanel).not.toBeVisible();
+      mockIntersectionObserver.mock.calls[0][0]([{ isIntersecting: false }]);
+      await waitFor(() => expect(floatingPanel).not.toBeInTheDocument());
     });
   });
 
