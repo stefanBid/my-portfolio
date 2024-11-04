@@ -11,12 +11,12 @@ interface BaseLevelBarProps {
   level: number;
   scale?: 'decimal' | 'percentage';
   label?: string;
-  dataTestId?: string;
+  dataTestid?: string;
 }
 const props = withDefaults(defineProps<BaseLevelBarProps>(), {
   scale: 'decimal',
   label: undefined,
-  dataTestId: 'base-level-bar',
+  dataTestid: 'base-level-bar',
 });
 
 // Store Declarations
@@ -60,13 +60,13 @@ const getScore = computed(() => {
   <div v-bind="$attrs" class="flex flex-col">
     <span
       v-if="props.label"
-      :data-testid="`${props.dataTestId}-label`"
+      :data-testid="`${props.dataTestid}-label`"
       :class="[styleStore.textSizeXS]"
       class="text-white font-roboto"
     >
       {{ props.label }}
     </span>
-    <div :data-testid="props.dataTestId" class="flex items-center">
+    <div :data-testid="props.dataTestid" class="flex items-center">
       <div
         :class="{
           'h-2.5':

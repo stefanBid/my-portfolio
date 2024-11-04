@@ -9,7 +9,7 @@ describe('BaseLevelBar.vue', () => {
         props: {
           label: 'Skill Level',
           level: 5,
-          dataTestId: 'base-level-bar',
+          dataTestid: 'base-level-bar',
         },
       });
 
@@ -23,7 +23,7 @@ describe('BaseLevelBar.vue', () => {
       const { queryByTestId } = render(BaseLevelBar, {
         props: {
           level: 5,
-          dataTestId: 'base-level-bar',
+          dataTestid: 'base-level-bar',
         },
       });
 
@@ -51,7 +51,7 @@ describe('BaseLevelBar.vue', () => {
           props: {
             level,
             scale: scale as 'decimal' | 'percentage',
-            dataTestId: 'base-level-bar',
+            dataTestid: 'base-level-bar',
           },
         });
 
@@ -80,7 +80,7 @@ describe('BaseLevelBar.vue', () => {
           props: {
             level,
             scale: scale as 'decimal' | 'percentage',
-            dataTestId: 'base-level-bar',
+            dataTestid: 'base-level-bar',
           },
         });
 
@@ -95,7 +95,7 @@ describe('BaseLevelBar.vue', () => {
       const { getByTestId } = render(BaseLevelBar, {
         props: {
           level: 5,
-          dataTestId: 'base-level-bar',
+          dataTestid: 'base-level-bar',
         },
       });
 
