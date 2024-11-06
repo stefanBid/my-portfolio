@@ -83,11 +83,9 @@ const handleCloseModal = (): void => {
               }"
               class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
-              <div
-                id="modal-header"
-                class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6"
-              >
+              <div class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6">
                 <div
+                  :data-testid="`${props.dataTestid}-header-title`"
                   :class="{
                     'text-left': props.headerOrientation === 'left',
                     'text-center': props.headerOrientation === 'center',
