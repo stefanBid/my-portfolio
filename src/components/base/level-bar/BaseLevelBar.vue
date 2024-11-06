@@ -8,11 +8,16 @@ interface Range {
 }
 
 interface BaseLevelBarProps {
-  scale: 'decimal' | 'percentage';
   level: number;
+  scale?: 'decimal' | 'percentage';
   label?: string;
+  dataTestid?: string;
 }
-const props = defineProps<BaseLevelBarProps>();
+const props = withDefaults(defineProps<BaseLevelBarProps>(), {
+  scale: 'decimal',
+  label: undefined,
+  dataTestid: 'base-level-bar',
+});
 
 // Store Declarations
 const styleStore = useStyleStore();
@@ -53,10 +58,15 @@ const getScore = computed(() => {
 
 <template>
   <div v-bind="$attrs" class="flex flex-col">
-    <span v-if="props.label" :class="[styleStore.textSizeXS]" class="text-white font-roboto">
+    <span
+      v-if="props.label"
+      :data-testid="`${props.dataTestid}-label`"
+      :class="[styleStore.textSizeXS]"
+      class="text-white font-roboto"
+    >
       {{ props.label }}
     </span>
-    <div class="flex items-center">
+    <div :data-testid="props.dataTestid" class="flex items-center">
       <div
         :class="{
           'h-2.5':

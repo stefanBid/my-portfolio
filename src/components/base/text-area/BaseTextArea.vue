@@ -9,6 +9,7 @@ interface TextAreaProps {
   name?: string;
   placeholder?: string;
   maxlength?: number;
+  dataTestid?: string;
 }
 
 const props = withDefaults(defineProps<TextAreaProps>(), {
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
   placeholder: 'Enter a text',
   maxlength: 300,
   label: undefined,
+  dataTestid: 'base-text-area',
 });
 
 const inputValue = defineModel<string>('inputValue', { required: true });
@@ -48,6 +50,7 @@ const handleFocusBlur = (focused: boolean): void => {
     <label
       v-if="props.label"
       :for="textAreaId"
+      :data-testid="`${props.dataTestid}-label`"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
       class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
@@ -59,6 +62,7 @@ const handleFocusBlur = (focused: boolean): void => {
       :id="textAreaId"
       v-model="inputValue"
       :name="textAreaName"
+      :data-testid="props.dataTestid"
       tabindex="0"
       :maxlength="props.maxlength"
       :class="[

@@ -2,7 +2,7 @@
 import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
-import { BaseDialog, BaseInput, BaseToggle } from '@/components';
+import { BaseDialog, BaseInput, BaseSwitch } from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { SkillInfo, SkillType } from '@/types';
 
@@ -134,7 +134,7 @@ watch(
                   :key="filterKey"
                   class="inline-flex items-center w-full"
                 >
-                  <BaseToggle
+                  <BaseSwitch
                     v-model:enabled="filters[filterKey]"
                     :label="getFiltersLabel[filterKey]"
                   />

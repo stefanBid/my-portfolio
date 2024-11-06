@@ -16,3 +16,27 @@ global.ResizeObserver = class {
 
   disconnect(): void {}
 };
+
+global.IntersectionObserver = class IntersectionObserver {
+  root: Element | null = null;
+  rootMargin: string = '';
+  thresholds: ReadonlyArray<number> = [];
+
+  constructor(
+    public callback: IntersectionObserverCallback,
+    public options?: IntersectionObserverInit,
+  ) {}
+
+  observe(target: Element): void {
+    // Simulate the callback invocation when an element is observed.
+    this.callback([{ isIntersecting: true, target }] as IntersectionObserverEntry[], this);
+  }
+
+  unobserve(_: Element): void {}
+
+  disconnect(): void {}
+
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+};
