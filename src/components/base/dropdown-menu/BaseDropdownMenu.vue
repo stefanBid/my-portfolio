@@ -69,6 +69,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       ]"
       :data-testid="`${props.dataTestid}-button`"
       content-size="small"
+      spacing-size="small"
       variant="custom"
       class="group !justify-between border-2"
       :class="{
