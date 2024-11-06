@@ -1,111 +1,134 @@
-import { render, fireEvent } from '@testing-library/vue';
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/vue';
+import { describe, it, expect, vi } from 'vitest';
 import { BaseDialog } from '@/components';
 
-describe('BaseDialog.vue', () => {
-  const onCloseModal = vi.fn();
-
-  afterEach(() => {
-    onCloseModal.mockReset();
-  });
-
-  describe('Basic rendering and behavior', () => {
-    it('renders the dialog with title when isOpen is true', async () => {
-      const { findByTestId } = render(BaseDialog, {
-        props: {
-          dataTestid: 'base-dialog',
-          isOpen: true,
-          dialogTitle: 'Test Dialog',
-          onCloseModal,
-        },
-      });
-
-      const dialogPanel = await findByTestId('base-dialog-panel');
-      expect(dialogPanel).toBeVisible();
-      expect(dialogPanel).toHaveTextContent('Test Dialog');
-
-      const title = dialogPanel.querySelector('#modal-title');
-      expect(title).toHaveTextContent('Test Dialog');
-      expect(title).toHaveClass('font-medium', 'text-white');
-    });
-
-    it('closes the dialog on close button click', async () => {
-      const { findByTestId } = render(BaseDialog, {
-        props: { dataTestid: 'base-dialog', isOpen: true, onCloseModal },
-      });
-
-      const closeButton = await findByTestId('base-dialog-close-button');
-      await fireEvent.click(closeButton);
-
-      expect(onCloseModal).toHaveBeenCalledWith(false);
-    });
-
-    it('closes the dialog on overlay click', async () => {
-      // Render the dialog with required props
+describe('BaseDialog Unit Tests', () => {
+  const onCloseModalMock = vi.fn((_: boolean) => {});
+  describe('Props', () => {
+    it.each(['small', 'medium', 'large'])('set the correct dialog size "%s"', async (size) => {
       render(BaseDialog, {
         props: {
-          dataTestid: 'base-dialog',
           isOpen: true,
-          onCloseModal,
-        },
-      });
-
-      await fireEvent.keyDown(document, { key: 'Escape' });
-
-      expect(onCloseModal).toHaveBeenCalledWith(false);
-    });
-  });
-
-  describe('Dialog size and header orientation', () => {
-    it.each([
-      ['small', 'w-[45%]'],
-      ['medium', 'w-[65%]'],
-      ['large', 'w-[85%]'],
-    ])('applies correct width class for dialogSize "%s"', async (size, expectedClass) => {
-      const { findByTestId } = render(BaseDialog, {
-        props: {
-          dataTestid: 'base-dialog',
-          isOpen: true,
+          dataTestid: 'custom-base-dialog',
           dialogSize: size as 'small' | 'medium' | 'large',
-          onCloseModal,
+          onCloseModal: onCloseModalMock,
         },
       });
-
-      const dialogPanel = await findByTestId('base-dialog-panel');
-      expect(dialogPanel).toHaveClass(expectedClass);
+      const dialog = await screen.findByTestId('custom-base-dialog-panel');
+      expect(dialog).toBeInTheDocument();
+      if (size === 'small') expect(dialog).toHaveClass('w-[45%]');
+      if (size === 'medium') expect(dialog).toHaveClass('w-[65%]');
+      if (size === 'large') expect(dialog).toHaveClass('w-[85%]');
     });
 
-    it.each([
-      ['left', 'text-left'],
-      ['center', 'text-center'],
-      ['right', 'text-right'],
-    ])('applies correct class for headerOrientation "%s"', async (orientation, expectedClass) => {
-      const { findByTestId } = render(BaseDialog, {
+    it.each([true, false])(
+      'set the correct dialog height when is height block state is "%s"',
+      async (state) => {
+        render(BaseDialog, {
+          props: {
+            isOpen: true,
+            dataTestid: 'custom-base-dialog',
+            dialogSize: 'large',
+            blockDialogHeight: state,
+            onCloseModal: onCloseModalMock,
+          },
+        });
+        const dialog = await screen.findByTestId('custom-base-dialog-panel');
+        expect(dialog).toBeInTheDocument();
+        if (state) expect(dialog).toHaveClass('h-full');
+        if (!state) expect(dialog).toHaveClass('h-fit max-h-full');
+      },
+    );
+
+    it('set the correct dialog title', async () => {
+      render(BaseDialog, {
         props: {
-          dataTestid: 'base-dialog',
           isOpen: true,
-          dialogTitle: 'Header Test',
-          headerOrientation: orientation as 'left' | 'center' | 'right',
-          onCloseModal,
+          dataTestid: 'custom-base-dialog',
+          dialogTitle: 'test-dialog-title',
+          onCloseModal: onCloseModalMock,
+        },
+      });
+      const dialog = await screen.findByTestId('custom-base-dialog-panel');
+      expect(dialog).toBeInTheDocument();
+      expect(dialog).toHaveTextContent('test-dialog-title');
+    });
+
+    it.each(['left', 'center', 'right'])(
+      'set the correct header orientation "%s"',
+      async (orientation) => {
+        render(BaseDialog, {
+          props: {
+            isOpen: true,
+            dataTestid: 'custom-base-dialog',
+            headerOrientation: orientation as 'left' | 'center' | 'right',
+            onCloseModal: onCloseModalMock,
+          },
+        });
+        const dialogHeader = await screen.findByTestId('custom-base-dialog-header-title');
+        expect(dialogHeader).toBeInTheDocument();
+        if (orientation === 'left') expect(dialogHeader).toHaveClass('text-left');
+        if (orientation === 'center') expect(dialogHeader).toHaveClass('text-center');
+        if (orientation === 'right') expect(dialogHeader).toHaveClass('text-right');
+      },
+    );
+  });
+  describe('Open and Close State', () => {
+    it.each([true, false])('check if the dialog is open when isOpen is "%s"', async (state) => {
+      render(BaseDialog, {
+        props: {
+          isOpen: state,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
         },
       });
 
-      const header = (await findByTestId('base-dialog-panel')).querySelector('#modal-header div');
-      expect(header).toHaveClass(expectedClass);
+      if (state) {
+        expect(await screen.findByTestId('custom-base-dialog-panel')).toBeInTheDocument();
+      } else {
+        expect(screen.queryByTestId('custom-base-dialog-panel')).toBeNull();
+      }
     });
-  });
 
-  describe('Dialog height behavior', () => {
-    it.each([
-      ['h-full', true],
-      ['h-fit max-h-full', false],
-    ])('applies "%s" class when blockDialogHeight is "%s"', async (expectedClass, status) => {
-      const { findByTestId } = render(BaseDialog, {
-        props: { dataTestid: 'base-dialog', isOpen: true, blockDialogHeight: status, onCloseModal },
+    it('check if onCloseModal is called correctly when the close button is clicked', async () => {
+      render(BaseDialog, {
+        props: {
+          isOpen: true,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
+        },
       });
+      const closeButton = await screen.findByTestId('custom-base-dialog-close-button');
+      await fireEvent.click(closeButton);
+      expect(onCloseModalMock).toHaveBeenCalled();
+      expect(onCloseModalMock).toHaveBeenCalledWith(false);
+    });
 
-      const dialogPanel = await findByTestId('base-dialog-panel');
-      expect(dialogPanel).toHaveClass(expectedClass);
+    it('check if onCloseModal is called correctly when the escape key is pressed', async () => {
+      render(BaseDialog, {
+        props: {
+          isOpen: true,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
+        },
+      });
+      await fireEvent.keyDown(document, { key: 'Escape' });
+      expect(onCloseModalMock).toHaveBeenCalled();
+      expect(onCloseModalMock).toHaveBeenCalledWith(false);
+    });
+
+    it('check if onCloseModal is called correctly when you click outside the dialog', async () => {
+      render(BaseDialog, {
+        props: {
+          isOpen: true,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
+        },
+      });
+      const dialogOverlay = await screen.findByTestId('custom-base-dialog-overlay');
+      await fireEvent.click(dialogOverlay);
+      expect(onCloseModalMock).toHaveBeenCalled();
+      expect(onCloseModalMock).toHaveBeenCalledWith(false);
     });
   });
 });

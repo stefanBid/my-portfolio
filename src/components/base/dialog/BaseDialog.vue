@@ -44,7 +44,10 @@ const handleCloseModal = (): void => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"></div>
+        <div
+          :data-testid="`${props.dataTestid}-overlay`"
+          class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"
+        ></div>
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
@@ -83,11 +86,9 @@ const handleCloseModal = (): void => {
               }"
               class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
             >
-              <div
-                id="modal-header"
-                class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6"
-              >
+              <div class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6">
                 <div
+                  :data-testid="`${props.dataTestid}-header-title`"
                   :class="{
                     'text-left': props.headerOrientation === 'left',
                     'text-center': props.headerOrientation === 'center',
