@@ -109,7 +109,9 @@ const handleCloseModal = (): void => {
                   class="text-white w-fit h-fit hover:rotate-90"
                   :icon="XMarkIcon"
                   variant="custom"
-                  content-size="custom"
+                  content-size="medium"
+                  spacing-size="custom"
+                  aria-label="close modal button"
                   @click.stop="handleCloseModal"
                   @keydown.enter.stop="handleCloseModal"
                 />
