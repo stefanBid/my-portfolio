@@ -5,22 +5,26 @@ import { useStyleStore } from '@/stores';
 
 interface BaseButtonProps {
   type?: 'button' | 'submit' | 'reset';
-  disabled?: boolean;
   variant?: 'white' | 'tertiary' | 'custom';
+  contentSize?: 'small' | 'medium' | 'custom';
+  spacingSize?: 'small' | 'medium' | 'custom';
+  disabled?: boolean;
   loading?: boolean;
   icon?: FunctionalComponent | Component | string;
-  contentSize?: 'small' | 'medium' | 'custom';
   dataTestid?: string;
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
   type: 'button',
   variant: 'tertiary',
   contentSize: 'medium',
+  spacingSize: 'medium',
   disabled: false,
   loading: false,
   icon: undefined,
   dataTestid: 'base-button',
+  ariaLabel: 'general button',
 });
 
 // Store Declarations
@@ -33,32 +37,34 @@ const styleStore = useStyleStore();
     v-bind="$attrs"
     :type="props.type"
     :disabled="props.disabled || props.loading"
+    :aria-label="props.ariaLabel"
     class="inline-flex items-center justify-center font-medium rounded-full outline-none ring-0 focus-visible:ring-0 transition-sb-slow font-roboto"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
-      props.contentSize === 'medium' ? styleStore.textSizeS : styleStore.textSizeXS,
+      props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
+      props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
       {
         'px-6 py-4 gap-x-3':
-          props.contentSize === 'medium' &&
+          props.spacingSize === 'medium' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
         'px-5 py-3 gap-x-2.5':
-          props.contentSize === 'medium' && styleStore.activeBreakpoint === 'md',
+          props.spacingSize === 'medium' && styleStore.activeBreakpoint === 'md',
         'px-4 py-2 gap-x-2.5':
-          props.contentSize === 'medium' &&
+          props.spacingSize === 'medium' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
         'px-3.5 py-1.5 gap-x-2':
-          props.contentSize === 'small' &&
+          props.spacingSize === 'small' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
         'px-3 py-1.5 gap-x-1.5':
-          props.contentSize === 'small' && styleStore.activeBreakpoint === 'md',
+          props.spacingSize === 'small' && styleStore.activeBreakpoint === 'md',
         'px-3 py-1 gap-x-1.5':
-          props.contentSize === 'small' &&
+          props.spacingSize === 'small' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
@@ -79,7 +85,8 @@ const styleStore = useStyleStore();
       :is="props.loading ? ArrowPathIcon : props.icon"
       class="shrink-0"
       :class="[
-        props.contentSize === 'medium' ? styleStore.iconSizeS : styleStore.iconSizeXS,
+        props.contentSize === 'medium' ? styleStore.iconSizeS : undefined,
+        props.contentSize === 'small' ? styleStore.iconSizeXS : undefined,
         { 'animate-spin': props.loading },
       ]"
     />

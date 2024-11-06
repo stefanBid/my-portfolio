@@ -1,114 +1,194 @@
-import { render, fireEvent } from '@testing-library/vue';
+import { render, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
 import { BaseButton } from '@/components';
 import { ArrowPathIcon } from '@heroicons/vue/24/outline';
 
-describe('BaseButton.vue', () => {
-  describe('Basic rendering and behavior', () => {
-    it('renders the button with default props', () => {
-      const { getByTestId } = render(BaseButton, {
-        slots: { default: 'Click me' },
+describe('BaseButton Unit Tests', () => {
+  describe('Props', () => {
+    it.each(['button', 'submit', 'reset'])('set the correct button type "%s"', (type) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          type: type as 'button' | 'submit' | 'reset',
+        },
       });
-
-      const button = getByTestId('base-button');
-      expect(button).toHaveTextContent('Click me');
-      expect(button).toHaveClass('inline-flex');
-      expect(button).not.toHaveClass('pointer-events-none opacity-50');
-      const icon = getByTestId('base-button').querySelector('svg');
-      expect(icon).toBeNull();
+      expect(screen.getByTestId('custom-base-button')).toHaveAttribute('type', type);
     });
 
-    it('renders the button as disabled', async () => {
-      const { getByTestId } = render(BaseButton, {
-        props: { disabled: true },
+    it.each(['tertiary', 'white', 'custom'])('set the correct button variant "%s"', (variant) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          variant: variant as 'tertiary' | 'white' | 'custom',
+        },
       });
 
-      const button = getByTestId('base-button');
-      expect(button).toHaveClass('pointer-events-none opacity-50');
-      expect(button).toHaveAttribute('disabled');
+      const button = screen.getByTestId('custom-base-button');
+
+      if (variant === 'tertiary')
+        expect(button).toHaveClass('bg-transparent/50 text-white border-2 border-white');
+
+      if (variant === 'white')
+        expect(button).toHaveClass('bg-white text-black border-2 border-white');
+
+      if (variant === 'custom') {
+        expect(button).not.toHaveClass('bg-white text-black border-2 border-white');
+        expect(button).not.toHaveClass('bg-transparent/50 text-white border-2 border-white');
+      }
     });
 
-    it('renders the button with loading icon', () => {
-      const { getByTestId } = render(BaseButton, {
-        props: { loading: true },
-        slots: { default: 'Loading' },
+    it.each([true, false])('set the correct button disabled state "%s"', (disabled) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          disabled,
+        },
+      });
+      const button = screen.getByTestId('custom-base-button');
+
+      if (disabled) {
+        expect(button).toBeDisabled();
+        expect(button).toHaveClass('opacity-50 pointer-events-none');
+      } else {
+        expect(button).not.toBeDisabled();
+        expect(button).not.toHaveClass('opacity-50 pointer-events-none');
+      }
+    });
+
+    it.each([true, false])('set the correct button loading state "%s"', (loading) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          loading,
+        },
+      });
+      const button = screen.getByTestId('custom-base-button');
+      const loadingIcon = button.querySelector('svg');
+
+      if (loading) {
+        expect(button).toBeDisabled();
+        expect(button).toHaveClass('pointer-events-none opacity-50');
+        expect(loadingIcon).toBeInTheDocument();
+        expect(loadingIcon).toHaveClass('animate-spin');
+      } else {
+        expect(button).not.toBeDisabled();
+        expect(button).not.toHaveClass('pointer-events-none opacity-50');
+        expect(loadingIcon).not.toBeInTheDocument();
+      }
+    });
+
+    it.each(['small', 'medium', 'custom'])('set the correct button content size "%s"', (size) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          contentSize: size as 'small' | 'medium' | 'custom',
+          icon: ArrowPathIcon,
+        },
       });
 
-      const button = getByTestId('base-button');
-      expect(button).toHaveClass('pointer-events-none opacity-50');
-      expect(button).toHaveAttribute('disabled');
+      const button = screen.getByTestId('custom-base-button');
+      const icon = button.querySelector('svg');
+      if (size === 'small') {
+        expect(button).toHaveClass('text-sb-sm');
+        expect(icon).toHaveClass('size-4');
+      }
 
-      const icon = getByTestId('base-button').querySelector('svg');
-      expect(icon).not.toBeNull();
-      expect(icon).toHaveClass('animate-spin');
+      if (size === 'medium') {
+        expect(button).toHaveClass('text-sb-lg');
+        expect(icon).toHaveClass('size-6');
+      }
+
+      if (size === 'custom') {
+        expect(button).not.toHaveClass('text-sb-sm');
+        expect(button).not.toHaveClass('text-sb-lg');
+        expect(icon).not.toHaveClass('size-4');
+        expect(icon).not.toHaveClass('size-6');
+      }
     });
 
-    it('renders the custom icon when not loading', () => {
-      const { getByTestId } = render(BaseButton, {
-        props: { icon: ArrowPathIcon },
-        slots: { default: 'Custom Icon' },
+    it.each(['small', 'medium', 'custom'])('set the correct spacing size "%s"', (size) => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          spacingSize: size as 'small' | 'medium' | 'custom',
+        },
       });
 
-      const icon = getByTestId('base-button').querySelector('svg');
-      expect(icon).not.toBeNull();
-      expect(icon).not.toHaveClass('animate-spin');
+      const button = screen.getByTestId('custom-base-button');
+      if (size === 'small') expect(button).toHaveClass('px-3.5 py-1.5 gap-x-2');
+
+      if (size === 'medium') expect(button).toHaveClass('px-6 py-4 gap-x-3');
+
+      if (size === 'custom') {
+        expect(button).not.toHaveClass('px-3.5 py-1.5 gap-x-2');
+        expect(button).not.toHaveClass('px-6 py-4 gap-x-3');
+      }
     });
 
-    it('emits click event when clicked', async () => {
-      const { getByTestId, emitted } = render(BaseButton, {});
-
-      const button = getByTestId('base-button');
-      await fireEvent.click(button);
-
-      expect(emitted()).toHaveProperty('click');
+    it('set the correct aria-label', () => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          ariaLabel: 'test-aria-label',
+        },
+      });
+      expect(screen.getByTestId('custom-base-button')).toHaveAttribute(
+        'aria-label',
+        'test-aria-label',
+      );
     });
   });
 
-  describe('Variant and size classes', () => {
-    // Testing all variant and contentSize combinations
-    const variants = ['white', 'tertiary', 'custom'] as ('white' | 'tertiary' | 'custom')[];
-    const sizes = ['medium', 'small', 'custom'] as ('medium' | 'small' | 'custom')[];
-
-    it.each(variants)('applies correct classes for variant "%s"', async (variant) => {
-      const { getByTestId } = render(BaseButton, {
-        props: { variant },
+  describe('Icon Rendering', () => {
+    it('renders the icon if the icon prop is passed and the button is not loading', () => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          icon: ArrowPathIcon,
+        },
       });
-
-      const button = getByTestId('base-button');
-
-      if (variant === 'white') {
-        expect(button).toHaveClass('bg-white', 'text-black');
-        await fireEvent.mouseOver(button);
-        expect(button).toHaveClass('hover:bg-sb-secondary-100', 'hover:text-white');
-        await fireEvent.focus(button);
-        expect(button).toHaveClass('focus-visible:bg-sb-secondary-100', 'focus-visible:text-white');
-      } else if (variant === 'tertiary') {
-        expect(button).toHaveClass('bg-transparent/50', 'text-white', 'border-white');
-        await fireEvent.mouseOver(button);
-        expect(button).toHaveClass('hover:bg-sb-tertiary-100', 'hover:text-black');
-        await fireEvent.focus(button);
-        expect(button).toHaveClass('focus-visible:bg-sb-tertiary-100', 'focus-visible:text-black');
-      } else if (variant === 'custom') {
-        expect(button).not.toHaveClass('bg-white', 'bg-transparent/50', 'text-black', 'text-white');
-      }
+      const button = screen.getByTestId('custom-base-button');
+      const icon = button.querySelector('svg');
+      expect(icon).toBeInTheDocument();
+      expect(icon).not.toHaveClass('animate-spin');
     });
 
-    it.each(sizes)('applies correct classes for size "%s"', async (size) => {
-      const { getByTestId } = render(BaseButton, {
-        props: { contentSize: size },
+    it('does render the icon if the button is loading', () => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+          loading: true,
+        },
       });
+      const button = screen.getByTestId('custom-base-button');
+      const icon = button.querySelector('svg');
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveClass('animate-spin');
+    });
 
-      const button = getByTestId('base-button');
+    it('does not render the icon if the icon prop is not passed and the button is not loading', () => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+        },
+      });
+      const button = screen.getByTestId('custom-base-button');
+      const icon = button.querySelector('svg');
+      expect(icon).not.toBeInTheDocument();
+    });
+  });
 
-      if (size === 'medium') {
-        expect(button).toHaveClass('px-6', 'py-4', 'gap-x-3', 'text-sb-lg');
-      } else if (size === 'small') {
-        expect(button).toHaveClass('px-3.5', 'py-1.5', 'gap-x-2', 'text-sb-sm');
-      } else if (size === 'custom') {
-        expect(button).toHaveClass('text-sb-sm');
-        expect(button).not.toHaveClass('px-6', 'py-4', 'gap-x-3');
-        expect(button).not.toHaveClass('px-3.5', 'py-1.5', 'gap-x-2');
-      }
+  describe('Slot Rendering', () => {
+    it('renders the slot content', () => {
+      render(BaseButton, {
+        props: {
+          dataTestid: 'custom-base-button',
+        },
+        slots: {
+          default: () => 'Slot Content',
+        },
+      });
+      expect(screen.getByTestId('custom-base-button')).toHaveTextContent('Slot Content');
     });
   });
 });

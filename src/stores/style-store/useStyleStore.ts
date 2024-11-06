@@ -152,13 +152,14 @@ export const useStyleStore = defineStore('style', () => {
   });
 
   const iconSizeXS = computed(() => {
-    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
-      return 'size-3.5';
+    if (
+      activeBreakpoint.value === 'xs' ||
+      activeBreakpoint.value === 'sm' ||
+      activeBreakpoint.value === 'md'
+    ) {
+      return 'size-[0.900rem]';
     }
-    if (activeBreakpoint.value === 'md') {
-      return 'size-4';
-    }
-    return 'size-5';
+    return 'size-4';
   });
 
   return {
