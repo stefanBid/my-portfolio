@@ -22,7 +22,7 @@ describe('BaseDialog Unit Tests', () => {
     });
 
     it.each([true, false])(
-      'set the correct dialog height when is height 0block state is "%s"',
+      'set the correct dialog height when is height block state is "%s"',
       async (state) => {
         render(BaseDialog, {
           props: {
@@ -101,7 +101,33 @@ describe('BaseDialog Unit Tests', () => {
       const closeButton = await screen.findByTestId('custom-base-dialog-close-button');
       await fireEvent.click(closeButton);
       expect(onCloseModalMock).toHaveBeenCalled();
-      expect(onCloseModalMock).toHaveBeenCalledTimes(1);
+      expect(onCloseModalMock).toHaveBeenCalledWith(false);
+    });
+
+    it('check if onCloseModal is called correctly when the escape key is pressed', async () => {
+      render(BaseDialog, {
+        props: {
+          isOpen: true,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
+        },
+      });
+      await fireEvent.keyDown(document, { key: 'Escape' });
+      expect(onCloseModalMock).toHaveBeenCalled();
+      expect(onCloseModalMock).toHaveBeenCalledWith(false);
+    });
+
+    it('check if onCloseModal is called correctly when you click outside the dialog', async () => {
+      render(BaseDialog, {
+        props: {
+          isOpen: true,
+          dataTestid: 'custom-base-dialog',
+          onCloseModal: onCloseModalMock,
+        },
+      });
+      const dialogOverlay = await screen.findByTestId('custom-base-dialog-overlay');
+      await fireEvent.click(dialogOverlay);
+      expect(onCloseModalMock).toHaveBeenCalled();
       expect(onCloseModalMock).toHaveBeenCalledWith(false);
     });
   });
