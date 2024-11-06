@@ -129,7 +129,8 @@ const goPrevious = (): void => {
       >
         <BaseButton
           class="absolute text-white w-fit h-fit hover:rotate-90 top-2 right-2"
-          content-size="custom"
+          content-size="small"
+          spacing-size="custom"
           variant="custom"
           :icon="XMarkIcon"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
@@ -153,6 +154,7 @@ const goPrevious = (): void => {
             }"
             variant="custom"
             content-size="small"
+            spacing-size="small"
             :icon="ChevronLeftIcon"
             @click.stop="() => goPrevious()"
           />
@@ -171,6 +173,7 @@ const goPrevious = (): void => {
             }"
             variant="custom"
             content-size="small"
+            spacing-size="small"
             :icon="ChevronRightIcon"
             @click.stop="() => goNext()"
           />
