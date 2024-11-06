@@ -18,6 +18,7 @@ interface DropdownMenuProps {
     rootMargin?: string;
     threshold?: number;
   };
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<DropdownMenuProps>(), {
@@ -31,6 +32,7 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
     rootMargin: '-80px 0px 0px 0px',
     threshold: 0.05,
   }),
+  ariaLabel: 'general dropdown menu',
 });
 
 // Store Declarations
@@ -68,7 +70,9 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         },
       ]"
       :data-testid="`${props.dataTestid}-button`"
+      :aria-label="props.ariaLabel"
       content-size="small"
+      spacing-size="small"
       variant="custom"
       class="group !justify-between border-2"
       :class="{

@@ -147,6 +147,7 @@ watch(
             name="contact-reset-button"
             type="reset"
             content-size="small"
+            spacing-size="small"
             variant="white"
             :disabled="disableResetButton"
           >
@@ -157,6 +158,7 @@ watch(
             name="contact-send-button"
             type="submit"
             content-size="small"
+            spacing-size="small"
             :disabled="disableSendButton"
             :loading="sendingEmail"
           >
