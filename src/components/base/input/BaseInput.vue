@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AdjustmentsVerticalIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import { ChevronDownIcon } from '@heroicons/vue/24/outline';
 import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
 import { computed, ref } from 'vue';
 import { nanoid } from 'nanoid';
@@ -148,10 +148,11 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ref="buttonMenuRef"
         :data-testid="`${props.dataTestid}-button-menu`"
         variant="custom"
-        content-size="custom"
-        class="absolute inset-y-1.5 right-0 mr-3 rounded-lg hover:opacity-60"
+        content-size="small"
+        spacing-size="custom"
+        class="absolute inset-y-1.5 right-0 mr-3 rounded-lg"
         :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
-        :icon="isOpen ? XMarkIcon : AdjustmentsVerticalIcon"
+        :icon="ChevronDownIcon"
         @click.stop="handleClick()"
       />
     </div>
