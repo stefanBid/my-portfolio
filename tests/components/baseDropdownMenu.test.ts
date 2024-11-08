@@ -169,7 +169,7 @@ describe('BaseDropdownMenu Unit Tests', () => {
   });
 
   describe('Slot Rendering', () => {
-    it('renders the slot content', async () => {
+    it('render the slot content', async () => {
       render(BaseDropdownMenu, {
         props: {
           dataTestid: 'custom-base-dropdown-menu',
