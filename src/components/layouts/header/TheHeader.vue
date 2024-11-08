@@ -125,8 +125,12 @@ watch(
           <!-- Menu -->
           <BaseDropdownMenu
             id="changeLanguageButton"
-            name="change_language_button"
             menu-strategy="fixed"
+            :intersection-observer-settings="{
+              rootElement: null,
+              threshold: 0.05,
+            }"
+            aria-label="change Language with this button"
             :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
           >
             <template #dropdown-section-content="{ closeMenu }">
@@ -195,8 +199,12 @@ watch(
         {{ i18nStore.currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
         <BaseDropdownMenu
           id="changeLanguageButton"
-          name="change_language_button"
           menu-strategy="fixed"
+          :intersection-observer-settings="{
+            rootElement: null,
+            threshold: 0.05,
+          }"
+          aria-label="change Language with this button"
           :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
         >
           <template #dropdown-section-content="{ closeMenu }">

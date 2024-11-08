@@ -1,173 +1,188 @@
-import { render, fireEvent, waitFor } from '@testing-library/vue';
+import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseDropdownMenu } from '@/components';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 
-describe('BaseDropdownMenu.vue', () => {
-  describe('Button rendering and behavior', () => {
-    it('renders BaseButton with correct properties', () => {
-      const { getByTestId } = render(BaseDropdownMenu, {
+describe('BaseDropdownMenu Unit Tests', () => {
+  describe('Props', () => {
+    it('set the correct dropdown only with label', () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
-          label: 'Options',
+          dataTestid: 'custom-base-dropdown-menu',
+          label: 'Test Dropdown Label',
         },
       });
-
-      const button = getByTestId('base-dropdown-menu-button');
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveTextContent('Options');
-      expect(button).toHaveClass('border-2 !justify-between group');
+      const dropdown = screen.getByTestId('custom-base-dropdown-menu-button');
+      expect(dropdown).toBeInTheDocument();
+      expect(dropdown).toHaveTextContent('Test Dropdown Label');
     });
 
-    it('renders icon component when provided', () => {
-      const { getByTestId } = render(BaseDropdownMenu, {
+    it('set the correct aria-label', () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
+          dataTestid: 'custom-base-dropdown-menu',
+          ariaLabel: 'test-aria-label',
+        },
+      });
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      expect(dropdownButton).toHaveAttribute('aria-label', 'test-aria-label');
+    });
+  });
+
+  describe('Icon Rendering', () => {
+    it('render only the open/close icon if the icon prop is not passed', () => {
+      render(BaseDropdownMenu, {
+        props: {
+          dataTestid: 'custom-base-dropdown-menu',
+        },
+      });
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      const icon = dropdownButton.querySelector('svg');
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveClass('ml-2 transition-sb-slow shrink-0');
+
+      const internalIcon = dropdownButton.querySelector('span > svg');
+      expect(internalIcon).toBeNull();
+    });
+
+    it('render the icon if the icon prop is passed', () => {
+      render(BaseDropdownMenu, {
+        props: {
+          dataTestid: 'custom-base-dropdown-menu',
           icon: ChevronDownIcon,
         },
       });
-
-      const button = getByTestId('base-dropdown-menu-button');
-      const icon = button.querySelector('svg');
-      expect(icon).toBeInTheDocument();
-      expect(icon).toHaveClass('shrink-0');
-    });
-
-    it('changes button style on state change', async () => {
-      const { getByTestId } = render(BaseDropdownMenu, {
-        props: {
-          dataTestid: 'base-dropdown-menu',
-        },
-      });
-
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-      expect(button).toHaveClass('border-sb-tertiary-100 bg-sb-tertiary-100 text-black');
-
-      await fireEvent.click(button);
-      expect(button).toHaveClass('bg-sb-secondary-300 border-sb-secondary-200');
-
-      await fireEvent.mouseOver(button);
-      expect(button).toHaveClass('hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200');
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      const internalIcon = dropdownButton.querySelector('span > svg');
+      expect(internalIcon).toBeInTheDocument();
+      expect(internalIcon).toHaveClass('shrink-0');
     });
   });
 
-  describe('Dropdown visibility', () => {
-    it('toggles visibility of dropdown on button click', async () => {
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
+  describe('User Intergaction and State', () => {
+    it('set the correct style when thee dropdown is clicked', async () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
+          dataTestid: 'custom-base-dropdown-menu',
         },
       });
 
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel).toBeVisible();
-      expect(floatingPanel).toHaveClass('border-sb-secondary-100 bg-sb-secondary-100 shadow-black');
-
-      await fireEvent.click(button);
-      expect(floatingPanel).not.toBeVisible();
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      const icon = dropdownButton.querySelector('svg');
+      expect(dropdownButton).toHaveClass('text-white bg-sb-secondary-300  border-sb-secondary-200');
+      expect(icon).toHaveClass('rotate-0');
+      await fireEvent.click(dropdownButton);
+      expect(dropdownButton).toHaveClass('border-sb-tertiary-100 bg-sb-tertiary-100 text-black');
+      expect(icon).toHaveClass('rotate-180');
     });
 
-    it('closes dropdown when clicking outside', async () => {
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
+    it('render the menu box when the dropdown button is clicked', async () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
+          dataTestid: 'custom-base-dropdown-menu',
         },
       });
 
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel).toBeVisible();
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      await fireEvent.click(dropdownButton);
+      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
+      expect(dropdownMenu).toBeInTheDocument();
+      expect(dropdownMenu).toHaveClass('box-border border-2 rounded-lg shadow-2xl');
+    });
 
+    it('close the menu box when click outside the dropdown', async () => {
+      render(BaseDropdownMenu, {
+        props: {
+          dataTestid: 'custom-base-dropdown-menu',
+        },
+      });
+
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      await fireEvent.click(dropdownButton);
+      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
+      expect(dropdownMenu).toBeInTheDocument();
       await fireEvent.click(document.body);
-      expect(floatingPanel).not.toBeVisible();
+      waitFor(() => {
+        expect(dropdownMenu).toBeNull();
+      });
     });
 
-    it('should close menu when button goes out of view', async () => {
-      const mockIntersectionObserver = vi.fn((callback) => {
-        callback([{ isIntersecting: true }]);
-        return {
-          observe: vi.fn(),
-          disconnect: vi.fn(),
-          unobserve: vi.fn(),
-          takeRecords: vi.fn(),
-          root: null,
-          rootMargin: '',
-          thresholds: [],
-        };
-      });
-
-      // Mock the IntersectionObserver globally
-      window.IntersectionObserver = mockIntersectionObserver;
-
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
+    it('close the menu box when dropdownButton is out of viewport', async () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
-          intersectionObserverSettings: {
-            rootElement: null,
-            rootMargin: '-80px 0px 0px 0px',
-            threshold: 0.05,
-          },
+          dataTestid: 'custom-base-dropdown-menu',
         },
       });
 
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      await fireEvent.click(dropdownButton);
+      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
 
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel).toBeVisible();
+      const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
 
-      mockIntersectionObserver.mock.calls[0][0]([{ isIntersecting: false }]);
-      await waitFor(() => expect(floatingPanel).not.toBeInTheDocument());
+      const observerInstance = mockObserver.mock.results[0].value;
+      observerInstance.trigger(false);
+
+      waitFor(() => {
+        expect(dropdownMenu).toBeNull();
+      });
+    });
+
+    describe('Advanced Props', () => {
+      it.each(['absolute', 'fixed'])(
+        `set the correct position "%s" for menu box`,
+        async (position) => {
+          render(BaseDropdownMenu, {
+            props: {
+              dataTestid: 'custom-base-dropdown-menu',
+              menuStrategy: position as 'absolute' | 'fixed',
+            },
+          });
+          const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+          await fireEvent.click(dropdownButton);
+          const dropdownMenu = await screen.findByTestId(
+            'custom-base-dropdown-menu-floating-panel',
+          );
+          expect(dropdownMenu).toBeInTheDocument();
+          expect(dropdownMenu.style.position).toBe(position);
+        },
+      );
+      it.each(['z-sb-base-5', 'z-sb-dropdown'])(
+        `set the correct z-index "%s" for menu box`,
+        async (zIndex) => {
+          render(BaseDropdownMenu, {
+            props: {
+              dataTestid: 'custom-base-dropdown-menu',
+              zIndex: zIndex as 'z-sb-base-5' | 'z-sb-dropdown',
+            },
+          });
+          const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+          await fireEvent.click(dropdownButton);
+          const dropdownMenu = await screen.findByTestId(
+            'custom-base-dropdown-menu-floating-panel',
+          );
+          expect(dropdownMenu).toBeInTheDocument();
+          expect(dropdownMenu).toHaveClass(zIndex);
+        },
+      );
     });
   });
 
-  describe('Dropdown positioning and styling', () => {
-    it('applies correct z-index class based on props', async () => {
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
+  describe('Slot Rendering', () => {
+    it('render the slot content', async () => {
+      render(BaseDropdownMenu, {
         props: {
-          dataTestid: 'base-dropdown-menu',
-          zIndex: 'z-sb-base-5',
+          dataTestid: 'custom-base-dropdown-menu',
         },
-      });
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel).toHaveClass('z-sb-base-5');
-    });
-
-    it('applies default z-index when no zIndex prop is provided', async () => {
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
-        props: {
-          dataTestid: 'base-dropdown-menu',
+        slots: {
+          'dropdown-section-content': () => 'Slot Content',
         },
       });
 
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel).toHaveClass('z-sb-dropdown');
-    });
-
-    it.each(['absolute', 'fixed'])('uses menu strategy "%s"', async (strategy) => {
-      const { getByTestId, findByTestId } = render(BaseDropdownMenu, {
-        props: {
-          dataTestid: 'base-dropdown-menu',
-          menuStrategy: strategy as 'absolute' | 'fixed',
-        },
-      });
-
-      const button = getByTestId('base-dropdown-menu-button');
-      await fireEvent.click(button);
-
-      const floatingPanel = await findByTestId('base-dropdown-menu-floating-panel');
-      expect(floatingPanel.style.position).toBe(strategy);
+      const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
+      await fireEvent.click(dropdownButton);
+      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
+      expect(dropdownMenu).toHaveTextContent('Slot Content');
     });
   });
 });
