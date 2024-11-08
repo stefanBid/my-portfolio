@@ -126,6 +126,10 @@ watch(
           <BaseDropdownMenu
             id="changeLanguageButton"
             menu-strategy="fixed"
+            :intersection-observer-settings="{
+              rootElement: null,
+              threshold: 0.05,
+            }"
             aria-label="change Language with this button"
             :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
           >
@@ -196,6 +200,10 @@ watch(
         <BaseDropdownMenu
           id="changeLanguageButton"
           menu-strategy="fixed"
+          :intersection-observer-settings="{
+            rootElement: null,
+            threshold: 0.05,
+          }"
           aria-label="change Language with this button"
           :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
         >
