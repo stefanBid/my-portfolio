@@ -44,15 +44,13 @@ const handleCloseModal = (): void => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div
-          :data-testid="`${props.dataTestid}-overlay`"
-          class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"
-        ></div>
+        <div class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"></div>
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
         <div
           :class="[styleStore.containerPadding]"
+          :data-testid="`${props.dataTestid}-overlay`"
           class="flex items-center justify-center h-screen py-8"
         >
           <TransitionChild

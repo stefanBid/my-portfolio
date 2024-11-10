@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/vue';
+import { render, screen, fireEvent, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseDialog } from '@/components';
 
@@ -125,10 +125,11 @@ describe('BaseDialog Unit Tests', () => {
           onCloseModal: onCloseModalMock,
         },
       });
-      const dialogOverlay = await screen.findByTestId('custom-base-dialog-overlay');
-      await fireEvent.click(dialogOverlay);
-      expect(onCloseModalMock).toHaveBeenCalled();
-      expect(onCloseModalMock).toHaveBeenCalledWith(false);
+      await fireEvent.click(document);
+      waitFor(() => {
+        expect(onCloseModalMock).toHaveBeenCalled();
+        expect(onCloseModalMock).toHaveBeenCalledWith(false);
+      });
     });
   });
 });

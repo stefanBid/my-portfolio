@@ -101,7 +101,7 @@ describe('BaseDropdownMenu Unit Tests', () => {
       await fireEvent.click(dropdownButton);
       const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
       expect(dropdownMenu).toBeInTheDocument();
-      await fireEvent.click(document.body);
+      await fireEvent.click(document);
       waitFor(() => {
         expect(dropdownMenu).toBeNull();
       });

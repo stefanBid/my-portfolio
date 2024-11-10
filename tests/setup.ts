@@ -1,7 +1,7 @@
+import '@testing-library/jest-dom';
 import { config } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
-import '@testing-library/jest-dom';
-import { vi } from 'vitest';
+import { vi, afterEach } from 'vitest';
 
 const pinia = createPinia();
 setActivePinia(pinia);
@@ -31,3 +31,10 @@ const mockIntersectionObserver = vi.fn((callback) => {
 
 global.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 global.ResizeObserver = mockResizeObserver as unknown as typeof ResizeObserver;
+
+// Clear mocks after each test
+afterEach(() => {
+  vi.clearAllMocks();
+  vi.resetModules();
+  vi.useRealTimers();
+});
