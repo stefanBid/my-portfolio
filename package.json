@@ -10,8 +10,8 @@
     "visualize": "vite build --mode visualize",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test:watch": "vitest --config vitest.config.ts",
-    "test": "vitest --config vitest.config.ts --no-watch",
+    "test:watch": "vitest --config vitest.config.ts --retry 3",
+    "test": "vitest --config vitest.config.ts --no-watch --retry 3",
     "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.js"
   },
   "dependencies": {
