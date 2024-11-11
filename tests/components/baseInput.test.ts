@@ -117,6 +117,25 @@ describe('BaseInput Unit Tests', () => {
   });
 
   describe('User Interaction and State', () => {
+    it('focus the input when the label is clicked', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          label: 'Custom label',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.queryByTestId('custom-base-input-menu-button');
+      expect(inputMenuButton).toHaveClass('text-white');
+      await fireEvent.click(screen.getByTestId('custom-base-input-label'));
+      waitFor(() => {
+        expect(inputMenuButton).toHaveClass('text-black');
+        expect(screen.getByTestId('custom-base-input')).toHaveFocus();
+      });
+    });
+
     it.each([true, false])('render input menu button when is state is "%s"', async (withMenu) => {
       render(BaseInput, {
         props: {
@@ -240,7 +259,7 @@ describe('BaseInput Unit Tests', () => {
 
       const inputElement = screen.getByTestId('custom-base-input');
       expect(inputElement).toHaveValue('');
-      await fireEvent.change(inputElement, { target: { value: 'test' } });
+      await fireEvent.update(inputElement, 'test');
       expect(inputElement).toHaveValue('test');
     });
   });
