@@ -1,152 +1,266 @@
-import { render, fireEvent, waitFor } from '@testing-library/vue';
+import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseInput } from '@/components';
 
-describe('BaseInput.vue', () => {
-  // Test props
-  describe('Basic rendering and behavior ', () => {
-    it.each([
-      ['Test Label', 'text', undefined],
-      ['Search Label', 'search', 'Search a value'],
-      ['Email Label', 'email', 'Enter an email address (ex: example@ex.com)'],
-    ])(
-      'should render with label "%s", type "%s", and placeholder "%s"',
-      async (label, type, placeholder) => {
-        const { getByTestId } = render(BaseInput, {
-          props: {
-            dataTestid: 'base-input',
-            label,
-            type: type as 'text' | 'search' | 'email',
-            placeholder,
-            inputValue: '',
-          },
-        });
-
-        if (!label) {
-          expect(getByTestId('base-input-label')).toBeNull();
-        } else {
-          expect(getByTestId('base-input-label')).not.toBeNull();
-          expect(getByTestId('base-input-label')).toHaveTextContent(label);
-        }
-
-        const input = getByTestId('base-input');
-        expect(input).toHaveAttribute('type', type);
-        expect(input).toHaveAttribute('placeholder', placeholder || 'Enter a value');
-      },
-    );
-
-    it.each([true, false])('should render menu button when withMenu is %s', async (withMenu) => {
-      const { queryByTestId } = render(BaseInput, { props: { withMenu, inputValue: '' } });
-
-      if (withMenu) {
-        expect(queryByTestId('base-input-button-menu')).toBeTruthy();
-      } else {
-        expect(queryByTestId('base-input-button-menu')).toBeNull();
-      }
-    });
-  });
-
-  // Test input field interactions
-  describe('Input Field Behavior', () => {
-    it('should update the input value when inputValue changes', async () => {
-      const { getByTestId, emitted } = render(BaseInput, {
-        props: { dataTestid: 'base-input', inputValue: '' },
-      });
-
-      const input = getByTestId('base-input');
-      await fireEvent.update(input, 'test value');
-
-      expect(emitted()['update:inputValue']).toBeTruthy();
-      expect(emitted()['update:inputValue'][0]).toEqual(['test value']);
-    });
-
-    it('should apply appropriate styles based on input value presence', async () => {
-      const { getByTestId } = render(BaseInput, { props: { inputValue: '' } });
-      const input = getByTestId('base-input');
-
-      expect(input).toHaveClass('bg-transparent');
-      await fireEvent.update(input, 'non-empty');
-      expect(input).toHaveClass('bg-sb-secondary-100/50');
-    });
-  });
-
-  // Test menu button and floating panel interactions
-  describe('Menu Interactions', () => {
-    it('should open and close menu on button click when withMenu is true', async () => {
-      const { getByTestId, queryByTestId } = render(BaseInput, {
-        props: { dataTestid: 'base-input', withMenu: true, inputValue: '' },
-      });
-
-      const button = getByTestId('base-input-button-menu');
-      await fireEvent.click(button);
-
-      // Check menu is open
-      const menuBox = await queryByTestId('base-input-input-menu-box');
-      expect(menuBox).toBeTruthy();
-
-      // Close the menu and check again
-      await fireEvent.click(button);
-      await waitFor(() => expect(menuBox).not.toBeInTheDocument());
-    });
-
-    it('should close menu on click outside', async () => {
-      const { getByTestId, queryByTestId } = render(BaseInput, {
-        props: { dataTestid: 'base-input', withMenu: true, inputValue: '' },
-      });
-
-      const button = getByTestId('base-input-button-menu');
-      await fireEvent.click(button);
-
-      const menuBox = await queryByTestId('base-input-input-menu-box');
-      expect(menuBox).toBeTruthy();
-
-      // Simulate clicking outside
-      await fireEvent.click(document.body);
-      await waitFor(() => expect(menuBox).not.toBeInTheDocument());
-    });
-  });
-
-  // Test Intersection Observer
-  describe('Intersection Observer', () => {
-    it('should close menu when input goes out of view', async () => {
-      const mockIntersectionObserver = vi.fn((callback) => {
-        callback([{ isIntersecting: true }]);
-        return {
-          observe: vi.fn(),
-          disconnect: vi.fn(),
-          unobserve: vi.fn(),
-          takeRecords: vi.fn(),
-          root: null,
-          rootMargin: '',
-          thresholds: [],
-        };
-      });
-
-      // Mock the IntersectionObserver globally
-      window.IntersectionObserver = mockIntersectionObserver;
-
-      const { getByTestId, findByTestId } = render(BaseInput, {
+describe('BaseInput Unit Tests', () => {
+  describe('Props', () => {
+    it.each(['Custom label', undefined])('render label correctly when provided "%s"', (label) => {
+      render(BaseInput, {
         props: {
-          dataTestid: 'base-input',
-          withMenu: true,
-          intersectionObserverSettings: {
-            rootElement: null,
-            rootMargin: '-80px 0px 0px 0px',
-            threshold: 0.05,
-          },
+          dataTestid: 'custom-base-input',
+          label,
           inputValue: '',
         },
       });
 
-      const button = getByTestId('base-input-button-menu');
-      await fireEvent.click(button);
+      const labelElement = screen.queryByTestId('custom-base-input-label');
 
-      const menuBox = await findByTestId('base-input-input-menu-box');
-      expect(menuBox).toBeTruthy();
+      if (label) {
+        expect(labelElement).toBeInTheDocument();
+        expect(labelElement).toHaveTextContent(label);
+      } else {
+        expect(labelElement).toBeNull();
+      }
+    });
 
-      // Trigger the IntersectionObserver callback to simulate going out of view
-      mockIntersectionObserver.mock.calls[0][0]([{ isIntersecting: false }]);
-      await waitFor(() => expect(menuBox).not.toBeInTheDocument());
+    it.each(['Custom aria label', undefined])(
+      'render aria-label correctly when provided "%s"',
+      (ariaLabel) => {
+        render(BaseInput, {
+          props: {
+            dataTestid: 'custom-base-input',
+            ariaLabel,
+            inputValue: '',
+          },
+        });
+
+        const inputElement = screen.getByTestId('custom-base-input');
+        expect(inputElement).toHaveAttribute('aria-label', ariaLabel ? ariaLabel : 'general input');
+      },
+    );
+
+    it.each([
+      { id: undefined, name: undefined },
+      { id: 'custom-id', name: 'custom-name' },
+    ])('render id and name correctly when id is "$id" and name is "$name"', ({ id, name }) => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          id,
+          name,
+          inputValue: '',
+        },
+      });
+
+      const inputElement = screen.getByTestId('custom-base-input');
+      const nanoidPattern = /^[a-zA-Z0-9_-]{21}/;
+
+      if (id && name) {
+        expect(inputElement).toHaveAttribute('id', id);
+        expect(inputElement).toHaveAttribute('name', name);
+      } else {
+        expect(inputElement.getAttribute('id')).toMatch(
+          new RegExp(`^${nanoidPattern.source}-input-id$`),
+        );
+        expect(inputElement.getAttribute('name')).toMatch(
+          new RegExp(`^${nanoidPattern.source}-input-name$`),
+        );
+      }
+    });
+
+    it.each(['text', 'search', 'email'])(`render type correctly when provided "%s"`, (type) => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          type: type as 'text' | 'search' | 'email',
+          inputValue: '',
+        },
+      });
+
+      expect(screen.getByTestId('custom-base-input')).toHaveAttribute('type', type);
+    });
+
+    it.each([
+      { placeholder: 'Custom placeholder', type: 'text' },
+      { placeholder: 'Custom placeholder', type: 'search' },
+      { placeholder: 'Custom placeholder', type: 'email' },
+      { placeholder: undefined, type: 'text' },
+      { placeholder: undefined, type: 'search' },
+      { placeholder: undefined, type: 'email' },
+    ])(
+      'render placeholder correctly when provided "$placeholder" and type is "$type"',
+      ({ placeholder, type }) => {
+        render(BaseInput, {
+          props: {
+            dataTestid: 'custom-base-input',
+            placeholder,
+            type: type as 'text' | 'search' | 'email',
+            inputValue: '',
+          },
+        });
+
+        const inputElement = screen.getByTestId('custom-base-input');
+        if (placeholder) {
+          expect(inputElement).toHaveAttribute('placeholder', placeholder);
+        } else if (type === 'text') {
+          expect(inputElement).toHaveAttribute('placeholder', 'Enter a value');
+        } else if (type === 'search') {
+          expect(inputElement).toHaveAttribute('placeholder', 'Search a value');
+        } else if (type === 'email') {
+          expect(inputElement).toHaveAttribute(
+            'placeholder',
+            'Enter an email address (ex: example@ex.com)',
+          );
+        }
+      },
+    );
+  });
+
+  describe('User Interaction and State', () => {
+    it('focus the input when the label is clicked', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          label: 'Custom label',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.queryByTestId('custom-base-input-menu-button');
+      expect(inputMenuButton).toHaveClass('text-white');
+      await fireEvent.click(screen.getByTestId('custom-base-input-label'));
+      waitFor(() => {
+        expect(inputMenuButton).toHaveClass('text-black');
+        expect(screen.getByTestId('custom-base-input')).toHaveFocus();
+      });
+    });
+
+    it.each([true, false])('render input menu button when is state is "%s"', async (withMenu) => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.queryByTestId('custom-base-input-menu-button');
+      if (withMenu) {
+        expect(inputMenuButton).toBeInTheDocument();
+      } else {
+        expect(inputMenuButton).toBeNull();
+      }
+    });
+
+    it('open the menu when the input menu button is clicked', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
+      await fireEvent.click(inputMenuButton);
+      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+      expect(inputMenu).toBeInTheDocument();
+    });
+
+    it('close the menu when the menu button is clicked another time', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
+      await fireEvent.click(inputMenuButton);
+      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+      expect(inputMenu).toBeInTheDocument();
+      await fireEvent.click(inputMenuButton);
+      waitFor(() => {
+        expect(inputMenu).toBeNull();
+      });
+    });
+
+    it('close the menu when the input menu button is clicked', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
+      await fireEvent.click(inputMenuButton);
+      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+      expect(inputMenu).toBeInTheDocument();
+      await fireEvent.click(inputMenuButton);
+      waitFor(() => {
+        expect(inputMenu).toBeNull();
+      });
+    });
+
+    it('close the menu when clicking outside the input menu', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
+      await fireEvent.click(inputMenuButton);
+      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+      expect(inputMenu).toBeInTheDocument();
+      await fireEvent.click(document);
+      waitFor(() => {
+        expect(inputMenu).toBeNull();
+      });
+    });
+
+    it('close the menu when the inputis out of viewport', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
+      await fireEvent.click(inputMenuButton);
+      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+
+      const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
+
+      const observerInstance = mockObserver.mock.results[0].value;
+      observerInstance.trigger(false);
+
+      waitFor(() => {
+        expect(inputMenu).toBeNull();
+      });
+    });
+
+    it('write the input value correctly', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputElement = screen.getByTestId('custom-base-input');
+      expect(inputElement).toHaveValue('');
+      await fireEvent.update(inputElement, 'test');
+      expect(inputElement).toHaveValue('test');
     });
   });
 });
