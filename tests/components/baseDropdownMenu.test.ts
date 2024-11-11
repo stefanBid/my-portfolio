@@ -59,7 +59,7 @@ describe('BaseDropdownMenu Unit Tests', () => {
     });
   });
 
-  describe('User Intergaction and State', () => {
+  describe('User Interaction and State', () => {
     it('set the correct style when thee dropdown is clicked', async () => {
       render(BaseDropdownMenu, {
         props: {

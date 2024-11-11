@@ -10,6 +10,7 @@ import { useStyleStore } from '@/stores';
 
 interface InputProps {
   dataTestid?: string;
+  ariaLabel?: string;
   label?: string;
   id?: string;
   name?: string;
@@ -25,6 +26,7 @@ interface InputProps {
 
 const props = withDefaults(defineProps<InputProps>(), {
   dataTestid: 'base-input',
+  ariaLabel: 'general input',
   label: undefined,
   id: undefined,
   name: undefined,
@@ -127,6 +129,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         :id="inputId"
         ref="reference"
         v-model="inputValue"
+        :aria-label="props.ariaLabel"
         :data-testid="`${props.dataTestid}`"
         :name="inputName"
         tabindex="0"
@@ -146,7 +149,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <BaseButton
         v-if="props.withMenu"
         ref="buttonMenuRef"
-        :data-testid="`${props.dataTestid}-button-menu`"
+        :data-testid="`${props.dataTestid}-menu-button`"
         variant="custom"
         content-size="small"
         spacing-size="custom"
@@ -165,7 +168,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             (_: Event) => changeFloatingVisibility(false),
             { ignore: [reference, buttonMenuRef] },
           ]"
-          :data-testid="`${props.dataTestid}-input-menu-box`"
+          :data-testid="`${props.dataTestid}-floating-menu-panel`"
           :style="floatingStyles"
           class="absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
         >
