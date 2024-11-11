@@ -228,5 +228,20 @@ describe('BaseInput Unit Tests', () => {
         expect(inputMenu).toBeNull();
       });
     });
+
+    it('write the input value correctly', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          withMenu: true,
+          inputValue: '',
+        },
+      });
+
+      const inputElement = screen.getByTestId('custom-base-input');
+      expect(inputElement).toHaveValue('');
+      await fireEvent.change(inputElement, { target: { value: 'test' } });
+      expect(inputElement).toHaveValue('test');
+    });
   });
 });
