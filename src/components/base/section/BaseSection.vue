@@ -76,7 +76,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     }"
     class="flex items-center gap-12 transition-sb-slow"
   >
-    <slot name="extra-content"></slot>
+    <slot name="extra-content" :is-visible="isVisible"></slot>
     <div class="flex flex-col justify-center flex-1">
       <h2
         :id="`${$attrs.id || 'section'}-titleHeading`"

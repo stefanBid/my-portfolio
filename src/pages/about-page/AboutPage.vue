@@ -38,11 +38,12 @@ watch(
           rootMargin: '-80px 0px 0px 0px',
         }"
       >
-        <template #extra-content>
+        <template #extra-content="{ isVisible }">
           <VintagePicture
             v-if="section.imagePath"
             :image-url="section.imagePath"
             :text="section.imageDescription"
+            :is-visible="isVisible"
             :class="{
               '-rotate-2': index % 2 === 0,
               'rotate-2': index % 2 !== 0,

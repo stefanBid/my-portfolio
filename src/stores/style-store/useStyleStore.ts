@@ -28,12 +28,12 @@ export const useStyleStore = defineStore('style', () => {
 
   const containerGapElements = computed(() => {
     if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
-      return 'gap-y-16';
+      return 'gap-y-28';
     }
     if (activeBreakpoint.value === 'md' || activeBreakpoint.value === 'lg') {
-      return 'gap-y-20';
+      return 'gap-y-32';
     }
-    return ' gap-y-24';
+    return ' gap-y-36';
   });
 
   // Common style for text elements

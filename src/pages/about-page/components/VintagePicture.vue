@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
 
 interface VintagePictureProps {
   imageUrl: string;
   text?: string;
+  isVisible?: boolean;
 }
 
 const props = withDefaults(defineProps<VintagePictureProps>(), {
   text: undefined,
+  isVisible: undefined,
 });
 
 // Store Declarations
@@ -70,6 +72,15 @@ const flipPicture = (): void => {
     }, 100);
   }
 };
+
+watch(
+  () => props.isVisible,
+  (newValue) => {
+    if (newValue && flip.value) {
+      flipPicture();
+    }
+  },
+);
 </script>
 
 <template>

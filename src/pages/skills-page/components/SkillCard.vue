@@ -2,7 +2,7 @@
 import { PhotoIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { vIntersectionObserver } from '@vueuse/components';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { SKILLS_ICONS_MAP } from '@/assets';
 import { BaseLevelBar, BaseButton } from '@/components';
@@ -76,6 +76,15 @@ const goPrevious = (): void => {
   }
   paginationIndex.value -= 1;
 };
+
+watch(
+  () => styleStore.activeBreakpoint,
+  (oldValue, newValue) => {
+    if (oldValue === 'xs' || newValue === 'xs') {
+      paginationIndex.value = 0;
+    }
+  },
+);
 </script>
 
 <template>

@@ -32,7 +32,7 @@ onMounted(() => {
         <h1
           v-if="show"
           :class="[styleStore.textSizeXXL]"
-          class="text-center text-white whitespace-normal font-bebas"
+          class="text-center text-white whitespace-normal transition-sb-slow font-bebas"
         >
           {{ props.pageIntroText }}
         </h1>
