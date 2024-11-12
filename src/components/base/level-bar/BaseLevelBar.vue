@@ -66,7 +66,7 @@ const getScore = computed(() => {
     >
       {{ props.label }}
     </span>
-    <div :data-testid="props.dataTestid" class="flex items-center">
+    <div class="flex items-center">
       <div
         :class="{
           'h-2.5':
@@ -81,6 +81,7 @@ const getScore = computed(() => {
         class="relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200"
       >
         <div
+          :data-testid="props.dataTestid"
           class="absolute top-0 left-0 h-full bg-sb-tertiary-100"
           :style="{ width: getLevelBarWidth }"
         ></div>
