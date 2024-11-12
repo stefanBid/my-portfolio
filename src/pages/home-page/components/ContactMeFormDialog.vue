@@ -76,6 +76,14 @@ const sendEmail = async (): Promise<void> => {
   }
 };
 
+const resetForm = (): void => {
+  contactObject.value = {
+    name: '',
+    email: '',
+    message: '',
+  };
+};
+
 // Manage Modal State
 watch(
   () => props.isModalOpen,
@@ -114,7 +122,7 @@ watch(
         name="contact_form"
         class="flex flex-col items-center w-full h-full overflow-hidden gap-y-6"
         @submit.prevent="sendEmail()"
-        @reset="() => (contactObject = { name: '', email: '', message: '' })"
+        @reset.prevent="resetForm()"
       >
         <div class="flex flex-col flex-1 w-full px-3 overflow-y-auto gap-y-6">
           <BaseInput
