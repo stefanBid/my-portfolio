@@ -1,131 +1,154 @@
-import { render, fireEvent } from '@testing-library/vue';
+import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
 import { BaseTextArea } from '@/components';
 
-describe('BaseTextArea.vue', () => {
-  describe('Label rendering', () => {
-    it('renders label when provided', async () => {
-      const { getByTestId } = render(BaseTextArea, {
+describe('BaseTextArea Unit Tests', () => {
+  describe('Props', () => {
+    it.each(['Custom label', undefined])('render label correctly when provided "%s"', (label) => {
+      render(BaseTextArea, {
         props: {
-          label: 'Description',
-          dataTestid: 'base-text-area',
+          dataTestid: 'custom-base-text-area',
+          label,
           inputValue: '',
         },
       });
 
-      const label = getByTestId('base-text-area-label');
-      expect(label).toBeInTheDocument();
-      expect(label).toHaveTextContent('Description');
-      // Check basic class without relying on styleStore
-      expect(label).toHaveClass('font-medium');
+      const labelElement = screen.queryByTestId('custom-base-text-area-label');
 
-      await fireEvent.mouseOver(label);
-      expect(label).toHaveClass('hover:text-shadow-luminous');
+      if (label) {
+        expect(labelElement).toBeInTheDocument();
+        expect(labelElement).toHaveTextContent(label);
+      } else {
+        expect(labelElement).toBeNull();
+      }
     });
 
-    it('does not render label when not provided', () => {
-      const { queryByTestId } = render(BaseTextArea, {
-        props: {
-          dataTestid: 'base-text-area',
-          inputValue: '',
-        },
-      });
+    it.each(['Custom aria label', undefined])(
+      'set aria-label correctly when provided "%s"',
+      (ariaLabel) => {
+        render(BaseTextArea, {
+          props: {
+            dataTestid: 'custom-base-text-area',
+            ariaLabel,
+            inputValue: '',
+          },
+        });
 
-      const label = queryByTestId('base-text-area-label');
-      expect(label).toBeNull();
-    });
-  });
+        const textAreaElement = screen.getByTestId('custom-base-text-area');
+        expect(textAreaElement).toHaveAttribute(
+          'aria-label',
+          ariaLabel ? ariaLabel : 'general text area',
+        );
+      },
+    );
 
-  describe('Text area properties', () => {
-    it('sets placeholder and maxlength attributes correctly', () => {
-      const { getByTestId } = render(BaseTextArea, {
-        props: {
-          placeholder: 'Custom placeholder',
-          maxlength: 150,
-          dataTestid: 'base-text-area',
-          inputValue: '',
-        },
-      });
-
-      const textarea = getByTestId('base-text-area');
-      expect(textarea).toHaveAttribute('placeholder', 'Custom placeholder');
-      expect(textarea).toHaveAttribute('maxlength', '150');
-    });
-
-    it('renders default placeholder and maxlength when props not provided', () => {
-      const { getByTestId } = render(BaseTextArea, {
-        props: {
-          dataTestid: 'base-text-area',
-          inputValue: '',
-        },
-      });
-
-      const textarea = getByTestId('base-text-area');
-      expect(textarea).toHaveAttribute('placeholder', 'Enter a text');
-      expect(textarea).toHaveAttribute('maxlength', '300');
-    });
-  });
-
-  describe('Focus and blur handling', () => {
-    it('applies focus and blur styling based on focus state', async () => {
-      const { getByTestId } = render(BaseTextArea, {
-        props: {
-          dataTestid: 'base-text-area',
-          inputValue: '',
-        },
-      });
-
-      const textarea = getByTestId('base-text-area');
-      textarea.focus();
-      expect(textarea).toHaveFocus();
-      textarea.blur();
-      expect(textarea).not.toHaveFocus();
-    });
-  });
-
-  describe('Character count display', () => {
-    it('displays correct character count', async () => {
-      const { container, getByTestId } = render(BaseTextArea, {
-        props: {
-          dataTestid: 'base-text-area',
-          inputValue: '',
-        },
-      });
-
-      const textarea = getByTestId('base-text-area');
-
-      expect(container).toHaveTextContent('0 / 300');
-      await fireEvent.update(textarea, 'Hello, World!');
-      expect(container).toHaveTextContent('13 / 300');
-    });
-  });
-
-  describe('ID and Name attributes', () => {
     it.each([
-      { id: 'custom-id', name: 'custom-name' },
       { id: undefined, name: undefined },
-    ])('sets correct ID and Name attributes with id: $id, name: $name', ({ id, name }) => {
-      const { getByTestId } = render(BaseTextArea, {
+      { id: 'custom-id', name: 'custom-name' },
+    ])('set id and name correctly when id is "$id" and name is "$name"', ({ id, name }) => {
+      render(BaseTextArea, {
         props: {
+          dataTestid: 'custom-base-text-area',
           id,
           name,
           inputValue: '',
-          dataTestid: 'base-text-area',
         },
       });
 
-      const textarea = getByTestId('base-text-area');
-      if (id) {
-        expect(textarea).toHaveAttribute('id', id);
-      } else {
-        expect(textarea).toHaveAttribute('id');
-      }
+      const textAreaElement = screen.getByTestId('custom-base-text-area');
+      const nanoidPattern = /^[a-zA-Z0-9_-]{21}/;
 
-      if (name) {
-        expect(textarea).toHaveAttribute('name', name);
+      if (id && name) {
+        expect(textAreaElement).toHaveAttribute('id', id);
+        expect(textAreaElement).toHaveAttribute('name', name);
       } else {
-        expect(textarea).toHaveAttribute('name');
+        expect(textAreaElement.getAttribute('id')).toMatch(
+          new RegExp(`^${nanoidPattern.source}-textarea-id$`),
+        );
+        expect(textAreaElement.getAttribute('name')).toMatch(
+          new RegExp(`^${nanoidPattern.source}-textarea-name$`),
+        );
       }
+    });
+
+    it.each(['Custom placeholder', undefined])(
+      'set placeholder correctly when provided "%s"',
+      (placeholder) => {
+        render(BaseTextArea, {
+          props: {
+            dataTestid: 'custom-base-text-area',
+            placeholder,
+            inputValue: '',
+          },
+        });
+
+        const textAreaElement = screen.getByTestId('custom-base-text-area');
+        expect(textAreaElement).toHaveAttribute(
+          'placeholder',
+          placeholder ? placeholder : 'Enter a text',
+        );
+      },
+    );
+
+    it.each([undefined, 100])(`set max length correctly when provided "%s"`, (maxlength) => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          maxlength,
+          inputValue: '',
+        },
+      });
+
+      const textAreaElement = screen.getByTestId('custom-base-text-area');
+      expect(textAreaElement).toHaveAttribute('maxlength', String(maxlength ? maxlength : 300));
+    });
+  });
+
+  describe('User Interaction and State', () => {
+    it('focus the text area when the label is clicked', async () => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          label: 'Custom label',
+          inputValue: '',
+        },
+      });
+      await fireEvent.click(screen.getByTestId('custom-base-text-area-label'));
+      waitFor(() => {
+        expect(screen.getByTestId('custom-base-text-area')).toHaveFocus();
+      });
+    });
+
+    it('write the input value correctly', async () => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          inputValue: '',
+        },
+      });
+
+      const textAreaElement = screen.getByTestId('custom-base-text-area');
+      expect(textAreaElement).toHaveValue('');
+      await fireEvent.update(textAreaElement, 'test');
+      expect(textAreaElement).toHaveValue('test');
+    });
+
+    it('write the input value until the max length is reached', async () => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          maxlength: 5,
+          inputValue: '',
+        },
+      });
+
+      const textAreaElement = screen.getByTestId('custom-base-text-area');
+      const textAreaCounter = screen.getByTestId('custom-base-text-area-counter');
+      expect(textAreaElement).toHaveValue('');
+      expect(textAreaCounter).toHaveTextContent('0 / 5');
+      await fireEvent.update(textAreaElement, 'test1');
+      expect(textAreaElement).toHaveValue('test1');
+      expect(textAreaCounter).toHaveTextContent('5 / 5');
     });
   });
 });

@@ -10,6 +10,7 @@ interface TextAreaProps {
   placeholder?: string;
   maxlength?: number;
   dataTestid?: string;
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<TextAreaProps>(), {
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
   maxlength: 300,
   label: undefined,
   dataTestid: 'base-text-area',
+  ariaLabel: 'general text area',
 });
 
 const inputValue = defineModel<string>('inputValue', { required: true });
@@ -63,6 +65,7 @@ const handleFocusBlur = (focused: boolean): void => {
       v-model="inputValue"
       :name="textAreaName"
       :data-testid="props.dataTestid"
+      :aria-label="props.ariaLabel"
       tabindex="0"
       :maxlength="props.maxlength"
       :class="[
@@ -78,7 +81,11 @@ const handleFocusBlur = (focused: boolean): void => {
       @blur="handleFocusBlur(false)"
     >
     </textarea>
-    <div :class="[styleStore.textSizeXS]" class="flex justify-end w-full font-light text-white">
+    <div
+      :data-testid="`${props.dataTestid}-counter`"
+      :class="[styleStore.textSizeXS]"
+      class="flex justify-end w-full font-light text-white"
+    >
       {{ inputValue.length }} / {{ props.maxlength }}
     </div>
   </div>
