@@ -4,11 +4,13 @@ import { useStyleStore } from '@/stores';
 
 interface BaseSwitchProps {
   label?: string;
+  ariaLabel?: string;
   dataTestid?: string;
 }
 
 const props = withDefaults(defineProps<BaseSwitchProps>(), {
   label: undefined,
+  ariaLabel: 'general switch',
   dataTestid: 'base-switch',
 });
 
@@ -42,6 +44,7 @@ const styleStore = useStyleStore();
         v-model="enabled"
         :data-testid="props.dataTestid"
         tabindex="0"
+        :aria-label="props.ariaLabel"
         class="box-border relative inline-flex items-center border-2 border-white rounded-full outline-none cursor-pointer transition-sb-normal shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
         :class="{
           'bg-sb-tertiary-100': enabled,
