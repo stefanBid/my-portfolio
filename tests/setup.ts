@@ -37,4 +37,5 @@ afterEach(() => {
   vi.clearAllMocks();
   vi.resetModules();
   vi.useRealTimers();
+  pinia.state.value = {};
 });
