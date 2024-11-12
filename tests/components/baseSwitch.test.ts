@@ -1,110 +1,159 @@
-import { render, fireEvent } from '@testing-library/vue';
+import { render, fireEvent, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
 import { BaseSwitch } from '@/components';
 
-describe('BaseSwitch.vue', () => {
-  describe('Label rendering', () => {
-    it('renders label when provided', () => {
-      const { getByTestId } = render(BaseSwitch, {
+describe('BaseSwitch Unit Tests', () => {
+  describe('Props', () => {
+    it.each(['Custom label', undefined])('render label correctly when provided "%s"', (label) => {
+      render(BaseSwitch, {
         props: {
-          label: 'Toggle Label',
-          dataTestid: 'base-switch',
-          enabled: false,
+          dataTestid: 'custom-base-switch',
+          label,
+          enabled: true,
         },
       });
 
-      const label = getByTestId('base-switch-label');
-      expect(label).toBeInTheDocument();
-      expect(label).toHaveTextContent('Toggle Label');
-      expect(label).toHaveClass('text-white', 'font-roboto');
+      const labelElement = screen.queryByTestId('custom-base-switch-label');
+
+      if (label) {
+        expect(labelElement).toBeInTheDocument();
+        expect(labelElement).toHaveTextContent(label);
+      } else {
+        expect(labelElement).toBeNull();
+      }
     });
 
-    it('does not render label when not provided', () => {
-      const { queryByTestId } = render(BaseSwitch, {
-        props: {
-          dataTestid: 'base-switch',
-          enabled: false,
-        },
-      });
+    it.each(['Custom aria label', undefined])(
+      'set aria-label correctly when provided "%s"',
+      (ariaLabel) => {
+        render(BaseSwitch, {
+          props: {
+            dataTestid: 'custom-base-switch',
+            ariaLabel,
+            enabled: true,
+          },
+        });
 
-      const label = queryByTestId('base-switch-label');
-      expect(label).toBeNull();
-    });
+        const switchElement = screen.getByTestId('custom-base-switch');
+        expect(switchElement).toHaveAttribute(
+          'aria-label',
+          ariaLabel ? ariaLabel : 'general switch',
+        );
+      },
+    );
   });
 
-  describe('Switch state and classes', () => {
-    it('has correct default state', () => {
-      const { getByTestId } = render(BaseSwitch, {
+  describe('User Interaction and State', () => {
+    it('enable the switch when the label is clicked', async () => {
+      render(BaseSwitch, {
         props: {
-          dataTestid: 'base-switch',
+          dataTestid: 'custom-base-switch',
+          label: 'Custom label',
           enabled: false,
         },
       });
+      const labelElement = screen.getByTestId('custom-base-switch-label');
+      const switchElement = screen.getByTestId('custom-base-switch');
 
-      const switchElement = getByTestId('base-switch');
-      expect(switchElement).toHaveClass('bg-sb-tertiary-100/50'); // default `enabled` is false
+      expect(switchElement).not.toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
+
+      await fireEvent.click(labelElement);
+
+      expect(switchElement).toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100');
     });
 
-    it('toggles state and classes on click', async () => {
-      const { getByTestId } = render(BaseSwitch, {
+    it('disable the switch when the label is clicked', async () => {
+      render(BaseSwitch, {
         props: {
-          dataTestid: 'base-switch',
+          dataTestid: 'custom-base-switch',
+          label: 'Custom label',
+          enabled: true,
+        },
+      });
+      const labelElement = screen.getByTestId('custom-base-switch-label');
+      const switchElement = screen.getByTestId('custom-base-switch');
+
+      expect(switchElement).toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100');
+
+      await fireEvent.click(labelElement);
+
+      expect(switchElement).not.toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
+    });
+
+    it('enable the switch when the switch button is clicked', async () => {
+      render(BaseSwitch, {
+        props: {
+          dataTestid: 'custom-base-switch',
           enabled: false,
         },
       });
+      const switchElement = screen.getByTestId('custom-base-switch');
 
-      const switchElement = getByTestId('base-switch');
-      const toggle = switchElement.querySelector('span');
-
-      // Verify initial state
+      expect(switchElement).not.toBeChecked();
       expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
-      expect(toggle).toHaveClass('translate-x-0.5');
 
-      // Toggle state
       await fireEvent.click(switchElement);
-      expect(switchElement).toHaveClass('bg-sb-tertiary-100');
-      expect(toggle).toHaveClass('translate-x-[22px]');
 
-      // Toggle back
+      expect(switchElement).toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100');
+    });
+
+    it('disable the switch when the switch button is clicked', async () => {
+      render(BaseSwitch, {
+        props: {
+          dataTestid: 'custom-base-switch',
+          enabled: true,
+        },
+      });
+      const switchElement = screen.getByTestId('custom-base-switch');
+
+      expect(switchElement).toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100');
+
       await fireEvent.click(switchElement);
+
+      expect(switchElement).not.toBeChecked();
       expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
-      expect(toggle).toHaveClass('translate-x-0.5');
     });
 
-    it('toggles state and classes on label click', async () => {
-      const { getByTestId } = render(BaseSwitch, {
+    it('enable the switch when keypress enter on switch button', async () => {
+      render(BaseSwitch, {
         props: {
-          dataTestid: 'base-switch',
-          label: 'Toggle Label',
+          dataTestid: 'custom-base-switch',
           enabled: false,
         },
       });
+      const switchElement = screen.getByTestId('custom-base-switch');
 
-      const switchElement = getByTestId('base-switch');
-      // Verify initial state
+      expect(switchElement).not.toBeChecked();
       expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
 
-      const label = getByTestId('base-switch-label');
+      await fireEvent.keyPress(switchElement, { key: 'Enter' });
 
-      await fireEvent.click(label);
+      expect(switchElement).toBeChecked();
       expect(switchElement).toHaveClass('bg-sb-tertiary-100');
     });
-  });
 
-  describe('Keyboard interaction', () => {
-    it('toggles switch state with Enter keypress', async () => {
-      const { getByTestId } = render(BaseSwitch, {
+    it('disable the switch when keypress enter on switch button', async () => {
+      render(BaseSwitch, {
         props: {
-          dataTestid: 'base-switch',
-          enabled: false,
+          dataTestid: 'custom-base-switch',
+          enabled: true,
         },
       });
+      const switchElement = screen.getByTestId('custom-base-switch');
 
-      const switchElement = getByTestId('base-switch');
-      expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
-
-      await fireEvent.keyPress(switchElement, { key: 'Enter', code: 'Enter', charCode: 13 });
+      expect(switchElement).toBeChecked();
       expect(switchElement).toHaveClass('bg-sb-tertiary-100');
+
+      await fireEvent.keyPress(switchElement, { key: 'Enter' });
+
+      expect(switchElement).not.toBeChecked();
+      expect(switchElement).toHaveClass('bg-sb-tertiary-100/50');
     });
   });
 });
