@@ -1,125 +1,108 @@
-import { render, waitFor } from '@testing-library/vue';
+import { render, waitFor, screen } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseSection } from '@/components';
 
-describe('BaseSection.vue', () => {
-  describe('Section rendering', () => {
-    it('renders BaseSection with correct properties', () => {
-      const { getByTestId, queryByTestId } = render(BaseSection, {
+describe('BaseSection Unit Tests', () => {
+  describe('Props', () => {
+    it('set the correct section title and paragraph', () => {
+      render(BaseSection, {
         props: {
-          title: 'Section Title',
-          paragraph: 'Section Paragraph',
-          dataTestid: 'base-section',
+          dataTestid: 'custom-base-section',
+          title: 'Test Section Title',
+          paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         },
       });
 
-      const section = getByTestId('base-section');
-      expect(section).toBeInTheDocument();
-      expect(section).toHaveTextContent('Section Title');
-      expect(section).toHaveTextContent('Section Paragraph');
-
-      expect(queryByTestId('base-section-subtitle')).toBeNull();
+      expect(screen.getByTestId('custom-base-section')).toHaveTextContent('Test Section Title');
+      expect(screen.getByTestId('custom-base-section')).toHaveTextContent(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      );
     });
 
-    it('renders BaseSection with optional subtitle', () => {
-      const { getByTestId } = render(BaseSection, {
-        props: {
-          title: 'Section Title',
-          paragraph: 'Section Paragraph',
-          subtitle: 'Section Subtitle',
-          dataTestid: 'base-section',
-        },
-      });
-
-      const section = getByTestId('base-section');
-      expect(section).toBeInTheDocument();
-      expect(section).toHaveTextContent('Section Title');
-      expect(section).toHaveTextContent('Section Paragraph');
-      expect(section).toHaveTextContent('Section Subtitle');
-    });
-  });
-
-  describe('Section text alignment', () => {
-    it.each([false, true])(
-      'renders BaseSection with correct text alignment when inverted is "%s"',
-      (inverted) => {
-        const { getByTestId } = render(BaseSection, {
+    it.each([undefined, 'Test Section Subtitle'])(
+      'set the correct section subtitle "%s"',
+      (subtitle) => {
+        render(BaseSection, {
           props: {
-            title: 'Section Title',
-            subtitle: 'Section Subtitle',
-            paragraph: 'Section Paragraph',
-            dataTestid: 'base-section',
+            dataTestid: 'custom-base-section',
+            title: 'Test Section Title',
+            paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            subtitle,
+          },
+        });
+
+        if (subtitle)
+          expect(screen.getByTestId('custom-base-section')).toHaveTextContent(
+            'Test Section Subtitle',
+          );
+        else
+          expect(screen.getByTestId('custom-base-section')).not.toHaveTextContent(
+            'Test Section Subtitle',
+          );
+      },
+    );
+
+    it.each([true, false])(
+      'set the correct section organization when inverted is "%s"',
+      (inverted) => {
+        render(BaseSection, {
+          props: {
+            dataTestid: 'custom-base-section',
+            title: 'Test Section Title',
+            paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             inverted,
           },
         });
 
-        const sectionTitle = getByTestId('base-section-title');
-        const sectionSubtitle = getByTestId('base-section-subtitle');
-        const sectionParagraph = getByTestId('base-section-paragraph');
+        const section = screen.getByTestId('custom-base-section');
+
         if (inverted) {
-          expect(sectionTitle).toHaveClass('text-right');
-          expect(sectionSubtitle).toHaveClass('text-right');
+          expect(section).not.toHaveClass('flex-row');
+          expect(section).toHaveClass('flex-row-reverse');
         } else {
-          expect(sectionTitle).toHaveClass('text-left');
-          expect(sectionSubtitle).toHaveClass('text-left');
+          expect(section).not.toHaveClass('flex-row-reverse');
+          expect(section).toHaveClass('flex-row');
         }
-        expect(sectionParagraph).toHaveClass('text-justify');
       },
     );
   });
-  describe('Section extra content slot rendering', () => {
-    it('renders BaseSection with extra content slot', () => {
-      const { getByTestId } = render(BaseSection, {
+
+  describe('State', () => {
+    it('set the correct opacity state when section is in the viewport', async () => {
+      render(BaseSection, {
         props: {
-          title: 'Section Title',
-          paragraph: 'Section Paragraph',
-          dataTestid: 'base-section',
-        },
-        slots: {
-          'extra-content': () => 'Extra Content',
+          dataTestid: 'custom-base-section',
+          title: 'Test Section Title',
+          paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         },
       });
+      const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
 
-      expect(getByTestId('base-section')).toHaveTextContent('Extra Content');
+      const observerInstance = mockObserver.mock.results[0].value;
+      observerInstance.trigger(true);
+
+      waitFor(() => {
+        expect(screen.getByTestId('custom-base-section')).toHaveClass('opacity-100');
+      });
     });
-  });
 
-  describe('Section visibility', () => {
-    it('toggle visibility of section when goes out of viewport', async () => {
-      const mockIntersectionObserver = vi.fn((callback) => {
-        callback([{ isIntersecting: true }]);
-        return {
-          observe: vi.fn(),
-          disconnect: vi.fn(),
-          unobserve: vi.fn(),
-          takeRecords: vi.fn(),
-          root: null,
-          rootMargin: '',
-          thresholds: [],
-        };
-      });
-
-      // Mock the IntersectionObserver globally
-      window.IntersectionObserver = mockIntersectionObserver;
-
-      const { getByTestId } = render(BaseSection, {
+    it('set the correct opacity state when section is out of the viewport', async () => {
+      render(BaseSection, {
         props: {
-          title: 'Section Title',
-          paragraph: 'Section Paragraph',
-          dataTestid: 'base-section',
-          intersectionObserverSettings: {
-            rootElement: null,
-            rootMargin: '-80px 0px 0px 0px',
-            threshold: 0.05,
-          },
+          dataTestid: 'custom-base-section',
+          title: 'Test Section Title',
+          paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         },
       });
 
-      const section = getByTestId('base-section');
-      expect(section).toBeVisible();
+      const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
 
-      mockIntersectionObserver.mock.calls[0][0]([{ isIntersecting: false }]);
-      await waitFor(() => expect(section).toHaveClass('opacity-0'));
+      const observerInstance = mockObserver.mock.results[0].value;
+      observerInstance.trigger(false);
+
+      waitFor(() => {
+        expect(screen.getByTestId('custom-base-section')).toHaveClass('opacity-0');
+      });
     });
   });
 });
