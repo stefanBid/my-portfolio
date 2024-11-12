@@ -25,8 +25,8 @@ watch(
 onMounted(() => {
   notificationStore.pushNotification(
     i18nStore.currentLanguage === 'en'
-      ? 'This page is under construction'
-      : 'Questa pagina è in costruzione',
+      ? 'There are no projects to show at the moment'
+      : 'Non ci sono progetti da mostrare al momento',
     'info',
   );
 });
