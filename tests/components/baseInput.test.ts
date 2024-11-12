@@ -24,7 +24,7 @@ describe('BaseInput Unit Tests', () => {
     });
 
     it.each(['Custom aria label', undefined])(
-      'render aria-label correctly when provided "%s"',
+      'set aria-label correctly when provided "%s"',
       (ariaLabel) => {
         render(BaseInput, {
           props: {
@@ -42,7 +42,7 @@ describe('BaseInput Unit Tests', () => {
     it.each([
       { id: undefined, name: undefined },
       { id: 'custom-id', name: 'custom-name' },
-    ])('render id and name correctly when id is "$id" and name is "$name"', ({ id, name }) => {
+    ])('set id and name correctly when id is "$id" and name is "$name"', ({ id, name }) => {
       render(BaseInput, {
         props: {
           dataTestid: 'custom-base-input',
@@ -68,7 +68,7 @@ describe('BaseInput Unit Tests', () => {
       }
     });
 
-    it.each(['text', 'search', 'email'])(`render type correctly when provided "%s"`, (type) => {
+    it.each(['text', 'search', 'email'])(`set type correctly when provided "%s"`, (type) => {
       render(BaseInput, {
         props: {
           dataTestid: 'custom-base-input',
@@ -88,7 +88,7 @@ describe('BaseInput Unit Tests', () => {
       { placeholder: undefined, type: 'search' },
       { placeholder: undefined, type: 'email' },
     ])(
-      'render placeholder correctly when provided "$placeholder" and type is "$type"',
+      'set placeholder correctly when provided "$placeholder" and type is "$type"',
       ({ placeholder, type }) => {
         render(BaseInput, {
           props: {
