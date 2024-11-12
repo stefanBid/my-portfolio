@@ -144,6 +144,7 @@ const changeVisibility = (falsyValue: boolean): void => {
           <BaseButton
             id="contactMeButton"
             name="contact_me_button"
+            aria-label="click to open contact me form"
             class="w-full"
             :icon="EnvelopeIcon"
             @click.stop="() => openContactMeFormDialog()"
@@ -161,6 +162,7 @@ const changeVisibility = (falsyValue: boolean): void => {
           <BaseButton
             id="downloadCvButton"
             name="download_cv_button"
+            aria-label="click to download cv"
             class="w-full"
             :icon="DocumentArrowDownIcon"
             @click="

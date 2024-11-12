@@ -100,6 +100,7 @@ const changeVisibility = (newVisibility: boolean): void => {
         <BaseButton
           id="exploreSkillsButton"
           name="explore_skills_button"
+          aria-label="click to explore skills"
           class="z-sb-base-1 w-fit"
           :icon="MagnifyingGlassIcon"
           @click="changeVisibility(!isModalOpen)"

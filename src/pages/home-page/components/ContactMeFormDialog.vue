@@ -121,6 +121,7 @@ watch(
             id="contactFullName"
             v-model:input-value="contactObject.name"
             name="contact_full_name"
+            aria-label="full name of the contact person"
             :label="i18nStore.homePageI18nContent.contactMeForm.fullNameField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.fullNameField.placeholder"
           />
@@ -129,6 +130,7 @@ watch(
             id="contactEmail"
             v-model:input-value="contactObject.email"
             name="contact-email"
+            aria-label="email of the contact person"
             type="email"
             :label="i18nStore.homePageI18nContent.contactMeForm.emailField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.emailField.placeholder"
@@ -137,6 +139,7 @@ watch(
             id="contactMessage"
             v-model:input-value="contactObject.message"
             name="contact-message"
+            aria-label="message to be sent"
             :label="i18nStore.homePageI18nContent.contactMeForm.messageField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.messageField.placeholder"
           />
@@ -145,6 +148,7 @@ watch(
           <BaseButton
             id="contactResetButton"
             name="contact-reset-button"
+            aria-label="click for reset contact form"
             type="reset"
             content-size="small"
             spacing-size="small"
@@ -156,6 +160,7 @@ watch(
           <BaseButton
             id="contactSendButton"
             name="contact-send-button"
+            aria-label="click to send email"
             type="submit"
             content-size="small"
             spacing-size="small"

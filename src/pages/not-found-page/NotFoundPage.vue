@@ -57,6 +57,7 @@ watch(
     <BaseButton
       id="goHomeButton"
       name="go_home_button"
+      aria-label="click to go to the home page"
       :icon="HomeIcon"
       @click="router.push({ name: 'homePage' })"
     >
