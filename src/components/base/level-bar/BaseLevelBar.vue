@@ -46,9 +46,12 @@ const getScore = computed(() => {
   const level = Math.max(r.min, Math.min(r.max, props.level));
 
   if (props.scale === 'percentage') {
+    if (level === r.max || level === r.min) {
+      return `${level}%`;
+    }
     return `${level.toFixed(1)}%`;
   } else {
-    if (level === r.max) {
+    if (level === r.max || level === r.min) {
       return `${level} / ${r.max}`;
     }
     return `${level.toFixed(1)} / ${r.max}`;
