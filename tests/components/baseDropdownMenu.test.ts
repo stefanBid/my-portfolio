@@ -99,11 +99,14 @@ describe('BaseDropdownMenu Unit Tests', () => {
 
       const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
       await fireEvent.click(dropdownButton);
-      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
-      expect(dropdownMenu).toBeInTheDocument();
-      await fireEvent.click(document);
-      waitFor(() => {
-        expect(dropdownMenu).toBeNull();
+
+      expect(
+        await screen.findByTestId('custom-base-dropdown-menu-floating-panel'),
+      ).toBeInTheDocument();
+
+      await fireEvent.click(document.body);
+      await waitFor(() => {
+        expect(screen.queryByTestId('custom-base-dropdown-menu-floating-panel')).toBeNull();
       });
     });
 
@@ -116,15 +119,18 @@ describe('BaseDropdownMenu Unit Tests', () => {
 
       const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
       await fireEvent.click(dropdownButton);
-      const dropdownMenu = await screen.findByTestId('custom-base-dropdown-menu-floating-panel');
+
+      expect(
+        await screen.findByTestId('custom-base-dropdown-menu-floating-panel'),
+      ).toBeInTheDocument();
 
       const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
 
       const observerInstance = mockObserver.mock.results[0].value;
       observerInstance.trigger(false);
 
-      waitFor(() => {
-        expect(dropdownMenu).toBeNull();
+      await waitFor(() => {
+        expect(screen.queryByTestId('custom-base-dropdown-menu-floating-panel')).toBeNull();
       });
     });
 

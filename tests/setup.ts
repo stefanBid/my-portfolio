@@ -11,6 +11,7 @@ config.global.plugins = [pinia];
 // Mock ResizeObserver globally
 const mockResizeObserver = vi.fn(() => {
   return {
+    constructor: vi.fn(),
     observe: vi.fn(),
     unobserve: vi.fn(),
     disconnect: vi.fn(),
@@ -20,6 +21,7 @@ const mockResizeObserver = vi.fn(() => {
 // Mock IntersectionObserver globally
 const mockIntersectionObserver = vi.fn((callback) => {
   return {
+    constructor: vi.fn(),
     observe: vi.fn(),
     unobserve: vi.fn(),
     disconnect: vi.fn(),

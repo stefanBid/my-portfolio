@@ -25,6 +25,8 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
 
 const inputValue = defineModel<string>('inputValue', { required: true });
 
+const reference = ref();
+
 // Store Declarations
 const styleStore = useStyleStore();
 
@@ -56,12 +58,15 @@ const handleFocusBlur = (focused: boolean): void => {
       tabindex="0"
       :class="[styleStore.textSizeXS]"
       class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
+      @keydown.enter.stop.prevent="reference?.focus()"
+      @click.stop.prevent="reference?.focus()"
     >
       {{ props.label }}
     </label>
 
     <textarea
       :id="textAreaId"
+      ref="reference"
       v-model="inputValue"
       :name="textAreaName"
       :data-testid="props.dataTestid"

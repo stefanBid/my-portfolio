@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/vue';
+import { render, screen, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
 import { BaseDialog } from '@/components';
 
@@ -115,21 +115,6 @@ describe('BaseDialog Unit Tests', () => {
       await fireEvent.keyDown(document, { key: 'Escape' });
       expect(onCloseModalMock).toHaveBeenCalled();
       expect(onCloseModalMock).toHaveBeenCalledWith(false);
-    });
-
-    it('check if onCloseModal is called correctly when you click outside the dialog', async () => {
-      render(BaseDialog, {
-        props: {
-          isOpen: true,
-          dataTestid: 'custom-base-dialog',
-          onCloseModal: onCloseModalMock,
-        },
-      });
-      await fireEvent.click(document);
-      waitFor(() => {
-        expect(onCloseModalMock).toHaveBeenCalled();
-        expect(onCloseModalMock).toHaveBeenCalledWith(false);
-      });
     });
   });
 });

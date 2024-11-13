@@ -81,7 +81,7 @@ describe('BaseSection Unit Tests', () => {
       const observerInstance = mockObserver.mock.results[0].value;
       observerInstance.trigger(true);
 
-      waitFor(() => {
+      await waitFor(() => {
         expect(screen.getByTestId('custom-base-section')).toHaveClass('opacity-100');
       });
     });
@@ -100,7 +100,7 @@ describe('BaseSection Unit Tests', () => {
       const observerInstance = mockObserver.mock.results[0].value;
       observerInstance.trigger(false);
 
-      waitFor(() => {
+      await waitFor(() => {
         expect(screen.getByTestId('custom-base-section')).toHaveClass('opacity-0');
       });
     });

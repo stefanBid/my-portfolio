@@ -127,13 +127,22 @@ describe('BaseInput Unit Tests', () => {
         },
       });
 
-      const inputMenuButton = screen.queryByTestId('custom-base-input-menu-button');
-      expect(inputMenuButton).toHaveClass('text-white');
       await fireEvent.click(screen.getByTestId('custom-base-input-label'));
-      waitFor(() => {
-        expect(inputMenuButton).toHaveClass('text-black');
-        expect(screen.getByTestId('custom-base-input')).toHaveFocus();
+      expect(screen.getByTestId('custom-base-input')).toHaveFocus();
+    });
+
+    it('focus the input when keydown enter on the label', async () => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          label: 'Custom label',
+          withMenu: true,
+          inputValue: '',
+        },
       });
+
+      await fireEvent.keyDown(screen.getByTestId('custom-base-input-label'), { key: 'Enter' });
+      expect(screen.getByTestId('custom-base-input')).toHaveFocus();
     });
 
     it.each([true, false])('render input menu button when is state is "%s"', async (withMenu) => {
@@ -179,12 +188,13 @@ describe('BaseInput Unit Tests', () => {
 
       const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
       await fireEvent.click(inputMenuButton);
-      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
-      expect(inputMenu).toBeInTheDocument();
+
+      expect(
+        await screen.findByTestId('custom-base-input-floating-menu-panel'),
+      ).toBeInTheDocument();
+
       await fireEvent.click(inputMenuButton);
-      waitFor(() => {
-        expect(inputMenu).toBeNull();
-      });
+      expect(screen.queryByTestId('custom-base-input-floating-menu-panel')).toBeNull();
     });
 
     it('close the menu when the input menu button is clicked', async () => {
@@ -198,12 +208,14 @@ describe('BaseInput Unit Tests', () => {
 
       const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
       await fireEvent.click(inputMenuButton);
-      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
-      expect(inputMenu).toBeInTheDocument();
+
+      expect(
+        await screen.findByTestId('custom-base-input-floating-menu-panel'),
+      ).toBeInTheDocument();
+
       await fireEvent.click(inputMenuButton);
-      waitFor(() => {
-        expect(inputMenu).toBeNull();
-      });
+
+      expect(screen.queryByTestId('custom-base-input-floating-menu-panel')).toBeNull();
     });
 
     it('close the menu when clicking outside the input menu', async () => {
@@ -217,11 +229,15 @@ describe('BaseInput Unit Tests', () => {
 
       const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
       await fireEvent.click(inputMenuButton);
-      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
-      expect(inputMenu).toBeInTheDocument();
+
+      expect(
+        await screen.findByTestId('custom-base-input-floating-menu-panel'),
+      ).toBeInTheDocument();
+
       await fireEvent.click(document);
-      waitFor(() => {
-        expect(inputMenu).toBeNull();
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('custom-base-input-floating-menu-panel')).toBeNull();
       });
     });
 
@@ -236,15 +252,18 @@ describe('BaseInput Unit Tests', () => {
 
       const inputMenuButton = screen.getByTestId('custom-base-input-menu-button');
       await fireEvent.click(inputMenuButton);
-      const inputMenu = await screen.findByTestId('custom-base-input-floating-menu-panel');
+
+      expect(
+        await screen.findByTestId('custom-base-input-floating-menu-panel'),
+      ).toBeInTheDocument();
 
       const mockObserver = global.IntersectionObserver as unknown as ReturnType<typeof vi.fn>;
 
       const observerInstance = mockObserver.mock.results[0].value;
       observerInstance.trigger(false);
 
-      waitFor(() => {
-        expect(inputMenu).toBeNull();
+      await waitFor(() => {
+        expect(screen.queryByTestId('custom-base-input-floating-menu-panel')).toBeNull();
       });
     });
 

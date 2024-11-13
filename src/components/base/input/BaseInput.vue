@@ -110,7 +110,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       tabindex="0"
       :class="[styleStore.textSizeXS]"
       class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
-      @keydown.enter.stop="reference?.focus()"
+      @keydown.enter.stop.prevent="reference?.focus()"
+      @click.stop.prevent="reference?.focus()"
     >
       {{ props.label }}
     </label>

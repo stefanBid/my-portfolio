@@ -114,9 +114,19 @@ describe('BaseTextArea Unit Tests', () => {
         },
       });
       await fireEvent.click(screen.getByTestId('custom-base-text-area-label'));
-      waitFor(() => {
-        expect(screen.getByTestId('custom-base-text-area')).toHaveFocus();
+      expect(screen.getByTestId('custom-base-text-area')).toHaveFocus();
+    });
+
+    it('focus the text area when keydown enter on the label', async () => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          label: 'Custom label',
+          inputValue: '',
+        },
       });
+      await fireEvent.keyDown(screen.getByTestId('custom-base-text-area-label'), { key: 'Enter' });
+      expect(screen.getByTestId('custom-base-text-area')).toHaveFocus();
     });
 
     it('write the input value correctly', async () => {
