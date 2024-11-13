@@ -1,4 +1,4 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
+import { render, fireEvent, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
 import { BaseTextArea } from '@/components';
 
