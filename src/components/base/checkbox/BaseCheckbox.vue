@@ -86,7 +86,7 @@ const onCheckboxChange = (event: Event): void => {
 </script>
 
 <template>
-  <div class="inline-flex items-center w-full border gap-x-3">
+  <div class="inline-flex items-center w-full gap-x-3">
     <input
       :id="checkboxId"
       :checked="isChecked"
@@ -104,8 +104,8 @@ const onCheckboxChange = (event: Event): void => {
           styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
       }"
       :style="{ transform: 'rotateY(180deg)' }"
-      class="bg-white relative border border-white rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-sb-normal checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
-      @change="($event) => onCheckboxChange($event)"
+      class="bg-white relative border outline-none ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-sb-ring-sm focus-visible:shadow-white border-white rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-sb-normal checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
+      @change.stop.prevent="($event) => onCheckboxChange($event)"
     />
     <slot name="label-content"></slot>
   </div>

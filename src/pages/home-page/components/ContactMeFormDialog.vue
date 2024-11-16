@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useNotificationStore, useI18nStore, useStyleStore } from '@/stores';
-import { BaseDialog, BaseInput, BaseButton, BaseTextArea } from '@/components';
+import { BaseDialog, BaseInput, BaseButton, BaseTextArea, BaseCheckbox } from '@/components';
 import { computed, ref, watch } from 'vue';
+import { ClipboardDocumentListIcon } from '@heroicons/vue/24/outline';
 import emailjs from '@emailjs/browser';
 
 interface ContactMeFormDialogProps {
@@ -21,11 +22,15 @@ const contactObject = ref({
   name: '',
   email: '',
   message: '',
+  agreeToTerms: false,
 });
 
 const disableSendButton = computed(() => {
   return Boolean(
-    !contactObject.value.name || !contactObject.value.email || !contactObject.value.message,
+    !contactObject.value.name ||
+      !contactObject.value.email ||
+      !contactObject.value.message ||
+      !contactObject.value.agreeToTerms,
   );
 });
 
@@ -33,7 +38,8 @@ const disableResetButton = computed(() => {
   return !Boolean(
     contactObject.value.name !== '' ||
       contactObject.value.email !== '' ||
-      contactObject.value.message !== '',
+      contactObject.value.message !== '' ||
+      contactObject.value.agreeToTerms,
   );
 });
 
@@ -46,6 +52,7 @@ const sendEmail = async (): Promise<void> => {
     from_name: contactObject.value.name,
     from_email: contactObject.value.email,
     message: contactObject.value.message,
+    agree_time: new Date().toLocaleString(),
   };
 
   let notificationMsg = '';
@@ -81,6 +88,7 @@ const resetForm = (): void => {
     name: '',
     email: '',
     message: '',
+    agreeToTerms: false,
   };
 };
 
@@ -93,6 +101,7 @@ watch(
         name: '',
         email: '',
         message: '',
+        agreeToTerms: false,
       };
       sendingEmail.value = false;
     }
@@ -109,10 +118,11 @@ watch(
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
-      <div class="inline-flex items-center justify-center w-full text-white gap-x-2">
+      <div class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse">
+        <ClipboardDocumentListIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
         <span
           :class="[styleStore.textSizeXS]"
-          class="text-justify text-white transition-sb-slow font-roboto text-shadow-luminous"
+          class="text-justify transition-sb-slow font-roboto text-shadow-luminous"
         >
           {{ i18nStore.homePageI18nContent.contactMeForm.info }}
         </span>
@@ -151,6 +161,20 @@ watch(
             :label="i18nStore.homePageI18nContent.contactMeForm.messageField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.messageField.placeholder"
           />
+          <BaseCheckbox
+            id="contactAgreeToTerms"
+            v-model:checked="contactObject.agreeToTerms"
+            name="contact_agree_to_terms"
+          >
+            <template #label-content>
+              <span
+                :class="[styleStore.textSizeXS]"
+                class="text-justify text-white transition-sb-slow font-roboto"
+              >
+                {{ i18nStore.homePageI18nContent.contactMeForm.agreeToTermsField }}
+              </span>
+            </template>
+          </BaseCheckbox>
         </div>
         <div class="flex items-center justify-end w-full px-3 pb-3 gap-x-6">
           <BaseButton

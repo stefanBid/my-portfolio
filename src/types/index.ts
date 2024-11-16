@@ -55,6 +55,7 @@ interface HomePageContent {
     fullNameField: InputField;
     emailField: InputField;
     messageField: InputField;
+    agreeToTermsField: string;
     submitButton: Button;
     resetButton: Button;
   };

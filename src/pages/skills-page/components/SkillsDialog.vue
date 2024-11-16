@@ -147,10 +147,10 @@ watch(
         <div
           class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse"
         >
-          <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" />
+          <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
           <span
             :class="[styleStore.textSizeXS]"
-            class="text-white transition-sb-slow font-roboto text-shadow-luminous"
+            class="text-justify text-white transition-sb-slow font-roboto text-shadow-luminous"
           >
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
