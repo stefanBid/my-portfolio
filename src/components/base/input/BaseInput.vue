@@ -147,9 +147,12 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'border-sb-secondary-100': inputValue.length > 0 && !props.validation?.show,
             'border-sb-error focus:border-sb-error focus:shadow-sb-error': props.validation?.show,
             'focus:border-white focus:shadow-white': !props.validation?.show,
+            'px-3': !props.withMenu,
+            'pl-3 pr-12': props.withMenu && props.type !== 'search',
+            'pl-3 pr-8': props.withMenu && props.type === 'search',
           },
         ]"
-        class="w-full px-3 py-2 pr-12 text-white truncate border-2 rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full py-2 text-white truncate border-2 rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
