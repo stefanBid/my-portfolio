@@ -28,6 +28,7 @@ onMounted(() => {
       ? 'There are no projects to show at the moment'
       : 'Non ci sono progetti da mostrare al momento',
     'info',
+    5000,
   );
 });
 </script>
