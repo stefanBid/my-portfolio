@@ -67,6 +67,42 @@ describe('BaseCheckbox Unit Tests', () => {
     });
   });
 
+  describe('Validation', () => {
+    it.each([
+      { validation: undefined, hasErrorClass: false },
+      { validation: { show: false }, hasErrorClass: false },
+      { validation: { show: true }, hasErrorClass: true },
+    ])(
+      'applies correct classes based on validation: $validation',
+      ({ validation, hasErrorClass }) => {
+        render(BaseCheckbox, {
+          props: {
+            dataTestid: 'custom-base-checkbox',
+            validation,
+            checked: false,
+          },
+        });
+
+        const checkbox = screen.getByTestId('custom-base-checkbox');
+
+        if (hasErrorClass) {
+          expect(checkbox).toHaveClass('focus-visible:shadow-sb-error', 'ring-sb-error', 'ring-2');
+        } else {
+          expect(checkbox).not.toHaveClass(
+            'focus-visible:shadow-sb-error',
+            'ring-sb-error',
+            'ring-2',
+          );
+          expect(checkbox).toHaveClass(
+            'focus-visible:shadow-white',
+            'focus-visible:ring-0',
+            'ring-0',
+          );
+        }
+      },
+    );
+  });
+
   describe('Select and Unselect', () => {
     it('select a boolean checkbox', async () => {
       render(BaseCheckbox, {

@@ -77,7 +77,10 @@ describe('BaseInput Unit Tests', () => {
         },
       });
 
-      expect(screen.getByTestId('custom-base-input')).toHaveAttribute('type', type);
+      expect(screen.getByTestId('custom-base-input')).toHaveAttribute(
+        'type',
+        type === 'email' ? 'text' : type,
+      );
     });
 
     it.each([
@@ -110,6 +113,70 @@ describe('BaseInput Unit Tests', () => {
           expect(inputElement).toHaveAttribute(
             'placeholder',
             'Enter an email address (ex: example@ex.com)',
+          );
+        }
+      },
+    );
+  });
+
+  describe('Validation', () => {
+    it.each([
+      { validation: undefined, expectedMessage: null, hasErrorClass: false },
+      {
+        validation: { show: false, message: 'Custom error message' },
+        expectedMessage: null,
+        hasErrorClass: false,
+      },
+      {
+        validation: { show: true, message: 'Custom error message' },
+        expectedMessage: 'Custom error message',
+        hasErrorClass: true,
+      },
+      {
+        validation: { show: true, message: undefined },
+        expectedMessage: null,
+        hasErrorClass: true,
+      },
+      {
+        validation: { show: false, message: undefined },
+        expectedMessage: null,
+        hasErrorClass: false,
+      },
+      { validation: { show: true, message: '' }, expectedMessage: null, hasErrorClass: true },
+      { validation: { show: false, message: '' }, expectedMessage: null, hasErrorClass: false },
+    ])(
+      'handles validation with validation: $validation',
+      async ({ validation, expectedMessage, hasErrorClass }) => {
+        render(BaseInput, {
+          props: {
+            dataTestid: 'custom-base-input',
+            validation,
+            inputValue: '',
+          },
+        });
+
+        // Verify the validation message
+        const validationMessage = screen.queryByTestId('custom-base-input-validation-message');
+        if (expectedMessage) {
+          expect(validationMessage).toBeInTheDocument();
+          expect(validationMessage).toHaveTextContent(expectedMessage);
+        } else {
+          expect(validationMessage).not.toBeInTheDocument();
+        }
+
+        // Verify the error class
+        const inputElement = screen.getByTestId('custom-base-input');
+        if (hasErrorClass) {
+          expect(inputElement).toHaveClass(
+            'border-sb-error',
+            'focus:border-sb-error',
+            'focus:shadow-sb-error',
+          );
+        } else {
+          expect(inputElement).not.toHaveClass(
+            'border-sb-error',
+            'focus:border-sb-error',
+            'focus:shadow-sb-error',
           );
         }
       },

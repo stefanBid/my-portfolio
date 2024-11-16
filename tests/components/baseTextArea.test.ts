@@ -104,6 +104,70 @@ describe('BaseTextArea Unit Tests', () => {
     });
   });
 
+  describe('Validation', () => {
+    it.each([
+      { validation: undefined, expectedMessage: null, hasErrorClass: false },
+      {
+        validation: { show: false, message: 'Custom error message' },
+        expectedMessage: null,
+        hasErrorClass: false,
+      },
+      {
+        validation: { show: true, message: 'Custom error message' },
+        expectedMessage: 'Custom error message',
+        hasErrorClass: true,
+      },
+      {
+        validation: { show: true, message: undefined },
+        expectedMessage: null,
+        hasErrorClass: true,
+      },
+      {
+        validation: { show: false, message: undefined },
+        expectedMessage: null,
+        hasErrorClass: false,
+      },
+      { validation: { show: true, message: '' }, expectedMessage: null, hasErrorClass: true },
+      { validation: { show: false, message: '' }, expectedMessage: null, hasErrorClass: false },
+    ])(
+      'handles validation with validation: $validation',
+      async ({ validation, expectedMessage, hasErrorClass }) => {
+        render(BaseTextArea, {
+          props: {
+            dataTestid: 'custom-base-text-area',
+            validation,
+            inputValue: '',
+          },
+        });
+
+        // Verify the validation message
+        const validationMessage = screen.queryByTestId('custom-base-text-area-validation-message');
+        if (expectedMessage) {
+          expect(validationMessage).toBeInTheDocument();
+          expect(validationMessage).toHaveTextContent(expectedMessage);
+        } else {
+          expect(validationMessage).not.toBeInTheDocument();
+        }
+
+        // Verify the error class
+        const inputElement = screen.getByTestId('custom-base-text-area');
+        if (hasErrorClass) {
+          expect(inputElement).toHaveClass(
+            'border-sb-error',
+            'focus:border-sb-error',
+            'focus:shadow-sb-error',
+          );
+        } else {
+          expect(inputElement).not.toHaveClass(
+            'border-sb-error',
+            'focus:border-sb-error',
+            'focus:shadow-sb-error',
+          );
+        }
+      },
+    );
+  });
+
   describe('User Interaction and State', () => {
     it('focus the text area when the label is clicked', async () => {
       render(BaseTextArea, {

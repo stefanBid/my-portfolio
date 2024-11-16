@@ -61,6 +61,20 @@ interface HomePageContent {
   };
 }
 
+interface ContactMeFormFileds {
+  name: string;
+  email: string;
+  message: string;
+  agreeToTerms: boolean;
+}
+
+interface ContactMeFormValidation {
+  name: { show: boolean; message: string };
+  email: { show: boolean; message: string };
+  message: { show: boolean; message: string };
+  agreeToTerms: { show: boolean };
+}
+
 /** ABOUT ME PAGE **/
 interface AboutMePageContent {
   pageHeading: string;
@@ -129,6 +143,8 @@ export type {
   NotificationCategory,
   HeaderContent,
   HomePageContent,
+  ContactMeFormFileds,
+  ContactMeFormValidation,
   AboutMePageContent,
   SkillsPageContent,
   SkillInfo,

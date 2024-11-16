@@ -47,6 +47,7 @@ export default {
 			'white': '#ffffff',
 			'transparent': 'transparent',
 			'sb-main': '#0F0F20',
+			'sb-error': '#d32f2f',
 			'sb-secondary': {
 				100: '#707890',
 				200: '#424a6e',
