@@ -118,6 +118,7 @@ watch(
             v-model:input-value="searchSkillKey"
             name="search_skill_key"
             aria-label="search skill key"
+            type="search"
             :label="i18nStore.skillsPageI18nContent.skillsDialog.searchField.label"
             :placeholder="i18nStore.skillsPageI18nContent.skillsDialog.searchField.placeholder"
             with-menu

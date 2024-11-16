@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useNotificationStore, useI18nStore, useStyleStore } from '@/stores';
 import { BaseDialog, BaseInput, BaseButton, BaseTextArea, BaseCheckbox } from '@/components';
+import { useContactMeFormValidation } from '@/hooks';
+import { stringPurifier } from '@/utils';
 import { computed, ref, watch } from 'vue';
 import { ClipboardDocumentListIcon } from '@heroicons/vue/24/outline';
 import emailjs from '@emailjs/browser';
@@ -25,15 +27,6 @@ const contactObject = ref({
   agreeToTerms: false,
 });
 
-const disableSendButton = computed(() => {
-  return Boolean(
-    !contactObject.value.name ||
-      !contactObject.value.email ||
-      !contactObject.value.message ||
-      !contactObject.value.agreeToTerms,
-  );
-});
-
 const disableResetButton = computed(() => {
   return !Boolean(
     contactObject.value.name !== '' ||
@@ -43,15 +36,27 @@ const disableResetButton = computed(() => {
   );
 });
 
-const sendingEmail = ref(false);
+//Feature 1.1: Manage Form Validation
 
+const getLanguage = computed(() => {
+  return i18nStore.currentLanguage as 'it' | 'en';
+});
+
+const { validationObject, validateForm, resetValidation } = useContactMeFormValidation(getLanguage);
+
+const sendingEmail = ref(false);
 const sendEmail = async (): Promise<void> => {
+  if (!validateForm(contactObject.value)) {
+    return;
+  } else {
+    resetValidation();
+  }
   sendingEmail.value = true;
 
   const templateParams = {
     from_name: contactObject.value.name,
     from_email: contactObject.value.email,
-    message: contactObject.value.message,
+    message: stringPurifier(contactObject.value.message),
     agree_time: new Date().toLocaleString(),
   };
 
@@ -104,6 +109,7 @@ watch(
         agreeToTerms: false,
       };
       sendingEmail.value = false;
+      resetValidation();
     }
   },
 );
@@ -142,6 +148,7 @@ watch(
             aria-label="full name of the contact person"
             :label="i18nStore.homePageI18nContent.contactMeForm.fullNameField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.fullNameField.placeholder"
+            :validation="validationObject.name"
           />
 
           <BaseInput
@@ -152,6 +159,7 @@ watch(
             type="email"
             :label="i18nStore.homePageI18nContent.contactMeForm.emailField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.emailField.placeholder"
+            :validation="validationObject.email"
           />
           <BaseTextArea
             id="contactMessage"
@@ -160,11 +168,14 @@ watch(
             aria-label="message to be sent"
             :label="i18nStore.homePageI18nContent.contactMeForm.messageField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.messageField.placeholder"
+            :validation="validationObject.message"
           />
           <BaseCheckbox
             id="contactAgreeToTerms"
             v-model:checked="contactObject.agreeToTerms"
             name="contact_agree_to_terms"
+            aria-label="agree to terms and conditions"
+            :validation="validationObject.agreeToTerms"
           >
             <template #label-content>
               <span
@@ -196,7 +207,6 @@ watch(
             type="submit"
             content-size="small"
             spacing-size="small"
-            :disabled="disableSendButton"
             :loading="sendingEmail"
           >
             {{ i18nStore.homePageI18nContent.contactMeForm.submitButton.text }}

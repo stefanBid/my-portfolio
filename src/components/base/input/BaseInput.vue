@@ -22,6 +22,7 @@ interface InputProps {
     rootMargin?: string;
     threshold?: number;
   };
+  validation?: { show: boolean; message?: string };
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -38,6 +39,7 @@ const props = withDefaults(defineProps<InputProps>(), {
     rootMargin: '-80px 0px 0px 0px',
     threshold: 0.05,
   }),
+  validation: undefined,
 });
 
 const inputValue = defineModel<string>('inputValue', { required: true });
@@ -102,14 +104,14 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
 </script>
 
 <template>
-  <div class="flex flex-col w-full gap-y-2">
+  <div class="flex flex-col w-full">
     <label
       v-if="props.label"
       :data-testid="`${props.dataTestid}-label`"
       :for="inputId"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
-      class="font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
+      class="mb-2 font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -135,15 +137,19 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         :data-testid="`${props.dataTestid}`"
         :name="inputName"
         tabindex="0"
-        :type="props.type"
+        :type="props.type === 'email' ? 'text' : props.type"
         :class="[
           styleStore.textSizeXS,
           {
-            'bg-sb-secondary-100/50 border-sb-secondary-100 ': inputValue.length > 0,
-            'bg-transparent border-white': inputValue.length === 0,
+            'bg-sb-secondary-100/50': inputValue.length > 0,
+            'bg-transparent': inputValue.length === 0,
+            'border-white': inputValue.length === 0 && !props.validation?.show,
+            'border-sb-secondary-100': inputValue.length > 0 && !props.validation?.show,
+            'border-sb-error focus:border-sb-error focus:shadow-sb-error': props.validation?.show,
+            'focus:border-white focus:shadow-white': !props.validation?.show,
           },
         ]"
-        class="w-full px-3 py-2 pr-12 text-white truncate border-2 rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:border-white focus:shadow-white focus:text-black"
+        class="w-full px-3 py-2 pr-12 text-white truncate border-2 rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
@@ -178,5 +184,13 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         </div>
       </transition>
     </teleport>
+    <p
+      v-if="props.validation?.show && props.validation.message"
+      :data-testid="`${props.dataTestid}-validation-message`"
+      :class="[styleStore.textSizeXS]"
+      class="mt-1 text-sb-error font-roboto transirtion-sb-slow"
+    >
+      {{ props.validation.message }}
+    </p>
   </div>
 </template>
