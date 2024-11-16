@@ -29,7 +29,7 @@ const styleStore = useStyleStore();
       <SwitchLabel
         v-if="props.label"
         :data-testid="`${props.dataTestid}-label`"
-        class="ml-3 text-white transition-all duration-200 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
+        class="ml-3 text-white outline-none transition-sb-normal font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[
           styleStore.textSizeXS,
           {

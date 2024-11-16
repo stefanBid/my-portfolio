@@ -37,7 +37,7 @@
     },
     "contactMeForm": {
       "title": "Contattami",
-      "info": "Per contattarmi, compila il modulo inserendo il tuo nome completo, l'email e il messaggio. Assicurati di fornire un indirizzo email valido per ricevere una risposta tempestiva. In ottemperanza al GDPR (Regolamento UE 2016/679), ti informiamo che i tuoi dati personali, incluso il nome e il messaggio, non verranno memorizzati o trattenuti una volta completata la tua richiesta. Questo garantisce la riservatezza e la protezione delle tue informazioni personali, e non è richiesto un consenso esplicito per questo trattamento limitato.",
+      "info": "Per contattarmi, compila il modulo inserendo il tuo nome completo, l'email e il messaggio. Assicurati di fornire un indirizzo email valido per ricevere una risposta tempestiva",
       "fullNameField": {
         "label": "Nome Completo*",
         "placeholder": "Inserisci il tuo nome (ex: John Miller)"
@@ -50,6 +50,7 @@
         "label": "Messaggio*",
         "placeholder": "Inserisci il tuo messaggio"
       },
+      "agreeToTermsField": "Accetto di fornire il mio nome e indirizzo email per essere contattato. (Selezionando questa casella, accetti di condividere il tuo nome e indirizzo email esclusivamente per il fine di essere contattato. Le tue informazioni non saranno archiviate, condivise o utilizzate per altri scopi.)",
       "submitButton": {
         "text": "Invia"
       },

@@ -37,7 +37,7 @@
     },
     "contactMeForm": {
       "title": "Contact me",
-      "info": "To get in touch, please fill out the form with your full name, email, and message. Ensure you provide a valid email address to receive a prompt response. In compliance with the GDPR (EU Regulation 2016/679), we inform you that your personal data, including your name and message, will not be stored or retained after the completion of your request. This ensures the confidentiality and protection of your personal information, and no explicit consent is required for this limited processing.",
+      "info": "To get in touch, please fill out the form with your full name, email, and message. Ensure you provide a valid email address to receive a prompt response",
       "fullNameField": {
         "label": "Full Name*",
         "placeholder": "Insert your name Ex: John Miller"
@@ -50,6 +50,7 @@
         "label": "Message*",
         "placeholder": "Insert your message"
       },
+      "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes.)",
       "submitButton": {
         "text": "Send"
       },
