@@ -36,6 +36,9 @@ const checkboxName = computed(() => {
 });
 
 //Feature 2: Manage Checkbox State
+const isCheckDisabled = computed<boolean>(() => {
+  return (typeof checked.value === 'string' || Array.isArray(checked.value)) && !props.value;
+});
 const isChecked = computed<boolean>(() => {
   if (typeof checked.value === 'boolean') {
     return checked.value;
@@ -75,6 +78,8 @@ const onCheckboxChange = (event: Event): void => {
         : checked.value.filter((value) => value !== props.value);
       return;
     }
+  } else {
+    target.checked = false;
   }
   return;
 };
@@ -92,6 +97,7 @@ const onCheckboxChange = (event: Event): void => {
       :aria-label="props.ariaLabel"
       tabindex="0"
       :class="{
+        'opacity-50 cursor-not-allowed': isCheckDisabled,
         'size-[17px] checked:after:w-[11px] checked:after:h-[7px]':
           styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
         'size-4 checked:after:w-2.5 checked:after:h-1.5 ':
