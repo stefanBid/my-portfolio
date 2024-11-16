@@ -58,7 +58,6 @@ describe('BaseCheckbox Unit Tests', () => {
       });
 
       const checkbox = screen.getByTestId('custom-base-checkbox');
-      console.log(checkbox.outerHTML);
       if (value) {
         expect(checkbox).toHaveAttribute('value', value);
       } else {

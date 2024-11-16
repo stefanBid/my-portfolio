@@ -191,7 +191,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       v-if="props.validation?.show && props.validation.message"
       :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
-      class="mt-1 text-sb-error font-roboto transirtion-sb-slow"
+      class="mt-1 text-sb-error font-roboto transition-sb-slow"
     >
       {{ props.validation.message }}
     </p>

@@ -70,6 +70,7 @@ export default [
       'no-shadow': 'warn',
       'consistent-return': 'error',
       'eqeqeq': ['error', 'always'],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
 
       // Prettier rule
       'prettier/prettier': ['error'],
