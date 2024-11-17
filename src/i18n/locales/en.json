@@ -50,7 +50,7 @@
         "label": "Message*",
         "placeholder": "Insert your message"
       },
-      "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes.)",
+      "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes).",
       "submitButton": {
         "text": "Send"
       },

@@ -32,6 +32,14 @@ const languageOptions = [
 // Feature 2: Manage Header Style
 const isMenuOpen = ref(false);
 
+const hideElementsForSomeRoutesPages = computed(() => {
+  if (route.name === 'privacyPolicyPage' || route.name === 'notFoundPage') {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 const getBackgroundByRoute = computed(() => {
   if (route.path === '/' || route.path === '/home') {
     return 'bg-transparent';
@@ -120,7 +128,11 @@ watch(
       <transition name="fade">
         <div v-if="!isMenuCollapsed" class="flex items-center w-fit gap-x-4">
           <!-- Route -->
-          <TheInlineNavbar :routes="i18nStore.headerI18nContent.navbarRoutes" class="flex-1" />
+          <TheInlineNavbar
+            v-if="!hideElementsForSomeRoutesPages"
+            :routes="i18nStore.headerI18nContent.navbarRoutes"
+            class="flex-1"
+          />
 
           <!-- Menu -->
           <BaseDropdownMenu
@@ -183,6 +195,7 @@ watch(
       class="fixed left-0 w-full h-full pt-20 bg-sb-main z-sb-header-collapsed"
     >
       <TheSideNavbar
+        v-if="!hideElementsForSomeRoutesPages"
         :routes="i18nStore.headerI18nContent.navbarRoutes"
         @close-menu="onChangeMenuVisibility(false)"
       />

@@ -50,7 +50,7 @@
         "label": "Messaggio*",
         "placeholder": "Inserisci il tuo messaggio"
       },
-      "agreeToTermsField": "Accetto di fornire il mio nome e indirizzo email per essere contattato. (Selezionando questa casella, accetti di condividere il tuo nome e indirizzo email esclusivamente per il fine di essere contattato. Le tue informazioni non saranno archiviate, condivise o utilizzate per altri scopi.)",
+      "agreeToTermsField": "Accetto di fornire il mio nome e indirizzo email per essere contattato. (Selezionando questa casella, accetti di condividere il tuo nome e indirizzo email esclusivamente per il fine di essere contattato. Le tue informazioni non saranno archiviate, condivise o utilizzate per altri scopi).",
       "submitButton": {
         "text": "Invia"
       },
