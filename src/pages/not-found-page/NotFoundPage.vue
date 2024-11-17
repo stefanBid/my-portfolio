@@ -18,11 +18,7 @@ const router = useRouter();
 watch(
   () => i18nStore.currentLanguage,
   (newValue) => {
-    if (newValue === 'it') {
-      titleStore.setTitleSuffix('404 Pagina non trovata');
-    } else {
-      titleStore.setTitleSuffix('404 Page Not Found');
-    }
+    titleStore.setTitleSuffix(newValue === 'it' ? '404 Pagina non trovata' : '404 Page Not Found');
   },
   { immediate: true },
 );

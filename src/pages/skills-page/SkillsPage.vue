@@ -22,11 +22,7 @@ const { stars, starsContainerStyle } = useStarEffect(150);
 watch(
   () => i18nStore.currentLanguage,
   (newValue) => {
-    if (newValue === 'it') {
-      titleStore.setTitleSuffix('Abilità');
-    } else {
-      titleStore.setTitleSuffix('Skills');
-    }
+    titleStore.setTitleSuffix(newValue === 'it' ? 'Abilità' : 'Skills');
   },
   { immediate: true },
 );
