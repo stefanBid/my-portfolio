@@ -33,7 +33,11 @@ const languageOptions = [
 const isMenuOpen = ref(false);
 
 const hideElementsForSomeRoutesPages = computed(() => {
-  if (route.name === 'privacyPolicyPage' || route.name === 'notFoundPage') {
+  if (
+    route.name === 'privacyPolicyPage' ||
+    route.name === 'termsAndConditionsPage' ||
+    route.name === 'notFoundPage'
+  ) {
     return true;
   } else {
     return false;
@@ -41,7 +45,7 @@ const hideElementsForSomeRoutesPages = computed(() => {
 });
 
 const getBackgroundByRoute = computed(() => {
-  if (route.path === '/' || route.path === '/home') {
+  if (route.path === '/') {
     return 'bg-transparent';
   } else {
     return 'bg-sb-main';

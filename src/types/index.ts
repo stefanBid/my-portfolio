@@ -129,6 +129,88 @@ interface SkillsPageContent {
   skillsList: SkillInfo[];
 }
 
+/** PRIVACY POLICY PAGE **/
+interface PrivacyPolicyPageContent {
+  pageHeading: string;
+  privacyPolicy: PrivacyPolicySection;
+}
+
+interface PrivacyPolicySection {
+  title: string;
+  lastUpdate: string;
+  description: string;
+  dataController: {
+    title: string;
+    content: string;
+  };
+  dataCollected: {
+    title: string;
+    description: string;
+    points: string[];
+    note: string;
+  };
+  thirdPartyServices: {
+    title: string;
+    description: string;
+    linkText: string;
+    linkUrl: string;
+  };
+  dataSharing: {
+    title: string;
+    content: string;
+  };
+  userRights: {
+    title: string;
+    description: string;
+    rights: string[];
+    note: string;
+  };
+  legalBasis: {
+    title: string;
+    content: string;
+  };
+}
+
+/** TERMS AND CONDITIONS PAGE **/
+interface TermsAndConditionsPageContent {
+  pageHeading: string;
+  termsAndConditions: TermsAndConditionsSection;
+}
+
+interface TermsAndConditionsSection {
+  title: string;
+  lastUpdate: string;
+  description: string;
+  serviceDescription: {
+    title: string;
+    content: string;
+  };
+  userObligations: {
+    title: string;
+    description: string;
+    points: string[];
+    note: string;
+  };
+  liabilityLimitations: {
+    title: string;
+    description: string;
+    points: string[];
+  };
+  intellectualProperty: {
+    title: string;
+    content: string;
+  };
+  legal: {
+    title: string;
+    description: string;
+    points: string[];
+  };
+  modifications: {
+    title: string;
+    content: string;
+  };
+}
+
 /** NOT FOUND PAGE **/
 interface NotFoundPageContent {
   firstHeading: string;
@@ -149,5 +231,7 @@ export type {
   SkillsPageContent,
   SkillInfo,
   SkillType,
+  PrivacyPolicyPageContent,
+  TermsAndConditionsPageContent,
   NotFoundPageContent,
 };

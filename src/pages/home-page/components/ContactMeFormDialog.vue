@@ -194,10 +194,24 @@ watch(
                   >
                     {{
                       i18nStore.currentLanguage === 'en'
-                        ? 'Terms and Conditions  and Privacy Policy.'
-                        : 'Condizioni e Politica sulla riservatezza.'
+                        ? 'Privacy Policy'
+                        : 'Politica sulla riservatezza'
                     }}
                   </RouterLink>
+                  {{ i18nStore.currentLanguage === 'en' ? 'and' : 'e' }}
+                  <RouterLink
+                    to="/terms-and-conditions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-sb-slow"
+                  >
+                    {{
+                      i18nStore.currentLanguage === 'en'
+                        ? 'Terms and Conditions'
+                        : 'Termini e condizioni'
+                    }}
+                  </RouterLink>
+                  .
                 </span>
               </span>
             </template>

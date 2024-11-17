@@ -43,6 +43,14 @@ const routes = [
       ),
   },
   {
+    path: '/terms-and-conditions',
+    name: 'termsAndConditionsPage',
+    component: () =>
+      import(
+        /* webpackPrefetch: true, webpackPreload: true */ '@/pages/terms-and-conditions-page/TermsAndConditionsPage.vue'
+      ),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'notFoundPage',
     component: () =>
