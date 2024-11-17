@@ -22,11 +22,7 @@ const { stars, starsContainerStyle } = useStarEffect(150);
 watch(
   () => i18nStore.currentLanguage,
   (newValue) => {
-    if (newValue === 'it') {
-      titleStore.setTitleSuffix('Abilità');
-    } else {
-      titleStore.setTitleSuffix('Skills');
-    }
+    titleStore.setTitleSuffix(newValue === 'it' ? 'Abilità' : 'Skills');
   },
   { immediate: true },
 );
@@ -48,7 +44,7 @@ const beIcons = computed(() =>
     .map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]),
 );
 
-// Feature 2: Manage Stars Effect
+// Feature 2: Manage Intersection Observer
 const isVisible = ref(false);
 
 const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {

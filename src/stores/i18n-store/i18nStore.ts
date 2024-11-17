@@ -6,6 +6,8 @@ import type {
   HomePageContent,
   AboutMePageContent,
   SkillsPageContent,
+  PrivacyPolicyPageContent,
+  TermsAndConditionsPageContent,
   NotFoundPageContent,
 } from '@/types';
 import { ref } from 'vue';
@@ -20,7 +22,12 @@ export const useI18nStore = defineStore('i18n', () => {
     messages.value[locale.value].aboutMePage as AboutMePageContent,
   );
   const skillsPageI18nContent = ref(messages.value[locale.value].skillsPage as SkillsPageContent);
-
+  const privacyPolicyPageI18nContent = ref(
+    messages.value[locale.value].privacyPolicyPage as PrivacyPolicyPageContent,
+  );
+  const termsAndConditionsPageI18nContent = ref(
+    messages.value[locale.value].termsAndConditionsPage as TermsAndConditionsPageContent,
+  );
   const notFoundPageI18nContent = ref(
     messages.value[locale.value].notFoundPage as NotFoundPageContent,
   );
@@ -33,6 +40,10 @@ export const useI18nStore = defineStore('i18n', () => {
       homePageI18nContent.value = messages.value[locale.value].homePage as HomePageContent;
       aboutMePageI18nContent.value = messages.value[locale.value].aboutMePage as AboutMePageContent;
       skillsPageI18nContent.value = messages.value[locale.value].skillsPage as SkillsPageContent;
+      privacyPolicyPageI18nContent.value = messages.value[locale.value]
+        .privacyPolicyPage as PrivacyPolicyPageContent;
+      termsAndConditionsPageI18nContent.value = messages.value[locale.value]
+        .termsAndConditionsPage as TermsAndConditionsPageContent;
       notFoundPageI18nContent.value = messages.value[locale.value]
         .notFoundPage as NotFoundPageContent;
     }
@@ -44,6 +55,8 @@ export const useI18nStore = defineStore('i18n', () => {
     homePageI18nContent,
     aboutMePageI18nContent,
     skillsPageI18nContent,
+    privacyPolicyPageI18nContent,
+    termsAndConditionsPageI18nContent,
     notFoundPageI18nContent,
     changeLanguage,
   };

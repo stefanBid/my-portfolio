@@ -50,7 +50,7 @@
         "label": "Messaggio*",
         "placeholder": "Inserisci il tuo messaggio"
       },
-      "agreeToTermsField": "Accetto di fornire il mio nome e indirizzo email per essere contattato. (Selezionando questa casella, accetti di condividere il tuo nome e indirizzo email esclusivamente per il fine di essere contattato. Le tue informazioni non saranno archiviate, condivise o utilizzate per altri scopi.)",
+      "agreeToTermsField": "Accetto di fornire il mio nome e indirizzo email per essere contattato. (Selezionando questa casella, accetti di condividere il tuo nome e indirizzo email esclusivamente per il fine di essere contattato. Le tue informazioni non saranno archiviate, condivise o utilizzate per altri scopi).",
       "submitButton": {
         "text": "Invia"
       },
@@ -298,6 +298,100 @@
       }
     ]
   },
+
+  "privacyPolicyPage": {
+    "pageHeading": "Politica sulla Privacy, Transparenza e Respetto",
+    "privacyPolicy": {
+      "title": "Informativa sulla Privacy",
+      "lastUpdate": "Ultimo aggiornamento: 17 Novembre, 2024",
+      "description": "La presente informativa descrive le modalità di trattamento dei dati personali degli utenti che interagiscono con il sito web Stefano Biddau (My Portfolio). Ti invitiamo a leggere attentamente quanto segue.",
+      "dataController": {
+        "title": "Titolare del Trattamento",
+        "content": "Il titolare del trattamento dei dati personali è Stefano Biddau, contattabile all’indirizzo email: biddau.stefano99@gmail.com ."
+      },
+      "dataCollected": {
+        "title": "Dati Raccolti e Finalità del Trattamento",
+        "description": "Questo sito web non raccoglie né conserva dati personali degli utenti. Tuttavia, l’utilizzo del modulo di contatto comporta l’inoltro delle informazioni tramite il servizio EmailJS, necessario per consentire la comunicazione tra l’utente e il titolare. Le informazioni raccolte tramite il modulo includono:",
+        "points": [
+          "Nome e cognome (se forniti dall’utente);",
+          "Indirizzo email;",
+          "Messaggio inviato dall’utente."
+        ],
+        "note": "Tali informazioni vengono trattate esclusivamente per rispondere alle richieste inviate tramite il modulo e non sono archiviate sul sito."
+      },
+      "thirdPartyServices": {
+        "title": "Servizi di Terze Parti",
+        "description": "L’inoltro delle informazioni avviene tramite il servizio EmailJS, che agisce come responsabile del trattamento secondo quanto stabilito nella sua Privacy Policy. Ti invitiamo a consultarla al seguente link:",
+        "linkText": "Privacy Policy di EmailJS",
+        "linkUrl": "https://www.emailjs.com/legal/privacy-policy/"
+      },
+      "dataSharing": {
+        "title": "Condivisione dei Dati",
+        "content": "I dati forniti tramite il modulo di contatto non vengono condivisi con terze parti, ad eccezione del trasferimento necessario per l’invio delle email tramite EmailJS."
+      },
+      "userRights": {
+        "title": "Diritti degli Utenti",
+        "description": "Ai sensi degli articoli 15-22 del Regolamento (UE) 2016/679 (\"GDPR\"), l'utente ha il diritto di:",
+        "rights": [
+          "Accedere ai propri dati personali;",
+          "Richiederne la rettifica o la cancellazione;",
+          "Opporsi al trattamento o richiederne la limitazione."
+        ],
+        "note": "Per esercitare tali diritti, è possibile contattare il titolare all’indirizzo email sopra indicato."
+      },
+      "legalBasis": {
+        "title": "Base Giuridica del Trattamento",
+        "content": "Il trattamento dei dati personali forniti tramite il modulo di contatto si basa sul consenso esplicito dell’utente, come previsto dall’art. 6, par. 1, lett. a) del GDPR."
+      }
+    }
+  },
+  "termsAndConditionsPage": {
+    "pageHeading": "Termini e Condizioni d'Uso",
+    "termsAndConditions": {
+      "title": "Termini e Condizioni",
+      "lastUpdate": "Ultimo aggiornamento: 17 Novembre, 2024",
+      "description": "L’accesso e l’utilizzo del sito web Stefano Biddau (My Portfolio) sono subordinati all’accettazione dei presenti Termini e Condizioni. Si invita l’utente a leggerli attentamente prima di utilizzare i servizi offerti.",
+      "serviceDescription": {
+        "title": "Descrizione del Servizio",
+        "content": "Il presente sito web ha finalità esclusivamente informative e promozionali. Attraverso di esso, l’utente può consultare informazioni relative alla figura professionale del titolare e inviare richieste tramite un modulo di contatto."
+      },
+      "userObligations": {
+        "title": "Obblighi dell’Utente",
+        "description": "L’utente si impegna a:",
+        "points": [
+          "Utilizzare il modulo di contatto in modo lecito, professionale e rispettoso;",
+          "Non inviare contenuti offensivi, fraudolenti o non pertinenti;",
+          "Fornire informazioni accurate e veritiere."
+        ],
+        "note": "Eventuali abusi saranno segnalati alle autorità competenti."
+      },
+      "liabilityLimitations": {
+        "title": "Limitazioni di Responsabilità",
+        "description": "Il titolare non sarà responsabile per:",
+        "points": [
+          "Danni derivanti da un utilizzo improprio o illecito del sito;",
+          "Interruzioni o malfunzionamenti tecnici."
+        ]
+      },
+      "intellectualProperty": {
+        "title": "Proprietà Intellettuale",
+        "content": "Tutti i contenuti presenti sul sito (inclusi testi, immagini, loghi, design) sono protetti da leggi sulla proprietà intellettuale, in particolare dalla Legge n. 633/1941 (Legge sul Diritto d’Autore) e successive modifiche. È vietata qualsiasi riproduzione, distribuzione o utilizzo non autorizzato."
+      },
+      "legal": {
+        "title": "Leggi Applicabili e Foro Competente",
+        "description": "I presenti Termini e Condizioni sono regolati dalla legge italiana, in particolare dal:",
+        "points": [
+          "Codice Civile italiano;",
+          "Regolamento (UE) 2016/679 (GDPR) in materia di protezione dei dati personali."
+        ]
+      },
+      "modifications": {
+        "title": "Modifiche ai Termini",
+        "content": "Il titolare si riserva il diritto di modificare i presenti Termini e Condizioni in qualsiasi momento. Eventuali modifiche saranno pubblicate su questa pagina con indicazione della data di aggiornamento."
+      }
+    }
+  },
+  
   "notFoundPage": {
     "firstHeading": "404 - Pagina Non Trovata",
     "secondHeading": "La pagina che stai cercando non esiste.",

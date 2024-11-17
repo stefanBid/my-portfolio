@@ -12,11 +12,7 @@ const titleStore = useTitleStore();
 watch(
   () => i18nStore.currentLanguage,
   (newValue) => {
-    if (newValue === 'it') {
-      titleStore.setTitleSuffix('Chi sono');
-    } else {
-      titleStore.setTitleSuffix('About Me');
-    }
+    titleStore.setTitleSuffix(newValue === 'it' ? 'Chi sono' : 'About Me');
   },
   { immediate: true },
 );

@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { HomePage } from '@/pages';
+import HomePage from '@/pages/home-page/HomePage.vue';
 
 const isLoading = ref(true);
 
@@ -32,6 +32,22 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch: true, webpackPreload: true */ '@/pages/skills-page/SkillsPage.vue'
+      ),
+  },
+  {
+    path: '/privacy-policy',
+    name: 'privacyPolicyPage',
+    component: () =>
+      import(
+        /* webpackPrefetch: true, webpackPreload: true */ '@/pages/privacy-policy-page/PrivacyPolicyPage.vue'
+      ),
+  },
+  {
+    path: '/terms-and-conditions',
+    name: 'termsAndConditionsPage',
+    component: () =>
+      import(
+        /* webpackPrefetch: true, webpackPreload: true */ '@/pages/terms-and-conditions-page/TermsAndConditionsPage.vue'
       ),
   },
   {

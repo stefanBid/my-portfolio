@@ -50,7 +50,7 @@
         "label": "Message*",
         "placeholder": "Insert your message"
       },
-      "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes.)",
+      "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes).",
       "submitButton": {
         "text": "Send"
       },
@@ -299,6 +299,98 @@
         }
       }
     ]
+  },
+  "privacyPolicyPage": {
+    "pageHeading": "Privacy Policy, Transparency, and Respect",
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "lastUpdate": "Last updated: November 17th, 2024",
+      "description": "This policy describes how personal data of users interacting with the website Stefano Biddau (My Portfolio) is processed. Please read the following carefully.",
+      "dataController": {
+        "title": "Data Controller",
+        "content": "The data controller is Stefano Biddau, who can be contacted at the email address: biddau.stefano99@gmail.com."
+      },
+      "dataCollected": {
+        "title": "Data Collected and Purpose of Processing",
+        "description": "This website does not collect or store personal data of users. However, the use of the contact form involves the forwarding of information through the EmailJS service, necessary to enable communication between the user and the owner. The information collected through the form includes:",
+        "points": [
+          "First and last name (if provided by the user);",
+          "Email address;",
+          "Message sent by the user."
+        ],
+        "note": "This information is processed solely to respond to requests sent through the form and is not stored on the website."
+      },
+      "thirdPartyServices": {
+        "title": "Third-Party Services",
+        "description": "Information forwarding occurs via the EmailJS service, which acts as the data processor according to its Privacy Policy. You can view it at the following link:",
+        "linkText": "EmailJS Privacy Policy",
+        "linkUrl": "https://www.emailjs.com/legal/privacy-policy/"
+      },
+      "dataSharing": {
+        "title": "Data Sharing",
+        "content": "The data provided through the contact form is not shared with third parties, except for the transfer necessary for sending emails via EmailJS."
+      },
+      "userRights": {
+        "title": "User Rights",
+        "description": "Pursuant to Articles 15-22 of Regulation (EU) 2016/679 (\"GDPR\"), users have the right to:",
+        "rights": [
+          "Access their personal data;",
+          "Request rectification or deletion;",
+          "Object to processing or request its restriction."
+        ],
+        "note": "To exercise these rights, users can contact the controller at the email address indicated above."
+      },
+      "legalBasis": {
+        "title": "Legal Basis for Processing",
+        "content": "The processing of personal data provided through the contact form is based on the user's explicit consent, as provided by Art. 6, paragraph 1, letter a) of the GDPR."
+      }
+    }
+  },
+  "termsAndConditionsPage": {
+    "pageHeading": "Terms and Conditions of Use",
+    "termsAndConditions": {
+      "title": "Terms and Conditions",
+      "lastUpdate": "Last updated: November 17th, 2024",
+      "description": "Access and use of the Stefano Biddau website (My Portfolio) are subject to acceptance of these Terms and Conditions. Users are invited to read them carefully before using the services offered.",
+      "serviceDescription": {
+        "title": "Service Description",
+        "content": "This website is exclusively for informational and promotional purposes. Through it, users can view information about the owner's professional background and send inquiries via a contact form."
+      },
+      "userObligations": {
+        "title": "User Obligations",
+        "description": "Users agree to:",
+        "points": [
+          "Use the contact form in a lawful, professional, and respectful manner;",
+          "Refrain from sending offensive, fraudulent, or irrelevant content;",
+          "Provide accurate and truthful information."
+        ],
+        "note": "Any abuse will be reported to the competent authorities."
+      },
+      "liabilityLimitations": {
+        "title": "Limitation of Liability",
+        "description": "The owner will not be held responsible for:",
+        "points": [
+          "Damages resulting from improper or unlawful use of the site;",
+          "Interruptions or technical malfunctions."
+        ]
+      },
+      "intellectualProperty": {
+        "title": "Intellectual Property",
+        "content": "All content on the site (including text, images, logos, and design) is protected by intellectual property laws, specifically Law no. 633/1941 (Copyright Law) and subsequent amendments. Any unauthorized reproduction, distribution, or use is prohibited."
+      },
+      "legal": {
+        "title": "Applicable Laws and Jurisdiction",
+        "description": "These Terms and Conditions are governed by Italian law, in particular by:",
+        "points": [
+          "The Italian Civil Code;",
+          "Regulation (EU) 2016/679 (GDPR) regarding personal data protection."
+        ]
+      },
+      "modifications": {
+        "title": "Modifications to the Terms",
+        "content": "The owner reserves the right to modify these Terms and Conditions at any time. Any changes will be published on this page with the date of the update."
+      }
+    }
   },
   "notFoundPage": {
     "firstHeading": "404 - Page Not Found",

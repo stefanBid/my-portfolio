@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
 import { BaseButton } from '@/components';
 import { useTypingText } from '@/hooks';
@@ -13,17 +13,7 @@ const i18nStore = useI18nStore();
 const titleStore = useTitleStore();
 
 // Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    if (newValue === 'it') {
-      titleStore.setTitleSuffix('Home');
-    } else {
-      titleStore.setTitleSuffix('Home');
-    }
-  },
-  { immediate: true },
-);
+titleStore.setTitleSuffix('Home');
 
 // Feature 2: Machine Typing Effect
 const texts = computed(() => i18nStore.homePageI18nContent.thirdHeading);
