@@ -95,7 +95,7 @@ watch(
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md transition-sb-slow shadow-black gap-y-2"
+      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md cursor-pointer transition-sb-slow shadow-black gap-y-2"
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
