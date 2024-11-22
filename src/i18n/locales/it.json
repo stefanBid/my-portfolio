@@ -19,15 +19,11 @@
       }
     ]
   },
-  
+
   "homePage": {
     "firstHeading": "Salve a tutti!",
     "secondHeading": "Sono Stefano Biddau",
-    "thirdHeading": [
-      "Sviluppatore Frontend",
-      "Web Designer",
-      "Sviluppatore Backend"
-    ],
+    "thirdHeading": ["Sviluppatore Frontend", "Web Designer", "Sviluppatore Backend"],
     "contactMeButton": {
       "text": "Contattami"
     },
@@ -74,7 +70,7 @@
       {
         "titleHeading": "Navigazione tra Stack",
         "subTitleHeading": "Dall'Internship al Full-Stack Development",
-        "contentParagraph":"Il mio ingresso nel mondo professionale dell'informatica ha avuto inizio con uno stage presso SI2001 a Battipaglia, Campania, che si è svolto da novembre 2022 a febbraio 2023. Durante questo periodo, ho acquisito competenze nello sviluppo di applicazioni distribuite, padroneggiando sia il back-end che il front-end. Questa esperienza mi ha permesso di impiegare tecnologie moderne e molto richieste sul mercato, affinando le mie abilità tecniche in un ambiente stimolante e dinamico. Con il completamento del mio stage, sono stato assunto come Full-Stack Developer dalla stessa azienda a marzo 2023, ruolo che continuo a ricoprire attualmente. Questo passaggio da stagista a membro effettivo del team di sviluppo mi ha offerto la possibilità di approfondire ulteriormente le mie conoscenze e competenze tecniche, lavorando su progetti più complessi e sfidanti. Sebbene il ruolo di full-stack developer richieda una buona versatilità tra diverse tecnologie e framework, la mia passione e il mio obiettivo principale rimangono focalizzati sul front-end. Sono continuamente alla ricerca di opportunità per eccellere in questo ambito, convinto che l'interfaccia utente non sia solo una questione di estetica, ma un cruciale punto di contatto che definisce l'esperienza dell'utente finale. La mia aspirazione è di diventare un punto di riferimento nel campo del front-end, portando innovazione e miglioramenti continui nei progetti a cui lavoro. In questo viaggio, la mia passione per l'informatica continua a guidarmi verso nuove sfide e traguardi, con l'obiettivo di eccellere in ogni aspetto del mio lavoro, pur mantenendo un focus chiaro sulla specializzazione che più mi appassiona.",
+        "contentParagraph": "Il mio ingresso nel mondo professionale dell'informatica ha avuto inizio con uno stage presso SI2001 a Battipaglia, Campania, che si è svolto da novembre 2022 a febbraio 2023. Durante questo periodo, ho acquisito competenze nello sviluppo di applicazioni distribuite, padroneggiando sia il back-end che il front-end. Questa esperienza mi ha permesso di impiegare tecnologie moderne e molto richieste sul mercato, affinando le mie abilità tecniche in un ambiente stimolante e dinamico. Con il completamento del mio stage, sono stato assunto come Full-Stack Developer dalla stessa azienda a marzo 2023, ruolo che continuo a ricoprire attualmente. Questo passaggio da stagista a membro effettivo del team di sviluppo mi ha offerto la possibilità di approfondire ulteriormente le mie conoscenze e competenze tecniche, lavorando su progetti più complessi e sfidanti. Sebbene il ruolo di full-stack developer richieda una buona versatilità tra diverse tecnologie e framework, la mia passione e il mio obiettivo principale rimangono focalizzati sul front-end. Sono continuamente alla ricerca di opportunità per eccellere in questo ambito, convinto che l'interfaccia utente non sia solo una questione di estetica, ma un cruciale punto di contatto che definisce l'esperienza dell'utente finale. La mia aspirazione è di diventare un punto di riferimento nel campo del front-end, portando innovazione e miglioramenti continui nei progetti a cui lavoro. In questo viaggio, la mia passione per l'informatica continua a guidarmi verso nuove sfide e traguardi, con l'obiettivo di eccellere in ogni aspetto del mio lavoro, pur mantenendo un focus chiaro sulla specializzazione che più mi appassiona.",
         "imagePath": "/images/work-img.jpg",
         "imageDescription": "Alla mia postazione di lavoro remota (2023)"
       }
@@ -214,7 +210,10 @@
           "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 7.5 },
           "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7 },
           "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 7 },
-          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 7 },
+          "bestPracticesAndDesignPatterns": {
+            "name": "Best Practices e Design Patterns",
+            "value": 7
+          },
           "practicalExperience": { "name": "Esperienza Pratica", "value": 7.5 }
         }
       },
@@ -227,7 +226,10 @@
           "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 8 },
           "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 7.5 },
           "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 8 },
-          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 7.5 },
+          "bestPracticesAndDesignPatterns": {
+            "name": "Best Practices e Design Patterns",
+            "value": 7.5
+          },
           "practicalExperience": { "name": "Esperienza Pratica", "value": 8 }
         }
       },
@@ -240,7 +242,10 @@
           "syntaxAndSemantics": { "name": "Sintassi e Semantica", "value": 6.5 },
           "librariesAndFrameworks": { "name": "Librerie e Framework", "value": 6 },
           "debuggingAndProblemSolving": { "name": "Debug e Problem Solving", "value": 6 },
-          "bestPracticesAndDesignPatterns": { "name": "Best Practices e Design Patterns", "value": 6 },
+          "bestPracticesAndDesignPatterns": {
+            "name": "Best Practices e Design Patterns",
+            "value": 6
+          },
           "practicalExperience": { "name": "Esperienza Pratica", "value": 6.5 }
         }
       },
@@ -391,7 +396,7 @@
       }
     }
   },
-  
+
   "notFoundPage": {
     "firstHeading": "404 - Pagina Non Trovata",
     "secondHeading": "La pagina che stai cercando non esiste.",
