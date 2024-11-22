@@ -8,7 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "visualize": "vite build --mode visualize",
-    "lint": "eslint .",
+    "lint": "eslint . && echo '✅ No lint errors!'",
     "lint:fix": "eslint . --fix",
     "test:watch": "vitest --config vitest.config.ts --retry 3",
     "test": "vitest --config vitest.config.ts --no-watch --retry 3",
