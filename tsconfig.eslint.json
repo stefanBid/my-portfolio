@@ -5,6 +5,7 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "skipLibCheck": true,
+    "noEmit": true,
 
     "baseUrl": ".",
     "paths": {
@@ -22,7 +23,6 @@
     "node_modules", // Escludi le dipendenze
     "dist", // Escludi la cartella di build
     "**/*.js", // Escludi eventuali file JavaScript (se non vuoi lintarli)
-    "**/*.d.ts",// Escludi i file di definizione dei tipi
     "**/*.svg",// Escludi i file SVG
   ]
 }
