@@ -105,7 +105,7 @@ watch(
           @click="onChangeMenuVisibility(false)"
         >
           <img
-            src="/src/assets/images/logo.png"
+            src="/images/logo.png"
             loading="lazy"
             decoding="async"
             alt="logo"

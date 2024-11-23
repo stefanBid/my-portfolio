@@ -43,7 +43,7 @@ const changeVisibility = (falsyValue: boolean): void => {
   <div class="relative w-full h-screen overflow-x-hidden bg-sb-main">
     <!-- Background -->
     <video
-      src="/src/assets/video/cover-video.mp4"
+      src="/video/cover-video.mp4"
       class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none"
       autoplay
       loop
