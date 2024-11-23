@@ -28,9 +28,6 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    
-    /* Type checking */
-    "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue",  "**/*.d.ts"]
 }

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "visualize": "vite build --mode visualize",
     "lint": "eslint . && echo '✅ No lint errors!'",
