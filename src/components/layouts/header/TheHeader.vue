@@ -105,7 +105,9 @@ watch(
           @click="onChangeMenuVisibility(false)"
         >
           <img
-            src="@/assets/logo/logo.png"
+            src="/src/assets/images/logo.png"
+            loading="lazy"
+            decoding="async"
             alt="logo"
             class="object-cover object-center h-auto transition-sb-slow"
             :class="[styleStore.iconSizeM]"
