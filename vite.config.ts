@@ -6,7 +6,16 @@ import viteCompression from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-  const plugins: PluginOption[] = [vue(), svgLoader(), viteCompression()];
+  const plugins: PluginOption[] = [
+    vue(),
+    svgLoader(),
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      deleteOriginFile: true,
+      threshold: 1,
+    }),
+  ];
 
   return {
     plugins,
