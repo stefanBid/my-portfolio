@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "visualize": "vite build --mode visualize",
     "lint": "eslint . && echo '✅ No lint errors!'",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/vue": "^8.1.0",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.7.9",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-vue": "^5.1.4",
