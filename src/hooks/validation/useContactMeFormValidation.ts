@@ -30,7 +30,9 @@ const VALIDATION_MESSAGES_MAP = {
 } as const;
 
 const getMessage = (messageLang: 'en' | 'it', messageKey: string): string => {
-  return VALIDATION_MESSAGES_MAP[messageLang][messageKey];
+  return VALIDATION_MESSAGES_MAP[messageLang][
+    messageKey as keyof (typeof VALIDATION_MESSAGES_MAP)[typeof messageLang]
+  ];
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
