@@ -5,7 +5,7 @@ export const downloadCv = (): void => {
 
   // Create a new <a> element for the download simulation
   const link = document.createElement('a');
-  link.href = '/src/assets/docs/Stefano-Biddau-CV.pdf';
+  link.href = cvUrl;
   link.setAttribute('download', fileName);
   document.body.appendChild(link);
 
