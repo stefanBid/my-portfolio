@@ -155,11 +155,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             aria-label="click to download cv"
             class="w-full"
             :icon="DocumentArrowDownIcon"
-            @click="
-              i18nStore.homePageI18nContent.downloadCvButton.link
-                ? downloadCv(i18nStore.homePageI18nContent.downloadCvButton.link)
-                : undefined
-            "
+            @click="downloadCv()"
           >
             {{ i18nStore.homePageI18nContent.downloadCvButton.text }}
           </BaseButton>
