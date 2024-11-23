@@ -102,6 +102,8 @@ watch(
       <img
         v-show="!delayedFlip"
         :src="props.imageUrl"
+        loading="lazy"
+        decoding="async"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
         class="object-cover object-center w-full rounded transition-sb-slow"
