@@ -19,8 +19,101 @@ Current version: `1.7.6`
 
 Visit the live site [here](https://www.stefano-biddau.com/)
 
+--- 
+
+
 ## Description
 This is my portfolio. It contains information about me, my projects, and how to contact me.
 
 >**Note**: This project is under constant development. If you have any suggestions or feedback, please let me know.
+
+---
+
+## System Requirements
+
+Before starting, ensure your system meets the following requirements:
+
+- **Node.js**: Version **22.11.0** (LTS) or newer. [Download Node.js](https://nodejs.org/)
+- **npm**: Bundled with Node.js (use `npm install -g npm@latest` to update if needed).
+- **Modern Browser**: Ensure compatibility with recent versions of Chrome, Firefox, or Edge.
+- **pnpm (optional)**: For efficient package management, you can use `pnpm` instead of `npm`. [Learn more about pnpm](https://pnpm.io/)
+
+---
+
+## Installation
+
+Follow these steps to set up the project:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone <REPOSITORY_URL>
+   cd my-portfolio
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Build the Project**:
+   ```bash
+   npm run build
+   ```
+
+5. **Run Tests**:
+   ```bash
+   npm run test
+   ```
+
+6. **Lint and Fix Code**:
+   - Check for linting errors:
+     ```bash
+     npm run lint
+     ```
+   - Automatically fix issues:
+     ```bash
+     npm run lint:fix
+     ```
+
+7. **Optimize SVG Icons**:
+   ```bash
+   npm run optimize-svg
+   ```
+
+---
+
+## Scripts Overview
+
+| Script               | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `npm run dev`        | Starts the development server with Vite.                                   |
+| `npm run build`      | Builds the project for production, including type-checking with `vue-tsc`. |
+| `npm run preview`    | Serves the built project for preview.                                      |
+| `npm run visualize`  | Builds the project with visualization mode enabled.                       |
+| `npm run lint`       | Runs ESLint to check for code quality issues.                              |
+| `npm run lint:fix`   | Runs ESLint with auto-fix enabled.                                         |
+| `npm run test`       | Runs the test suite using Vitest without watching.                         |
+| `npm run test:watch` | Runs the test suite and watches for changes.                               |
+| `npm run optimize-svg` | Optimizes SVG files in `src/assets/icons` using SVGO.                    |
+
+---
+
+## Features
+
+This project uses the following technologies:
+
+- **Vue 3**: Reactive and component-based UI framework.
+- **Vite**: High-performance development and build tool.
+- **TypeScript**: Strongly typed programming language for modern JavaScript.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **ESLint**: Linting for code quality.
+- **Vitest**: Fast testing framework for Vue and TypeScript.
+
+---
+
 
