@@ -30,7 +30,7 @@ watch(
         :paragraph="section.contentParagraph"
         :intersection-observer-settings="{
           rootElement: null,
-          threshold: 0.2,
+          threshold: 0.15,
           rootMargin: '-80px 0px 0px 0px',
         }"
       >

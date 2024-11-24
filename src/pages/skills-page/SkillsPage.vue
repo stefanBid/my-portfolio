@@ -69,7 +69,7 @@ const changeVisibility = (newVisibility: boolean): void => {
       <div
         v-intersection-observer="[
           onIntersectionObserver,
-          { root: null, threshold: 0.2, rootMargin: '-80px 0px 0px 0px' },
+          { root: null, threshold: 0.15, rootMargin: '-80px 0px 0px 0px' },
         ]"
         class="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed rounded-lg transition-sb-slow border-sb-secondary-200"
         :class="{
@@ -113,7 +113,7 @@ const changeVisibility = (newVisibility: boolean): void => {
         :paragraph="section.contentParagraph"
         :intersection-observer-settings="{
           rootElement: null,
-          threshold: 0.2,
+          threshold: 0.1,
           rootMargin: '-80px 0px 0px 0px',
         }"
       >
