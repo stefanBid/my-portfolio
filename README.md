@@ -1,6 +1,6 @@
 # Stefano Biddau's Portfolio
 
-![Project Logo](https://www.design.com/share/c4904da6-3a8b-4eca-a54e-c93aa2b42f6d)
+![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1738195200&v=beta&t=2f7ehBmtYXCq7WktvfZhde_IjN9M4Z5wgzUr29wcidw)
 
 Current version: `1.7.6`
 
