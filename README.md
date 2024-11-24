@@ -1,5 +1,7 @@
 # Stefano Biddau's Portfolio
 
+![Project Logo](https://www.design.com/share/c4904da6-3a8b-4eca-a54e-c93aa2b42f6d)
+
 Current version: `1.7.6`
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
