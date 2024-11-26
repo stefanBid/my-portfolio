@@ -101,7 +101,7 @@ watch(
       <div class="inline-flex items-center flex-1 transition-sb-slow">
         <router-link
           to="/"
-          class="flex items-center text-white gap-x-4 group"
+          class="flex items-center text-white border border-transparent rounded-md gap-x-4 group ring-0 focus-visible:border-white outline-0"
           @click="onChangeMenuVisibility(false)"
         >
           <img
