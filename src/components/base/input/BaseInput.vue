@@ -111,7 +111,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       :for="inputId"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
-      class="mb-2 font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
+      class="mb-2 font-medium text-white outline-0 cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -152,7 +152,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'pl-3 pr-8': props.withMenu && props.type === 'search',
           },
         ]"
-        class="w-full py-2 text-white truncate border-2 rounded-lg outline-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full py-2 text-white truncate border-2 rounded-lg outline-0 transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
@@ -161,10 +161,11 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         v-if="props.withMenu"
         ref="buttonMenuRef"
         :data-testid="`${props.dataTestid}-menu-button`"
+        aria-label="open input menu"
         variant="custom"
         content-size="small"
         spacing-size="custom"
-        class="absolute inset-y-1.5 right-0 mr-3 rounded-lg"
+        class="absolute right-0 mr-3 border border-transparent rounded-md focus-visible:border-white w-fit h-fit inset-y-3"
         :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
         :icon="ChevronDownIcon"
         @click.stop="handleClick()"

@@ -91,7 +91,7 @@ watch(
   <div
     :id="props.skill.id"
     v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.35 }]"
-    class="relative flex flex-col items-center justify-between p-4 overflow-hidden border-2 rounded-lg outline-none cursor-pointer transition-sb-slow bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    class="relative flex flex-col items-center justify-between p-4 overflow-hidden border-2 rounded-lg outline-0 cursor-pointer transition-sb-slow bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="{
       'w-80 h-64':
         styleStore.activeBreakpoint !== 'xs' &&
@@ -137,10 +137,11 @@ watch(
         class="absolute top-0 w-full h-full px-2 pb-2 pt-[45px] z-sb-base-2 flex flex-col bg-sb-secondary-200"
       >
         <BaseButton
-          class="absolute text-white w-fit h-fit hover:rotate-90 top-2 right-2"
+          class="absolute text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 top-2 right-2 focus-visible:border-white"
           content-size="small"
           spacing-size="custom"
           variant="custom"
+          :aria-label="`close ${props.skill.name} details panel`"
           :icon="XMarkIcon"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
         />
@@ -161,6 +162,7 @@ watch(
                 paginationIndex > 0,
               'pointer-events-none opacity-30': paginationIndex === 0,
             }"
+            aria-label="click to go to previous paginated skill rating elements"
             variant="custom"
             content-size="small"
             spacing-size="small"
@@ -180,6 +182,7 @@ watch(
                 (styleStore.activeBreakpoint === 'xs' &&
                   paginationIndex === ratingsKeys.length - 1),
             }"
+            aria-label="click to go to next paginated skill rating elements"
             variant="custom"
             content-size="small"
             spacing-size="small"

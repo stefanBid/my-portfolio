@@ -59,7 +59,7 @@ const handleFocusBlur = (focused: boolean): void => {
       :data-testid="`${props.dataTestid}-label`"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
-      class="mb-2 font-medium text-white outline-none cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
+      class="mb-2 font-medium text-white outline-0 cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -86,7 +86,7 @@ const handleFocusBlur = (focused: boolean): void => {
           'focus:border-white focus:shadow-white': !props.validation?.show,
         },
       ]"
-      class="w-full h-32 px-3 py-2 overflow-y-auto text-white border-2 rounded-lg outline-none resize-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+      class="w-full h-32 px-3 py-2 overflow-y-auto text-white border-2 rounded-lg outline-0 resize-none transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
       :placeholder="props.placeholder"
       @focus="handleFocusBlur(true)"
       @blur="handleFocusBlur(false)"

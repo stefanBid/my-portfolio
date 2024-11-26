@@ -60,7 +60,11 @@ const getScore = computed(() => {
 </script>
 
 <template>
-  <div v-bind="$attrs" class="flex flex-col">
+  <div
+    v-bind="$attrs"
+    tabindex="0"
+    class="flex flex-col border border-transparent rounded-md outline-0 focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-0 transition-sb-slow"
+  >
     <span
       v-if="props.label"
       :data-testid="`${props.dataTestid}-label`"

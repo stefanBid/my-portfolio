@@ -159,8 +159,10 @@ watch(
                   :tabindex="0"
                   :class="{
                     'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
+                    'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
+                      i18nStore.currentLanguage !== lang.name,
                   }"
-                  class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
+                  class="flex items-center p-2 border border-transparent rounded-lg cursor-pointer outline-0 transition-sb-slow gap-x-2 group ring-0 focus-visible:border-white"
                   @keydown.enter="
                     () => {
                       i18nStore.changeLanguage(lang.name);
@@ -185,12 +187,18 @@ watch(
         </div>
       </transition>
       <!-- Menu Mobile Section -->
-      <div v-if="isMenuCollapsed">
+      <div
+        v-if="isMenuCollapsed"
+        tabindex="0"
+        class="border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 transition-sb-slow ring-0 outline-0"
+        :aria-label="`click for ${isMenuOpen ? 'close' : 'open'} menu`"
+        @click.stop="onChangeMenuVisibility(!isMenuOpen)"
+        @keydown.enter="onChangeMenuVisibility(!isMenuOpen)"
+      >
         <component
           :is="isMenuOpen ? XMarkIcon : Bars3Icon"
-          class="flex-none text-white cursor-pointer active:rotate-90 transition-sb-slow"
+          class="flex-none text-white cursor-pointer transition-sb-slow"
           :class="[styleStore.iconSizeM]"
-          @click.stop="onChangeMenuVisibility(!isMenuOpen)"
         />
       </div>
     </div>
@@ -234,8 +242,10 @@ watch(
                 :tabindex="0"
                 :class="{
                   'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
+                  'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
+                    i18nStore.currentLanguage !== lang.name,
                 }"
-                class="flex items-center p-2 rounded-lg outline-none cursor-pointer transition-sb-slow gap-x-2 hover:bg-sb-secondary-200 group ring-0 focus-visible:bg-sb-secondary-200"
+                class="flex items-center p-2 border border-transparent rounded-lg cursor-pointer outline-0 transition-sb-slow gap-x-2 group ring-0 focus-visible:border-white"
                 @keydown.enter="
                   () => {
                     i18nStore.changeLanguage(lang.name);
