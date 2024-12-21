@@ -111,7 +111,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       :for="inputId"
       tabindex="0"
       :class="[styleStore.textSizeXS]"
-      class="mb-2 font-medium text-white outline-0 cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-sb-slow ring-0"
+      class="mb-2 font-medium text-white outline-0 cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-all duration-300 ease-in-out ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -152,7 +152,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'pl-3 pr-8': props.withMenu && props.type === 'search',
           },
         ]"
-        class="w-full py-2 text-white truncate border-2 rounded-lg outline-0 transition-sb-slow focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full py-2 text-white truncate border-2 rounded-lg outline-0 transition-all duration-300 ease-in-out focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
@@ -192,7 +192,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       v-if="props.validation?.show && props.validation.message"
       :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
-      class="mt-1 text-sb-error font-roboto transition-sb-slow"
+      class="mt-1 text-sb-error font-roboto transition-all duration-300 ease-in-out"
     >
       {{ props.validation.message }}
     </p>

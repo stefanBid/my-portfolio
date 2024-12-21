@@ -95,7 +95,7 @@ watch(
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md cursor-pointer transition-sb-slow shadow-black gap-y-2"
+      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md cursor-pointer transition-all duration-300 ease-in-out shadow-black gap-y-2"
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
@@ -106,13 +106,13 @@ watch(
         decoding="async"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
-        class="object-cover object-center w-full rounded transition-sb-slow"
+        class="object-cover object-center w-full rounded transition-all duration-300 ease-in-out"
         :style="{ transform: 'rotateY(0deg)' }"
       />
       <div
         v-show="delayedFlip"
         :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 rounded transition-sb-slow bg-sb-secondary-100"
+        class="flex items-center justify-center w-full p-2 rounded transition-all duration-300 ease-in-out bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
       >
         <p class="text-center text-white font-roboto" :class="[styleStore.textSizeS]">

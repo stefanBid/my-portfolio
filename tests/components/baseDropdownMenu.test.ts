@@ -39,7 +39,7 @@ describe('BaseDropdownMenu Unit Tests', () => {
       const dropdownButton = screen.getByTestId('custom-base-dropdown-menu-button');
       const icon = dropdownButton.querySelector('svg');
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveClass('ml-2 transition-sb-slow shrink-0');
+      expect(icon).toHaveClass('ml-2 transition-all duration-300 ease-in-out shrink-0');
 
       const internalIcon = dropdownButton.querySelector('span > svg');
       expect(internalIcon).toBeNull();

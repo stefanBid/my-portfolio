@@ -91,7 +91,7 @@ watch(
   <div
     :id="props.skill.id"
     v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.35 }]"
-    class="relative flex flex-col items-center justify-between p-4 overflow-hidden border-2 rounded-lg outline-0 cursor-pointer transition-sb-slow bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    class="relative flex flex-col items-center justify-between p-4 overflow-hidden border-2 rounded-lg outline-0 cursor-pointer transition-all duration-300 ease-in-out bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="{
       'w-80 h-64':
         styleStore.activeBreakpoint !== 'xs' &&
@@ -110,7 +110,7 @@ watch(
   >
     <h4
       :class="[styleStore.textSizeM]"
-      class="font-medium text-white z-sb-base-3 font-roboto transition-sb-slow"
+      class="font-medium text-white z-sb-base-3 font-roboto transition-all duration-300 ease-in-out"
     >
       {{ props.skill.name }}
     </h4>
@@ -122,7 +122,7 @@ watch(
           'text-white': !props.skill.icon,
         },
       ]"
-      class="my-4 transition-sb-slow shrink-0"
+      class="my-4 transition-all duration-300 ease-in-out shrink-0"
     />
     <span :class="[styleStore.textSizeS]" class="text-center text-white font-roboto">
       {{ i18nStore.currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}

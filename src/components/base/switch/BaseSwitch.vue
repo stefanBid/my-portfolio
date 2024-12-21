@@ -29,7 +29,7 @@ const styleStore = useStyleStore();
       <SwitchLabel
         v-if="props.label"
         :data-testid="`${props.dataTestid}-label`"
-        class="ml-3 text-white outline-0 transition-sb-normal font-roboto hover:cursor-pointer hover:text-shadow-luminous"
+        class="ml-3 text-white outline-0 transition-all duration-300 ease-in-out font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[
           styleStore.textSizeXS,
           {
@@ -45,7 +45,7 @@ const styleStore = useStyleStore();
         :data-testid="props.dataTestid"
         tabindex="0"
         :aria-label="props.ariaLabel"
-        class="box-border relative inline-flex items-center border-2 border-white rounded-full outline-0 cursor-pointer transition-sb-normal shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
+        class="box-border relative inline-flex items-center border-2 border-white rounded-full outline-0 cursor-pointer transition-all duration-300 ease-in-out shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
         :class="{
           'bg-sb-tertiary-100': enabled,
           'bg-sb-tertiary-100/50': !enabled,
@@ -66,7 +66,7 @@ const styleStore = useStyleStore();
             'size-3': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
             'size-4': styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
           }"
-          class="inline-block transform bg-white rounded-full transition-sb-normal"
+          class="inline-block transform bg-white rounded-full transition-all duration-300 ease-in-out"
         ></span>
       </Switch>
     </div>

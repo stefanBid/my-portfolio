@@ -73,7 +73,7 @@ const changeVisibility = (falsyValue: boolean): void => {
       <transition name="scale-and-fade-slow">
         <div
           v-if="show"
-          class="flex flex-col justify-center w-full border-white transition-sb-slow gap-y-4 font-bebas"
+          class="flex flex-col justify-center w-full border-white transition-all duration-300 ease-in-out gap-y-4 font-bebas"
           :class="{
             'h-full':
               styleStore.activeBreakpoint !== 'xs' &&
@@ -86,13 +86,13 @@ const changeVisibility = (falsyValue: boolean): void => {
           }"
         >
           <h2
-            class="text-white whitespace-normal transition-sb-slow"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out"
             :class="[styleStore.textSizeXL]"
           >
             {{ i18nStore.homePageI18nContent.firstHeading }}
           </h2>
           <h1
-            class="text-black whitespace-normal bg-white transition-sb-slow rounded-xl w-fit rotate-3"
+            class="text-black whitespace-normal bg-white transition-all duration-300 ease-in-out rounded-xl w-fit rotate-3"
             :class="[
               styleStore.textSizeXXL,
               {
@@ -113,7 +113,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             {{ i18nStore.homePageI18nContent.secondHeading }}
           </h1>
           <h2
-            class="text-white whitespace-normal transition-sb-slow"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out"
             :class="[styleStore.textSizeXL]"
           >
             {{ i18nStore.currentLanguage === 'en' ? `And I'm a` : `E sono uno` }} {{ currentTxt }}_
@@ -143,7 +143,7 @@ const changeVisibility = (falsyValue: boolean): void => {
           </BaseButton>
 
           <span
-            class="block text-white transition-sb-slow font-bebas"
+            class="block text-white transition-all duration-300 ease-in-out font-bebas"
             :class="[styleStore.textSizeXL]"
           >
             {{ i18nStore.currentLanguage === 'en' ? 'Or' : 'Oppure' }}

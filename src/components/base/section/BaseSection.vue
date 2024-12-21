@@ -74,7 +74,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       'opacity-0': !isVisible,
       'opacity-100': isVisible,
     }"
-    class="flex items-center gap-12 transition-sb-slow"
+    class="flex items-center gap-12 transition-all duration-300 ease-in-out"
   >
     <slot name="extra-content" :is-visible="isVisible"></slot>
     <div class="flex flex-col justify-center flex-1">
@@ -96,7 +96,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               styleStore.activeBreakpoint !== 'sm',
           },
         ]"
-        class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+        class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
       >
         {{ props.title }}
       </h2>
@@ -119,7 +119,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               styleStore.activeBreakpoint !== 'sm',
           },
         ]"
-        class="font-medium text-white whitespace-normal transition-sb-slow font-roboto"
+        class="font-medium text-white whitespace-normal transition-all duration-300 ease-in-out font-roboto"
       >
         ({{ props.subtitle }})
       </h3>
@@ -127,7 +127,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         :id="`${$attrs.id || 'section'}-contentParagraph`"
         :data-testid="`${props.dataTestid}-paragraph`"
         :class="[styleStore.textSizeS]"
-        class="p-4 mt-4 text-justify text-white whitespace-normal border-2 rounded-lg transition-sb-slow font-roboto bg-sb-secondary-300 border-sb-secondary-200"
+        class="p-4 mt-4 text-justify text-white whitespace-normal border-2 rounded-lg transition-all duration-300 ease-in-out font-roboto bg-sb-secondary-300 border-sb-secondary-200"
       >
         {{ props.paragraph }}
       </div>

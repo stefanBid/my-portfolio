@@ -37,12 +37,12 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           'opacity-0': !isVisible,
           'opacity-100': isVisible,
         }"
-        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-sb-slow"
+        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-all duration-300 ease-in-out"
       >
         <!-- Terms and Conditions Content -->
         <div id="termsAndConditions">
           <h2
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeXL,
               {
@@ -68,7 +68,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms and Conditions Services Description -->
         <div id="termsAndConditionsServicesDescription">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -96,7 +96,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms And Conditions User Obligations -->
         <div id="termsAndConditionsUserObligations">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -139,7 +139,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms And Conditions Liability Limitation  -->
         <div id="termsAndConditionsLiabilityLimitation">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -178,7 +178,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms And Conditions Intellectual Property -->
         <div id="termsAndConditionsIntellectualProperty">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -206,7 +206,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms And Conditions Legal -->
         <div id="termsAndConditionsLegal">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -239,7 +239,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Terms And Conditions Modification -->
         <div id="termsAndConditionsModification">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {

@@ -73,22 +73,6 @@ export default {
         '.text-shadow-luminous': {
            textShadow: '0 0 10px rgba(156, 163, 175, 0.7), 0 0 20px rgba(156, 163, 175, 0.6), 0 0 30px rgba(156, 163, 175, 0.5)',
 				},
-				'.transition-sb-fast': {
-          'transition-property': 'all',
-          'transition-duration': '150ms',
-          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
-        },
-        '.transition-sb-normal': {
-          'transition-property': 'all',
-          'transition-duration': '300ms',
-          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
-        },
-        '.transition-sb-slow': {
-          'transition-property': 'all',
-          'transition-duration': '500ms',
-          'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)',
-				},
-				
       }, ['responsive', 'hover', 'focus-visible', 'focus', 'active', 'disabled']);
     }
   ],

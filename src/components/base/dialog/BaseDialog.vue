@@ -82,7 +82,7 @@ const handleCloseModal = (): void => {
                 'h-fit max-h-full': !props.blockDialogHeight,
                 'h-full': props.blockDialogHeight,
               }"
-              class="flex flex-col p-6 overflow-hidden transform border-2 rounded-lg shadow-lg transition-sb-fast gap-y-6 shadow-sb-secondary-200 border-slate-700 border-sb-secondary-200 bg-sb-main"
+              class="flex flex-col p-6 overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg gap-y-6 shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
             >
               <div class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6">
                 <div
@@ -98,7 +98,7 @@ const handleCloseModal = (): void => {
                     v-show="props.dialogTitle"
                     id="modal-title"
                     :class="[styleStore.textSizeL]"
-                    class="font-medium text-white truncate whitespace-normal transition-sb-slow font-roboto"
+                    class="font-medium text-white truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
                   >
                     {{ props.dialogTitle }}
                   </h3>

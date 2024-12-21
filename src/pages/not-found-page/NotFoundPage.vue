@@ -29,17 +29,20 @@ watch(
     :class="[styleStore.containerPadding]"
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
   >
-    <h1 :class="[styleStore.textSizeXXL]" class="whitespace-normal transition-sb-slow font-bebas">
+    <h1
+      :class="[styleStore.textSizeXXL]"
+      class="whitespace-normal transition-all duration-300 ease-in-out font-bebas"
+    >
       {{ i18nStore.notFoundPageI18nContent.firstHeading }}
     </h1>
     <p
       :class="[styleStore.textSizeL]"
-      class="font-medium whitespace-normal transition-sb-slow font-roboto"
+      class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto"
     >
       {{ i18nStore.notFoundPageI18nContent.secondHeading }}
     </p>
     <WindowIcon
-      class="transition-sb-slow text-slate-700"
+      class="transition-all duration-300 ease-in-out text-sb-tertiary-100"
       :class="{
         'size-72':
           styleStore.activeBreakpoint !== 'xs' &&

@@ -71,7 +71,7 @@ const changeVisibility = (newVisibility: boolean): void => {
           onIntersectionObserver,
           { root: null, threshold: 0.15, rootMargin: '-80px 0px 0px 0px' },
         ]"
-        class="relative flex flex-col items-center justify-center w-full p-8 border-2 border-dashed rounded-lg transition-sb-slow border-sb-secondary-200"
+        class="relative flex flex-col items-center justify-center w-full p-8 transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200"
         :class="{
           'opacity-0': !isVisible,
           'opacity-100': isVisible,
@@ -82,17 +82,20 @@ const changeVisibility = (newVisibility: boolean): void => {
         </div>
         <span
           :class="[styleStore.textSizeXL]"
-          class="text-center z-sb-base-1 font-bebas text-sb-tertiary-100 transition-sb-slow"
+          class="text-center transition-all duration-300 ease-in-out z-sb-base-1 font-bebas text-sb-tertiary-100"
         >
           {{ i18nStore.skillsPageI18nContent.callToActionFirstHeading }}
         </span>
         <span
           :class="[styleStore.textSizeL]"
-          class="text-center text-white z-sb-base-1 font-bebas transition-sb-slow"
+          class="text-center text-white transition-all duration-300 ease-in-out z-sb-base-1 font-bebas"
         >
           {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
-        <RocketIcon class="my-4 transition-sb-slow z-sb-base-1" :class="[styleStore.iconSizeXXL]" />
+        <RocketIcon
+          class="my-4 transition-all duration-300 ease-in-out z-sb-base-1"
+          :class="[styleStore.iconSizeXXL]"
+        />
         <BaseButton
           id="exploreSkillsButton"
           name="explore_skills_button"

@@ -37,12 +37,12 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           'opacity-0': !isVisible,
           'opacity-100': isVisible,
         }"
-        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-sb-slow"
+        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-all duration-300 ease-in-out"
       >
         <!-- Privacy Policy Content -->
         <div id="privacyPolicyContent">
           <h2
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeXL,
               {
@@ -68,7 +68,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy Data Controller -->
         <div id="privacyPolicyDataController">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -90,7 +90,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy Data Collected -->
         <div id="privacyPolicyDataCollected">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -126,7 +126,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy Third Party Services  -->
         <div id="privacyPolicyThirdPartyServices">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -150,7 +150,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               "
               target="_blank"
               rel="noopener noreferrer"
-              class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-sb-slow"
+              class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
             >
               {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.linkText }}
             </a>
@@ -160,7 +160,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy Data Sharing -->
         <div id="privacyPolicyDataSharing">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -182,7 +182,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy User Rights -->
         <div id="privacyPolicyUserRights">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {
@@ -219,7 +219,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <!-- Privacy Policy Legal Basis -->
         <div id="privacyPolicyLegalBasis">
           <h3
-            class="whitespace-normal transition-sb-slow text-sb-tertiary-100 font-bebas"
+            class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
             :class="[
               styleStore.textSizeL,
               {

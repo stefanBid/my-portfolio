@@ -22,7 +22,7 @@ const route = useRoute();
       :key="index"
       :to="routeItem.path"
       tabindex="0"
-      class="inline-flex items-center justify-center px-2 py-1 rounded-full outline-0 transition-sb-slow min-w-24 font-roboto ring-0 focus-visible:ring-0 text-sb-base"
+      class="inline-flex items-center justify-center px-2 py-1 rounded-full outline-0 transition-all duration-300 ease-in-out min-w-24 font-roboto ring-0 focus-visible:ring-0 text-sb-base"
       :class="[
         {
           'text-black bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80':

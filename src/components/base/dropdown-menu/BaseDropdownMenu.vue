@@ -93,7 +93,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         />
       </span>
       <ChevronDownIcon
-        class="ml-2 transition-sb-slow shrink-0"
+        class="ml-2 transition-all duration-300 ease-in-out shrink-0"
         :class="[
           styleStore.iconSizeXS,
           {

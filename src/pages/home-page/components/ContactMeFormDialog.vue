@@ -129,7 +129,7 @@ watch(
         <ClipboardDocumentListIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
         <span
           :class="[styleStore.textSizeXS]"
-          class="text-justify transition-sb-slow font-roboto text-shadow-luminous"
+          class="text-justify transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"
         >
           {{ i18nStore.homePageI18nContent.contactMeForm.info }}
         </span>
@@ -181,7 +181,7 @@ watch(
             <template #label-content>
               <span
                 :class="[styleStore.textSizeXS]"
-                class="text-justify text-white transition-sb-slow font-roboto"
+                class="text-justify text-white transition-all duration-300 ease-in-out font-roboto"
               >
                 {{ i18nStore.homePageI18nContent.contactMeForm.agreeToTermsField }}
                 <span>
@@ -190,7 +190,7 @@ watch(
                     to="/privacy-policy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-sb-slow"
+                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'
@@ -203,7 +203,7 @@ watch(
                     to="/terms-and-conditions"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-sb-slow"
+                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'

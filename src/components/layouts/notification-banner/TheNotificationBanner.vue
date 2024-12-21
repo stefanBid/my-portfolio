@@ -55,7 +55,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="flex gap-x-4 items-end justify-between px-4 py-1.5 border-2 rounded-lg shadow-2xl transition-sb-slow shadow-black bg-sb-secondary-100 border-sb-secondary-100"
+    class="flex gap-x-4 items-end justify-between px-4 py-1.5 border-2 rounded-lg shadow-2xl transition-all duration-300 ease-in-out shadow-black bg-sb-secondary-100 border-sb-secondary-100"
     :class="{
       'w-72': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
       'w-80': styleStore.activeBreakpoint === 'md',

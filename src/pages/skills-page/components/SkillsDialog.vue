@@ -151,7 +151,7 @@ watch(
           <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
           <span
             :class="[styleStore.textSizeXS]"
-            class="text-justify text-white transition-sb-slow font-roboto text-shadow-luminous"
+            class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"
           >
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
@@ -171,11 +171,11 @@ watch(
         <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
           <FaceFrownIcon
             :class="[styleStore.iconSizeL]"
-            class="text-sb-tertiary-100 shrink-0 transition-sb-slow"
+            class="text-sb-tertiary-100 shrink-0 transition-all duration-300 ease-in-out"
           />
           <span
             :class="[styleStore.textSizeXL]"
-            class="w-full text-center text-white truncate font-bebas transition-sb-slow"
+            class="w-full text-center text-white truncate font-bebas transition-all duration-300 ease-in-out"
           >
             {{
               i18nStore.currentLanguage === 'en'
