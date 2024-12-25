@@ -1,3 +1,5 @@
+// assets/index.ts (Assets Barrel Export File)
+
 import AngularIcon from './icons/angular.svg?component';
 import CSharpIcon from './icons/c-sharp.svg?component';
 import CssIcon from './icons/css.svg?component';

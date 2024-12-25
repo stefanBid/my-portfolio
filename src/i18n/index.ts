@@ -1,3 +1,5 @@
+// i18n/index.ts (I18n Configuration File)
+
 import { createI18n } from 'vue-i18n';
 
 import en from '@/i18n/locales/en.json';

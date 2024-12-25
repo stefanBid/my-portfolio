@@ -1,3 +1,5 @@
+// types/index.ts (Types Barrel Export File)
+
 import { type SkillIcon } from '@/assets';
 
 /** GLOBAL **/

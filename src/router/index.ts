@@ -1,3 +1,5 @@
+// router/index.ts (Router Configuration File)
+
 import { ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
