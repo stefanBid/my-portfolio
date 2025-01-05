@@ -12,6 +12,7 @@
     }
   },
   "include": [
+    ".storybook/**/*",
     "src/**/*.json", 
     "src/**/*",
     "vite.config.ts",

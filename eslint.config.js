@@ -9,7 +9,7 @@ export default [
     ignores: ['node_modules/**', 'dist/**', '**/*.d.ts', '**/*.svg'], // Folders to ignore
   },
   {
-    files: ['**/*.vue', '**/*.ts', '**/*.tsx', 'src/**/*.json'], // Files for ESLint to lint
+    files: ['**/*.vue', '**/*.ts', '**/*.tsx', 'src/**/*.json', '.storybook/**/*'], // Files for ESLint to lint
     languageOptions: {
       ecmaVersion: 'latest', // Use the latest ECMAScript version
       sourceType: 'module',
