@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import { BaseCheckbox } from '@/components';
+import { BaseCheckbox } from '../../src/components';
 
 describe('BaseCheckbox Unit Tests', () => {
   describe('Props', () => {

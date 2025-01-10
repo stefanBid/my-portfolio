@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import { BaseSwitch } from '@/components';
+import { BaseSwitch } from '../../src/components';
 
 describe('BaseSwitch Unit Tests', () => {
   describe('Props', () => {

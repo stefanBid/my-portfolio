@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
-import { BaseDropdownMenu } from '@/components';
+import { BaseDropdownMenu } from '../../src/components';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 describe('BaseDropdownMenu Unit Tests', () => {

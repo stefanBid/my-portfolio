@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import { BaseButton } from '@/components';
+import { BaseButton } from '../../src/components';
 import { ArrowPathIcon } from '@heroicons/vue/24/outline';
 
 describe('BaseButton Unit Tests', () => {

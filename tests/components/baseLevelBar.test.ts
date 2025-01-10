@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import { BaseLevelBar } from '@/components';
+import { BaseLevelBar } from '../../src/components';
 
 describe('BaseLevelBar Unit Tests', () => {
   describe('Props', () => {

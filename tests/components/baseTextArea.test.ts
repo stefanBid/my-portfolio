@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen } from '@testing-library/vue';
 import { describe, it, expect } from 'vitest';
-import { BaseTextArea } from '@/components';
+import { BaseTextArea } from '../../src/components';
 
 describe('BaseTextArea Unit Tests', () => {
   describe('Props', () => {

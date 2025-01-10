@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
-import { BaseDialog } from '@/components';
+import { BaseDialog } from '../../src/components';
 
 describe('BaseDialog Unit Tests', () => {
   const onCloseModalMock = vi.fn((_: boolean) => {});

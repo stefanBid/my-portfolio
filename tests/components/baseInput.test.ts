@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom';
 import { render, fireEvent, screen, waitFor } from '@testing-library/vue';
 import { describe, it, expect, vi } from 'vitest';
-import { BaseInput } from '@/components';
+import { BaseInput } from '../../src/components';
 
 describe('BaseInput Unit Tests', () => {
   describe('Props', () => {
