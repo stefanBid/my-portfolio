@@ -400,7 +400,8 @@
     "firstHeading": "404 - Page Not Found",
     "secondHeading": "The page you are looking for does not exist.",
     "goHomeButton": {
-      "text": "Go Home"
+      "text": "Go Home",
+      "link": "homePage"
     }
   }
 }

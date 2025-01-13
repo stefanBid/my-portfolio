@@ -73,7 +73,7 @@ const changeVisibility = (falsyValue: boolean): void => {
       <transition name="scale-and-fade-slow">
         <div
           v-if="show"
-          class="flex flex-col justify-center w-full border-white transition-all duration-300 ease-in-out gap-y-4 font-bebas"
+          class="flex flex-col justify-center w-full transition-all duration-300 ease-in-out border-white gap-y-4 font-bebas"
           :class="{
             'h-full':
               styleStore.activeBreakpoint !== 'xs' &&
@@ -92,7 +92,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             {{ i18nStore.homePageI18nContent.firstHeading }}
           </h2>
           <h1
-            class="text-black whitespace-normal bg-white transition-all duration-300 ease-in-out rounded-xl w-fit rotate-3"
+            class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit rotate-3"
             :class="[
               styleStore.textSizeXXL,
               {
@@ -155,7 +155,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             aria-label="click to download cv"
             class="w-full"
             :icon="DocumentArrowDownIcon"
-            @click="downloadCv()"
+            @click.stop="downloadCv()"
           >
             {{ i18nStore.homePageI18nContent.downloadCvButton.text }}
           </BaseButton>
