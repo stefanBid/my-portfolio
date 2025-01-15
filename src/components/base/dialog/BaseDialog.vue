@@ -47,7 +47,7 @@ const handleCloseModal = (): void => {
         <div class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"></div>
       </TransitionChild>
 
-      <div class="fixed inset-0 overflow-y-auto z-sb-dialog">
+      <div class="fixed inset-0 overflow-y-auto z-sb-dialog scrollbar-gutter-stable">
         <div
           :class="[styleStore.containerPadding]"
           :data-testid="`${props.dataTestid}-overlay`"

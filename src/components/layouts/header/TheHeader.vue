@@ -94,7 +94,7 @@ watch(
 <template>
   <header
     :class="[styleStore.containerPadding, getBackgroundByRoute]"
-    class="fixed left-0 w-full h-20 z-sb-header"
+    class="fixed left-0 w-screen h-20 z-sb-header"
   >
     <div class="flex items-center h-20 p-sb-side gap-x-4">
       <!-- Logo Section-->
@@ -162,7 +162,7 @@ watch(
                     'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
                       i18nStore.currentLanguage !== lang.name,
                   }"
-                  class="flex items-center p-2 border border-transparent rounded-lg cursor-pointer outline-0 transition-all duration-300 ease-in-out gap-x-2 group ring-0 focus-visible:border-white"
+                  class="flex items-center p-2 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 gap-x-2 group ring-0 focus-visible:border-white"
                   @keydown.enter="
                     () => {
                       i18nStore.changeLanguage(lang.name);
@@ -190,14 +190,14 @@ watch(
       <div
         v-if="isMenuCollapsed"
         tabindex="0"
-        class="border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 transition-all duration-300 ease-in-out ring-0 outline-0"
+        class="transition-all duration-300 ease-in-out border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 ring-0 outline-0"
         :aria-label="`click for ${isMenuOpen ? 'close' : 'open'} menu`"
         @click.stop="onChangeMenuVisibility(!isMenuOpen)"
         @keydown.enter="onChangeMenuVisibility(!isMenuOpen)"
       >
         <component
           :is="isMenuOpen ? XMarkIcon : Bars3Icon"
-          class="flex-none text-white cursor-pointer transition-all duration-300 ease-in-out"
+          class="flex-none text-white transition-all duration-300 ease-in-out cursor-pointer"
           :class="[styleStore.iconSizeM]"
         />
       </div>
@@ -245,7 +245,7 @@ watch(
                   'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
                     i18nStore.currentLanguage !== lang.name,
                 }"
-                class="flex items-center p-2 border border-transparent rounded-lg cursor-pointer outline-0 transition-all duration-300 ease-in-out gap-x-2 group ring-0 focus-visible:border-white"
+                class="flex items-center p-2 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 gap-x-2 group ring-0 focus-visible:border-white"
                 @keydown.enter="
                   () => {
                     i18nStore.changeLanguage(lang.name);

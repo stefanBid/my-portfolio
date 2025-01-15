@@ -159,7 +159,7 @@ watch(
         <div
           v-if="filteredSkillsList.length !== 0"
           ref="skillContainerRef"
-          class="flex flex-wrap justify-center flex-1 w-full gap-8 p-6 overflow-y-auto"
+          class="flex flex-wrap justify-center flex-1 w-full gap-8 p-6 overflow-y-auto scrollbar-gutter-stable"
         >
           <SkillCard
             v-for="skill in filteredSkillsList"
@@ -171,11 +171,11 @@ watch(
         <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
           <FaceFrownIcon
             :class="[styleStore.iconSizeL]"
-            class="text-sb-tertiary-100 shrink-0 transition-all duration-300 ease-in-out"
+            class="transition-all duration-300 ease-in-out text-sb-tertiary-100 shrink-0"
           />
           <span
             :class="[styleStore.textSizeXL]"
-            class="w-full text-center text-white truncate font-bebas transition-all duration-300 ease-in-out"
+            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas"
           >
             {{
               i18nStore.currentLanguage === 'en'

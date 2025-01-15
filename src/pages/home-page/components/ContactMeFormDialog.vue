@@ -141,7 +141,9 @@ watch(
         @submit.prevent="sendEmail()"
         @reset.prevent="resetForm()"
       >
-        <div class="flex flex-col flex-1 w-full px-3 overflow-y-auto gap-y-6">
+        <div
+          class="flex flex-col flex-1 w-full px-3 overflow-y-auto scrollbar-gutter-stable gap-y-6"
+        >
           <BaseInput
             id="contactFullName"
             v-model:input-value="contactObject.name"
@@ -190,7 +192,7 @@ watch(
                     to="/privacy-policy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
+                    class="underline transition-all duration-300 ease-in-out cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'
@@ -203,7 +205,7 @@ watch(
                     to="/terms-and-conditions"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
+                    class="underline transition-all duration-300 ease-in-out cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'

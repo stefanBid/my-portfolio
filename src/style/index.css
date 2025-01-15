@@ -17,12 +17,14 @@
 body {
   background-color: #0F0F20;
   overflow-x: hidden;
+  scrollbar-gutter: 'stable';
 }
 
 
 html {
   font-size: 100%;
   overflow-x: hidden;
+  scrollbar-gutter: 'stable';
 }
 
 /* Works on Firefox */
