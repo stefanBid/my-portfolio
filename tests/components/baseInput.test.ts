@@ -24,6 +24,24 @@ describe('BaseInput Unit Tests', () => {
       }
     });
 
+    it.each([true, false])('render * after label correctly when mandatory is "%s"', (mandatory) => {
+      render(BaseInput, {
+        props: {
+          dataTestid: 'custom-base-input',
+          label: 'Custom label',
+          mandatory: mandatory,
+          inputValue: '',
+        },
+      });
+
+      const labelElement = screen.queryByTestId('custom-base-input-label');
+      if (mandatory) {
+        expect(labelElement).toHaveTextContent('*');
+      } else {
+        expect(labelElement).not.toHaveTextContent('*');
+      }
+    });
+
     it.each(['Custom aria label', undefined])(
       'set aria-label correctly when provided "%s"',
       (ariaLabel) => {

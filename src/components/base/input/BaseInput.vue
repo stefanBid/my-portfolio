@@ -22,6 +22,7 @@ interface InputProps {
     rootMargin?: string;
     threshold?: number;
   };
+  mandatory?: boolean;
   validation?: { show: boolean; message?: string };
 }
 
@@ -39,6 +40,7 @@ const props = withDefaults(defineProps<InputProps>(), {
     rootMargin: '-80px 0px 0px 0px',
     threshold: 0.05,
   }),
+  mandatory: false,
   validation: undefined,
 });
 
@@ -69,6 +71,13 @@ const inputPlaceholder = computed(() => {
     return 'Enter a value';
   }
   return props.placeholder;
+});
+
+const inputLabel = computed(() => {
+  if (props.label) {
+    if (props.mandatory) return `${props.label} *`;
+    else return props.label;
+  } else return undefined;
 });
 
 // Feature 2: Manage Input Menu
@@ -110,12 +119,20 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       :data-testid="`${props.dataTestid}-label`"
       :for="inputId"
       tabindex="0"
-      :class="[styleStore.textSizeXS]"
-      class="mb-2 font-medium text-white outline-0 cursor-pointer font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 transition-all duration-300 ease-in-out ring-0"
+      :class="[
+        styleStore.textSizeXS,
+        {
+          'text-white hover:text-shadow-luminous focus-visible:text-shadow-luminous':
+            !props.validation?.show,
+          'text-sb-error hover:text-shadow-luminous-error focus-visible:text-shadow-luminous-error':
+            props.validation?.show,
+        },
+      ]"
+      class="mb-2 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
-      {{ props.label }}
+      {{ inputLabel }}
     </label>
     <div
       v-intersection-observer="[
@@ -152,7 +169,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'pl-3 pr-8': props.withMenu && props.type === 'search',
           },
         ]"
-        class="w-full py-2 text-white truncate border-2 rounded-lg outline-0 transition-all duration-300 ease-in-out focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full py-2 text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
@@ -192,7 +209,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       v-if="props.validation?.show && props.validation.message"
       :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
-      class="mt-1 text-sb-error font-roboto transition-all duration-300 ease-in-out"
+      class="mt-1 transition-all duration-300 ease-in-out text-sb-error font-roboto"
     >
       {{ props.validation.message }}
     </p>

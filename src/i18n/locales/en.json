@@ -34,15 +34,15 @@
       "title": "Contact me",
       "info": "To get in touch, please fill out the form with your full name, email, and message. Ensure you provide a valid email address to receive a prompt response",
       "fullNameField": {
-        "label": "Full Name*",
+        "label": "Full Name",
         "placeholder": "Insert your name Ex: John Miller"
       },
       "emailField": {
-        "label": "Email*",
+        "label": "Email",
         "placeholder": "Insert your email (ex: example@ex.com)"
       },
       "messageField": {
-        "label": "Message*",
+        "label": "Message",
         "placeholder": "Insert your message"
       },
       "agreeToTermsField": "I agree to provide my name and email address to be contacted. (By checking this box, you agree to share your name and email address only for the purpose of being contacted. Your information will not be stored, shared, or used for any other purposes).",

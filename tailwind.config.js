@@ -73,6 +73,9 @@ export default {
         '.text-shadow-luminous': {
            textShadow: '0 0 10px rgba(156, 163, 175, 0.7), 0 0 20px rgba(156, 163, 175, 0.6), 0 0 30px rgba(156, 163, 175, 0.5)',
 				},
+				'.text-shadow-luminous-error': {
+           textShadow: '0 0 10px rgba(211, 47, 47, 0.7), 0 0 20px rgba(211, 47, 47, 0.6), 0 0 30px rgba(211, 47, 47, 0.5)',
+        },
 				'.scrollbar-gutter-stable': {
 					scrollbarGutter: 'stable',
 				},

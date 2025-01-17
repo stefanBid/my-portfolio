@@ -151,6 +151,7 @@ watch(
             aria-label="full name of the contact person"
             :label="i18nStore.homePageI18nContent.contactMeForm.fullNameField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.fullNameField.placeholder"
+            mandatory
             :validation="validationObject.name"
           />
 
@@ -162,6 +163,7 @@ watch(
             type="email"
             :label="i18nStore.homePageI18nContent.contactMeForm.emailField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.emailField.placeholder"
+            mandatory
             :validation="validationObject.email"
           />
           <BaseTextArea
