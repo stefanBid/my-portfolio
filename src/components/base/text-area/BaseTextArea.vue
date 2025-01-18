@@ -11,6 +11,7 @@ interface TextAreaProps {
   maxlength?: number;
   dataTestid?: string;
   ariaLabel?: string;
+  mandatory?: boolean;
   validation?: { show: boolean; message?: string };
 }
 
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
   label: undefined,
   dataTestid: 'base-text-area',
   ariaLabel: 'general text area',
+  mandatory: false,
   validation: undefined,
 });
 
@@ -43,12 +45,12 @@ const textAreaName = computed(() => {
   return props.name || `${uniqueId}-textarea-name`;
 });
 
-// Feature 1: Manage Textarea Focus
-const isTextareaFocused = ref(false);
-
-const handleFocusBlur = (focused: boolean): void => {
-  isTextareaFocused.value = focused;
-};
+const textAreaLabel = computed(() => {
+  if (props.label) {
+    if (props.mandatory) return `${props.label} *`;
+    else return props.label;
+  } else return undefined;
+});
 </script>
 
 <template>
@@ -58,12 +60,20 @@ const handleFocusBlur = (focused: boolean): void => {
       :for="textAreaId"
       :data-testid="`${props.dataTestid}-label`"
       tabindex="0"
-      :class="[styleStore.textSizeXS]"
-      class="mb-2 font-medium text-white transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit hover:text-shadow-luminous focus-visible:text-shadow-luminous focus-visible:ring-0 ring-0"
+      :class="[
+        styleStore.textSizeXS,
+        {
+          'text-white hover:text-shadow-luminous focus-visible:text-shadow-luminous':
+            !props.validation?.show,
+          'text-sb-error hover:text-shadow-luminous-error focus-visible:text-shadow-luminous-error':
+            props.validation?.show,
+        },
+      ]"
+      class="mb-2 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
-      {{ props.label }}
+      {{ textAreaLabel }}
     </label>
 
     <textarea
@@ -88,8 +98,6 @@ const handleFocusBlur = (focused: boolean): void => {
       ]"
       class="w-full h-32 px-3 py-2 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg resize-none scrollbar-gutter-stable outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
       :placeholder="props.placeholder"
-      @focus="handleFocusBlur(true)"
-      @blur="handleFocusBlur(false)"
     >
     </textarea>
     <div
@@ -99,13 +107,13 @@ const handleFocusBlur = (focused: boolean): void => {
     >
       {{ inputValue.length }} / {{ props.maxlength }}
     </div>
-    <p
+    <small
       v-if="props.validation?.show && props.validation.message"
       :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
       class="mt-1 transition-all duration-300 ease-in-out text-sb-error font-roboto"
     >
       {{ props.validation.message }}
-    </p>
+    </small>
   </div>
 </template>

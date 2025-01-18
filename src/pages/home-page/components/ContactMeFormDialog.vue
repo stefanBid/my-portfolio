@@ -173,6 +173,7 @@ watch(
             aria-label="message to be sent"
             :label="i18nStore.homePageI18nContent.contactMeForm.messageField.label"
             :placeholder="i18nStore.homePageI18nContent.contactMeForm.messageField.placeholder"
+            mandatory
             :validation="validationObject.message"
           />
           <BaseCheckbox

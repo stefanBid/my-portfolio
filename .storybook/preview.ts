@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/vue3';
+import { themes } from '@storybook/theming';
 import { setup } from '@storybook/vue3';
 import '../src/style/index.css';
 
@@ -16,6 +17,12 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    darkMode: {
+      current: 'dark',
+    },
+    docs: {
+      themes: themes.dark,
     },
   },
 };

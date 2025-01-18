@@ -205,13 +205,13 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         </div>
       </transition>
     </teleport>
-    <p
+    <small
       v-if="props.validation?.show && props.validation.message"
       :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
       class="mt-1 transition-all duration-300 ease-in-out text-sb-error font-roboto"
     >
       {{ props.validation.message }}
-    </p>
+    </small>
   </div>
 </template>
