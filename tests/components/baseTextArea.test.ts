@@ -24,6 +24,24 @@ describe('BaseTextArea Unit Tests', () => {
       }
     });
 
+    it.each([true, false])('render * after label correctly when mandatory is "%s"', (mandatory) => {
+      render(BaseTextArea, {
+        props: {
+          dataTestid: 'custom-base-text-area',
+          label: 'Custom label',
+          mandatory: mandatory,
+          inputValue: '',
+        },
+      });
+
+      const labelElement = screen.queryByTestId('custom-base-text-area-label');
+      if (mandatory) {
+        expect(labelElement).toHaveTextContent('*');
+      } else {
+        expect(labelElement).not.toHaveTextContent('*');
+      }
+    });
+
     it.each(['Custom aria label', undefined])(
       'set aria-label correctly when provided "%s"',
       (ariaLabel) => {
