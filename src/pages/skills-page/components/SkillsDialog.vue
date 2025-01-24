@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { FaceFrownIcon, CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
+import { CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
-import { BaseDialog, BaseInput, BaseSwitch } from '@/components';
+import {
+  BaseDialog,
+  BaseInput,
+  BaseSwitch,
+  BaseInfiniteScroll,
+  SkillCardSkeleton,
+} from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { SkillInfo, SkillType } from '@/types';
 
@@ -14,8 +20,6 @@ interface SkillsModalProps {
 }
 
 const props = defineProps<SkillsModalProps>();
-
-const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Store Declarations
 const styleStore = useStyleStore();
@@ -62,6 +66,15 @@ const filteredSkillsList = computed<SkillInfo[]>(() => {
         skill.name.toLowerCase().includes(debouncedSearchSkillKey.value.toLowerCase())) &&
       filters.value[skill.type],
   );
+});
+
+const getInitialCountForInfiniteScroll = computed(() => {
+  if (styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm') {
+    return 4;
+  } else if (styleStore.activeBreakpoint === 'md') {
+    return 5;
+  }
+  return 7;
 });
 
 watch(
@@ -156,34 +169,26 @@ watch(
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
         </div>
-        <div
-          v-if="filteredSkillsList.length !== 0"
-          ref="skillContainerRef"
-          class="flex flex-wrap justify-center flex-1 w-full gap-8 p-6 overflow-y-auto scrollbar-gutter-stable"
+        <BaseInfiniteScroll
+          :items="filteredSkillsList"
+          :initial-count="getInitialCountForInfiniteScroll"
+          :batch-size="3"
+          class="p-6"
+          :no-data-message="
+            i18nStore.currentLanguage === 'en'
+              ? 'No skills found !'
+              : 'Nessuna competenza trovata !'
+          "
         >
-          <SkillCard
-            v-for="skill in filteredSkillsList"
-            :key="skill.id"
-            :root-element="skillContainerRef"
-            :skill="skill"
-          />
-        </div>
-        <div v-else class="flex flex-col items-center justify-center flex-1 w-full p-6">
-          <FaceFrownIcon
-            :class="[styleStore.iconSizeL]"
-            class="transition-all duration-300 ease-in-out text-sb-tertiary-100 shrink-0"
-          />
-          <span
-            :class="[styleStore.textSizeXL]"
-            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas"
-          >
-            {{
-              i18nStore.currentLanguage === 'en'
-                ? 'No skills found !'
-                : 'Nessuna competenza trovata !'
-            }}
-          </span>
-        </div>
+          <template #default="{ item: skill, containerRootRef: skillContainerRef }">
+            <SkillCard :root-element="skillContainerRef" :skill="skill" />
+          </template>
+          <template #loading-section>
+            <div class="flex flex-wrap justify-center gap-8">
+              <SkillCardSkeleton v-for="_ in 3" />
+            </div>
+          </template>
+        </BaseInfiniteScroll>
       </div>
     </template>
   </BaseDialog>
