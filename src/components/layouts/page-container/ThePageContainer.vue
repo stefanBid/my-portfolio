@@ -50,7 +50,7 @@ onMounted(() => {
       :class="[
         styleStore.containerGapElements,
         {
-          'pb-20 mt-8': slots['page-content'],
+          'pb-20': slots['page-content'],
         },
       ]"
     >
