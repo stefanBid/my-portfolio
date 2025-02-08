@@ -1,6 +1,6 @@
 // types/index.ts (Types Barrel Export File)
 
-import { type IconName } from '@/constants';
+import type { IconName, MediaName } from '@/constants';
 
 /** GLOBAL **/
 type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -27,7 +27,7 @@ interface Section {
   titleHeading: string;
   subTitleHeading: string;
   contentParagraph: string;
-  imagePath?: string;
+  imagePath?: MediaName;
   imageDescription?: string;
 }
 
