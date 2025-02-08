@@ -4,7 +4,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { ItalyIcon, UkIcon } from '@/assets';
-import { IMG_MEDIA_MAP } from '@/constants';
+import { MEDIA } from '@/constants';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { Locale } from '@/types';
@@ -106,7 +106,7 @@ watch(
           @click="onChangeMenuVisibility(false)"
         >
           <img
-            :src="IMG_MEDIA_MAP.logoImg"
+            :src="MEDIA.logoImg"
             loading="lazy"
             decoding="async"
             alt="logo"
