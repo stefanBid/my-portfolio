@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { IMG_MEDIA_MAP } from '@/constants';
 import { ThePageContainer, BaseSection } from '@/components';
 import { useI18nStore, useTitleStore } from '@/stores';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
@@ -37,7 +38,7 @@ watch(
         <template #extra-content="{ isVisible }">
           <VintagePicture
             v-if="section.imagePath"
-            :image-url="section.imagePath"
+            :image-url="IMG_MEDIA_MAP[section.imagePath]"
             :text="section.imageDescription"
             :is-visible="isVisible"
             :class="{
