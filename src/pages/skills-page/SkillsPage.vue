@@ -2,8 +2,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
 import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref, watch } from 'vue';
-
-import { SKILLS_ICONS_MAP, type SkillIcon, RocketIcon } from '@/assets';
+import { ICONS, SKILL_ICONS } from '@/constants';
 import { ThePageContainer, BaseButton, BaseSection } from '@/components';
 import { useStarEffect } from '@/hooks';
 import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
@@ -32,7 +31,7 @@ const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 const feIcons = computed(() =>
   skillsList.value
     .filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
-    .map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]),
+    .map((skill) => SKILL_ICONS[skill.icon]),
 );
 
 const beIcons = computed(() =>
@@ -41,7 +40,7 @@ const beIcons = computed(() =>
       (skill) =>
         skill.type === 'beLanguage' || skill.type === 'beFramework' || skill.type === 'beDb',
     )
-    .map((skill) => SKILLS_ICONS_MAP[skill.icon as SkillIcon]),
+    .map((skill) => SKILL_ICONS[skill.icon]),
 );
 
 // Feature 2: Manage Intersection Observer
@@ -92,7 +91,8 @@ const changeVisibility = (newVisibility: boolean): void => {
         >
           {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
-        <RocketIcon
+        <component
+          :is="ICONS.RocketIcon"
           class="my-4 transition-all duration-300 ease-in-out z-sb-base-1"
           :class="[styleStore.iconSizeXXL]"
         />

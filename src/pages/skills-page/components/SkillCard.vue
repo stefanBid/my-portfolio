@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/vue/24/solid';
 import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref, watch } from 'vue';
 
-import { SKILLS_ICONS_MAP } from '@/assets';
+import { SKILL_ICONS } from '@/constants';
 import { BaseLevelBar, BaseButton } from '@/components';
 import type { SkillInfo } from '@/types';
 import { useI18nStore, useStyleStore } from '@/stores';
@@ -115,7 +115,7 @@ watch(
       {{ props.skill.name }}
     </h4>
     <component
-      :is="props.skill.icon ? SKILLS_ICONS_MAP[props.skill.icon] : PhotoIcon"
+      :is="props.skill.icon ? SKILL_ICONS[props.skill.icon] : PhotoIcon"
       :class="[
         styleStore.iconSizeXL,
         {

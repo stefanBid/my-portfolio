@@ -2,6 +2,7 @@
 import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted, ref } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
+import { MEDIA } from '@/constants';
 import { BaseButton } from '@/components';
 import { useTypingText } from '@/hooks';
 import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
@@ -43,7 +44,7 @@ const changeVisibility = (falsyValue: boolean): void => {
   <div class="relative w-full h-screen overflow-x-hidden bg-sb-main">
     <!-- Background -->
     <video
-      src="/video/cover-video.mp4"
+      :src="MEDIA.backgroundCoverVideo"
       class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none"
       autoplay
       loop

@@ -1,6 +1,6 @@
 // types/index.ts (Types Barrel Export File)
 
-import { type SkillIcon } from '@/assets';
+import { type IconName } from '@/constants';
 
 /** GLOBAL **/
 type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -112,7 +112,7 @@ interface Overall {
 interface SkillInfo {
   id: string;
   name: string;
-  icon?: SkillIcon;
+  icon: IconName;
   type: SkillType;
   overAllRating: Overall;
 }

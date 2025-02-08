@@ -2,9 +2,7 @@
 import { XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-
-import { ItalyIcon, UkIcon } from '@/assets';
-import { MEDIA } from '@/constants';
+import { MEDIA, ICONS } from '@/constants';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { Locale } from '@/types';
@@ -21,12 +19,12 @@ const languageOptions = [
   {
     name: 'it' as Locale,
     label: 'Italiano',
-    icon: ItalyIcon,
+    icon: ICONS.ItalyIcon,
   },
   {
     name: 'en' as Locale,
     label: 'English',
-    icon: UkIcon,
+    icon: ICONS.UkIcon,
   },
 ];
 
@@ -150,7 +148,7 @@ watch(
               threshold: 0.05,
             }"
             aria-label="change Language with this button"
-            :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
+            :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
           >
             <template #dropdown-section-content="{ closeMenu }">
               <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
@@ -233,7 +231,7 @@ watch(
             threshold: 0.05,
           }"
           aria-label="change Language with this button"
-          :icon="i18nStore.currentLanguage === 'it' ? ItalyIcon : UkIcon"
+          :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
         >
           <template #dropdown-section-content="{ closeMenu }">
             <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
