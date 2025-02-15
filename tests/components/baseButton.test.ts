@@ -27,14 +27,14 @@ describe('BaseButton Unit Tests', () => {
       const button = screen.getByTestId('custom-base-button');
 
       if (variant === 'tertiary')
-        expect(button).toHaveClass('bg-transparent/50 text-white border-2 border-white');
+        expect(button).toHaveClass('bg-black text-white border-2 border-white');
 
       if (variant === 'white')
         expect(button).toHaveClass('bg-white text-black border-2 border-white');
 
       if (variant === 'custom') {
         expect(button).not.toHaveClass('bg-white text-black border-2 border-white');
-        expect(button).not.toHaveClass('bg-transparent/50 text-white border-2 border-white');
+        expect(button).not.toHaveClass('bg-black text-white border-2 border-white');
       }
     });
 
