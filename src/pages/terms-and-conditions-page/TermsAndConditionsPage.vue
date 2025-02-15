@@ -33,11 +33,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     <template #page-content>
       <div
         v-intersection-observer="[onIntersectionObserver, { root: null, threshold: 0.1 }]"
-        :class="{
-          'opacity-0': !isVisible,
-          'opacity-100': isVisible,
-        }"
-        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-all duration-300 ease-in-out"
+        :class="[
+          styleStore.elementTotalPaddingM,
+          {
+            'opacity-0': !isVisible,
+            'opacity-100': isVisible,
+            'space-y-6':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'space-y-5': styleStore.activeBreakpoint === 'md',
+            'space-y-4':
+              styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+          },
+        ]"
+        class="text-white transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto"
       >
         <!-- Terms and Conditions Content -->
         <div id="termsAndConditions">
@@ -60,7 +70,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.lastUpdate }}
           </span>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.description }}
           </p>
         </div>
@@ -85,7 +109,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.serviceDescription
                 .content
@@ -112,7 +150,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.userObligations
                 .description
@@ -129,7 +181,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               {{ data }}
             </li>
           </ul>
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.userObligations.note
             }}
@@ -156,7 +222,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.liabilityLimitations
                 .description
@@ -195,7 +275,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.intellectualProperty
                 .content
@@ -220,7 +314,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.legal.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.legal.description }}
           </p>
           <ul class="ml-8 list-disc">
@@ -253,7 +361,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.modifications.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.modifications.content
             }}

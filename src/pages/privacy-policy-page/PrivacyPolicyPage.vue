@@ -33,11 +33,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     <template #page-content>
       <div
         v-intersection-observer="[onIntersectionObserver, { root: null, threshold: 0.1 }]"
-        :class="{
-          'opacity-0': !isVisible,
-          'opacity-100': isVisible,
-        }"
-        class="p-8 space-y-10 text-white border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto transition-all duration-300 ease-in-out"
+        :class="[
+          styleStore.elementTotalPaddingM,
+          {
+            'opacity-0': !isVisible,
+            'opacity-100': isVisible,
+            'space-y-6':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'space-y-5': styleStore.activeBreakpoint === 'md',
+            'space-y-4':
+              styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+          },
+        ]"
+        class="text-white transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200 font-roboto"
       >
         <!-- Privacy Policy Content -->
         <div id="privacyPolicyContent">
@@ -60,7 +70,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.lastUpdate }}
           </span>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.description }}
           </p>
         </div>
@@ -82,7 +106,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataController.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataController.content }}
           </p>
         </div>
@@ -104,7 +142,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.description }}
           </p>
           <ul class="ml-8 list-disc">
@@ -118,7 +170,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               {{ data }}
             </li>
           </ul>
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.note }}
           </p>
         </div>
@@ -140,7 +206,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{
               i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.description
             }}
@@ -150,7 +230,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               "
               target="_blank"
               rel="noopener noreferrer"
-              class="underline cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 transition-all duration-300 ease-in-out"
+              class="underline transition-all duration-300 ease-in-out cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200"
             >
               {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.linkText }}
             </a>
@@ -174,7 +254,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataSharing.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataSharing.content }}
           </p>
         </div>
@@ -196,7 +290,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.description }}
           </p>
           <ul class="ml-8 list-disc">
@@ -211,7 +319,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             </li>
           </ul>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.note }}
           </p>
         </div>
@@ -233,7 +355,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.legalBasis.title }}
           </h3>
 
-          <p class="mt-4 text-justify whitespace-normal" :class="[styleStore.textSizeS]">
+          <p
+            class="text-justify whitespace-normal"
+            :class="[
+              styleStore.textSizeS,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+          >
             {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.legalBasis.content }}
           </p>
         </div>

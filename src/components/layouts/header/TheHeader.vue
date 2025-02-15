@@ -151,17 +151,22 @@ watch(
             :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
           >
             <template #dropdown-section-content="{ closeMenu }">
-              <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
+              <div
+                :class="[styleStore.elementTotalGapXS]"
+                class="flex flex-col break-words whitespace-normal transition-all duration-300 ease-in-out w-36 p-1.5"
+              >
                 <span
                   v-for="lang in languageOptions"
                   :key="lang.name"
                   :tabindex="0"
-                  :class="{
-                    'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
-                    'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
-                      i18nStore.currentLanguage !== lang.name,
-                  }"
-                  class="flex items-center p-2 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 gap-x-2 group ring-0 focus-visible:border-white"
+                  :class="[
+                    {
+                      'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
+                      'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
+                        i18nStore.currentLanguage !== lang.name,
+                    },
+                  ]"
+                  class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 group ring-0 focus-visible:border-white"
                   @keydown.enter="
                     () => {
                       i18nStore.changeLanguage(lang.name);
@@ -234,17 +239,23 @@ watch(
           :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
         >
           <template #dropdown-section-content="{ closeMenu }">
-            <div class="flex flex-col p-2 break-words whitespace-normal w-36 gap-y-2">
+            <div
+              :class="[styleStore.elementTotalGapXS]"
+              class="flex flex-col break-words whitespace-normal transition-all duration-300 ease-in-out w-36 p-1.5"
+            >
               <span
                 v-for="lang in languageOptions"
                 :key="lang.name"
                 :tabindex="0"
-                :class="{
-                  'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
-                  'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
-                    i18nStore.currentLanguage !== lang.name,
-                }"
-                class="flex items-center p-2 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 gap-x-2 group ring-0 focus-visible:border-white"
+                :class="[
+                  styleStore.elementTotalPaddingXS,
+                  {
+                    'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
+                    'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
+                      i18nStore.currentLanguage !== lang.name,
+                  },
+                ]"
+                class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 group ring-0 focus-visible:border-white"
                 @keydown.enter="
                   () => {
                     i18nStore.changeLanguage(lang.name);

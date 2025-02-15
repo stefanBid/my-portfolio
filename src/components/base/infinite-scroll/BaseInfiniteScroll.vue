@@ -106,7 +106,7 @@ onMounted(() => {
     <!-- Items -->
     <div
       v-if="visibleItems.length > 0"
-      class="grid"
+      class="grid transition-all duration-300 ease-in-out"
       :class="[
         styleStore.elementTotalGapM,
         {

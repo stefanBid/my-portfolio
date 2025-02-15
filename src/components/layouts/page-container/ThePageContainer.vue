@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col min-h-0" :class="[styleStore.containerPadding]">
-    <div class="flex flex-col items-center justify-center h-screen pt-20 pb-8">
+    <div class="flex flex-col items-center justify-center h-screen py-20">
       <transition name="stretch">
         <h1
           v-if="show"
@@ -40,8 +40,19 @@ onMounted(() => {
       <transition name="shutter">
         <ChevronDoubleDownIcon
           v-if="show"
-          :class="[styleStore.iconSizeL]"
-          class="mt-4 text-sb-tertiary-100 animate-pulse"
+          :class="[
+            styleStore.iconSizeL,
+            {
+              'mt-4':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+              'mt-3': styleStore.activeBreakpoint === 'md',
+              'mt-2.5':
+                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            },
+          ]"
+          class="text-sb-tertiary-100 animate-pulse"
         />
       </transition>
     </div>

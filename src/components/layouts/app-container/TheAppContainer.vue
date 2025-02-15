@@ -21,16 +21,19 @@ const isLoading = inject<Ref<boolean>>('isLoading');
   </div>
 
   <div
-    :class="{
-      'right-[5%]': styleStore.activeBreakpoint === 'sm',
-      'right-[6%]': styleStore.activeBreakpoint === 'md',
-      'right-[7%]':
-        styleStore.activeBreakpoint !== 'xs' &&
-        styleStore.activeBreakpoint !== 'sm' &&
-        styleStore.activeBreakpoint !== 'md',
-      'left-1/2 transform -translate-x-1/2': styleStore.activeBreakpoint === 'xs',
-    }"
-    class="fixed flex flex-col items-center z-sb-notification w-fit gap-y-6 bottom-5"
+    :class="[
+      styleStore.elementTotalGapM,
+      {
+        'right-[3%] bottom-4': styleStore.activeBreakpoint === 'sm',
+        'right-[4%] bottom-5': styleStore.activeBreakpoint === 'md',
+        'right-[5%] bottom-6':
+          styleStore.activeBreakpoint !== 'xs' &&
+          styleStore.activeBreakpoint !== 'sm' &&
+          styleStore.activeBreakpoint !== 'md',
+        'left-1/2 transform -translate-x-1/2 bottom-4': styleStore.activeBreakpoint === 'xs',
+      },
+    ]"
+    class="fixed flex flex-col items-center transition-all duration-300 ease-in-out z-sb-notification w-fit"
   >
     <transition-group name="scale-and-fade-fast">
       <TheNotificationBanner
