@@ -10,12 +10,12 @@ const styleStore = useStyleStore();
     :class="[
       styleStore.elementTotalPaddingS,
       {
-        'w-80 h-64':
+        'h-64':
           styleStore.activeBreakpoint !== 'xs' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'md',
-        'w-72 h-60': styleStore.activeBreakpoint === 'md',
-        'w-64 h-56': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+        'h-56': styleStore.activeBreakpoint === 'md',
+        'h-52': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
       },
     ]"
     class="relative flex flex-col items-center justify-between transition-all duration-300 ease-in-out border-2 rounded-lg animate-pulse bg-sb-secondary-300/60 border-sb-secondary-200/60"

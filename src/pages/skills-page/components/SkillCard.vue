@@ -95,12 +95,12 @@ watch(
     :class="[
       styleStore.elementTotalPaddingS,
       {
-        'w-80 h-64':
+        'h-64':
           styleStore.activeBreakpoint !== 'xs' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'md',
-        'w-72 h-60': styleStore.activeBreakpoint === 'md',
-        'w-64 h-56': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+        'h-56': styleStore.activeBreakpoint === 'md',
+        'h-52': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         'opacity-0': !isVisible,
         'opacity-100': isVisible,
         'hover:shadow-sb-ring-sm hover:shadow-sb-secondary-200 focus-visible:shadow-sb-ring-sm focus-visible:shadow-sb-secondary-200':

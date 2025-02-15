@@ -68,15 +68,6 @@ const filteredSkillsList = computed<SkillInfo[]>(() => {
   );
 });
 
-const getInitialCountForInfiniteScroll = computed(() => {
-  if (styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm') {
-    return 4;
-  } else if (styleStore.activeBreakpoint === 'md') {
-    return 5;
-  }
-  return 7;
-});
-
 watch(
   () => props.isModalOpen,
   (newValue) => {
@@ -186,9 +177,8 @@ watch(
         </div>
         <BaseInfiniteScroll
           :items="filteredSkillsList"
-          :initial-count="getInitialCountForInfiniteScroll"
+          :initial-count="6"
           :batch-size="3"
-          class="p-6"
           :no-data-message="
             i18nStore.currentLanguage === 'en'
               ? 'No skills found !'
@@ -199,7 +189,23 @@ watch(
             <SkillCard :root-element="skillContainerRef" :skill="skill" />
           </template>
           <template #loading-section>
-            <div :class="[styleStore.elementTotalGapM]" class="flex flex-wrap justify-center">
+            <div
+              :class="[
+                styleStore.elementTotalGapM,
+                {
+                  'grid-cols-1':
+                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                  'grid-cols-2':
+                    styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
+                  'grid-cols-3':
+                    styleStore.activeBreakpoint !== 'xs' &&
+                    styleStore.activeBreakpoint !== 'sm' &&
+                    styleStore.activeBreakpoint !== 'md' &&
+                    styleStore.activeBreakpoint !== 'lg',
+                },
+              ]"
+              class="grid"
+            >
               <SkillCardSkeleton v-for="_ in 3" />
             </div>
           </template>

@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import {
-  type Component,
-  type FunctionalComponent,
-  computed,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-} from 'vue';
+import { type Component, type FunctionalComponent, computed, onMounted, ref, watch } from 'vue';
 import { nanoid } from 'nanoid';
+import { useInfiniteScroll } from '@vueuse/core';
 import { useStyleStore } from '@/stores';
 import { ArchiveBoxXMarkIcon } from '@heroicons/vue/24/outline';
 
@@ -20,7 +13,6 @@ interface InfiniteScrollProps {
   initialCount?: number;
   batchSize?: number;
   delayLoadTime?: number;
-  elementsLayoutOrganizations?: 'flex-wrap' | 'grid';
   noDataSettings?: {
     message: string;
     icon?: Component | FunctionalComponent | string;
@@ -73,16 +65,13 @@ const loadMoreItems = (): void => {
   }, props.delayLoadTime); // Ritardo configurabile
 };
 
-const handleScroll = (): void => {
-  if (!containerRef.value) return;
-
-  if (
-    containerRef.value.scrollHeight - containerRef.value.scrollTop <=
-    containerRef.value.clientHeight
-  ) {
+useInfiniteScroll(
+  containerRef,
+  () => {
     loadMoreItems();
-  }
-};
+  },
+  { distance: 100 },
+);
 
 // Lifecycle Hooks
 
@@ -104,16 +93,6 @@ onMounted(() => {
       item,
     }));
   }
-
-  if (containerRef.value) {
-    containerRef.value.addEventListener('scroll', handleScroll);
-  }
-});
-
-onUnmounted(() => {
-  if (containerRef.value) {
-    containerRef.value.removeEventListener('scroll', handleScroll);
-  }
 });
 </script>
 
@@ -121,17 +100,25 @@ onUnmounted(() => {
   <div
     ref="containerRef"
     v-bind="$attrs"
-    :class="[styleStore.elementTotalGapM]"
-    class="flex flex-col w-full h-full overflow-x-hidden overflow-y-auto t scrollbar-gutter-stable"
+    :class="[styleStore.elementTotalGapM, styleStore.elementTotalPaddingM]"
+    class="flex flex-col w-full h-full overflow-x-hidden overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
   >
     <!-- Items -->
     <div
       v-if="visibleItems.length > 0"
+      class="grid"
       :class="[
         styleStore.elementTotalGapM,
         {
-          'flex flex-wrap justify-center flex-1 w-full':
-            props.elementsLayoutOrganizations === 'flex-wrap',
+          'grid-cols-1':
+            styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          'grid-cols-2':
+            styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
+          'grid-cols-3':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md' &&
+            styleStore.activeBreakpoint !== 'lg',
         },
       ]"
     >
