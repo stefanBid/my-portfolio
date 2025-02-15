@@ -63,27 +63,25 @@ const getScore = computed(() => {
   <div
     v-bind="$attrs"
     tabindex="0"
-    class="flex flex-col border border-transparent rounded-md outline-0 focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-0 transition-all duration-300 ease-in-out"
+    class="flex flex-col transition-all duration-300 ease-in-out border border-transparent rounded-md outline-0 focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-0"
   >
     <span
       v-if="props.label"
       :data-testid="`${props.dataTestid}-label`"
       :class="[styleStore.textSizeXS]"
-      class="text-white font-roboto"
+      class="mb-0.5 text-white font-roboto"
     >
       {{ props.label }}
     </span>
     <div class="flex items-center">
       <div
         :class="{
-          'h-2.5':
+          'h-3':
             styleStore.activeBreakpoint !== 'xs' &&
             styleStore.activeBreakpoint !== 'sm' &&
             styleStore.activeBreakpoint !== 'md',
-          'h-2':
-            styleStore.activeBreakpoint === 'md' ||
-            styleStore.activeBreakpoint === 'xs' ||
-            styleStore.activeBreakpoint === 'sm',
+          'h-2.5': styleStore.activeBreakpoint === 'md',
+          'h-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
         }"
         class="relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200"
       >

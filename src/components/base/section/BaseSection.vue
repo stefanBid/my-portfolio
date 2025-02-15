@@ -126,8 +126,19 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <div
         :id="`${$attrs.id || 'section'}-contentParagraph`"
         :data-testid="`${props.dataTestid}-paragraph`"
-        :class="[styleStore.textSizeS]"
-        class="p-4 mt-4 text-justify text-white whitespace-normal border-2 rounded-lg transition-all duration-300 ease-in-out font-roboto bg-sb-secondary-300 border-sb-secondary-200"
+        :class="[
+          styleStore.textSizeS,
+          styleStore.elementTotalPaddingS,
+          {
+            'mt-4':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'mt-3': styleStore.activeBreakpoint === 'md',
+            'mt-2.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+          },
+        ]"
+        class="text-justify text-white whitespace-normal transition-all duration-300 ease-in-out border-2 rounded-lg font-roboto bg-sb-secondary-300 border-sb-secondary-200"
       >
         {{ props.paragraph }}
       </div>

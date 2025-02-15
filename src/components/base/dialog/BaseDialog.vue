@@ -64,27 +64,34 @@ const handleCloseModal = (): void => {
           >
             <DialogPanel
               :data-testid="`${props.dataTestid}-panel`"
-              :class="{
-                'w-[45%]':
-                  props.dialogSize === 'small' &&
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm',
-                'w-[65%]':
-                  props.dialogSize === 'medium' &&
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm',
-                'w-[85%]':
-                  props.dialogSize === 'large' &&
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm',
-                'w-full':
-                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                'h-fit max-h-full': !props.blockDialogHeight,
-                'h-full': props.blockDialogHeight,
-              }"
-              class="flex flex-col p-6 overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg gap-y-6 shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
+              :class="[
+                styleStore.elementTotalPaddingM,
+                styleStore.elementTotalGapM,
+                {
+                  'w-[45%]':
+                    props.dialogSize === 'small' &&
+                    styleStore.activeBreakpoint !== 'xs' &&
+                    styleStore.activeBreakpoint !== 'sm',
+                  'w-[65%]':
+                    props.dialogSize === 'medium' &&
+                    styleStore.activeBreakpoint !== 'xs' &&
+                    styleStore.activeBreakpoint !== 'sm',
+                  'w-[85%]':
+                    props.dialogSize === 'large' &&
+                    styleStore.activeBreakpoint !== 'xs' &&
+                    styleStore.activeBreakpoint !== 'sm',
+                  'w-full':
+                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                  'h-fit max-h-full': !props.blockDialogHeight,
+                  'h-full': props.blockDialogHeight,
+                },
+              ]"
+              class="flex flex-col overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
             >
-              <div class="flex justify-between overflow-hidden cursor-default shrink-0 gap-x-6">
+              <div
+                :class="[styleStore.elementTotalGapM]"
+                class="flex justify-between overflow-hidden cursor-default shrink-0"
+              >
                 <div
                   :data-testid="`${props.dataTestid}-header-title`"
                   :class="{

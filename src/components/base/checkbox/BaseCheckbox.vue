@@ -88,7 +88,7 @@ const onCheckboxChange = (event: Event): void => {
 </script>
 
 <template>
-  <div class="inline-flex items-center w-full gap-x-3">
+  <div class="inline-flex items-center w-full gap-2">
     <input
       :id="checkboxId"
       :checked="isChecked"

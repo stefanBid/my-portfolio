@@ -114,7 +114,20 @@ watch(
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
-      <div class="flex flex-col items-center w-full h-full pt-6 overflow-hidden gap-y-6">
+      <div
+        :class="[
+          styleStore.elementTotalGapM,
+          {
+            'pt-4': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            'pt-5': styleStore.activeBreakpoint === 'md',
+            'pt-6':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+          },
+        ]"
+        class="flex flex-col items-center w-full h-full overflow-hidden"
+      >
         <div
           :class="{
             'w-4/6':
@@ -138,11 +151,15 @@ watch(
           >
             <template #input-menu-box>
               <div
-                class="grid gap-6 p-3 h-fit"
-                :class="{
-                  'grid-cols-2': styleStore.activeBreakpoint !== 'xs',
-                  'grid-cols-1': styleStore.activeBreakpoint === 'xs',
-                }"
+                class="grid h-fit"
+                :class="[
+                  styleStore.elementTotalGapS,
+                  styleStore.elementTotalPaddingS,
+                  {
+                    'grid-cols-2': styleStore.activeBreakpoint !== 'xs',
+                    'grid-cols-1': styleStore.activeBreakpoint === 'xs',
+                  },
+                ]"
               >
                 <div
                   v-for="(_, filterKey) in filters"
@@ -158,9 +175,7 @@ watch(
             </template>
           </BaseInput>
         </div>
-        <div
-          class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse"
-        >
+        <div class="inline-flex items-center justify-center w-full gap-2 text-white animate-pulse">
           <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
           <span
             :class="[styleStore.textSizeXS]"
@@ -184,7 +199,7 @@ watch(
             <SkillCard :root-element="skillContainerRef" :skill="skill" />
           </template>
           <template #loading-section>
-            <div class="flex flex-wrap justify-center gap-8">
+            <div :class="[styleStore.elementTotalGapM]" class="flex flex-wrap justify-center">
               <SkillCardSkeleton v-for="_ in 3" />
             </div>
           </template>

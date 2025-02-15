@@ -26,8 +26,8 @@ watch(
 
 <template>
   <div
-    :class="[styleStore.containerPadding]"
-    class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white gap-y-4"
+    :class="[styleStore.containerPadding, styleStore.elementTotalGapS]"
+    class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white transition-all duration-300 ease-in-out"
   >
     <h1
       :class="[styleStore.textSizeXXL]"
@@ -36,21 +36,14 @@ watch(
       {{ i18nStore.notFoundPageI18nContent.firstHeading }}
     </h1>
     <p
-      :class="[styleStore.textSizeL]"
+      :class="[styleStore.textSizeM]"
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto"
     >
       {{ i18nStore.notFoundPageI18nContent.secondHeading }}
     </p>
     <WindowIcon
       class="transition-all duration-300 ease-in-out text-sb-tertiary-100"
-      :class="{
-        'size-72':
-          styleStore.activeBreakpoint !== 'xs' &&
-          styleStore.activeBreakpoint !== 'sm' &&
-          styleStore.activeBreakpoint !== 'md',
-        'size-52': styleStore.activeBreakpoint === 'md',
-        'size-32': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-      }"
+      :class="[styleStore.iconSizeXXL]"
     />
 
     <BaseButton

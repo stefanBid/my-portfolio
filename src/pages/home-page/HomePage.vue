@@ -97,9 +97,9 @@ const changeVisibility = (falsyValue: boolean): void => {
             :class="[
               styleStore.textSizeXXL,
               {
-                'px-1 py-0.5':
+                'px-2.5 py-0.5':
                   styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                'px-2 py-1': styleStore.activeBreakpoint === 'md',
+                'px-3 py-1': styleStore.activeBreakpoint === 'md',
                 'mx-auto':
                   styleStore.activeBreakpoint === 'xs' ||
                   styleStore.activeBreakpoint === 'sm' ||
@@ -124,13 +124,16 @@ const changeVisibility = (falsyValue: boolean): void => {
       <transition name="scale-and-fade-slow">
         <div
           v-if="show"
-          class="flex flex-col items-center justify-center w-fit gap-y-4"
-          :class="{
-            'h-full shrink-0':
-              styleStore.activeBreakpoint !== 'xs' &&
-              styleStore.activeBreakpoint !== 'sm' &&
-              styleStore.activeBreakpoint !== 'md',
-          }"
+          class="flex flex-col items-center justify-center transition-all duration-300 ease-in-out shrink-0 w-fit"
+          :class="[
+            styleStore.elementTotalGapS,
+            {
+              'h-full':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+            },
+          ]"
         >
           <BaseButton
             id="contactMeButton"

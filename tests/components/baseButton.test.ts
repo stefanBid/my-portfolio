@@ -116,13 +116,13 @@ describe('BaseButton Unit Tests', () => {
       });
 
       const button = screen.getByTestId('custom-base-button');
-      if (size === 'small') expect(button).toHaveClass('px-3.5 py-1.5 gap-x-2');
+      if (size === 'small') expect(button).toHaveClass('px-4 py-2');
 
-      if (size === 'medium') expect(button).toHaveClass('px-6 py-4 gap-x-3');
+      if (size === 'medium') expect(button).toHaveClass('px-6 py-4');
 
       if (size === 'custom') {
-        expect(button).not.toHaveClass('px-3.5 py-1.5 gap-x-2');
-        expect(button).not.toHaveClass('px-6 py-4 gap-x-3');
+        expect(button).not.toHaveClass('px-4 py-2');
+        expect(button).not.toHaveClass('px-6 py-4');
       }
     });
 

@@ -18,22 +18,72 @@ export const useStyleStore = defineStore('style', () => {
 
   const containerPadding = computed(() => {
     if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
-      return 'px-[5%]';
+      return 'px-[3%]';
     }
     if (activeBreakpoint.value === 'md') {
-      return 'px-[6%]';
+      return 'px-[4%]';
     }
-    return 'px-[7%]';
+    return 'px-[5%]';
   });
 
-  const containerGapElements = computed(() => {
+  const elementTotalPaddingXS = computed(() => {
     if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
-      return 'gap-y-28';
+      return 'p-1.5';
     }
-    if (activeBreakpoint.value === 'md' || activeBreakpoint.value === 'lg') {
-      return 'gap-y-32';
+    if (activeBreakpoint.value === 'md') {
+      return 'p-2';
     }
-    return ' gap-y-36';
+    return 'p-2.5';
+  });
+
+  const elementTotalPaddingS = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'p-2.5';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'p-3';
+    }
+    return 'p-4';
+  });
+
+  const elementTotalPaddingM = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'p-4';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'p-5';
+    }
+    return 'p-6';
+  });
+
+  const elementTotalGapXS = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'gap-1.5';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'gap-2';
+    }
+    return 'gap-3';
+  });
+
+  const elementTotalGapS = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'gap-2.5';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'gap-3';
+    }
+    return 'gap-4';
+  });
+
+  const elementTotalGapM = computed(() => {
+    if (activeBreakpoint.value === 'xs' || activeBreakpoint.value === 'sm') {
+      return 'gap-4';
+    }
+    if (activeBreakpoint.value === 'md') {
+      return 'gap-5';
+    }
+    return 'gap-6';
   });
 
   // Common style for text elements
@@ -165,7 +215,12 @@ export const useStyleStore = defineStore('style', () => {
   return {
     activeBreakpoint,
     containerPadding,
-    containerGapElements,
+    elementTotalPaddingXS,
+    elementTotalPaddingS,
+    elementTotalPaddingM,
+    elementTotalGapXS,
+    elementTotalGapS,
+    elementTotalGapM,
     textSizeXXL,
     textSizeXL,
     textSizeL,

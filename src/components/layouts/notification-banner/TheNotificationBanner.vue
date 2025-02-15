@@ -55,17 +55,21 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="flex gap-x-4 items-end justify-between px-4 py-1.5 border-2 rounded-lg shadow-2xl transition-all duration-300 ease-in-out shadow-black bg-sb-secondary-100 border-sb-secondary-100"
-    :class="{
-      'w-72': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-      'w-80': styleStore.activeBreakpoint === 'md',
-      'w-96':
-        styleStore.activeBreakpoint !== 'md' &&
-        styleStore.activeBreakpoint !== 'sm' &&
-        styleStore.activeBreakpoint !== 'xs',
-    }"
+    class="flex items-end justify-between py-1.5 border-2 rounded-lg shadow-2xl transition-all duration-300 ease-in-out shadow-black bg-sb-secondary-100 border-sb-secondary-100"
+    :class="[
+      styleStore.elementTotalPaddingS,
+      styleStore.elementTotalGapS,
+      {
+        'w-72 px-2.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+        'w-80 px-3': styleStore.activeBreakpoint === 'md',
+        'w-96 px-4':
+          styleStore.activeBreakpoint !== 'md' &&
+          styleStore.activeBreakpoint !== 'sm' &&
+          styleStore.activeBreakpoint !== 'xs',
+      },
+    ]"
   >
-    <div class="inline-flex items-center flex-1 gap-x-2">
+    <div class="inline-flex items-center flex-1 gap-2">
       <component
         :is="notificationIcon"
         :class="[styleStore.iconSizeM]"

@@ -125,7 +125,17 @@ watch(
     :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
-      <div class="inline-flex items-center justify-center w-full text-white gap-x-2 animate-pulse">
+      <div
+        :class="{
+          'pt-4': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          'pt-5': styleStore.activeBreakpoint === 'md',
+          'pt-6':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+        }"
+        class="inline-flex items-center justify-center w-full gap-2 text-white transition-all duration-300 ease-in-out animate-pulse"
+      >
         <ClipboardDocumentListIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
         <span
           :class="[styleStore.textSizeXS]"
@@ -137,12 +147,14 @@ watch(
       <form
         id="contactForm"
         name="contact_form"
-        class="flex flex-col items-center w-full h-full overflow-hidden gap-y-6"
+        :class="[styleStore.elementTotalGapM]"
+        class="flex flex-col items-center w-full h-full overflow-hidden transition-all duration-300 ease-in-out"
         @submit.prevent="sendEmail()"
         @reset.prevent="resetForm()"
       >
         <div
-          class="flex flex-col flex-1 w-full px-3 overflow-y-auto scrollbar-gutter-stable gap-y-6"
+          :class="[styleStore.elementTotalGapM]"
+          class="flex flex-col flex-1 w-full px-3 overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
         >
           <BaseInput
             id="contactFullName"
@@ -222,7 +234,10 @@ watch(
             </template>
           </BaseCheckbox>
         </div>
-        <div class="flex items-center justify-end w-full px-3 pb-3 gap-x-6">
+        <div
+          :class="[styleStore.elementTotalGapM]"
+          class="flex items-center justify-end w-full px-3 pb-3 transition-all duration-300 ease-in-out"
+        >
           <BaseButton
             id="contactResetButton"
             name="contact-reset-button"

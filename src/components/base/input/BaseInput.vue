@@ -128,7 +128,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             props.validation?.show,
         },
       ]"
-      class="mb-2 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -167,9 +167,15 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'px-3': !props.withMenu,
             'pl-3 pr-12': props.withMenu && props.type !== 'search',
             'pl-3 pr-8': props.withMenu && props.type === 'search',
+            'py-2.5':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'py-2 ': styleStore.activeBreakpoint === 'md',
+            'py-1.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
           },
         ]"
-        class="w-full py-2 text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"
@@ -182,7 +188,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         variant="custom"
         content-size="small"
         spacing-size="custom"
-        class="absolute right-0 mr-3 border border-transparent rounded-md focus-visible:border-white w-fit h-fit inset-y-3"
+        class="absolute right-0 mr-3 -translate-y-1/2 border border-transparent rounded-md focus-visible:border-white w-fit h-fit top-1/2"
         :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
         :icon="ChevronDownIcon"
         @click.stop="handleClick()"

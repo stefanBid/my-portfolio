@@ -121,15 +121,19 @@ onUnmounted(() => {
   <div
     ref="containerRef"
     v-bind="$attrs"
-    class="flex flex-col w-full h-full overflow-x-hidden overflow-y-auto scrollbar-gutter-stable gap-y-8"
+    :class="[styleStore.elementTotalGapM]"
+    class="flex flex-col w-full h-full overflow-x-hidden overflow-y-auto t scrollbar-gutter-stable"
   >
     <!-- Items -->
     <div
       v-if="visibleItems.length > 0"
-      :class="{
-        'flex flex-wrap justify-center flex-1 w-full gap-8':
-          props.elementsLayoutOrganizations === 'flex-wrap',
-      }"
+      :class="[
+        styleStore.elementTotalGapM,
+        {
+          'flex flex-wrap justify-center flex-1 w-full':
+            props.elementsLayoutOrganizations === 'flex-wrap',
+        },
+      ]"
     >
       <slot
         v-for="item in visibleItems"

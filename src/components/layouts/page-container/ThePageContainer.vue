@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col min-h-0" :class="[styleStore.containerPadding]">
-    <div class="flex flex-col items-center justify-center h-screen px-8 pt-20 pb-8">
+    <div class="flex flex-col items-center justify-center h-screen pt-20 pb-8">
       <transition name="stretch">
         <h1
           v-if="show"
@@ -48,9 +48,8 @@ onMounted(() => {
     <div
       class="flex flex-col"
       :class="[
-        styleStore.containerGapElements,
         {
-          'pb-20': slots['page-content'],
+          'pb-20 gap-y-20': slots['page-content'],
         },
       ]"
     >

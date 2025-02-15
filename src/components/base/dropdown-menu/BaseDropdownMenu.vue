@@ -83,7 +83,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       }"
       @click.stop="handleClick()"
     >
-      <span class="inline-flex items-center gap-x-2">
+      <span class="inline-flex items-center gap-2">
         <span v-if="props.label"> {{ props.label }} </span>
         <component
           :is="props.icon"

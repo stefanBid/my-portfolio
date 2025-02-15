@@ -91,19 +91,22 @@ watch(
   <div
     :id="props.skill.id"
     v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.25 }]"
-    class="relative flex flex-col items-center justify-between p-4 overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg cursor-pointer outline-0 bg-sb-secondary-300 border-sb-secondary-200 ring-0"
-    :class="{
-      'w-80 h-64':
-        styleStore.activeBreakpoint !== 'xs' &&
-        styleStore.activeBreakpoint !== 'sm' &&
-        styleStore.activeBreakpoint !== 'md',
-      'w-72 h-60': styleStore.activeBreakpoint === 'md',
-      'w-64 h-56': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-      'opacity-0': !isVisible,
-      'opacity-100': isVisible,
-      'hover:shadow-sb-ring-sm hover:shadow-sb-secondary-200 focus-visible:shadow-sb-ring-sm focus-visible:shadow-sb-secondary-200':
-        !detailsPanelIsOpen,
-    }"
+    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg cursor-pointer outline-0 bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    :class="[
+      styleStore.elementTotalPaddingS,
+      {
+        'w-80 h-64':
+          styleStore.activeBreakpoint !== 'xs' &&
+          styleStore.activeBreakpoint !== 'sm' &&
+          styleStore.activeBreakpoint !== 'md',
+        'w-72 h-60': styleStore.activeBreakpoint === 'md',
+        'w-64 h-56': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+        'opacity-0': !isVisible,
+        'opacity-100': isVisible,
+        'hover:shadow-sb-ring-sm hover:shadow-sb-secondary-200 focus-visible:shadow-sb-ring-sm focus-visible:shadow-sb-secondary-200':
+          !detailsPanelIsOpen,
+      },
+    ]"
     :tabindex="isVisible ? 0 : -1"
     @keydown.enter="changeVisibilityOfDetailsPanel(true)"
     @click="changeVisibilityOfDetailsPanel(true)"
@@ -120,9 +123,15 @@ watch(
         styleStore.iconSizeXL,
         {
           'text-white': !props.skill.icon,
+          'my-4':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+          'my-3': styleStore.activeBreakpoint === 'md',
+          'my-2.5': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         },
       ]"
-      class="my-4 transition-all duration-300 ease-in-out shrink-0"
+      class="transition-all duration-300 ease-in-out shrink-0"
     />
     <span :class="[styleStore.textSizeS]" class="text-center text-white font-roboto">
       {{ i18nStore.currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
@@ -134,10 +143,28 @@ watch(
     <transition name="slide-fade">
       <div
         v-if="detailsPanelIsOpen"
-        class="absolute top-0 w-full h-full px-2 pb-2 pt-[45px] z-sb-base-2 flex flex-col bg-sb-secondary-200"
+        :class="{
+          'px-4 pb-4 pt-[37px]':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+          'px-3 pb-3 pt-[41px]': styleStore.activeBreakpoint === 'md',
+          'px-2.5 pb-2.5 pt-[43px]':
+            styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+        }"
+        class="absolute top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-sb-base-2 bg-sb-secondary-200"
       >
         <BaseButton
-          class="absolute text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 top-2 right-2 focus-visible:border-white"
+          :class="{
+            'top-4 right-4':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'top-3 right-3': styleStore.activeBreakpoint === 'md',
+            'top-2.5 right-2.5':
+              styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          }"
+          class="absolute text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
           content-size="small"
           spacing-size="custom"
           variant="custom"
@@ -145,7 +172,10 @@ watch(
           :icon="XMarkIcon"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
         />
-        <div class="flex flex-col justify-center flex-1 gap-y-5">
+        <div
+          :class="[styleStore.elementTotalGapS]"
+          class="flex flex-col justify-center flex-1 transition-all duration-300 ease-in-out"
+        >
           <BaseLevelBar
             v-for="rating in getPaginatedSkillRating"
             :key="rating"
@@ -154,7 +184,10 @@ watch(
             :level="props.skill.overAllRating[rating]?.value ?? 0"
           />
         </div>
-        <div class="inline-flex items-center justify-end gap-x-4">
+        <div
+          :class="[styleStore.elementTotalGapS]"
+          class="inline-flex items-center justify-end transition-all duration-300 ease-in-out"
+        >
           <BaseButton
             class="text-white border-2 w-fit h-fit"
             :class="{

@@ -70,11 +70,14 @@ const changeVisibility = (newVisibility: boolean): void => {
           onIntersectionObserver,
           { root: null, threshold: 0.15, rootMargin: '-80px 0px 0px 0px' },
         ]"
-        class="relative flex flex-col items-center justify-center w-full p-8 transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200"
-        :class="{
-          'opacity-0': !isVisible,
-          'opacity-100': isVisible,
-        }"
+        class="relative flex flex-col items-center justify-center w-full transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200"
+        :class="[
+          styleStore.elementTotalPaddingM,
+          {
+            'opacity-0': !isVisible,
+            'opacity-100': isVisible,
+          },
+        ]"
       >
         <div :style="starsContainerStyle">
           <div v-for="(star, index) in stars" :key="index" :style="star"></div>
@@ -93,8 +96,19 @@ const changeVisibility = (newVisibility: boolean): void => {
         </span>
         <component
           :is="ICONS.RocketIcon"
-          class="my-4 transition-all duration-300 ease-in-out z-sb-base-1"
-          :class="[styleStore.iconSizeXXL]"
+          class="transition-all duration-300 ease-in-out z-sb-base-1"
+          :class="[
+            styleStore.iconSizeXXL,
+            {
+              'my-4':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+              'my-3': styleStore.activeBreakpoint === 'md',
+              'my-2.5':
+                styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+            },
+          ]"
         />
         <BaseButton
           id="exploreSkillsButton"

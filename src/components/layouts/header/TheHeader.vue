@@ -100,7 +100,7 @@ watch(
       <div class="inline-flex items-center flex-1 transition-all duration-300 ease-in-out">
         <router-link
           to="/"
-          class="flex items-center text-white border border-transparent rounded-md gap-x-4 group ring-0 focus-visible:border-white outline-0"
+          class="flex items-center gap-2 text-white border border-transparent rounded-md group ring-0 focus-visible:border-white outline-0"
           @click="onChangeMenuVisibility(false)"
         >
           <img
@@ -217,7 +217,7 @@ watch(
           styleStore.containerPadding,
           styleStore.textSizeXS,
           styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm'
-            ? 'py-4'
+            ? 'py-5'
             : 'py-6',
         ]"
         class="inline-flex items-center w-full text-white gap-x-4"

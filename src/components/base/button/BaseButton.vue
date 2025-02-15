@@ -38,32 +38,30 @@ const styleStore = useStyleStore();
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
-    class="inline-flex items-center justify-center font-medium transition-all duration-300 ease-in-out rounded-full outline-0 ring-0 focus-visible:ring-0 font-roboto"
+    class="inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 ease-in-out rounded-full outline-0 ring-0 focus-visible:ring-0 font-roboto"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
       props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
       props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
       {
-        'px-6 py-4 gap-x-3':
+        'px-6 py-4':
           props.spacingSize === 'medium' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-5 py-3 gap-x-2.5':
-          props.spacingSize === 'medium' && styleStore.activeBreakpoint === 'md',
-        'px-4 py-2 gap-x-2.5':
+        'px-5 py-3': props.spacingSize === 'medium' && styleStore.activeBreakpoint === 'md',
+        'px-4 py-2.5':
           props.spacingSize === 'medium' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
-        'px-3.5 py-1.5 gap-x-2':
+        'px-4 py-2':
           props.spacingSize === 'small' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-3 py-1.5 gap-x-1.5':
-          props.spacingSize === 'small' && styleStore.activeBreakpoint === 'md',
-        'px-3 py-1 gap-x-1.5':
+        'px-3 py-1.5': props.spacingSize === 'small' && styleStore.activeBreakpoint === 'md',
+        'px-2.5 py-1':
           props.spacingSize === 'small' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
