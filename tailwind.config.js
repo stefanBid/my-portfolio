@@ -75,7 +75,12 @@ export default {
 				},
 				'.text-shadow-luminous-error': {
            textShadow: '0 0 10px rgba(211, 47, 47, 0.7), 0 0 20px rgba(211, 47, 47, 0.6), 0 0 30px rgba(211, 47, 47, 0.5)',
-        },
+				},
+				
+				'.text-shadow-luminous-tertiary': {
+         textShadow: '0 0 10px rgba(233, 89, 5, 0.7), 0 0 20px rgba(233, 89, 5, 0.6), 0 0 30px rgba(233, 89, 5, 0.5)', // Basato su sb-tertiary-100 (#e95905)
+				},
+				
 				'.scrollbar-gutter-stable': {
 					scrollbarGutter: 'stable',
 				},

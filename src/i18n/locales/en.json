@@ -20,6 +20,74 @@
     ]
   },
 
+  "footer": {
+    "intro": {
+      "title": "Stefano Biddau",
+      "description": "Turning ideas into digital experiences, one line of code at a time.",
+      "socials": [
+        {
+          "id": "GithubIcon",
+          "value": "https://github.com/stefanBid"
+        },
+        {
+          "id": "LinkedinIcon",
+          "value": "https://www.linkedin.com/in/stefano-biddau-669149214/"
+        },
+        {
+          "id": "InstagramIcon",
+          "value": "https://www.instagram.com/stefano_bid/"
+        }
+      ]
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "links": [
+        {
+          "text": "Home",
+          "link": "/"
+        },
+        {
+          "text": "About Me",
+          "link": "/about"
+        },
+        {
+          "text": "Skills",
+          "link": "/skills"
+        },
+        {
+          "text": "Projects",
+          "link": "/projects"
+        }
+      ]
+    },
+    "contacts": {
+      "title": "Contacts",
+      "channels": [
+        {
+          "id": "MobileIcon",
+          "value": "+39 329 724 7711"
+        },
+        {
+          "id": "EmailIcon",
+          "value": "biddau.stefano99@gmail.com"
+        }
+      ]
+    },
+    "helpAndSupport": {
+      "title": "Help and Support",
+      "links": [
+        {
+          "text": "Terms and Conditions",
+          "link": "/terms-and-conditions"
+        },
+        {
+          "text": "Privacy Policy",
+          "link": "/privacy-policy"
+        }
+      ]
+    }
+  },
+
   "homePage": {
     "firstHeading": "Hello Everyone!",
     "secondHeading": "I'm Stefano Biddau",

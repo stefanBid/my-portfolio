@@ -1,15 +1,22 @@
 <script setup lang="ts">
-import { inject, Ref } from 'vue';
+import { computed, inject, Ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { RouterView } from 'vue-router';
 import { useNotificationStore, useStyleStore } from '@/stores';
 
-import { TheHeader, ThePageLoader, TheNotificationBanner } from '@/components';
+import { TheHeader, TheFooter, ThePageLoader, TheNotificationBanner } from '@/components';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const notificationStore = useNotificationStore();
 
+const route = useRoute();
+
 const isLoading = inject<Ref<boolean>>('isLoading');
+
+const showRouterView = computed(() => {
+  return route.name !== 'homePage' && route.name !== 'notFoundPage';
+});
 </script>
 
 <template>
@@ -18,6 +25,7 @@ const isLoading = inject<Ref<boolean>>('isLoading');
   <ThePageLoader v-if="isLoading" />
   <div v-if="!isLoading" class="min-h-screen">
     <RouterView />
+    <TheFooter v-if="showRouterView" />
   </div>
 
   <div
