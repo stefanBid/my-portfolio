@@ -32,7 +32,6 @@ export default [
     rules: {
       // Vue rules
       'vue/no-multiple-template-root': 'off',
-      'vue/no-v-html': 'warn',
       'vue/require-prop-types': 'error',
       'vue/require-default-prop': 'error',
       'vue/attribute-hyphenation': ['error', 'always'],

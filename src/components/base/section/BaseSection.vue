@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { vIntersectionObserver } from '@vueuse/components';
 import { ref } from 'vue';
+import { stringPurifier } from '@/utils';
 import { useStyleStore } from '@/stores';
 
 interface BaseSectionProps {
@@ -139,9 +140,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           },
         ]"
         class="text-justify text-white whitespace-normal transition-all duration-300 ease-in-out border-2 rounded-lg font-roboto bg-sb-secondary-300 border-sb-secondary-200"
-      >
-        {{ props.paragraph }}
-      </div>
+        v-html="stringPurifier(props.paragraph)"
+      ></div>
     </div>
   </div>
 </template>

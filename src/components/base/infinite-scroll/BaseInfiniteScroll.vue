@@ -12,6 +12,7 @@ interface InfiniteScrollProps {
   }[];
   initialCount?: number;
   batchSize?: number;
+  distanceForLoadMore?: number;
   delayLoadTime?: number;
   noDataSettings?: {
     message: string;
@@ -22,6 +23,7 @@ interface InfiniteScrollProps {
 const props = withDefaults(defineProps<InfiniteScrollProps>(), {
   initialCount: 10,
   batchSize: 10,
+  distanceForLoadMore: 200,
   delayLoadTime: 1000,
   onLoadMore: undefined,
   elementsLayoutOrganizations: 'flex-wrap',
@@ -65,23 +67,24 @@ const loadMoreItems = (): void => {
   }, props.delayLoadTime); // Ritardo configurabile
 };
 
-useInfiniteScroll(
+const { reset } = useInfiniteScroll(
   containerRef,
   () => {
     loadMoreItems();
   },
-  { distance: 100 },
+  { distance: props.distanceForLoadMore },
 );
 
 // Lifecycle Hooks
 
 watch(
-  () => [props.items, props.initialCount, props.batchSize],
+  () => [props.items, props.initialCount, props.batchSize, styleStore.activeBreakpoint],
   () => {
     visibleItems.value = props.items.slice(0, props.initialCount).map((item) => ({
       id: nanoid(),
       item,
     }));
+    reset();
   },
   { deep: true },
 );
@@ -136,7 +139,7 @@ onMounted(() => {
       </div>
       <!-- No data message -->
       <div
-        v-if="visibleItems.length === 0 && !showLoader"
+        v-if="props.items.length === 0 && !showLoader"
         class="flex flex-col items-center justify-center flex-1"
       >
         <component
