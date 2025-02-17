@@ -20,7 +20,7 @@ const i18nStore = useI18nStore();
           styleStore.activeBreakpoint !== 'md',
       },
     ]"
-    class="w-full text-white bg-sb-secondary-300"
+    class="w-full text-white transition-all duration-300 ease-in-out bg-sb-secondary-300"
   >
     <div
       class="grid w-full transition-all duration-300 ease-in-out"
@@ -41,13 +41,10 @@ const i18nStore = useI18nStore();
           'items-center':
             styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         }"
-        class="flex flex-col w-full gap-y-2.5"
+        class="flex flex-col w-full gap-y-2.5 transition-all duration-300 ease-in-out"
       >
         <!--Logo-->
-        <div
-          id="logo"
-          class="flex items-center gap-2 text-white transition-all duration-300 ease-in-out"
-        >
+        <div id="logo" class="flex items-center gap-2 text-white">
           <img
             :src="MEDIA.logoImg"
             :class="[styleStore.iconSizeS]"
