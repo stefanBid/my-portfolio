@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ChevronDoubleDownIcon } from '@heroicons/vue/24/solid';
-import { onMounted, ref, SetupContext, useSlots } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useStyleStore } from '@/stores';
 
 interface PageContainerProps {
@@ -13,10 +13,6 @@ const props = withDefaults(defineProps<PageContainerProps>(), {
 
 // Store Declarations
 const styleStore = useStyleStore();
-
-// Hooks Declarations
-
-const slots: SetupContext['slots'] = useSlots();
 
 // Feature 1: Transition
 const show = ref(false);
@@ -61,7 +57,7 @@ onMounted(() => {
       class="flex flex-col"
       :class="[
         {
-          'pb-20 gap-y-20': slots['page-content'],
+          'pb-20 gap-y-20': $slots['page-content'],
         },
       ]"
     >
