@@ -80,7 +80,7 @@ const i18nStore = useI18nStore();
             :key="social.id"
             :tabindex="0"
             :class="[styleStore.iconSizeS]"
-            class="text-white transition-all duration-300 ease-in-out outline-none hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0 focus-visible:ring-0 focus-visible:outline-none"
+            class="text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0 focus-visible:ring-0 focus-visible:outline-none"
             @click.stop="openLink(social.value)"
             @keydown.enter.stop="openLink(social.value)"
           />
