@@ -128,7 +128,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             props.validation?.show,
         },
       ]"
-      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-none font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -175,7 +175,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'py-1.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
           },
         ]"
-        class="w-full text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+        class="w-full text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
         :placeholder="inputPlaceholder"
         @focus="handleFocusBlur(true)"
         @blur="handleFocusBlur(false)"

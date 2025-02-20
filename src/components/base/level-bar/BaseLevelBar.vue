@@ -63,7 +63,7 @@ const getScore = computed(() => {
   <div
     v-bind="$attrs"
     tabindex="0"
-    class="flex flex-col transition-all duration-300 ease-in-out border border-transparent rounded-md outline-0 focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-0"
+    class="flex flex-col transition-all duration-300 ease-in-out border border-transparent rounded-md outline-none focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-none"
   >
     <span
       v-if="props.label"

@@ -91,7 +91,7 @@ watch(
   <div
     :id="props.skill.id"
     v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.25 }]"
-    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg cursor-pointer outline-0 bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg cursor-pointer outline-none bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,
       {

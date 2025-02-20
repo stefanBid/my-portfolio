@@ -26,7 +26,7 @@ const route = useRoute();
       :key="index"
       :to="routeItem.path"
       tabindex="0"
-      class="inline-flex items-center transition-all duration-300 ease-in-out outline-0 min-w-24 font-roboto ring-0 focus-visible:ring-0"
+      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none min-w-24 font-roboto ring-0 focus-visible:ring-0"
       :class="[
         styleStore.containerPadding,
         styleStore.textSizeS,

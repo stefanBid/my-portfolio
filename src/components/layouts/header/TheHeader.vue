@@ -100,7 +100,7 @@ watch(
       <div class="inline-flex items-center flex-1 transition-all duration-300 ease-in-out">
         <router-link
           to="/"
-          class="flex items-center gap-2 text-white border border-transparent rounded-md group ring-0 focus-visible:border-white outline-0"
+          class="flex items-center gap-2 text-white border border-transparent rounded-md group ring-0 focus-visible:border-white outline-none"
           @click="onChangeMenuVisibility(false)"
         >
           <img
@@ -166,7 +166,7 @@ watch(
                         i18nStore.currentLanguage !== lang.name,
                     },
                   ]"
-                  class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 group ring-0 focus-visible:border-white"
+                  class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
                   @keydown.enter="
                     () => {
                       i18nStore.changeLanguage(lang.name);
@@ -194,7 +194,7 @@ watch(
       <div
         v-if="isMenuCollapsed"
         tabindex="0"
-        class="transition-all duration-300 ease-in-out border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 ring-0 outline-0"
+        class="transition-all duration-300 ease-in-out border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 ring-0 outline-none"
         :aria-label="`click for ${isMenuOpen ? 'close' : 'open'} menu`"
         @click.stop="onChangeMenuVisibility(!isMenuOpen)"
         @keydown.enter="onChangeMenuVisibility(!isMenuOpen)"
@@ -255,7 +255,7 @@ watch(
                       i18nStore.currentLanguage !== lang.name,
                   },
                 ]"
-                class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-0 group ring-0 focus-visible:border-white"
+                class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
                 @keydown.enter="
                   () => {
                     i18nStore.changeLanguage(lang.name);

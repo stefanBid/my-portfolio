@@ -29,7 +29,7 @@ const styleStore = useStyleStore();
       <SwitchLabel
         v-if="props.label"
         :data-testid="`${props.dataTestid}-label`"
-        class="ml-2 text-white transition-all duration-300 ease-in-out outline-0 font-roboto hover:cursor-pointer hover:text-shadow-luminous"
+        class="ml-2 text-white transition-all duration-300 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[
           styleStore.textSizeXS,
           {
@@ -45,7 +45,7 @@ const styleStore = useStyleStore();
         :data-testid="props.dataTestid"
         tabindex="0"
         :aria-label="props.ariaLabel"
-        class="box-border relative inline-flex items-center transition-all duration-300 ease-in-out border-2 border-white rounded-full cursor-pointer outline-0 shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
+        class="box-border relative inline-flex items-center transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none cursor-pointer shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
         :class="{
           'bg-sb-tertiary-100': enabled,
           'bg-sb-tertiary-100/50': !enabled,

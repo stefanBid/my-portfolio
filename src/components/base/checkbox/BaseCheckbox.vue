@@ -108,7 +108,7 @@ const onCheckboxChange = (event: Event): void => {
         'focus-visible:shadow-sb-error ring-sb-error ring-2': validation?.show,
       }"
       :style="{ transform: 'rotateY(180deg)' }"
-      class="bg-white relative border border-white outline-0 focus-visible:outline-0 focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
+      class="bg-white relative border border-white outline-none focus-visible:outline-none focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
       @change.stop.prevent="($event) => onCheckboxChange($event)"
     />
     <slot name="label-content"></slot>

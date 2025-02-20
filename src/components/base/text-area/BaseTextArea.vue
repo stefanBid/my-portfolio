@@ -69,7 +69,7 @@ const textAreaLabel = computed(() => {
             props.validation?.show,
         },
       ]"
-      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-0 font-roboto w-fit focus-visible:ring-0 ring-0"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-none font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -102,7 +102,7 @@ const textAreaLabel = computed(() => {
           'py-1.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
         },
       ]"
-      class="w-full h-32 px-3 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg resize-none scrollbar-gutter-stable outline-0 focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+      class="w-full h-32 px-3 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg resize-none scrollbar-gutter-stable outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
       :placeholder="props.placeholder"
     >
     </textarea>

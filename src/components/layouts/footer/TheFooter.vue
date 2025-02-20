@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CONTACT_CHANNEL_ICONS, MEDIA } from '@/constants';
 import { useStyleStore, useI18nStore } from '@/stores';
+import { openLink } from '@/utils';
 
 //Store Declarations
 const styleStore = useStyleStore();
@@ -73,20 +74,16 @@ const i18nStore = useI18nStore();
         </p>
         <!--Social Media-->
         <div id="social-media" class="flex gap-4">
-          <a
+          <component
+            :is="CONTACT_CHANNEL_ICONS[social.id]"
             v-for="social in i18nStore.footerI18nContent.intro.socials"
             :key="social.id"
             :tabindex="0"
-            :href="social.value"
-            target="_blank"
-            class="transition-all duration-300 ease-in-out outline-none group ring-0 focus-visible:ring-0 focus-visible:outline-none"
-          >
-            <component
-              :is="CONTACT_CHANNEL_ICONS[social.id]"
-              :class="[styleStore.iconSizeS]"
-              class="text-white transition-all duration-300 ease-in-out group-hover:text-sb-tertiary-100 group-focus-visible:text-sb-tertiary-100"
-            />
-          </a>
+            :class="[styleStore.iconSizeS]"
+            class="text-white transition-all duration-300 ease-in-out outline-none hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0 focus-visible:ring-0 focus-visible:outline-none"
+            @click.stop="openLink(social.value)"
+            @keydown.enter.stop="openLink(social.value)"
+          />
         </div>
       </div>
       <!--Quik Links-->
@@ -236,10 +233,11 @@ const i18nStore = useI18nStore();
       >
         Designed and Developed by
       </span>
-      <a
-        href="https://www.linkedin.com/in/stefano-biddau-669149214/"
-        target="_blank"
-        class="inline-flex items-center text-white transition-all duration-300 ease-in-out gap-x-1 outline-white outline-offset-0 ring-0 focus-visible:ring-0"
+      <div
+        tabindex="0"
+        class="inline-flex items-center text-white transition-all duration-300 ease-in-out cursor-pointer gap-x-1 outline-white outline-offset-0 ring-0 focus-visible:ring-0"
+        @click.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
+        @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
       >
         <img
           :src="MEDIA.logoImg"
@@ -252,7 +250,7 @@ const i18nStore = useI18nStore();
         >
           Stefano Biddau
         </span>
-      </a>
+      </div>
     </div>
   </footer>
 </template>
