@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, Ref } from 'vue';
+import { computed, inject, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { RouterView } from 'vue-router';
 import { useNotificationStore, useStyleStore } from '@/stores';

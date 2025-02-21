@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useBreakpoints } from '@vueuse/core';
 import type { Breakpoint } from '@/types';
-import { computed, ComputedRef } from 'vue';
+import { computed, type ComputedRef } from 'vue';
 
 export const useStyleStore = defineStore('style', () => {
   const breakpoints = useBreakpoints({
