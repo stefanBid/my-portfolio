@@ -35,12 +35,6 @@ const meta = {
         type: 'boolean',
       },
     },
-    dataTestid: {
-      description: 'The input data-testid attribute',
-      control: {
-        type: 'text',
-      },
-    },
     ariaLabel: {
       description: 'The input aria-label attribute',
       control: {
@@ -62,7 +56,6 @@ const meta = {
   },
   args: {
     inputValue: '',
-    dataTestid: 'input',
     ariaLabel: 'input',
   },
 } satisfies Meta<typeof BaseInput>;

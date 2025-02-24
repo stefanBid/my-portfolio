@@ -27,12 +27,6 @@ const meta = {
         type: 'number',
       },
     },
-    dataTestid: {
-      description: 'The textarea data-testid attribute',
-      control: {
-        type: 'text',
-      },
-    },
     ariaLabel: {
       description: 'The textarea aria-label attribute',
       control: {
@@ -54,7 +48,6 @@ const meta = {
   },
   args: {
     inputValue: '',
-    dataTestid: 'textarea',
     ariaLabel: 'textarea',
   },
 } satisfies Meta<typeof BaseTextArea>;
