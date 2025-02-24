@@ -1,6 +1,6 @@
 # Stefano Biddau's Portfolio
 
-![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1738195200&v=beta&t=2f7ehBmtYXCq7WktvfZhde_IjN9M4Z5wgzUr29wcidw)
+![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1746057600&v=beta&t=HIrH-2Sc7XAME6Zx42DcPttqxP7CjAoI94YyKvlgO18)
 
 Current version: `4.1.0`
 
@@ -20,6 +20,7 @@ Current version: `4.1.0`
 ![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
 
 Visit the live site [here](https://www.stefano-biddau.com/)
+
 Visit the live storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
 
 --- 
