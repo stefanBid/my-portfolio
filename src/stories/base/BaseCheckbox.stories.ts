@@ -69,3 +69,14 @@ export const UncheckedCheckbox: Story = {
     checked: false,
   },
 };
+
+export const ValidationCheckbox: Story = {
+  args: {
+    class: 'bg-[#0F0F20] text-white',
+    ...meta.args,
+    checked: false,
+    validation: {
+      show: true,
+    },
+  },
+};
