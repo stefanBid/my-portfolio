@@ -11,7 +11,6 @@ interface BaseButtonProps {
   disabled?: boolean;
   loading?: boolean;
   icon?: FunctionalComponent | Component | string;
-  dataTestid?: string;
   ariaLabel?: string;
 }
 
@@ -23,7 +22,6 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
   disabled: false,
   loading: false,
   icon: undefined,
-  dataTestid: 'base-button',
   ariaLabel: 'general button',
 });
 
@@ -33,7 +31,6 @@ const styleStore = useStyleStore();
 
 <template>
   <button
-    :data-testid="props.dataTestid"
     v-bind="$attrs"
     :type="props.type"
     :disabled="props.disabled || props.loading"

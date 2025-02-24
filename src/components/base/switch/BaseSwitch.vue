@@ -5,13 +5,11 @@ import { useStyleStore } from '@/stores';
 interface BaseSwitchProps {
   label?: string;
   ariaLabel?: string;
-  dataTestid?: string;
 }
 
 const props = withDefaults(defineProps<BaseSwitchProps>(), {
   label: undefined,
   ariaLabel: 'general switch',
-  dataTestid: 'base-switch',
 });
 
 const enabled = defineModel<boolean>('enabled', { default: false, required: true });
@@ -28,7 +26,6 @@ const styleStore = useStyleStore();
     >
       <SwitchLabel
         v-if="props.label"
-        :data-testid="`${props.dataTestid}-label`"
         class="ml-2 text-white transition-all duration-300 ease-in-out outline-none font-roboto hover:cursor-pointer hover:text-shadow-luminous"
         :class="[
           styleStore.textSizeXS,
@@ -42,7 +39,6 @@ const styleStore = useStyleStore();
       </SwitchLabel>
       <Switch
         v-model="enabled"
-        :data-testid="props.dataTestid"
         tabindex="0"
         :aria-label="props.ariaLabel"
         class="box-border relative inline-flex items-center transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none cursor-pointer shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"

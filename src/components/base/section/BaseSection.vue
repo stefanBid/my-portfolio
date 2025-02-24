@@ -14,7 +14,6 @@ interface BaseSectionProps {
     threshold?: number;
   };
   inverted?: boolean;
-  dataTestid?: string;
 }
 
 const props = withDefaults(defineProps<BaseSectionProps>(), {
@@ -26,7 +25,6 @@ const props = withDefaults(defineProps<BaseSectionProps>(), {
     threshold: 0.05,
   }),
   inverted: false,
-  dataTestid: 'base-section',
 });
 
 // Store Declarations
@@ -53,7 +51,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       },
     ]"
     v-bind="$attrs"
-    :data-testid="props.dataTestid"
     :class="{
       'flex-row':
         !props.inverted &&
@@ -81,7 +78,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     <div class="flex flex-col justify-center flex-1">
       <h2
         :id="`${$attrs.id || 'section'}-titleHeading`"
-        :data-testid="`${props.dataTestid}-title`"
         :class="[
           styleStore.textSizeXL,
           {
@@ -104,7 +100,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <h3
         v-if="props.subtitle"
         :id="`${$attrs.id || 'section'}-subTitleHeading`"
-        :data-testid="`${props.dataTestid}-subtitle`"
         :class="[
           styleStore.textSizeL,
           {
@@ -126,7 +121,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       </h3>
       <div
         :id="`${$attrs.id || 'section'}-contentParagraph`"
-        :data-testid="`${props.dataTestid}-paragraph`"
         :class="[
           styleStore.textSizeS,
           styleStore.elementTotalPaddingS,

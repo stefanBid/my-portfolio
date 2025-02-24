@@ -8,7 +8,6 @@ interface BaseCheckboxProps {
   id?: string;
   name?: string;
   ariaLabel?: string;
-  dataTestid?: string;
   validation?: { show: boolean };
 }
 
@@ -17,7 +16,6 @@ const props = withDefaults(defineProps<BaseCheckboxProps>(), {
   id: undefined,
   name: undefined,
   ariaLabel: 'general checkbox',
-  dataTestid: 'base-checkbox',
   validation: undefined,
 });
 
@@ -95,7 +93,6 @@ const onCheckboxChange = (event: Event): void => {
       :value="props.value"
       :name="checkboxName"
       type="checkbox"
-      :data-testid="props.dataTestid"
       :aria-label="props.ariaLabel"
       tabindex="0"
       :class="{

@@ -9,7 +9,6 @@ interface TextAreaProps {
   name?: string;
   placeholder?: string;
   maxlength?: number;
-  dataTestid?: string;
   ariaLabel?: string;
   mandatory?: boolean;
   validation?: { show: boolean; message?: string };
@@ -21,7 +20,6 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
   placeholder: 'Enter a text',
   maxlength: 300,
   label: undefined,
-  dataTestid: 'base-text-area',
   ariaLabel: 'general text area',
   mandatory: false,
   validation: undefined,
@@ -58,7 +56,6 @@ const textAreaLabel = computed(() => {
     <label
       v-if="props.label"
       :for="textAreaId"
-      :data-testid="`${props.dataTestid}-label`"
       tabindex="0"
       :class="[
         styleStore.textSizeXS,
@@ -69,7 +66,7 @@ const textAreaLabel = computed(() => {
             props.validation?.show,
         },
       ]"
-      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-none font-roboto w-fit focus-visible:ring-0 ring-0"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out outline-none cursor-pointer font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -81,7 +78,6 @@ const textAreaLabel = computed(() => {
       ref="reference"
       v-model="inputValue"
       :name="textAreaName"
-      :data-testid="props.dataTestid"
       :aria-label="props.ariaLabel"
       tabindex="0"
       :maxlength="props.maxlength"
@@ -102,12 +98,11 @@ const textAreaLabel = computed(() => {
           'py-1.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
         },
       ]"
-      class="w-full h-32 px-3 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg resize-none scrollbar-gutter-stable outline-none focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+      class="w-full h-32 px-3 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg outline-none resize-none scrollbar-gutter-stable focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
       :placeholder="props.placeholder"
     >
     </textarea>
     <div
-      :data-testid="`${props.dataTestid}-counter`"
       :class="[styleStore.textSizeXS]"
       class="flex justify-end w-full mt-1 font-light text-white"
     >
@@ -115,7 +110,6 @@ const textAreaLabel = computed(() => {
     </div>
     <small
       v-if="props.validation?.show && props.validation.message"
-      :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
       class="mt-1 transition-all duration-300 ease-in-out text-sb-error font-roboto"
     >

@@ -6,7 +6,6 @@ import { BaseButton } from '@/components';
 import { useStyleStore } from '@/stores';
 
 interface DialogProps {
-  dataTestid?: string;
   isOpen: boolean;
   headerOrientation?: 'left' | 'center' | 'right';
   dialogSize?: 'small' | 'medium' | 'large';
@@ -16,7 +15,6 @@ interface DialogProps {
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
-  dataTestid: 'base-dialog',
   dialogSize: 'large',
   blockDialogHeight: false,
   dialogTitle: undefined,
@@ -60,7 +58,6 @@ const handleCloseModal = (): void => {
               'py-4': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
             },
           ]"
-          :data-testid="`${props.dataTestid}-overlay`"
           class="flex items-center justify-center h-screen"
         >
           <TransitionChild
@@ -73,7 +70,6 @@ const handleCloseModal = (): void => {
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              :data-testid="`${props.dataTestid}-panel`"
               :class="[
                 styleStore.elementTotalPaddingM,
                 styleStore.elementTotalGapM,
@@ -103,7 +99,6 @@ const handleCloseModal = (): void => {
                 class="flex justify-between overflow-hidden cursor-default shrink-0"
               >
                 <div
-                  :data-testid="`${props.dataTestid}-header-title`"
                   :class="{
                     'text-left': props.headerOrientation === 'left',
                     'text-center': props.headerOrientation === 'center',
@@ -121,7 +116,6 @@ const handleCloseModal = (): void => {
                   </h3>
                 </div>
                 <BaseButton
-                  :data-testid="`${props.dataTestid}-close-button`"
                   class="text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
                   :aria-label="`close ${props.dialogTitle} modal`"
                   :icon="XMarkIcon"

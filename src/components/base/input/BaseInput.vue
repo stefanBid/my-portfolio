@@ -9,7 +9,6 @@ import { useFloatingPanel } from '@/hooks';
 import { useStyleStore } from '@/stores';
 
 interface InputProps {
-  dataTestid?: string;
   ariaLabel?: string;
   label?: string;
   id?: string;
@@ -27,7 +26,6 @@ interface InputProps {
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
-  dataTestid: 'base-input',
   ariaLabel: 'general input',
   label: undefined,
   id: undefined,
@@ -116,7 +114,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
   <div class="flex flex-col w-full">
     <label
       v-if="props.label"
-      :data-testid="`${props.dataTestid}-label`"
       :for="inputId"
       tabindex="0"
       :class="[
@@ -128,7 +125,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             props.validation?.show,
         },
       ]"
-      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer outline-none font-roboto w-fit focus-visible:ring-0 ring-0"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out outline-none cursor-pointer font-roboto w-fit focus-visible:ring-0 ring-0"
       @keydown.enter.stop.prevent="reference?.focus()"
       @click.stop.prevent="reference?.focus()"
     >
@@ -151,7 +148,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ref="reference"
         v-model="inputValue"
         :aria-label="props.ariaLabel"
-        :data-testid="`${props.dataTestid}`"
         :name="inputName"
         tabindex="0"
         :type="props.type === 'email' ? 'text' : props.type"
@@ -183,7 +179,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <BaseButton
         v-if="props.withMenu"
         ref="buttonMenuRef"
-        :data-testid="`${props.dataTestid}-menu-button`"
         aria-label="open input menu"
         variant="custom"
         content-size="small"
@@ -203,7 +198,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             (_: Event) => changeFloatingVisibility(false),
             { ignore: [reference, buttonMenuRef] },
           ]"
-          :data-testid="`${props.dataTestid}-floating-menu-panel`"
           :style="floatingStyles"
           class="absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
         >
@@ -213,7 +207,6 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     </teleport>
     <small
       v-if="props.validation?.show && props.validation.message"
-      :data-testid="`${props.dataTestid}-validation-message`"
       :class="[styleStore.textSizeXS]"
       class="mt-1 transition-all duration-300 ease-in-out text-sb-error font-roboto"
     >
