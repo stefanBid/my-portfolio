@@ -91,7 +91,7 @@ watch(
   <div
     :id="props.skill.id"
     v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.25 }]"
-    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg cursor-pointer outline-none bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,
       {
@@ -189,36 +189,24 @@ watch(
           class="inline-flex items-center justify-end transition-all duration-300 ease-in-out"
         >
           <BaseButton
-            class="text-white border-2 w-fit h-fit"
-            :class="{
-              'cursor-pointer hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200':
-                paginationIndex > 0,
-              'pointer-events-none opacity-30': paginationIndex === 0,
-            }"
             aria-label="click to go to previous paginated skill rating elements"
-            variant="custom"
+            variant="white"
             content-size="small"
             spacing-size="small"
+            :disabled="paginationIndex === 0"
             :icon="ChevronLeftIcon"
             @click.stop="() => goPrevious()"
           />
           <BaseButton
-            class="text-white border-2 w-fit h-fit"
-            :class="{
-              'cursor-pointer hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200':
-                (styleStore.activeBreakpoint !== 'xs' &&
-                  paginationIndex < Math.ceil(ratingsKeys.length) - 1) ||
-                (styleStore.activeBreakpoint === 'xs' && paginationIndex < ratingsKeys.length - 1),
-              'pointer-events-none opacity-30':
-                (styleStore.activeBreakpoint !== 'xs' &&
-                  paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||
-                (styleStore.activeBreakpoint === 'xs' &&
-                  paginationIndex === ratingsKeys.length - 1),
-            }"
             aria-label="click to go to next paginated skill rating elements"
-            variant="custom"
+            variant="white"
             content-size="small"
             spacing-size="small"
+            :disabled="
+              (styleStore.activeBreakpoint !== 'xs' &&
+                paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||
+              (styleStore.activeBreakpoint === 'xs' && paginationIndex === ratingsKeys.length - 1)
+            "
             :icon="ChevronRightIcon"
             @click.stop="() => goNext()"
           />

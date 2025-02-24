@@ -10,9 +10,6 @@ setup((app) => {
 });
 
 const preview: Preview = {
-  args: {
-    theme: 'dark',
-  },
   parameters: {
     backgrounds: {
       values: [

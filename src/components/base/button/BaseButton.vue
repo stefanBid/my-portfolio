@@ -31,7 +31,6 @@ const styleStore = useStyleStore();
 
 <template>
   <button
-    v-bind="$attrs"
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
@@ -75,11 +74,12 @@ const styleStore = useStyleStore();
   >
     <span
       v-if="$slots.default"
-      class="flex-1 font-medium transition-all duration-300 ease-in-out font-roboto"
+      class="flex-1 font-medium font-roboto"
       :class="[
         props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
         props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
         {
+          'transition-all duration-300 ease-in-out': props.variant !== 'custom',
           'text-white group-hover:text-black group-active:text-black group-focus-visible:text-black':
             props.variant === 'tertiary',
           'text-black group-hover:text-white group-active:text-white group-focus-visible:text-white':
