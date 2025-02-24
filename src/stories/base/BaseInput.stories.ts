@@ -12,10 +12,8 @@ const meta = {
   argTypes: {
     type: {
       description: 'The input type',
-      control: {
-        type: 'select',
-        options: ['text', 'search', 'email'],
-      },
+      control: { type: 'select' },
+      options: ['text', 'search', 'email'],
     },
     placeholder: {
       description: 'The input placeholder',

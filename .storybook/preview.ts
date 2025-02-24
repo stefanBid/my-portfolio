@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/vue3';
-import { themes } from '@storybook/theming';
 import { setup } from '@storybook/vue3';
 import '../src/style/index.css';
 
@@ -11,18 +10,21 @@ setup((app) => {
 });
 
 const preview: Preview = {
+  args: {
+    theme: 'dark',
+  },
   parameters: {
+    backgrounds: {
+      values: [
+        { name: 'light', value: '#fff' },
+        { name: 'dark', value: '#0F0F20' },
+      ],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-    },
-    darkMode: {
-      current: 'dark',
-    },
-    docs: {
-      themes: themes.dark,
     },
   },
 };

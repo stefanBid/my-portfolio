@@ -35,11 +35,9 @@ const styleStore = useStyleStore();
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
-    class="inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0 font-roboto"
+    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0 group"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
-      props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
-      props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
       {
         'px-6 py-4':
           props.spacingSize === 'medium' &&
@@ -63,9 +61,9 @@ const styleStore = useStyleStore();
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
-        'bg-black text-white border-2 border-white hover:text-black hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80 active:text-black active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:text-black focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
+        'bg-black border-2 border-white hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
           props.variant === 'tertiary',
-        'bg-white text-black border-2 border-white hover:text-white hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80 active:text-white active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80 focus-visible:text-white focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
+        'bg-white border-2 border-white  hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80  active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80  focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
           props.variant === 'white',
         'hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm active:shadow-sb-ring-sm':
           props.variant !== 'custom' && props.contentSize === 'small',
@@ -75,14 +73,35 @@ const styleStore = useStyleStore();
       },
     ]"
   >
-    <slot></slot>
+    <span
+      v-if="$slots.default"
+      class="flex-1 font-medium transition-all duration-300 ease-in-out font-roboto"
+      :class="[
+        props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
+        props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
+        {
+          'text-white group-hover:text-black group-active:text-black group-focus-visible:text-black':
+            props.variant === 'tertiary',
+          'text-black group-hover:text-white group-active:text-white group-focus-visible:text-white':
+            props.variant === 'white',
+        },
+      ]"
+    >
+      <slot></slot>
+    </span>
     <component
       :is="props.loading ? ArrowPathIcon : props.icon"
-      class="shrink-0"
+      class="transition-all duration-300 ease-in-out shrink-0"
       :class="[
         props.contentSize === 'medium' ? styleStore.iconSizeS : undefined,
         props.contentSize === 'small' ? styleStore.iconSizeXS : undefined,
-        { 'animate-spin': props.loading },
+        {
+          'animate-spin': props.loading,
+          'text-white group-hover:text-black group-active:text-black group-focus-visible:text-black':
+            props.variant === 'tertiary',
+          'text-black group-hover:text-white group-active:text-white group-focus-visible:text-white':
+            props.variant === 'white',
+        },
       ]"
     />
   </button>

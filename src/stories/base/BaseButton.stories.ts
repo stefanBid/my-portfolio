@@ -18,31 +18,23 @@ const meta = {
     },
     type: {
       description: 'The button type',
-      control: {
-        type: 'select',
-        options: ['button', 'submit', 'reset'],
-      },
+      control: { type: 'select' },
+      options: ['button', 'submit', 'reset'],
     },
     variant: {
       description: 'The button variant',
-      control: {
-        type: 'select',
-        options: ['white', 'tertiary', 'custom'],
-      },
+      control: { type: 'select' },
+      options: ['white', 'tertiary', 'custom'],
     },
     contentSize: {
       description: 'The button size',
-      control: {
-        type: 'select',
-        options: ['small', 'medium', 'custom'],
-      },
+      control: { type: 'select' },
+      options: ['small', 'medium', 'custom'],
     },
     spacingSize: {
       description: 'The button spacing',
-      control: {
-        type: 'select',
-        options: ['small', 'medium', 'custom'],
-      },
+      control: { type: 'select' },
+      options: ['small', 'medium', 'custom'],
     },
     disabled: {
       description: 'The button disabled state',
@@ -64,7 +56,6 @@ const meta = {
     },
   },
   args: {
-    default: 'Click me',
     ariaLabel: 'button',
   },
 } satisfies Meta<typeof BaseButton>;
@@ -74,49 +65,63 @@ type Story = StoryObj<typeof meta>;
 
 export const TertiaryButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Tertiary Button',
     variant: 'tertiary',
   },
 };
 
 export const WhiteButton: Story = {
   args: {
+    ...meta.args,
+    default: 'White Button',
     variant: 'white',
   },
 };
 
 export const SmallButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Small Button',
     contentSize: 'small',
   },
 };
 
 export const MediumButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Medium Button',
     contentSize: 'medium',
   },
 };
 
 export const DisabledButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Disabled Button',
     disabled: true,
   },
 };
 
 export const LoadingButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Loading Button',
     loading: true,
   },
 };
 
 export const IconButton: Story = {
   args: {
-    default: '',
+    ...meta.args,
     icon: HomeIcon,
   },
 };
 
 export const CustomButton: Story = {
   args: {
+    ...meta.args,
+    default: 'Custom Button',
     variant: 'custom',
     spacingSize: 'custom',
     contentSize: 'custom',

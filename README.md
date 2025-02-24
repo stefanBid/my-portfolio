@@ -2,7 +2,7 @@
 
 ![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1738195200&v=beta&t=2f7ehBmtYXCq7WktvfZhde_IjN9M4Z5wgzUr29wcidw)
 
-Current version: `4.0.5`
+Current version: `4.1.0`
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
@@ -17,10 +17,10 @@ Current version: `4.0.5`
 ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
-![Vitest](https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B)
 ![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
 
 Visit the live site [here](https://www.stefano-biddau.com/)
+Visit the live storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
 
 --- 
 
@@ -100,8 +100,6 @@ Follow these steps to set up the project:
 | `npm run visualize`  | Builds the project with visualization mode enabled.                       |
 | `npm run lint`       | Runs ESLint to check for code quality issues.                              |
 | `npm run lint:fix`   | Runs ESLint with auto-fix enabled.                                         |
-| `npm run test`       | Runs the test suite using Vitest without watching.                         |
-| `npm run test:watch` | Runs the test suite and watches for changes.                               |
 | `npm run optimize-svg` | Optimizes SVG files in `src/assets/icons` using SVGO.                    |
 
 ---
@@ -115,6 +113,5 @@ This project uses the following technologies:
 - **TypeScript**: Strongly typed programming language for modern JavaScript.
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
 - **ESLint**: Linting for code quality.
-- **Vitest**: Fast testing framework for Vue and TypeScript.
 
 ---

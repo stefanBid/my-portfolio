@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -37,8 +39,8 @@ jobs:
       - name: Project lint
         run: npm run lint
 
-      - name: Project test
-        run: npm run test
+      - name: Publish Storybook on Chromatic
+        run: npm run chromatic
 
       - name: GitHub Status Check
         run: echo "All steps have passed!"
