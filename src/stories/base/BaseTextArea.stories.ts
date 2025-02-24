@@ -2,11 +2,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseTextArea } from '@/components';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Components/Base/TextArea',
   component: BaseTextArea,
-  // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     placeholder: {
@@ -59,6 +57,7 @@ export const DefaultTextArea: Story = {};
 
 export const PlaceholderTextArea: Story = {
   args: {
+    ...meta.args,
     label: 'Placeholder textArea',
     placeholder: 'Placeholder text',
   },
@@ -66,6 +65,7 @@ export const PlaceholderTextArea: Story = {
 
 export const MandatoryTextArea: Story = {
   args: {
+    ...meta.args,
     label: 'Mandatory textArea',
     mandatory: true,
   },
@@ -73,6 +73,7 @@ export const MandatoryTextArea: Story = {
 
 export const MaxLengthTextArea: Story = {
   args: {
+    ...meta.args,
     label: 'Max length textArea',
     maxlength: 10,
   },
@@ -80,6 +81,7 @@ export const MaxLengthTextArea: Story = {
 
 export const ValidationTextArea: Story = {
   args: {
+    ...meta.args,
     label: 'Validation textArea',
     mandatory: true,
     validation: {

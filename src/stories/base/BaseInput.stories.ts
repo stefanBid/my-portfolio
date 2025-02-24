@@ -3,11 +3,9 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseInput } from '@/components';
 import { h } from 'vue';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Components/Base/Input',
   component: BaseInput,
-  // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     type: {
@@ -65,6 +63,7 @@ export const DefaultInput: Story = {};
 
 export const SearchInput: Story = {
   args: {
+    ...meta.args,
     label: 'Search input',
     type: 'search',
   },
@@ -72,6 +71,7 @@ export const SearchInput: Story = {
 
 export const EmailInput: Story = {
   args: {
+    ...meta.args,
     label: 'Email input',
     type: 'email',
   },
@@ -79,6 +79,7 @@ export const EmailInput: Story = {
 
 export const MandatoryInput: Story = {
   args: {
+    ...meta.args,
     label: 'Mandatory input',
     mandatory: true,
   },
@@ -86,6 +87,7 @@ export const MandatoryInput: Story = {
 
 export const WithMenuInput: Story = {
   args: {
+    ...meta.args,
     label: 'With menu input',
     withMenu: true,
     'input-menu-box': h('div', { class: 'h-[200px]' }, 'Menu content'),
@@ -94,6 +96,7 @@ export const WithMenuInput: Story = {
 
 export const ValidationInput: Story = {
   args: {
+    ...meta.args,
     label: 'Validation input',
     mandatory: true,
     validation: {

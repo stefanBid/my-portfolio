@@ -100,7 +100,7 @@ watch(
       <div class="inline-flex items-center flex-1 transition-all duration-300 ease-in-out">
         <router-link
           to="/"
-          class="flex items-center gap-2 text-white border border-transparent rounded-md group ring-0 focus-visible:border-white outline-none"
+          class="flex items-center gap-2 text-white border border-transparent rounded-md outline-none group ring-0 focus-visible:border-white"
           @click="onChangeMenuVisibility(false)"
         >
           <img
@@ -108,8 +108,16 @@ watch(
             loading="lazy"
             decoding="async"
             alt="logo"
-            class="object-cover object-center h-auto transition-all duration-300 ease-in-out"
-            :class="[styleStore.iconSizeM]"
+            class="object-center transition-all duration-300 ease-in-out"
+            :class="{
+              'w-10 h-12':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+              'w-8 h-10': styleStore.activeBreakpoint === 'md',
+              'w-6 h-8':
+                styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+            }"
           />
 
           <span
@@ -194,7 +202,7 @@ watch(
       <div
         v-if="isMenuCollapsed"
         tabindex="0"
-        class="transition-all duration-300 ease-in-out border border-transparent rounded-md w-fit h-fit focus-visible:border-white active:rotate-90 ring-0 outline-none"
+        class="transition-all duration-300 ease-in-out border border-transparent rounded-md outline-none w-fit h-fit focus-visible:border-white active:rotate-90 ring-0"
         :aria-label="`click for ${isMenuOpen ? 'close' : 'open'} menu`"
         @click.stop="onChangeMenuVisibility(!isMenuOpen)"
         @keydown.enter="onChangeMenuVisibility(!isMenuOpen)"

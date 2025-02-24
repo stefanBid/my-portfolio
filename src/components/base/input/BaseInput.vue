@@ -181,13 +181,20 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ref="buttonMenuRef"
         aria-label="open input menu"
         variant="custom"
-        content-size="small"
+        content-size="custom"
         spacing-size="custom"
         class="absolute right-0 mr-3 -translate-y-1/2 border border-transparent rounded-md focus-visible:border-white w-fit h-fit top-1/2"
-        :class="[isOpen ? 'rotate-180' : 'rotate-0', isInputFocused ? 'text-black' : 'text-white']"
-        :icon="ChevronDownIcon"
         @click.stop="handleClick()"
-      />
+      >
+        <ChevronDownIcon
+          class="transition-all duration-300 ease-in-out"
+          :class="[
+            styleStore.iconSizeXS,
+            isOpen ? 'rotate-180' : 'rotate-0',
+            isInputFocused ? 'text-black' : 'text-white',
+          ]"
+        />
+      </BaseButton>
     </div>
     <teleport to="body">
       <transition name="scale-and-fade-fast">
