@@ -73,32 +73,42 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       variant="custom"
       class="group !justify-between border-2"
       :class="{
-        'border-sb-tertiary-100 bg-sb-tertiary-100 text-black shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
+        'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
-        'text-white hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
+        ' hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
           !isOpen,
       }"
       @click.stop="handleClick()"
     >
-      <span class="inline-flex items-center gap-2">
-        <span v-if="props.label"> {{ props.label }} </span>
+      <span class="flex items-center h-full gap-2">
+        <span
+          v-if="props.label"
+          class="transition-all duration-300 ease-in-out"
+          :class="{
+            'text-black': isOpen,
+            'text-white ': !isOpen,
+          }"
+        >
+          {{ props.label }}
+        </span>
         <component
           :is="props.icon"
           v-if="props.icon"
           class="shrink-0"
           :class="[styleStore.iconSizeXS]"
         />
+
+        <ChevronDownIcon
+          class="ml-2 transition-all duration-300 ease-in-out shrink-0"
+          :class="[
+            styleStore.iconSizeXS,
+            {
+              'rotate-180 text-black': isOpen,
+              'rotate-0 text-white ': !isOpen,
+            },
+          ]"
+        />
       </span>
-      <ChevronDownIcon
-        class="ml-2 transition-all duration-300 ease-in-out shrink-0"
-        :class="[
-          styleStore.iconSizeXS,
-          {
-            'rotate-180 text-black': isOpen,
-            'rotate-0 text-white ': !isOpen,
-          },
-        ]"
-      />
     </BaseButton>
     <teleport to="body">
       <transition name="scale-and-fade-fast">
