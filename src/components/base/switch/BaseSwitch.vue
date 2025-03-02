@@ -21,7 +21,7 @@ const styleStore = useStyleStore();
 <template>
   <SwitchGroup>
     <div
-      class="flex flex-row-reverse items-center rounded-full"
+      class="flex flex-row-reverse items-center rounded-full w-fit"
       @keypress.prevent.enter="enabled = !enabled"
     >
       <SwitchLabel

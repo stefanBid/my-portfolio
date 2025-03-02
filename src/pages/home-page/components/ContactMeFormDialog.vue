@@ -122,7 +122,7 @@ watch(
     header-orientation="left"
     dialog-size="medium"
     :dialog-title="i18nStore.homePageI18nContent.contactMeForm.title"
-    :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
+    :on-close-dialog="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
       <div

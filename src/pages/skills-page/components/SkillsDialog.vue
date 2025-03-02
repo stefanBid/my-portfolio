@@ -102,7 +102,7 @@ watch(
     header-orientation="left"
     block-dialog-height
     :dialog-title="i18nStore.skillsPageI18nContent.skillsDialog.title"
-    :on-close-modal="(falsyValue) => props.handleCloseModal(falsyValue)"
+    :on-close-dialog="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
       <div

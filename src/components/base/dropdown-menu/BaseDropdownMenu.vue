@@ -71,7 +71,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       content-size="small"
       spacing-size="small"
       variant="custom"
-      class="group !justify-between border-2"
+      class="border-2 group"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
@@ -94,8 +94,14 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <component
           :is="props.icon"
           v-if="props.icon"
-          class="shrink-0"
-          :class="[styleStore.iconSizeXS]"
+          class="transition-all duration-300 ease-in-out shrink-0"
+          :class="[
+            styleStore.iconSizeXS,
+            {
+              'text-black': isOpen,
+              'text-white ': !isOpen,
+            },
+          ]"
         />
 
         <ChevronDownIcon
@@ -121,7 +127,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
           ]"
           :style="floatingStyles"
           :class="[props.zIndex]"
-          class="box-border border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-black w-fit h-fit"
+          class="box-border border-2 rounded-lg shadow-2xl border-sb-secondary-100 bg-sb-secondary-100 shadow-black w-fit h-fit"
         >
           <slot
             name="dropdown-section-content"

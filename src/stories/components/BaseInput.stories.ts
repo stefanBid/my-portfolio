@@ -1,4 +1,3 @@
-// import { fn } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseInput } from '@/components';
 import { h } from 'vue';

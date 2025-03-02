@@ -60,7 +60,7 @@ const styleStore = useStyleStore();
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
-        'bg-black border-2 border-white hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
+        'bg-sb-secondary-300 border-2 border-sb-secondary-200 hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
           props.variant === 'tertiary',
         'bg-white border-2 border-white  hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80  active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80  focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
           props.variant === 'white',
@@ -68,7 +68,7 @@ const styleStore = useStyleStore();
           props.variant !== 'custom' && props.contentSize === 'small',
         'hover:shadow-sb-ring focus-visible:shadow-sb-ring active:shadow-sb-ring':
           props.variant !== 'custom' && props.contentSize === 'medium',
-        'pointer-events-none opacity-50': props.disabled || props.loading,
+        'pointer-events-none opacity-40': props.disabled || props.loading,
       },
     ]"
   >

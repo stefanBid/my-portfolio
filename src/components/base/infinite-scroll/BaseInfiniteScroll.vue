@@ -103,14 +103,14 @@ onMounted(() => {
   <div
     ref="containerRef"
     v-bind="$attrs"
-    :class="[styleStore.elementTotalGapM, styleStore.elementTotalPaddingM]"
-    class="flex flex-col w-full h-full overflow-x-hidden overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
+    class="relative flex flex-col w-full h-full overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
   >
     <!-- Items -->
     <div
       v-if="visibleItems.length > 0"
       class="grid transition-all duration-300 ease-in-out"
       :class="[
+        styleStore.elementTotalPaddingM,
         styleStore.elementTotalGapM,
         {
           'grid-cols-1':
@@ -134,18 +134,29 @@ onMounted(() => {
     </div>
     <transition-group name="scale-and-fade-fast">
       <!-- Loader -->
-      <div v-if="showLoader">
+      <div
+        v-if="showLoader"
+        :class="{
+          'px-6':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+          'px-5': styleStore.activeBreakpoint === 'md',
+          'px-4': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+        }"
+      >
         <slot name="loading-section"></slot>
       </div>
       <!-- No data message -->
       <div
         v-if="props.items.length === 0 && !showLoader"
-        class="flex flex-col items-center justify-center flex-1"
+        :class="[styleStore.elementTotalPaddingM]"
+        class="absolute flex flex-col items-center justify-center flex-1 w-full h-full z-sb-base-1"
       >
         <component
           :is="props.noDataSettings.icon"
           :class="[styleStore.iconSizeL]"
-          class="transition-all duration-300 ease-in-out text-sb-tertiary-100 shrink-0"
+          class="transition-all duration-300 ease-in-out text-sb-tertiary-100"
         />
         <span
           :class="[styleStore.textSizeXL]"

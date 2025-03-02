@@ -1,4 +1,3 @@
-// import { fn } from '@storybook/test';
 import { HomeIcon } from '@heroicons/vue/24/outline';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseButton } from '@/components';

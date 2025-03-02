@@ -7,11 +7,11 @@ import { useStyleStore } from '@/stores';
 
 interface DialogProps {
   isOpen: boolean;
-  headerOrientation?: 'left' | 'center' | 'right';
+  headerOrientation?: 'left' | 'center';
   dialogSize?: 'small' | 'medium' | 'large';
   blockDialogHeight?: boolean;
   dialogTitle?: string;
-  onCloseModal: (falsyValue: false) => void;
+  onCloseDialog: (falsyValue: false) => void;
 }
 
 const props = withDefaults(defineProps<DialogProps>(), {
@@ -26,7 +26,7 @@ const styleStore = useStyleStore();
 
 // Feature 1: Send Close Modal Event
 const handleCloseModal = (): void => {
-  props.onCloseModal(false);
+  props.onCloseDialog(false);
 };
 </script>
 
@@ -102,7 +102,6 @@ const handleCloseModal = (): void => {
                   :class="{
                     'text-left': props.headerOrientation === 'left',
                     'text-center': props.headerOrientation === 'center',
-                    'text-right': props.headerOrientation === 'right',
                   }"
                   class="flex-1 overflow-x-hidden"
                 >
