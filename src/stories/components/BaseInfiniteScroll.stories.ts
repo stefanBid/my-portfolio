@@ -56,7 +56,7 @@ const Template: StoryFn<typeof BaseInfiniteScroll> = (args) => ({
   template: `
     <div
       style="height: 600px;"
-      class="overflow-hidden flex flex-col border border-white">
+      class="overflow-hidden flex flex-col">
       <BaseInfiniteScroll v-bind="args" :items="items">
         <template #default="{ item }">
           <div class="p-2 relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0">
