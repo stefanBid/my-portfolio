@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
+import { PhotoIcon } from '@heroicons/vue/24/outline';
 
 interface VintagePictureProps {
   imageUrl: string;
@@ -15,6 +16,8 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 
 // Store Declarations
 const styleStore = useStyleStore();
+
+const isImageLoaded = ref(false);
 
 const getFrameDimension = computed(() => {
   if (styleStore.activeBreakpoint === 'xs') {
@@ -95,10 +98,33 @@ watch(
     <div
       v-bind="$attrs"
       :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden bg-white rounded shadow-md cursor-pointer transition-all duration-300 ease-in-out shadow-black gap-y-2"
+      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white rounded shadow-md cursor-pointer shadow-black gap-y-2"
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
+      <transition name="fade">
+        <div
+          v-if="!isImageLoaded"
+          :class="[
+            getPictureDimension,
+            {
+              'mx-[15px] mt-[15px]': styleStore.activeBreakpoint === 'xs',
+              'mx-[20px] mt-[20px]': styleStore.activeBreakpoint === 'sm',
+              'mx-[24px] mt-[24px]': styleStore.activeBreakpoint === 'md',
+              'mx-[28px] mt-[28px]':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+            },
+          ]"
+          class="absolute inset-0 flex items-center justify-center p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100 z-sb-base-1"
+        >
+          <PhotoIcon
+            :class="[styleStore.iconSizeL]"
+            class="text-white transition-all duration-300 ease-in-out animate-pulse"
+          />
+        </div>
+      </transition>
       <img
         v-show="!delayedFlip"
         :src="props.imageUrl"
@@ -106,13 +132,14 @@ watch(
         decoding="async"
         :alt="`${props.text} picture`"
         :class="[getPictureDimension]"
-        class="object-cover object-center w-full rounded transition-all duration-300 ease-in-out"
+        class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
         :style="{ transform: 'rotateY(0deg)' }"
+        @load="() => (isImageLoaded = true)"
       />
       <div
         v-show="delayedFlip"
         :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 rounded transition-all duration-300 ease-in-out bg-sb-secondary-100"
+        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100"
         :style="{ transform: 'rotateY(180deg)' }"
       >
         <p class="text-center text-white font-roboto" :class="[styleStore.textSizeS]">
