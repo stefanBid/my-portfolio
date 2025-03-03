@@ -2,7 +2,7 @@
 import { XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { MEDIA, ICONS } from '@/constants';
+import { IMAGES, ICONS } from '@/constants';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { Locale } from '@/types';
@@ -104,18 +104,18 @@ watch(
           @click="onChangeMenuVisibility(false)"
         >
           <img
-            :src="MEDIA.logoImg"
+            :src="IMAGES.logoImg.jpg"
             loading="lazy"
             decoding="async"
             alt="logo"
             class="object-center transition-all duration-300 ease-in-out"
             :class="{
-              'w-10 h-12':
+              'w-[44px] h-[53px]':
                 styleStore.activeBreakpoint !== 'xs' &&
                 styleStore.activeBreakpoint !== 'sm' &&
                 styleStore.activeBreakpoint !== 'md',
-              'w-8 h-10': styleStore.activeBreakpoint === 'md',
-              'w-6 h-8':
+              'w-9 h-[43px]': styleStore.activeBreakpoint === 'md',
+              'w-7 h-[33px]':
                 styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
             }"
           />

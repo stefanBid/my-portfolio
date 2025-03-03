@@ -1,11 +1,34 @@
 // types/index.ts (Types Barrel Export File)
 
-import type { IconName, MediaName } from '@/constants';
-
 /** GLOBAL **/
 type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type NotificationCategory = 'info' | 'success' | 'error';
 type Locale = 'en' | 'it';
+type IconName =
+  | 'AngularIcon'
+  | 'CSharpIcon'
+  | 'CssIcon'
+  | 'GithubIcon'
+  | 'GraphqlIcon'
+  | 'HibernateIcon'
+  | 'HtmlIcon'
+  | 'InstagramIcon'
+  | 'ItalyIcon'
+  | 'JsIcon'
+  | 'JavaIcon'
+  | 'LinkedinIcon'
+  | 'MysqlIcon'
+  | 'PythonIcon'
+  | 'ReactIcon'
+  | 'RocketIcon'
+  | 'SpringIcon'
+  | 'TsIcon'
+  | 'UkIcon'
+  | 'VueIcon';
+
+type ImageName = 'logoImg' | 'graduationImg' | 'workstationImg';
+type DocName = 'cvDoc';
+type VideoName = 'backgroundCoverVideo';
 
 interface Notification {
   id: string;
@@ -27,7 +50,7 @@ interface Section {
   titleHeading: string;
   subTitleHeading: string;
   contentParagraph: string;
-  imagePath?: MediaName;
+  imagePath?: ImageName;
   imageDescription?: string;
 }
 
@@ -256,6 +279,10 @@ interface NotFoundPageContent {
 export type {
   Breakpoint,
   Locale,
+  IconName,
+  ImageName,
+  DocName,
+  VideoName,
   Notification,
   NotificationCategory,
   HeaderContent,

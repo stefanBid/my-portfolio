@@ -2,7 +2,7 @@
 import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
 import { computed, onMounted, ref } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
-import { MEDIA } from '@/constants';
+import { DOCS, VIDEOS } from '@/constants';
 import { BaseButton } from '@/components';
 import { useTypingText } from '@/hooks';
 import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
@@ -44,7 +44,7 @@ const changeVisibility = (falsyValue: boolean): void => {
   <div class="relative w-full h-screen overflow-x-hidden bg-sb-main">
     <!-- Background -->
     <video
-      :src="MEDIA.backgroundCoverVideo"
+      :src="VIDEOS.backgroundCoverVideo"
       class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none"
       autoplay
       loop
@@ -159,7 +159,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             aria-label="click to download cv"
             class="w-full"
             :icon="DocumentArrowDownIcon"
-            @click.stop="downloadCv()"
+            @click.stop="downloadCv(DOCS.cvDoc, 'CV-Stefano-Biddau.pdf')"
           >
             {{ i18nStore.homePageI18nContent.downloadCvButton.text }}
           </BaseButton>

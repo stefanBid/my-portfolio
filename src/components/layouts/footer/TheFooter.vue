@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CONTACT_CHANNEL_ICONS, MEDIA } from '@/constants';
+import { CONTACT_CHANNEL_ICONS, IMAGES } from '@/constants';
 import { useStyleStore, useI18nStore } from '@/stores';
 import { openLink } from '@/utils';
 
@@ -47,8 +47,16 @@ const i18nStore = useI18nStore();
         <!--Logo-->
         <div id="logo" class="flex items-center gap-2 text-white">
           <img
-            :src="MEDIA.logoImg"
-            :class="[styleStore.iconSizeS]"
+            :src="IMAGES.logoImg.jpg"
+            :class="{
+              'w-8 h-[38px]':
+                styleStore.activeBreakpoint !== 'xs' &&
+                styleStore.activeBreakpoint !== 'sm' &&
+                styleStore.activeBreakpoint !== 'md',
+              'w-6 h-[29px]': styleStore.activeBreakpoint === 'md',
+              'w-4 h-[19px]':
+                styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+            }"
             class="transition-all duration-300 ease-in-out shrink-0"
           />
           <span
@@ -240,8 +248,17 @@ const i18nStore = useI18nStore();
         @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
       >
         <img
-          :src="MEDIA.logoImg"
-          :class="[styleStore.iconSizeXS]"
+          :src="IMAGES.logoImg.jpg"
+          :class="{
+            'w-4 h-[19px]':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'w-3 h-[14px]':
+              styleStore.activeBreakpoint === 'md' ||
+              styleStore.activeBreakpoint === 'sm' ||
+              styleStore.activeBreakpoint === 'xs',
+          }"
           class="transition-all duration-300 ease-in-out shrink-0"
         />
         <span

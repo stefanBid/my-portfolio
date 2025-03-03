@@ -1,13 +1,7 @@
-import { MEDIA } from '@/constants';
-
-export const downloadCv = (): void => {
-  // CV file name
-  const fileName = 'CV-Stefano-Biddau.pdf';
-
-  // Create a new <a> element for the download simulation
+export const downloadCv = (filePath: string, nameToSave: string): void => {
   const link = document.createElement('a');
-  link.href = MEDIA.cvDoc;
-  link.setAttribute('download', fileName);
+  link.href = filePath;
+  link.setAttribute('download', nameToSave);
   document.body.appendChild(link);
 
   link.click();

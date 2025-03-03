@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix",
     "optimize-svg": "svgo -f src/assets/icons -o src/assets/icons --config=svgo.config.js",
     "storybook": "storybook dev -p 6006",
-    "chromatic": "npx chromatic --project-token=chpt_0cd4cc8b18de6f1 --exit-zero-on-changes",
+    "chromatic": "npx chromatic --ci",
     "build-storybook": "storybook build"
   },
   "dependencies": {

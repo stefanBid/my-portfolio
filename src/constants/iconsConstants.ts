@@ -20,28 +20,7 @@ import Spring from '@/assets/icons/spring.svg?component';
 import Ts from '@/assets/icons/type-script.svg?component';
 import Uk from '@/assets/icons/uk-flag.svg?component';
 import Vue from '@/assets/icons/vue.svg?component';
-
-export type IconName =
-  | 'AngularIcon'
-  | 'CSharpIcon'
-  | 'CssIcon'
-  | 'GithubIcon'
-  | 'GraphqlIcon'
-  | 'HibernateIcon'
-  | 'HtmlIcon'
-  | 'InstagramIcon'
-  | 'ItalyIcon'
-  | 'JsIcon'
-  | 'JavaIcon'
-  | 'LinkedinIcon'
-  | 'MysqlIcon'
-  | 'PythonIcon'
-  | 'ReactIcon'
-  | 'RocketIcon'
-  | 'SpringIcon'
-  | 'TsIcon'
-  | 'UkIcon'
-  | 'VueIcon';
+import type { IconName } from '@/types';
 
 export const ICONS: Record<IconName, FunctionalComponent> = {
   AngularIcon: Angular,

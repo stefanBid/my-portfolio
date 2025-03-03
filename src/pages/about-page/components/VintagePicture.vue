@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
-import { PhotoIcon } from '@heroicons/vue/24/outline';
 
 interface VintagePictureProps {
-  imageUrl: string;
+  imageUrl: {
+    jpg: string;
+    webp?: string;
+  };
   text?: string;
   isVisible?: boolean;
 }
@@ -102,40 +104,23 @@ watch(
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
-      <transition name="fade">
-        <div
-          v-if="!isImageLoaded"
-          :class="[
-            getPictureDimension,
-            {
-              'mx-[15px] mt-[15px]': styleStore.activeBreakpoint === 'xs',
-              'mx-[20px] mt-[20px]': styleStore.activeBreakpoint === 'sm',
-              'mx-[24px] mt-[24px]': styleStore.activeBreakpoint === 'md',
-              'mx-[28px] mt-[28px]':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md',
-            },
-          ]"
-          class="absolute inset-0 flex items-center justify-center p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100 z-sb-base-1"
-        >
-          <PhotoIcon
-            :class="[styleStore.iconSizeL]"
-            class="text-white transition-all duration-300 ease-in-out animate-pulse"
-          />
-        </div>
-      </transition>
-      <img
-        v-show="!delayedFlip"
-        :src="props.imageUrl"
-        loading="lazy"
-        decoding="async"
-        :alt="`${props.text} picture`"
-        :class="[getPictureDimension]"
-        class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
-        :style="{ transform: 'rotateY(0deg)' }"
-        @load="() => (isImageLoaded = true)"
-      />
+      <picture
+        :class="{ 'opacity-0': !isImageLoaded, 'opacity-100': isImageLoaded }"
+        class="transition-all duration-300 ease-in-out"
+      >
+        <source :srcset="props.imageUrl.webp || undefined" type="image/webp" />
+        <img
+          v-show="!delayedFlip"
+          :src="props.imageUrl.jpg"
+          loading="lazy"
+          decoding="async"
+          :alt="`${props.text} picture`"
+          :class="[getPictureDimension]"
+          class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
+          :style="{ transform: 'rotateY(0deg)' }"
+          @load="() => (isImageLoaded = true)"
+        />
+      </picture>
       <div
         v-show="delayedFlip"
         :class="[getPictureDimension]"

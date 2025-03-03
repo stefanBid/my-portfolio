@@ -1,5 +1,9 @@
 {
+  "projectToken": "chpt_0cd4cc8b18de6f1",
   "onlyChanged": true,
-  "projectId": "Project:67bc3a6769b2d75d3ca76e57",
+  "exitZeroOnChanges": true,
+  "exitOnceUploaded": false,
+  "autoAcceptChanges": false,
+  "skip": false,
   "zip": true
 }

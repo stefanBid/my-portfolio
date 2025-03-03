@@ -11,4 +11,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg', '**/*.pdf', '**/*.mp4'],
 });
