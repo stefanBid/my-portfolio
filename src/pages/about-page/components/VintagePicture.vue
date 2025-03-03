@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
 
 interface VintagePictureProps {
@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 // Store Declarations
 const styleStore = useStyleStore();
 
+const imageRef = ref<HTMLImageElement | null>(null);
 const isImageLoaded = ref(false);
 
 const getFrameDimension = computed(() => {
@@ -86,6 +87,14 @@ watch(
     }
   },
 );
+
+onMounted(() => {
+  if (imageRef.value) {
+    imageRef.value.onload = () => {
+      isImageLoaded.value = true;
+    };
+  }
+});
 </script>
 
 <template>
@@ -111,6 +120,7 @@ watch(
         <source :srcset="props.imageUrl.webp || undefined" type="image/webp" />
         <img
           v-show="!delayedFlip"
+          ref="imageRef"
           :src="props.imageUrl.jpg"
           loading="lazy"
           decoding="async"
@@ -118,7 +128,6 @@ watch(
           :class="[getPictureDimension]"
           class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
           :style="{ transform: 'rotateY(0deg)' }"
-          @load="() => (isImageLoaded = true)"
         />
       </picture>
       <div
