@@ -160,9 +160,25 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'border-sb-secondary-100': inputValue.length > 0 && !props.validation?.show,
             'border-sb-error focus:border-sb-error focus:shadow-sb-error': props.validation?.show,
             'focus:border-white focus:shadow-white': !props.validation?.show,
-            'px-3': !props.withMenu,
-            'pl-3 pr-12': props.withMenu && props.type !== 'search',
-            'pl-3 pr-8': props.withMenu && props.type === 'search',
+            'px-3':
+              !props.withMenu &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'px-2.5': !props.withMenu && styleStore.activeBreakpoint === 'md',
+            'px-2':
+              !props.withMenu &&
+              (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
+            'pl-3 pr-10':
+              props.withMenu &&
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'pl-2.5 pr-8':
+              props.withMenu && props.type === 'search' && styleStore.activeBreakpoint === 'md',
+            'pl-2 pr-7':
+              props.withMenu &&
+              (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
             'py-2.5':
               styleStore.activeBreakpoint !== 'xs' &&
               styleStore.activeBreakpoint !== 'sm' &&
@@ -183,13 +199,21 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         variant="custom"
         content-size="custom"
         spacing-size="custom"
-        class="absolute right-0 mr-3 -translate-y-1/2 border border-transparent rounded-md focus-visible:border-white w-fit h-fit top-1/2"
+        :class="{
+          'mr-3':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+          'mr-2.5': styleStore.activeBreakpoint === 'md',
+          'mr-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+        }"
+        class="absolute right-0 -translate-y-1/2 border border-transparent rounded-md focus-visible:border-white w-fit h-fit top-1/2"
         @click.stop="handleClick()"
       >
         <ChevronDownIcon
           class="transition-all duration-300 ease-in-out"
           :class="[
-            styleStore.iconSizeXS,
+            styleStore.iconSizeS,
             isOpen ? 'rotate-180' : 'rotate-0',
             isInputFocused ? 'text-black' : 'text-white',
           ]"

@@ -90,15 +90,16 @@ const textAreaLabel = computed(() => {
           'border-sb-secondary-100': inputValue.length > 0 && !props.validation?.show,
           'border-sb-error focus:border-sb-error focus:shadow-sb-error': props.validation?.show,
           'focus:border-white focus:shadow-white': !props.validation?.show,
-          'py-2.5':
+          'py-2.5 px-3':
             styleStore.activeBreakpoint !== 'xs' &&
             styleStore.activeBreakpoint !== 'sm' &&
             styleStore.activeBreakpoint !== 'md',
-          'py-2 ': styleStore.activeBreakpoint === 'md',
-          'py-1.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+          'py-2 px-2.5': styleStore.activeBreakpoint === 'md',
+          'py-1.5 px-2':
+            styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
         },
       ]"
-      class="w-full h-32 px-3 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg outline-none resize-none scrollbar-gutter-stable focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
+      class="w-full h-32 overflow-y-auto text-white transition-all duration-300 ease-in-out border-2 rounded-lg outline-none resize-none scrollbar-gutter-stable focus:ring-0 focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black"
       :placeholder="props.placeholder"
     >
     </textarea>
