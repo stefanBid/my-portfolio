@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { vIntersectionObserver } from '@vueuse/components';
-import { ref } from 'vue';
 import { stringPurifier } from '@/utils';
 import { useStyleStore } from '@/stores';
 
@@ -8,48 +6,21 @@ interface BaseSectionProps {
   title: string;
   subtitle?: string;
   paragraph: string;
-  intersectionObserverSettings?: {
-    rootElement: HTMLElement | null;
-    rootMargin?: string;
-    threshold?: number;
-  };
   inverted?: boolean;
 }
 
 const props = withDefaults(defineProps<BaseSectionProps>(), {
   subtitle: '',
   paragraph: '',
-  intersectionObserverSettings: () => ({
-    rootElement: null,
-    rootMargin: '-80px 0px 0px 0px',
-    threshold: 0.05,
-  }),
   inverted: false,
 });
 
 // Store Declarations
 const styleStore = useStyleStore();
-
-// Feature 2:  Other Features
-const isVisible = ref(false);
-
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (isIntersecting !== isVisible.value) {
-    isVisible.value = isIntersecting;
-  }
-};
 </script>
 
 <template>
   <div
-    v-intersection-observer="[
-      onIntersectionObserver,
-      {
-        root: props.intersectionObserverSettings.rootElement,
-        threshold: props.intersectionObserverSettings.threshold,
-        rootMargin: props.intersectionObserverSettings.rootMargin,
-      },
-    ]"
     v-bind="$attrs"
     :class="{
       'flex-row':
@@ -69,12 +40,10 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         styleStore.activeBreakpoint === 'sm' ||
         styleStore.activeBreakpoint === 'md' ||
         styleStore.activeBreakpoint === 'lg',
-      'opacity-0': !isVisible,
-      'opacity-100': isVisible,
     }"
     class="flex items-center gap-12 transition-all duration-300 ease-in-out"
   >
-    <slot name="extra-content" :is-visible="isVisible"></slot>
+    <slot name="extra-content"></slot>
     <div class="flex flex-col justify-center flex-1">
       <h2
         :id="`${$attrs.id || 'section'}-titleHeading`"

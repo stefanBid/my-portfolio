@@ -74,7 +74,7 @@ const styleStore = useStyleStore();
   >
     <span
       v-if="$slots.default"
-      class="flex-1 font-medium font-roboto"
+      class="flex-1 font-roboto"
       :class="[
         props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
         props.contentSize === 'small' ? styleStore.textSizeXS : undefined,

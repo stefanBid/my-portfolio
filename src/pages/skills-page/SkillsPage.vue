@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
-import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref, watch } from 'vue';
 import { ICONS, SKILL_ICONS } from '@/constants';
-import { ThePageContainer, BaseButton, BaseSection } from '@/components';
+import { ThePageContainer, TheDivider, BaseButton, BaseSection } from '@/components';
 import { useStarEffect } from '@/hooks';
 import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
@@ -43,16 +42,7 @@ const beIcons = computed(() =>
     .map((skill) => SKILL_ICONS[skill.icon]),
 );
 
-// Feature 2: Manage Intersection Observer
-const isVisible = ref(false);
-
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (isIntersecting !== isVisible.value) {
-    isVisible.value = isIntersecting;
-  }
-};
-
-// Feature 3: Manage Modal State
+// Feature 2: Manage Modal State
 const isModalOpen = ref(false);
 const changeVisibility = (newVisibility: boolean): void => {
   if (newVisibility === isModalOpen.value) {
@@ -65,19 +55,10 @@ const changeVisibility = (newVisibility: boolean): void => {
 <template>
   <ThePageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
     <template #page-content>
-      <div
-        v-intersection-observer="[
-          onIntersectionObserver,
-          { root: null, threshold: 0.15, rootMargin: '-80px 0px 0px 0px' },
-        ]"
-        class="relative flex flex-col items-center justify-center w-full transition-all duration-300 ease-in-out border-2 border-dashed rounded-lg border-sb-secondary-200"
-        :class="[
-          styleStore.elementTotalPaddingM,
-          {
-            'opacity-0': !isVisible,
-            'opacity-100': isVisible,
-          },
-        ]"
+      <TheDivider
+        animation="scaleAndFade"
+        class="relative flex flex-col items-center justify-center w-full border-2 border-dashed rounded-lg border-sb-secondary-200"
+        :class="[styleStore.elementTotalPaddingM]"
       >
         <div :style="starsContainerStyle">
           <div v-for="(star, index) in stars" :key="index" :style="star"></div>
@@ -120,28 +101,27 @@ const changeVisibility = (newVisibility: boolean): void => {
         >
           {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}
         </BaseButton>
-      </div>
-      <BaseSection
+      </TheDivider>
+      <TheDivider
         v-for="(section, index) in i18nStore.skillsPageI18nContent.skillsSections"
         :key="index"
-        :inverted="index % 2 === 0 ? false : true"
-        :title="section.titleHeading"
-        :subtitle="section.subTitleHeading"
-        :paragraph="section.contentParagraph"
-        :intersection-observer-settings="{
-          rootElement: null,
-          threshold: 0.15,
-          rootMargin: '-80px 0px 0px 0px',
-        }"
+        animation="scaleAndFade"
       >
-        <template #extra-content>
-          <SolarSystem
-            v-if="index !== 2"
-            :planets-icons="index === 0 ? feIcons : beIcons"
-            :star-name="index === 0 ? 'Frontend' : 'Backend'"
-          />
-        </template>
-      </BaseSection>
+        <BaseSection
+          :inverted="index % 2 === 0 ? false : true"
+          :title="section.titleHeading"
+          :subtitle="section.subTitleHeading"
+          :paragraph="section.contentParagraph"
+        >
+          <template #extra-content>
+            <SolarSystem
+              v-if="index !== 2"
+              :planets-icons="index === 0 ? feIcons : beIcons"
+              :star-name="index === 0 ? 'Frontend' : 'Backend'"
+            />
+          </template>
+        </BaseSection>
+      </TheDivider>
     </template>
   </ThePageContainer>
   <SkillsDialog

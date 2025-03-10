@@ -17,6 +17,7 @@ export { default as SkillCardSkeleton } from '@/components/skeletons/skill-card-
 
 // LAYOUTS
 export { default as TheAppContainer } from '@/components/layouts/app-container/TheAppContainer.vue';
+export { default as TheDivider } from '@/components/layouts/divider/TheDivider.vue';
 export { default as TheFooter } from '@/components/layouts/footer/TheFooter.vue';
 export { default as TheHeader } from '@/components/layouts/header/TheHeader.vue';
 export { default as TheInlineNavbar } from '@/components/layouts/inline-navbar/TheInlineNavbar.vue';

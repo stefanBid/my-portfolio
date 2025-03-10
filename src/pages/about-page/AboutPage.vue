@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IMAGES } from '@/constants';
-import { ThePageContainer, BaseSection } from '@/components';
+import { ThePageContainer, TheDivider, BaseSection } from '@/components';
 import { useI18nStore, useTitleStore } from '@/stores';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
 import { watch } from 'vue';
@@ -22,33 +22,34 @@ watch(
 <template>
   <ThePageContainer :page-intro-text="i18nStore.aboutMePageI18nContent.pageHeading">
     <template #page-content>
-      <BaseSection
+      <TheDivider
         v-for="(section, index) in i18nStore.aboutMePageI18nContent.bioSections"
         :key="index"
-        :inverted="index % 2 === 0 ? false : true"
-        :title="section.titleHeading"
-        :subtitle="section.subTitleHeading"
-        :paragraph="section.contentParagraph"
-        :intersection-observer-settings="{
-          rootElement: null,
-          threshold: 0.15,
-          rootMargin: '-80px 0px 0px 0px',
-        }"
+        animation="scaleAndFade"
       >
-        <template #extra-content="{ isVisible }">
-          <VintagePicture
-            v-if="section.imagePath"
-            :image-url="IMAGES[section.imagePath]"
-            :text="section.imageDescription"
-            :is-visible="isVisible"
-            :class="{
-              '-rotate-2': index % 2 === 0,
-              'rotate-2': index % 2 !== 0,
-            }"
-            class="shrink-0"
-          />
+        <template #default="{ isVisible }">
+          <BaseSection
+            :inverted="index % 2 === 0 ? false : true"
+            :title="section.titleHeading"
+            :subtitle="section.subTitleHeading"
+            :paragraph="section.contentParagraph"
+          >
+            <template #extra-content>
+              <VintagePicture
+                v-if="section.imagePath"
+                :image-url="IMAGES[section.imagePath]"
+                :text="section.imageDescription"
+                :is-visible="isVisible"
+                :class="{
+                  '-rotate-2': index % 2 === 0,
+                  'rotate-2': index % 2 !== 0,
+                }"
+                class="shrink-0"
+              />
+            </template>
+          </BaseSection>
         </template>
-      </BaseSection>
+      </TheDivider>
     </template>
   </ThePageContainer>
 </template>
