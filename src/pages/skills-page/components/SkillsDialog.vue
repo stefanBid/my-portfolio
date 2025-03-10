@@ -3,6 +3,7 @@ import { CursorArrowRaysIcon } from '@heroicons/vue/24/solid';
 import { computed, ref, watch } from 'vue';
 
 import {
+  TheDivider,
   BaseDialog,
   BaseInput,
   BaseSwitch,
@@ -186,7 +187,15 @@ watch(
           "
         >
           <template #default="{ item: skill, containerRootRef: skillContainerRef }">
-            <SkillCard :root-element="skillContainerRef" :skill="skill" />
+            <TheDivider
+              :intersection-observer-settings="{
+                rootElement: skillContainerRef,
+                threshold: 0.25,
+              }"
+              animation="scaleAndFade"
+            >
+              <SkillCard :skill="skill" />
+            </TheDivider>
           </template>
           <template #loading-section>
             <div

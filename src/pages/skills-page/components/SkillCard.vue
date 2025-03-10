@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { PhotoIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
-import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref, watch } from 'vue';
 
 import { SKILL_ICONS } from '@/constants';
@@ -10,7 +9,6 @@ import type { SkillInfo } from '@/types';
 import { useI18nStore, useStyleStore } from '@/stores';
 
 interface SkillCardProps {
-  rootElement: HTMLElement | null;
   skill: SkillInfo;
 }
 
@@ -19,15 +17,6 @@ const props = defineProps<SkillCardProps>();
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-
-// Manage Intersection Observer
-const isVisible = ref(false);
-
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (isIntersecting !== isVisible.value) {
-    isVisible.value = isIntersecting;
-  }
-};
 
 const detailsPanelIsOpen = ref(false);
 const ratingsKeys = ref(
@@ -90,7 +79,6 @@ watch(
 <template>
   <div
     :id="props.skill.id"
-    v-intersection-observer="[onIntersectionObserver, { root: props.rootElement, threshold: 0.25 }]"
     class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,
@@ -101,13 +89,10 @@ watch(
           styleStore.activeBreakpoint !== 'md',
         'h-56': styleStore.activeBreakpoint === 'md',
         'h-52': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-        'opacity-0': !isVisible,
-        'opacity-100': isVisible,
         'hover:shadow-sb-ring-sm hover:shadow-sb-secondary-200 focus-visible:shadow-sb-ring-sm focus-visible:shadow-sb-secondary-200':
           !detailsPanelIsOpen,
       },
     ]"
-    :tabindex="isVisible ? 0 : -1"
     @keydown.enter="changeVisibilityOfDetailsPanel(true)"
     @click="changeVisibilityOfDetailsPanel(true)"
   >
