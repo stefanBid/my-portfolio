@@ -34,7 +34,7 @@ const styleStore = useStyleStore();
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
-    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0 group"
+    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0 group/button"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
       {
@@ -80,9 +80,9 @@ const styleStore = useStyleStore();
         props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
         {
           'transition-all duration-300 ease-in-out': props.variant !== 'custom',
-          'text-white group-hover:text-black group-active:text-black group-focus-visible:text-black':
+          'text-white group-hover/button:text-black group-active/button:text-black group-focus-visible/button:text-black':
             props.variant === 'tertiary',
-          'text-black group-hover:text-white group-active:text-white group-focus-visible:text-white':
+          'text-black group-hover/button:text-white group-active/button:text-white group-focus-visible/button:text-white':
             props.variant === 'white',
         },
       ]"
@@ -97,9 +97,9 @@ const styleStore = useStyleStore();
         props.contentSize === 'small' ? styleStore.iconSizeXS : undefined,
         {
           'animate-spin': props.loading,
-          'text-white group-hover:text-black group-active:text-black group-focus-visible:text-black':
+          'text-white group-hover/button:text-black group-active/button:text-black group-focus-visible/button:text-black':
             props.variant === 'tertiary',
-          'text-black group-hover:text-white group-active:text-white group-focus-visible:text-white':
+          'text-black group-hover/button:text-white group-active/button:text-white group-focus-visible/button:text-white':
             props.variant === 'white',
         },
       ]"
