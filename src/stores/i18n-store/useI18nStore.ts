@@ -7,6 +7,7 @@ import type {
   HomePageContent,
   AboutMePageContent,
   SkillsPageContent,
+  ProjectsPageContent,
   PrivacyPolicyPageContent,
   TermsAndConditionsPageContent,
   NotFoundPageContent,
@@ -36,6 +37,11 @@ export const useI18nStore = defineStore('i18n', () => {
 
   // Skills page content initialization
   const skillsPageI18nContent = ref(messages.value[locale.value].skillsPage as SkillsPageContent);
+
+  // Projects page content initialization
+  const projectsPageI18nContent = ref(
+    messages.value[locale.value].projectsPage as ProjectsPageContent,
+  );
 
   // Privacy policy page content initialization
   const privacyPolicyPageI18nContent = ref(
@@ -75,6 +81,10 @@ export const useI18nStore = defineStore('i18n', () => {
       // Skills page content update
       skillsPageI18nContent.value = messages.value[locale.value].skillsPage as SkillsPageContent;
 
+      // Projects page content update
+      projectsPageI18nContent.value = messages.value[locale.value]
+        .projectsPage as ProjectsPageContent;
+
       // Privacy policy page content
       privacyPolicyPageI18nContent.value = messages.value[locale.value]
         .privacyPolicyPage as PrivacyPolicyPageContent;
@@ -96,6 +106,7 @@ export const useI18nStore = defineStore('i18n', () => {
     homePageI18nContent,
     aboutMePageI18nContent,
     skillsPageI18nContent,
+    projectsPageI18nContent,
     privacyPolicyPageI18nContent,
     termsAndConditionsPageI18nContent,
     notFoundPageI18nContent,

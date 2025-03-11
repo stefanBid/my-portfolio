@@ -26,7 +26,15 @@ type IconName =
   | 'UkIcon'
   | 'VueIcon';
 
-type ImageName = 'logoImg' | 'graduationImg' | 'workstationImg';
+type ImageName =
+  | 'logoImg'
+  | 'graduationImg'
+  | 'workstationImg'
+  | 'project1Img'
+  | 'project2Img'
+  | 'project3Img'
+  | 'project4Img';
+
 type DocName = 'cvDoc';
 type VideoName = 'backgroundCoverVideo';
 
@@ -187,6 +195,21 @@ interface SkillsPageContent {
   skillsList: SkillInfo[];
 }
 
+/** PROJECTS PAGE **/
+interface ProjectsPageContent {
+  pageHeading: string;
+  firstHeading: string;
+  firstParagraph: string;
+  projects: {
+    id: string;
+    title: string;
+    imagePath: ImageName;
+    platformIcon: IconName;
+    codeLink: string;
+    demoLink?: string;
+  }[];
+}
+
 /** PRIVACY POLICY PAGE **/
 interface PrivacyPolicyPageContent {
   pageHeading: string;
@@ -294,6 +317,7 @@ export type {
   SkillsPageContent,
   SkillInfo,
   SkillType,
+  ProjectsPageContent,
   PrivacyPolicyPageContent,
   TermsAndConditionsPageContent,
   NotFoundPageContent,

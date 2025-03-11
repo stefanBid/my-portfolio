@@ -4,6 +4,7 @@ import { useI18nStore, useTitleStore, useStyleStore } from '@/stores';
 import { watch } from 'vue';
 
 import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
+import { ICONS, IMAGES } from '@/constants';
 
 // Store Declarations
 const styleStore = useStyleStore();
@@ -21,9 +22,7 @@ watch(
 </script>
 
 <template>
-  <ThePageContainer
-    :page-intro-text="i18nStore.currentLanguage === 'en' ? 'My projects' : 'I miei progetti'"
-  >
+  <ThePageContainer :page-intro-text="i18nStore.projectsPageI18nContent.pageHeading">
     <template #page-content>
       <div :class="[styleStore.elementTotalGapM]" class="flex flex-col">
         <h2
@@ -39,8 +38,23 @@ watch(
           ]"
           class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
         >
-          Alcuni dei miei clienti con cui ho lavorato
+          {{ i18nStore.projectsPageI18nContent.firstHeading }}
         </h2>
+        <p
+          :id="`${$attrs.id || 'section'}-paragraph`"
+          :class="[
+            styleStore.textSizeS,
+            {
+              'text-center':
+                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+              'text-left':
+                styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
+            },
+          ]"
+          class="text-white whitespace-normal transition-all duration-300 ease-in-out"
+        >
+          {{ i18nStore.projectsPageI18nContent.firstParagraph }}
+        </p>
         <div
           class="grid transition-all duration-300 ease-in-out"
           :class="[
@@ -60,15 +74,23 @@ watch(
           ]"
         >
           <TheDivider
-            v-for="i in 100"
-            :key="i"
+            v-for="project in i18nStore.projectsPageI18nContent.projects"
+            :key="project.id"
             :intersection-observer-settings="{
               rootElement: null,
               threshold: 0.25,
             }"
             animation="scaleAndFade"
           >
-            <ProjectCard />
+            <ProjectCard
+              :title="project.title"
+              :image-url="IMAGES[project.imagePath]"
+              :code-button-link="{
+                iconCode: ICONS[project.platformIcon],
+                link: project.codeLink,
+              }"
+              :play-button-link="project.demoLink"
+            />
           </TheDivider>
         </div>
       </div>

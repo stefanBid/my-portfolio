@@ -371,6 +371,45 @@
     ]
   },
 
+  "projectsPage": {
+    "pageHeading": "I Miei Progetti",
+    "firstHeading": "Ecco alcuni dei progetti che ho realizzato",
+    "firstParagraph": "Durante il mio percorso accademico e professionale, ho avuto l'opportunità di lavorare su una varietà di progetti, da semplici siti web a complesse applicazioni web. Qui di seguito troverai alcuni dei progetti più significativi a cui ho contribuito, con link al codice sorgente e alle demo. Se sei interessato a collaborare o hai un progetto in mente, non esitare a contattarmi!",
+    "projects": [
+      {
+        "id": "1",
+        "title": "Classificazione di Immagini",
+        "imagePath": "project1Img",
+        "platformIcon": "GithubIcon",
+        "codeLink": "https://github.com/stefanBid/Classificazione-Immagini"
+      },
+      {
+        "id": "2",
+        "title": "Studio Legale Romano - Website",
+        "imagePath": "project2Img",
+        "platformIcon": "GithubIcon",
+        "codeLink": "https://github.com/stefanBid/studio-legale-romano-website",
+        "demoLink": "https://studio-legale-romano.onrender.com"
+      },
+      {
+        "id": "3",
+        "title": "Guess my Number",
+        "imagePath": "project3Img",
+        "platformIcon": "GithubIcon",
+        "codeLink": "https://github.com/stefanBid/Guess-My-Number",
+        "demoLink": "https://stefanbid.github.io/Guess-My-Number/"
+      },
+      {
+        "id": "4",
+        "title": "Pig Game",
+        "imagePath": "project4Img",
+        "platformIcon": "GithubIcon",
+        "codeLink": "https://github.com/stefanBid/Pig-Game",
+        "demoLink": "https://stefanbid.github.io/Pig-Game/"
+      }
+    ]
+  },
+
   "privacyPolicyPage": {
     "pageHeading": "Politica sulla Privacy, Trasparenza e Rispetto",
     "privacyPolicy": {
