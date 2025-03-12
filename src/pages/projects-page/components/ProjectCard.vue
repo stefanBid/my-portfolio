@@ -70,7 +70,7 @@ const i18nStore = useI18nStore();
     <div
       class="absolute flex items-center z-sb-base-3"
       :class="[
-        styleStore.elementTotalGapM,
+        styleStore.elementTotalGapS,
         {
           'right-4 bottom-4':
             styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',

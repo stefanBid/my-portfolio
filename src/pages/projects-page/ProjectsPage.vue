@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ThePageContainer, TheDivider } from '@/components';
+import { ThePageContainer, TheDivider, BaseSection } from '@/components';
 import { useI18nStore, useTitleStore, useStyleStore } from '@/stores';
 import { watch } from 'vue';
 
@@ -24,37 +24,23 @@ watch(
 <template>
   <ThePageContainer :page-intro-text="i18nStore.projectsPageI18nContent.pageHeading">
     <template #page-content>
-      <div :class="[styleStore.elementTotalGapM]" class="flex flex-col">
-        <h2
-          :id="`${$attrs.id || 'section'}-titleHeading`"
-          :class="[
-            styleStore.textSizeXL,
-            {
-              'text-center':
-                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-              'text-left':
-                styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
-            },
-          ]"
-          class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas"
-        >
-          {{ i18nStore.projectsPageI18nContent.firstHeading }}
-        </h2>
-        <p
-          :id="`${$attrs.id || 'section'}-paragraph`"
-          :class="[
-            styleStore.textSizeS,
-            {
-              'text-center':
-                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-              'text-left':
-                styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
-            },
-          ]"
-          class="text-white whitespace-normal transition-all duration-300 ease-in-out"
-        >
-          {{ i18nStore.projectsPageI18nContent.firstParagraph }}
-        </p>
+      <div
+        :class="{
+          'gap-8': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          'gap-9': styleStore.activeBreakpoint === 'md',
+          'gap-10':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+        }"
+        class="flex flex-col transition-all duration-300 ease-in-out"
+      >
+        <TheDivider animation="scaleAndFade">
+          <BaseSection
+            :title="i18nStore.projectsPageI18nContent.firstHeading"
+            :paragraph="i18nStore.projectsPageI18nContent.firstParagraph"
+          />
+        </TheDivider>
         <div
           class="grid transition-all duration-300 ease-in-out"
           :class="[
@@ -76,10 +62,6 @@ watch(
           <TheDivider
             v-for="project in i18nStore.projectsPageI18nContent.projects"
             :key="project.id"
-            :intersection-observer-settings="{
-              rootElement: null,
-              threshold: 0.25,
-            }"
             animation="scaleAndFade"
           >
             <ProjectCard
