@@ -33,7 +33,7 @@ const i18nStore = useI18nStore();
     class="box-border relative flex flex-col items-center justify-center w-full overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none h-72 border-sb-secondary-200 group ring-0 focus-visible:ring-0 focus-visible:outline-none hover:scale-105 focus-visible:scale-105"
   >
     <!--Black Filter-->
-    <div class="absolute inset-0 rounded-md bg-black/50 z-sb-base-2"></div>
+    <div class="absolute inset-0 rounded-md bg-black/40 z-sb-base-2"></div>
     <!--Image-->
     <picture>
       <source :srcset="props.imageUrl.webp || undefined" type="image/webp" />
@@ -68,7 +68,7 @@ const i18nStore = useI18nStore();
 
     <!--Buttons-->
     <div
-      class="absolute flex items-center z-sb-base-3"
+      class="absolute flex items-center transition-all duration-300 ease-in-out z-sb-base-3"
       :class="[
         styleStore.elementTotalGapS,
         {
