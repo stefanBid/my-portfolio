@@ -2,7 +2,7 @@
 
 ![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1746057600&v=beta&t=HIrH-2Sc7XAME6Zx42DcPttqxP7CjAoI94YyKvlgO18)
 
-Current version: `5.1.4`
+Current version: `5.1.5`
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
