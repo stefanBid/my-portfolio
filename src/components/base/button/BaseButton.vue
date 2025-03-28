@@ -34,7 +34,7 @@ const styleStore = useStyleStore();
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
-    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0 group/button"
+    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out rounded-full outline-none ring-0 focus-visible:ring-0"
     :tabindex="props.disabled || props.loading ? -1 : 0"
     :class="[
       {
@@ -60,9 +60,9 @@ const styleStore = useStyleStore();
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
-        'bg-sb-secondary-300 border-2 border-sb-secondary-200 hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
+        'text-white hover:text-black active:text-black focus-visible:text-black bg-sb-secondary-300 border-2 border-sb-secondary-200 hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
           props.variant === 'tertiary',
-        'bg-white border-2 border-white  hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80  active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80  focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
+        'text-black hover:text-white active:text-white focus-visible:text-white bg-white border-2 border-white  hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80  active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80  focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
           props.variant === 'white',
         'hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm active:shadow-sb-ring-sm':
           props.variant !== 'custom' && props.contentSize === 'small',
@@ -78,29 +78,18 @@ const styleStore = useStyleStore();
       :class="[
         props.contentSize === 'medium' ? styleStore.textSizeS : undefined,
         props.contentSize === 'small' ? styleStore.textSizeXS : undefined,
-        {
-          'transition-all duration-300 ease-in-out': props.variant !== 'custom',
-          'text-white group-hover/button:text-black group-active/button:text-black group-focus-visible/button:text-black':
-            props.variant === 'tertiary',
-          'text-black group-hover/button:text-white group-active/button:text-white group-focus-visible/button:text-white':
-            props.variant === 'white',
-        },
       ]"
     >
       <slot></slot>
     </span>
     <component
       :is="props.loading ? ArrowPathIcon : props.icon"
-      class="transition-all duration-300 ease-in-out shrink-0"
+      class="shrink-0"
       :class="[
         props.contentSize === 'medium' ? styleStore.iconSizeS : undefined,
         props.contentSize === 'small' ? styleStore.iconSizeXS : undefined,
         {
           'animate-spin': props.loading,
-          'text-white group-hover/button:text-black group-active/button:text-black group-focus-visible/button:text-black':
-            props.variant === 'tertiary',
-          'text-black group-hover/button:text-white group-active/button:text-white group-focus-visible/button:text-white':
-            props.variant === 'white',
         },
       ]"
     />
