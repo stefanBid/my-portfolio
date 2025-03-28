@@ -71,7 +71,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       content-size="small"
       spacing-size="small"
       variant="custom"
-      class="border-2 group"
+      class="border-2"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
