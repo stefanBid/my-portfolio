@@ -67,6 +67,15 @@ interface Rating {
   value: number;
 }
 
+interface MetaDescription {
+  title: string;
+  description: string;
+  keywords: string[];
+  author: string;
+  robots: string;
+  copyright: string;
+}
+
 /** HEADER **/
 interface HeaderContent {
   navbarRoutes: {
@@ -110,6 +119,7 @@ interface FooterContent {
 
 /** HOME PAGE **/
 interface HomePageContent {
+  metaDescription: MetaDescription;
   firstHeading: string;
   secondHeading: string;
   thirdHeading: string[];
@@ -308,6 +318,7 @@ export type {
   VideoName,
   Notification,
   NotificationCategory,
+  MetaDescription,
   HeaderContent,
   FooterContent,
   HomePageContent,

@@ -4,32 +4,36 @@ import { computed, onMounted, ref } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
 import { DOCS, VIDEOS } from '@/constants';
 import { BaseButton } from '@/components';
-import { useTypingText } from '@/hooks';
-import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
+import { useTypingText, usePageMeta } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
 import { downloadCv } from '@/utils';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
-// Feature 1: Page Title
-titleStore.setTitleSuffix('Home');
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.homePageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+  url: 'https://www.stefano-biddau.com',
+  image:
+    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+});
 
-// Feature 2: Machine Typing Effect
+// Feature 1: Machine Typing Effect
 const texts = computed(() => i18nStore.homePageI18nContent.thirdHeading);
 
 const { currentTxt } = useTypingText(texts);
 
-// Feature 3: Manage effects
+// Feature 2: Manage effects
 const show = ref(false);
 
 onMounted(() => {
   show.value = true;
 });
 
-// Feature 4: Manage Contact Me Dialog Form
-
+// Feature 3: Manage Contact Me Dialog Form
 const isModalOpen = ref(false);
 const openContactMeFormDialog = (): void => {
   isModalOpen.value = true;

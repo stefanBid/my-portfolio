@@ -89,6 +89,29 @@
   },
 
   "homePage": {
+    "metaDescription": {
+      "title": "Stefano Biddau | Sviluppatore Full-Stack",
+      "description": "Sviluppatore full-stack specializzato nella creazione di esperienze digitali moderne, performanti e su misura. Scopri il mio portfolio, scarica il mio CV o contattami per collaborazioni professionali.",
+      "keywords": [
+        "Stefano Biddau",
+        "sviluppatore full-stack",
+        "sviluppo web",
+        "applicazioni web",
+        "frontend",
+        "backend",
+        "Vue.js",
+        "React",
+        "Angular",
+        "JavaScript",
+        "TypeScript",
+        "Node.js",
+        "portfolio developer",
+        "developer italiano"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow",
+      "copyright": "© 2025 Stefano Biddau"
+    },
     "firstHeading": "Salve a tutti!",
     "secondHeading": "Sono Stefano Biddau",
     "thirdHeading": ["Sviluppatore Frontend", "Web Designer", "Sviluppatore Backend"],
