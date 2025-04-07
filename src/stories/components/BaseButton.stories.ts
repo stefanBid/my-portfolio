@@ -23,13 +23,8 @@ const meta = {
       control: { type: 'select' },
       options: ['white', 'tertiary', 'custom'],
     },
-    contentSize: {
+    size: {
       description: 'The button size',
-      control: { type: 'select' },
-      options: ['small', 'medium', 'custom'],
-    },
-    spacingSize: {
-      description: 'The button spacing',
       control: { type: 'select' },
       options: ['small', 'medium', 'custom'],
     },
@@ -80,7 +75,7 @@ export const SmallButton: Story = {
   args: {
     ...meta.args,
     default: 'Small Button',
-    contentSize: 'small',
+    size: 'small',
   },
 };
 
@@ -88,7 +83,7 @@ export const MediumButton: Story = {
   args: {
     ...meta.args,
     default: 'Medium Button',
-    contentSize: 'medium',
+    size: 'medium',
   },
 };
 
@@ -120,7 +115,6 @@ export const CustomButton: Story = {
     ...meta.args,
     default: 'Custom Button',
     variant: 'custom',
-    spacingSize: 'custom',
-    contentSize: 'custom',
+    size: 'custom',
   },
 };
