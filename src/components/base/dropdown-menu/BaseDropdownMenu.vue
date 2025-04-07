@@ -68,8 +68,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         },
       ]"
       :aria-label="props.ariaLabel"
-      content-size="small"
-      spacing-size="small"
+      size="small"
       variant="custom"
       class="border-2"
       :class="{
@@ -103,18 +102,16 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             },
           ]"
         />
-        <div class="ml-2 shrink-0">
-          <ChevronDownIcon
-            class="transition-all duration-300 ease-in-out"
-            :class="[
-              styleStore.iconSizeXS,
-              {
-                'rotate-180 text-black': isOpen,
-                'rotate-0 text-white ': !isOpen,
-              },
-            ]"
-          />
-        </div>
+        <ChevronDownIcon
+          class="box-content ml-2 transition-all duration-300 ease-in-out border border-transparent shrink-0"
+          :class="[
+            styleStore.iconSizeXS,
+            {
+              'rotate-180 text-black': isOpen,
+              'rotate-0 text-white ': !isOpen,
+            },
+          ]"
+        />
       </span>
     </BaseButton>
     <teleport to="body">

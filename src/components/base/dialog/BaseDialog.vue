@@ -117,13 +117,13 @@ const handleCloseModal = (): void => {
                 <BaseButton
                   class="text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
                   :aria-label="`close ${props.dialogTitle} modal`"
-                  :icon="XMarkIcon"
                   variant="custom"
-                  content-size="medium"
-                  spacing-size="custom"
+                  size="custom"
                   @click.stop="handleCloseModal"
                   @keydown.enter.stop="handleCloseModal"
-                />
+                >
+                  <XMarkIcon :class="[styleStore.iconSizeS]" />
+                </BaseButton>
               </div>
               <slot name="modal-content"></slot>
             </DialogPanel>

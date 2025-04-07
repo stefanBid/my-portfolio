@@ -110,9 +110,9 @@ watch(
         :class="[
           styleStore.elementTotalGapM,
           {
-            'pt-4': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-            'pt-5': styleStore.activeBreakpoint === 'md',
-            'pt-6':
+            'pt-2.5': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+            'pt-3': styleStore.activeBreakpoint === 'md',
+            'pt-4':
               styleStore.activeBreakpoint !== 'xs' &&
               styleStore.activeBreakpoint !== 'sm' &&
               styleStore.activeBreakpoint !== 'md',

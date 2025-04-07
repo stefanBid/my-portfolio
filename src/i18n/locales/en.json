@@ -92,22 +92,7 @@
     "metaDescription": {
       "title": "Stefano Biddau | Full-Stack Developer",
       "description": "Full-stack developer specialized in building modern, performant and tailor-made digital experiences. Explore my portfolio, download my resume or get in touch for professional collaborations.",
-      "keywords": [
-        "Stefano Biddau",
-        "full-stack developer",
-        "web development",
-        "web applications",
-        "frontend",
-        "backend",
-        "Vue.js",
-        "React",
-        "Angular",
-        "JavaScript",
-        "TypeScript",
-        "Node.js",
-        "portfolio developer",
-        "Italian developer"
-      ],
+      "keywords": ["developer", "Frontend", "full-stack developer"],
       "author": "Stefano Biddau",
       "robots": "index, follow",
       "copyright": "© 2025 Stefano Biddau"

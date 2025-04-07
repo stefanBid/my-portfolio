@@ -84,15 +84,13 @@ const i18nStore = useI18nStore();
     >
       <BaseButton
         v-if="props.playButtonLink"
-        content-size="small"
-        spacing-size="small"
+        size="small"
         :icon="PlayIcon"
         variant="white"
         @click="() => (props.playButtonLink ? openLink(props.playButtonLink) : null)"
       />
       <BaseButton
-        content-size="small"
-        spacing-size="small"
+        size="small"
         :icon="props.codeButtonLink.iconCode"
         variant="white"
         @click="() => openLink(props.codeButtonLink.link)"

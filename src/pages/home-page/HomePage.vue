@@ -96,27 +96,31 @@ const changeVisibility = (falsyValue: boolean): void => {
           >
             {{ i18nStore.homePageI18nContent.firstHeading }}
           </h2>
-          <h1
-            class="text-black whitespace-normal transition-all duration-300 ease-in-out bg-white rounded-xl w-fit rotate-3"
-            :class="[
-              styleStore.textSizeXXL,
-              {
-                'px-2.5 py-0.5':
-                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                'px-3 py-1': styleStore.activeBreakpoint === 'md',
-                'mx-auto':
-                  styleStore.activeBreakpoint === 'xs' ||
-                  styleStore.activeBreakpoint === 'sm' ||
-                  styleStore.activeBreakpoint === 'md',
-                'px-4 py-2':
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm' &&
-                  styleStore.activeBreakpoint !== 'md',
-              },
-            ]"
+          <div
+            class="rounded-xl rotate-3 bg-white inline-flex items-center justify-center p-0.5 w-fit h-fit"
           >
-            {{ i18nStore.homePageI18nContent.secondHeading }}
-          </h1>
+            <h1
+              class="leading-none text-black whitespace-normal transition-all duration-300 ease-in-out"
+              :class="[
+                styleStore.textSizeXXL,
+                {
+                  'px-2.5 py-0.5':
+                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                  'px-3 py-1': styleStore.activeBreakpoint === 'md',
+                  'mx-auto':
+                    styleStore.activeBreakpoint === 'xs' ||
+                    styleStore.activeBreakpoint === 'sm' ||
+                    styleStore.activeBreakpoint === 'md',
+                  'px-4 py-2':
+                    styleStore.activeBreakpoint !== 'xs' &&
+                    styleStore.activeBreakpoint !== 'sm' &&
+                    styleStore.activeBreakpoint !== 'md',
+                },
+              ]"
+            >
+              {{ i18nStore.homePageI18nContent.secondHeading }}
+            </h1>
+          </div>
           <h2
             class="text-white whitespace-normal transition-all duration-300 ease-in-out"
             :class="[styleStore.textSizeXL]"

@@ -197,8 +197,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ref="buttonMenuRef"
         aria-label="open input menu"
         variant="custom"
-        content-size="custom"
-        spacing-size="custom"
+        size="custom"
         :class="{
           'mr-3':
             styleStore.activeBreakpoint !== 'xs' &&

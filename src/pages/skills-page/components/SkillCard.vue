@@ -150,13 +150,13 @@ watch(
               styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
           }"
           class="absolute text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
-          content-size="small"
-          spacing-size="custom"
+          size="custom"
           variant="custom"
           :aria-label="`close ${props.skill.name} details panel`"
-          :icon="XMarkIcon"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
-        />
+        >
+          <XMarkIcon :class="[styleStore.iconSizeS]" />
+        </BaseButton>
         <div
           :class="[styleStore.elementTotalGapS]"
           class="flex flex-col justify-center flex-1 transition-all duration-300 ease-in-out"
@@ -176,8 +176,7 @@ watch(
           <BaseButton
             aria-label="click to go to previous paginated skill rating elements"
             variant="white"
-            content-size="small"
-            spacing-size="small"
+            size="small"
             :disabled="paginationIndex === 0"
             :icon="ChevronLeftIcon"
             @click.stop="() => goPrevious()"
@@ -185,8 +184,7 @@ watch(
           <BaseButton
             aria-label="click to go to next paginated skill rating elements"
             variant="white"
-            content-size="small"
-            spacing-size="small"
+            size="small"
             :disabled="
               (styleStore.activeBreakpoint !== 'xs' &&
                 paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||

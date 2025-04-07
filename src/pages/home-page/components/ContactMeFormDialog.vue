@@ -127,9 +127,9 @@ watch(
     <template #modal-content>
       <div
         :class="{
-          'pt-4': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-          'pt-5': styleStore.activeBreakpoint === 'md',
-          'pt-6':
+          'py-2.5': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+          'py-3': styleStore.activeBreakpoint === 'md',
+          'py-4':
             styleStore.activeBreakpoint !== 'xs' &&
             styleStore.activeBreakpoint !== 'sm' &&
             styleStore.activeBreakpoint !== 'md',
@@ -243,8 +243,7 @@ watch(
             name="contact-reset-button"
             aria-label="click for reset contact form"
             type="reset"
-            content-size="small"
-            spacing-size="small"
+            size="small"
             variant="white"
             :disabled="disableResetButton"
           >
@@ -255,8 +254,7 @@ watch(
             name="contact-send-button"
             aria-label="click to send email"
             type="submit"
-            content-size="small"
-            spacing-size="small"
+            size="small"
             :loading="sendingEmail"
           >
             {{ i18nStore.homePageI18nContent.contactMeForm.submitButton.text }}
