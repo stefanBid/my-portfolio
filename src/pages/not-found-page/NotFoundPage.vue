@@ -1,27 +1,24 @@
 <script setup lang="ts">
 import { HomeIcon, WindowIcon } from '@heroicons/vue/24/outline';
 import { useRouter } from 'vue-router';
-import { watch } from 'vue';
 
 import { BaseButton } from '@/components';
-import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
+import { useI18nStore, useStyleStore } from '@/stores';
+import { usePageMeta } from '@/hooks';
+import { computed } from 'vue';
 
 // Stores declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
 // Hooks declarations
 const router = useRouter();
 
-// Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    titleStore.setTitleSuffix(newValue === 'it' ? '404 Pagina non trovata' : '404 Page Not Found');
-  },
-  { immediate: true },
-);
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.notFoundPageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+});
 </script>
 
 <template>

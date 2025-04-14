@@ -223,7 +223,7 @@ watch(
       <TheSideNavbar
         v-if="!hideElementsForSomeRoutesPages"
         :routes="i18nStore.headerI18nContent.navbarRoutes"
-        @close-menu="onChangeMenuVisibility(false)"
+        :on-close-menu="() => onChangeMenuVisibility(false)"
       />
       <div
         :class="[

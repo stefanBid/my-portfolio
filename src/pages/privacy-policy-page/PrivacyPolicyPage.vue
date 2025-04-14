@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import { ThePageContainer, TheDivider } from '@/components';
-import { useI18nStore, useTitleStore, useStyleStore } from '@/stores';
-import { watch } from 'vue';
+import { usePageMeta } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
+import { computed } from 'vue';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
-// Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    titleStore.setTitleSuffix(newValue === 'it' ? 'Politica sulla riservatezza' : 'Privacy Policy');
-  },
-  { immediate: true },
-);
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.privacyPolicyPageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+});
 </script>
 
 <template>

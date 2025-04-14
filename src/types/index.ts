@@ -69,10 +69,10 @@ interface Rating {
 
 interface MetaDescription {
   title: string;
-  description: string;
-  keywords: string[];
-  author: string;
-  robots: string;
+  description?: string;
+  keywords?: string[];
+  author?: string;
+  robots?: string;
   copyright?: string;
 }
 
@@ -225,6 +225,7 @@ interface ProjectsPageContent {
 
 /** PRIVACY POLICY PAGE **/
 interface PrivacyPolicyPageContent {
+  metaDescription: MetaDescription;
   pageHeading: string;
   privacyPolicy: PrivacyPolicySection;
 }
@@ -267,6 +268,7 @@ interface PrivacyPolicySection {
 
 /** TERMS AND CONDITIONS PAGE **/
 interface TermsAndConditionsPageContent {
+  metaDescription: MetaDescription;
   pageHeading: string;
   termsAndConditions: TermsAndConditionsSection;
 }
@@ -307,6 +309,7 @@ interface TermsAndConditionsSection {
 
 /** NOT FOUND PAGE **/
 interface NotFoundPageContent {
+  metaDescription: MetaDescription;
   firstHeading: string;
   secondHeading: string;
   goHomeButton: Button;

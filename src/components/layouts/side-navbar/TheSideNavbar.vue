@@ -7,10 +7,10 @@ interface SideNavbarProps {
     path: string;
     text: string;
   }[];
+  onCloseMenu: () => void;
 }
 
 const props = defineProps<SideNavbarProps>();
-const emits = defineEmits(['close-menu']);
 
 // Store Declarations
 const styleStore = useStyleStore();
@@ -41,7 +41,7 @@ const route = useRoute();
             route.path !== routeItem.path,
         },
       ]"
-      @click="() => emits('close-menu')"
+      @click="() => props.onCloseMenu()"
     >
       {{ routeItem.text }}
     </RouterLink>

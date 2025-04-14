@@ -477,6 +477,9 @@
   },
 
   "privacyPolicyPage": {
+    "metaDescription": {
+      "title": "Privacy Policy | Stefano Biddau Full-Stack Developer & Web Designer"
+    },
     "pageHeading": "Privacy Policy, Transparency, and Respect",
     "privacyPolicy": {
       "title": "Privacy Policy",
@@ -523,6 +526,9 @@
     }
   },
   "termsAndConditionsPage": {
+    "metaDescription": {
+      "title": "Terms and Conditions of Use | Stefano Biddau Full-Stack Developer & Web Designer"
+    },
     "pageHeading": "Terms and Conditions of Use",
     "termsAndConditions": {
       "title": "Terms and Conditions",
@@ -569,6 +575,9 @@
     }
   },
   "notFoundPage": {
+    "metaDescription": {
+      "title": "404 Page Not Found | Stefano Biddau Full-Stack Developer & Web Designer"
+    },
     "firstHeading": "404 - Page Not Found",
     "secondHeading": "The page you are looking for does not exist.",
     "goHomeButton": {
