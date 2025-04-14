@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { IMAGES } from '@/constants';
 import { ThePageContainer, TheDivider, BaseSection } from '@/components';
-import { useI18nStore, useTitleStore } from '@/stores';
+import { useI18nStore } from '@/stores';
+import { usePageMeta } from '@/hooks';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
-import { watch } from 'vue';
+import { computed } from 'vue';
 
 // Store Declarations
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
-// Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    titleStore.setTitleSuffix(newValue === 'it' ? 'Chi sono' : 'About Me');
-  },
-  { immediate: true },
-);
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.aboutMePageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+  url: 'https://www.stefano-biddau.com',
+  image:
+    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+});
 </script>
 
 <template>

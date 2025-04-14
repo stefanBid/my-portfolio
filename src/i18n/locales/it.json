@@ -90,27 +90,20 @@
 
   "homePage": {
     "metaDescription": {
-      "title": "Stefano Biddau | Sviluppatore Full-Stack",
-      "description": "Sviluppatore full-stack specializzato nella creazione di esperienze digitali moderne, performanti e su misura. Scopri il mio portfolio, scarica il mio CV o contattami per collaborazioni professionali.",
+      "title": "Stefano Biddau | Full-Stack Developer & Web Designer",
+      "description": "Sono Stefano Biddau, web designer e sviluppatore front-end. Progetto esperienze digitali moderne e funzionali, curate nei dettagli. Scopri il mio portfolio e contattami per collaborare.",
       "keywords": [
-        "Stefano Biddau",
-        "sviluppatore full-stack",
-        "sviluppo web",
-        "applicazioni web",
-        "frontend",
-        "backend",
-        "Vue.js",
-        "React",
-        "Angular",
-        "JavaScript",
-        "TypeScript",
-        "Node.js",
-        "portfolio developer",
-        "developer italiano"
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
       ],
       "author": "Stefano Biddau",
-      "robots": "index, follow",
-      "copyright": "© 2025 Stefano Biddau"
+      "robots": "index, follow"
     },
     "firstHeading": "Salve a tutti!",
     "secondHeading": "Sono Stefano Biddau",
@@ -147,6 +140,22 @@
   },
 
   "aboutMePage": {
+    "metaDescription": {
+      "title": "Chi Sono | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "Mi chiamo Stefano Biddau e sono un web designer e sviluppatore front-end freelance. Scopri la mia storia, il mio percorso e il mio approccio al lavoro.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "Chi sono",
     "bioSections": [
       {
@@ -168,6 +177,22 @@
   },
 
   "skillsPage": {
+    "metaDescription": {
+      "title": "Competenze & Tecnologie | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "Competenze e tecnologie che utilizzo per sviluppare interfacce intuitive e performanti: HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, UI/UX.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "Conoscimi meglio!",
     "callToActionFirstHeading": "Cerchi un professionista qualificato?",
     "callToActionSecondHeading": "Scopri le mie principali competenze e come posso contribuire alla tua squadra",
@@ -395,6 +420,22 @@
   },
 
   "projectsPage": {
+    "metaDescription": {
+      "title": "Progetti Web | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "Guarda una selezione dei miei progetti web: soluzioni digitali moderne, responsive e orientate all’esperienza utente. Ogni lavoro riflette il mio approccio al design e allo sviluppo.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "I Miei Progetti",
     "firstHeading": "Ecco alcuni dei progetti che ho realizzato",
     "firstParagraph": "Durante il mio percorso accademico e professionale, ho avuto l'opportunità di lavorare su una varietà di progetti, da semplici siti web a complesse applicazioni web. Qui di seguito troverai alcuni dei progetti più significativi a cui ho contribuito, con link al codice sorgente e alle demo. Se sei interessato a collaborare o hai un progetto in mente, non esitare a contattarmi!",

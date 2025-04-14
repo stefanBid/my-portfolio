@@ -126,8 +126,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         },
       ]"
       class="mb-1 font-medium transition-all duration-300 ease-in-out outline-none cursor-pointer font-roboto w-fit focus-visible:ring-0 ring-0"
-      @keydown.enter.stop.prevent="reference?.focus()"
-      @click.stop.prevent="reference?.focus()"
+      @keydown.enter.stop.prevent="() => reference?.focus()"
+      @click.stop.prevent="() => reference?.focus()"
     >
       {{ inputLabel }}
     </label>
@@ -169,14 +169,14 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
             'px-2':
               !props.withMenu &&
               (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
-            'pl-3 pr-10':
+            'pl-3 pr-12':
               props.withMenu &&
               styleStore.activeBreakpoint !== 'xs' &&
               styleStore.activeBreakpoint !== 'sm' &&
               styleStore.activeBreakpoint !== 'md',
-            'pl-2.5 pr-8':
+            'pl-2.5 pr-10':
               props.withMenu && props.type === 'search' && styleStore.activeBreakpoint === 'md',
-            'pl-2 pr-7':
+            'pl-2 pr-9':
               props.withMenu &&
               (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
             'py-2.5':
@@ -198,24 +198,29 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         aria-label="open input menu"
         variant="custom"
         size="custom"
-        :class="{
-          'mr-3':
-            styleStore.activeBreakpoint !== 'xs' &&
-            styleStore.activeBreakpoint !== 'sm' &&
-            styleStore.activeBreakpoint !== 'md',
-          'mr-2.5': styleStore.activeBreakpoint === 'md',
-          'mr-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-        }"
-        class="absolute right-0 -translate-y-1/2 border border-transparent rounded-md focus-visible:border-white w-fit h-fit top-1/2"
-        @click.stop="handleClick()"
+        :class="[
+          isInputFocused ? 'text-black border-l-black' : 'text-white',
+          {
+            'border-white text-white':
+              !isInputFocused && inputValue.length === 0 && !validation?.show,
+            'border-sb-secondary-100 text-white':
+              !isInputFocused && inputValue.length > 0 && !validation?.show,
+            'border-black text-black': isInputFocused && !validation?.show,
+            'border-sb-error text-white': validation?.show,
+            'px-2':
+              styleStore.activeBreakpoint !== 'xs' &&
+              styleStore.activeBreakpoint !== 'sm' &&
+              styleStore.activeBreakpoint !== 'md',
+            'px-1.5': styleStore.activeBreakpoint === 'md',
+            'px-1': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+          },
+        ]"
+        class="absolute right-0 h-full -translate-y-1/2 border-2 rounded-r-lg rounded-y-lg focus-visible:border-sb-tertiary-100 w-fit top-1/2"
+        @click.stop="handleClick"
       >
         <ChevronDownIcon
           class="transition-all duration-300 ease-in-out"
-          :class="[
-            styleStore.iconSizeS,
-            isOpen ? 'rotate-180' : 'rotate-0',
-            isInputFocused ? 'text-black' : 'text-white',
-          ]"
+          :class="[styleStore.iconSizeS, isOpen ? 'rotate-180' : 'rotate-0']"
         />
       </BaseButton>
     </div>

@@ -67,8 +67,8 @@ const textAreaLabel = computed(() => {
         },
       ]"
       class="mb-1 font-medium transition-all duration-300 ease-in-out outline-none cursor-pointer font-roboto w-fit focus-visible:ring-0 ring-0"
-      @keydown.enter.stop.prevent="reference?.focus()"
-      @click.stop.prevent="reference?.focus()"
+      @keydown.enter.stop.prevent="() => reference?.focus()"
+      @click.stop.prevent="() => reference?.focus()"
     >
       {{ textAreaLabel }}
     </label>

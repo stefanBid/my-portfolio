@@ -179,7 +179,7 @@ watch(
             size="small"
             :disabled="paginationIndex === 0"
             :icon="ChevronLeftIcon"
-            @click.stop="() => goPrevious()"
+            @click.stop="goPrevious"
           />
           <BaseButton
             aria-label="click to go to next paginated skill rating elements"
@@ -191,7 +191,7 @@ watch(
               (styleStore.activeBreakpoint === 'xs' && paginationIndex === ratingsKeys.length - 1)
             "
             :icon="ChevronRightIcon"
-            @click.stop="() => goNext()"
+            @click.stop="goNext"
           />
         </div>
       </div>

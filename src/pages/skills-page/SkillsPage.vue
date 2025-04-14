@@ -1,31 +1,30 @@
 <script setup lang="ts">
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { ICONS, SKILL_ICONS } from '@/constants';
 import { ThePageContainer, TheDivider, BaseButton, BaseSection } from '@/components';
-import { useStarEffect } from '@/hooks';
-import { useI18nStore, useStyleStore, useTitleStore } from '@/stores';
+import { usePageMeta, useStarEffect } from '@/hooks';
+import { useI18nStore, useStyleStore } from '@/stores';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
 // Hooks Declarations
 const { stars, starsContainerStyle } = useStarEffect(150);
 
-// Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    titleStore.setTitleSuffix(newValue === 'it' ? 'Abilità' : 'Skills');
-  },
-  { immediate: true },
-);
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.skillsPageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+  url: 'https://www.stefano-biddau.com',
+  image:
+    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+});
 
-// Feature 2: Manage Skills for Solar System Component
+// Feature 1: Manage Skills for Solar System Component
 const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 const feIcons = computed(() =>
   skillsList.value

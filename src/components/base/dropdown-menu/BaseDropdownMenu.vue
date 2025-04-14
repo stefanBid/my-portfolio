@@ -70,49 +70,47 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       :aria-label="props.ariaLabel"
       size="small"
       variant="custom"
-      class="border-2"
+      class="border-2 rounded-full"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           isOpen,
         ' hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
           !isOpen,
       }"
-      @click.stop="handleClick()"
+      @click.stop="handleClick"
     >
-      <span class="flex items-center h-full gap-2">
-        <span
-          v-if="props.label"
-          class="transition-all duration-300 ease-in-out"
-          :class="{
+      <span
+        v-if="props.label"
+        class="transition-all duration-300 ease-in-out"
+        :class="{
+          'text-black': isOpen,
+          'text-white ': !isOpen,
+        }"
+      >
+        {{ props.label }}
+      </span>
+      <component
+        :is="props.icon"
+        v-if="props.icon"
+        class="transition-all duration-300 ease-in-out shrink-0"
+        :class="[
+          styleStore.iconSizeXS,
+          {
             'text-black': isOpen,
             'text-white ': !isOpen,
-          }"
-        >
-          {{ props.label }}
-        </span>
-        <component
-          :is="props.icon"
-          v-if="props.icon"
-          class="transition-all duration-300 ease-in-out shrink-0"
-          :class="[
-            styleStore.iconSizeXS,
-            {
-              'text-black': isOpen,
-              'text-white ': !isOpen,
-            },
-          ]"
-        />
-        <ChevronDownIcon
-          class="box-content ml-2 transition-all duration-300 ease-in-out border border-transparent shrink-0"
-          :class="[
-            styleStore.iconSizeXS,
-            {
-              'rotate-180 text-black': isOpen,
-              'rotate-0 text-white ': !isOpen,
-            },
-          ]"
-        />
-      </span>
+          },
+        ]"
+      />
+      <ChevronDownIcon
+        class="box-content ml-2 transition-all duration-300 ease-in-out border border-transparent shrink-0"
+        :class="[
+          styleStore.iconSizeXS,
+          {
+            'rotate-180 text-black': isOpen,
+            'rotate-0 text-white ': !isOpen,
+          },
+        ]"
+      />
     </BaseButton>
     <teleport to="body">
       <transition name="scale-and-fade-fast">

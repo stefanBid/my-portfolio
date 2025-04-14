@@ -149,7 +149,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             aria-label="click to open contact me form"
             class="w-full"
             :icon="EnvelopeIcon"
-            @click.stop="() => openContactMeFormDialog()"
+            @click.stop="openContactMeFormDialog"
           >
             {{ i18nStore.homePageI18nContent.contactMeButton.text }}
           </BaseButton>

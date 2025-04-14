@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ThePageContainer, TheDivider, BaseSection } from '@/components';
-import { useI18nStore, useTitleStore, useStyleStore } from '@/stores';
-import { watch } from 'vue';
+import { useI18nStore, useStyleStore } from '@/stores';
+import { computed } from 'vue';
 
 import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
 import { ICONS, IMAGES } from '@/constants';
+import { usePageMeta } from '@/hooks';
 
 // Store Declarations
 const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
-const titleStore = useTitleStore();
 
-// Feature 1: Page Title
-watch(
-  () => i18nStore.currentLanguage,
-  (newValue) => {
-    titleStore.setTitleSuffix(newValue === 'it' ? 'Progetti' : 'Projects');
-  },
-  { immediate: true },
-);
+// SEO Feature Manage Meta Tags
+usePageMeta({
+  meta: computed(() => i18nStore.projectsPageI18nContent.metaDescription),
+  currentLang: computed(() => i18nStore.currentLanguage),
+  url: 'https://www.stefano-biddau.com',
+  image:
+    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+});
 </script>
 
 <template>

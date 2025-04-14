@@ -90,12 +90,20 @@
 
   "homePage": {
     "metaDescription": {
-      "title": "Stefano Biddau | Full-Stack Developer",
-      "description": "Full-stack developer specialized in building modern, performant and tailor-made digital experiences. Explore my portfolio, download my resume or get in touch for professional collaborations.",
-      "keywords": ["developer", "Frontend", "full-stack developer"],
+      "title": "Stefano Biddau | Full-Stack Developer & Web Designer",
+      "description": "I'm Stefano Biddau, a web designer and front-end developer. I create modern, user-focused digital experiences. Explore my portfolio and get in touch for a collaboration.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
       "author": "Stefano Biddau",
-      "robots": "index, follow",
-      "copyright": "© 2025 Stefano Biddau"
+      "robots": "index, follow"
     },
     "firstHeading": "Hello Everyone!",
     "secondHeading": "I'm Stefano Biddau",
@@ -132,6 +140,22 @@
   },
 
   "aboutMePage": {
+    "metaDescription": {
+      "title": "About Me | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "I'm Stefano Biddau, a freelance web designer and front-end developer. Learn more about my background, values, and approach to digital design.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "Who am I?",
     "bioSections": [
       {
@@ -153,6 +177,22 @@
   },
 
   "skillsPage": {
+    "metaDescription": {
+      "title": "Skills & Technologies | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "Skills and tools I use to build intuitive, high-performing interfaces: HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, UI/UX.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "Get to know me!",
     "callToActionFirstHeading": "Looking for a skilled professional?",
     "callToActionSecondHeading": "Discover my top skills and how I can add value to your team",
@@ -382,6 +422,22 @@
   },
 
   "projectsPage": {
+    "metaDescription": {
+      "title": "Web Projects | Stefano Biddau Full-Stack Developer & Web Designer",
+      "description": "Explore a selection of my web projects: modern, responsive, and user-focused solutions. Each project reflects my approach to design and development.",
+      "keywords": [
+        "Sviluppatore front-end",
+        "progettazione interfacce web",
+        "web designer",
+        "tecnologie web (HTML, CSS, JavaScript)",
+        "full-stack developer",
+        "developer",
+        "sviluppo interfacce utente",
+        "sviluppo web e design"
+      ],
+      "author": "Stefano Biddau",
+      "robots": "index, follow"
+    },
     "pageHeading": "My Projects",
     "firstHeading": "Here are some of the projects I have worked on",
     "firstParagraph": "Throughout my academic and professional journey, I have had the opportunity to work on a variety of projects, ranging from simple websites to complex web applications. Below, you will find some of the most significant projects I have contributed to, with links to the source code and demos. If you are interested in collaborating or have a project in mind, feel free to contact me!",

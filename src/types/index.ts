@@ -73,7 +73,7 @@ interface MetaDescription {
   keywords: string[];
   author: string;
   robots: string;
-  copyright: string;
+  copyright?: string;
 }
 
 /** HEADER **/
@@ -153,6 +153,7 @@ interface ContactMeFormValidation {
 
 /** ABOUT ME PAGE **/
 interface AboutMePageContent {
+  metaDescription: MetaDescription;
   pageHeading: string;
   bioSections: Section[];
 }
@@ -192,6 +193,7 @@ interface SkillInfo {
 }
 
 interface SkillsPageContent {
+  metaDescription: MetaDescription;
   pageHeading: string;
   callToActionFirstHeading: string;
   callToActionSecondHeading: string;
@@ -207,6 +209,7 @@ interface SkillsPageContent {
 
 /** PROJECTS PAGE **/
 interface ProjectsPageContent {
+  metaDescription: MetaDescription;
   pageHeading: string;
   firstHeading: string;
   firstParagraph: string;

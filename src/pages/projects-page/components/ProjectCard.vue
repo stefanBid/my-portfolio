@@ -93,7 +93,7 @@ const i18nStore = useI18nStore();
         size="small"
         :icon="props.codeButtonLink.iconCode"
         variant="white"
-        @click="() => openLink(props.codeButtonLink.link)"
+        @click="openLink(props.codeButtonLink.link)"
       >
         {{ i18nStore.currentLanguage === 'en' ? 'View Code' : 'Vedi Codice' }}
       </BaseButton>
