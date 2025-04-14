@@ -2,7 +2,7 @@
 
 ![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1746057600&v=beta&t=HIrH-2Sc7XAME6Zx42DcPttqxP7CjAoI94YyKvlgO18)
 
-Current version: `5.3.16`
+Current version: `5.3.29`
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
@@ -69,12 +69,7 @@ Follow these steps to set up the project:
    npm run build
    ```
 
-5. **Run Tests**:
-   ```bash
-   npm run test
-   ```
-
-6. **Lint and Fix Code**:
+5. **Lint and Fix Code**:
    - Check for linting errors:
      ```bash
      npm run lint
@@ -84,7 +79,7 @@ Follow these steps to set up the project:
      npm run lint:fix
      ```
 
-7. **Optimize SVG Icons**:
+6. **Optimize SVG Icons**:
    ```bash
    npm run optimize-svg
    ```
@@ -116,3 +111,16 @@ This project uses the following technologies:
 - **ESLint**: Linting for code quality.
 
 ---
+
+## SEO Optimization
+
+This portfolio includes a fully dynamic and reactive SEO setup using [`@unhead/vue`](https://unhead.unjs.io/), enabling real-time updates of `<head>` content based on page data and selected language.
+
+### Key Features:
+- Dynamic management of `<title>`, `<meta name="description">`, `<meta name="keywords">`, and Open Graph tags.
+- Locale-aware Open Graph support via `og:locale` and `og:locale:alternate`.
+- Computed, reactive meta tags that automatically update with route or data changes.
+- Inclusion of `robots`, `canonical`, and `author` meta tags.
+- Ready for future Twitter Card and JSON-LD structured data integration.
+
+> The entire SEO system was designed by [MartianEulogio](https://www.linkedin.com/in/martina-eulogio-/), using a reactive and modular approach deeply integrated with Vue.

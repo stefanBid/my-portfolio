@@ -16,8 +16,8 @@ export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOption
   const defaultImage =
     'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4';
 
-  const metaTags = computed(() => {
-    const tags = [
+  const metaTags = computed(() =>
+    [
       meta.value.description !== undefined
         ? { name: 'description', content: meta.value.description }
         : undefined,
@@ -49,10 +49,8 @@ export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOption
       { name: 'twitter:description', content: () => meta.value.description },
       { name: 'twitter:image', content: () => image ?? defaultImage },
       */
-    ].filter((tag) => tag !== undefined);
-    console.log('metaTags', tags);
-    return tags;
-  });
+    ].filter((tag) => tag !== undefined),
+  );
 
   useHead({
     title: () => meta.value.title,
