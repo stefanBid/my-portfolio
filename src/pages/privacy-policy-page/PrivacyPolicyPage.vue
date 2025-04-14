@@ -218,7 +218,7 @@ usePageMeta({
                 "
                 target="_blank"
                 rel="noopener noreferrer"
-                class="underline transition-all duration-300 ease-in-out cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200"
+                class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200 ring-0 focus-visible:outline-none focus-visible:ring-0"
               >
                 {{
                   i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.linkText
