@@ -2,7 +2,7 @@
 
 ![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1746057600&v=beta&t=HIrH-2Sc7XAME6Zx42DcPttqxP7CjAoI94YyKvlgO18)
 
-Current version: `5.3.29`
+Current version: `5.3.30`
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
@@ -123,4 +123,4 @@ This portfolio includes a fully dynamic and reactive SEO setup using [`@unhead/v
 - Inclusion of `robots`, `canonical`, and `author` meta tags.
 - Ready for future Twitter Card and JSON-LD structured data integration.
 
-> The entire SEO system was designed by [MartianEulogio](https://www.linkedin.com/in/martina-eulogio-/), using a reactive and modular approach deeply integrated with Vue.
+> The entire SEO system was designed by [Martina Eulogio](https://www.linkedin.com/in/martina-eulogio-/), using a reactive and modular approach deeply integrated with Vue.
