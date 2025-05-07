@@ -37,7 +37,7 @@ This is my portfolio. It contains information about me, my projects, and how to 
 
 Before starting, ensure your system meets the following requirements:
 
-- **Node.js**: Version **22.11.0** (LTS) or newer. [Download Node.js](https://nodejs.org/)
+- **Node.js**: Version **22.15.0** (LTS) or newer. [Download Node.js](https://nodejs.org/)
 - **npm**: Bundled with Node.js (use `npm install -g npm@latest` to update if needed).
 - **Modern Browser**: Ensure compatibility with recent versions of Chrome, Firefox, or Edge.
 - **pnpm (optional)**: For efficient package management, you can use `pnpm` instead of `npm`. [Learn more about pnpm](https://pnpm.io/)
