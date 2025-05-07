@@ -120,7 +120,6 @@ const handleCloseModal = (): void => {
                   variant="custom"
                   size="custom"
                   @click.stop="handleCloseModal"
-                  @keydown.enter.stop="handleCloseModal"
                 >
                   <XMarkIcon :class="[styleStore.iconSizeS]" />
                 </BaseButton>
