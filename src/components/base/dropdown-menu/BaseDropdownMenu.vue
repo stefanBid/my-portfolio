@@ -4,7 +4,7 @@ import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
 import type { Component, FunctionalComponent } from 'vue';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel } from '@/hooks';
+import { useSbFloatingPanel } from 'sb-floating-panel-vue';
 import { useStyleStore } from '@/stores';
 
 interface DropdownMenuProps {
@@ -37,11 +37,12 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
 const styleStore = useStyleStore();
 
 // Feature 1: Manage Open <--> Close State
-const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } = useFloatingPanel({
-  placement: 'bottom-start',
-  strategy: props.menuStrategy,
-  offsetValue: 15,
-});
+const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } =
+  useSbFloatingPanel({
+    placement: 'bottom-start',
+    strategy: props.menuStrategy,
+    offsetValue: 15,
+  });
 
 const handleClick = (): void => {
   changeFloatingVisibility(isOpen.value ? false : true);

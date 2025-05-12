@@ -1,7 +1,7 @@
 {
   "name": "my-portfolio",
   "private": true,
-  "version": "5.3.30",
+  "version": "5.3.36",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@floating-ui/vue": "^1.1.6",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
     "@unhead/vue": "^2.0.3",
@@ -27,6 +26,7 @@
     "nanoid": "^5.1.0",
     "pinia": "^3.0.1",
     "prettier": "^3.5.1",
+    "sb-floating-panel-vue": "^0.1.6",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.2",
     "vue-router": "^4.5.0"

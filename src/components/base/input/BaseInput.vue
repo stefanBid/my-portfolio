@@ -5,7 +5,7 @@ import { computed, ref } from 'vue';
 import { nanoid } from 'nanoid';
 
 import { BaseButton } from '@/components';
-import { useFloatingPanel } from '@/hooks';
+import { useSbFloatingPanel } from 'sb-floating-panel-vue';
 import { useStyleStore } from '@/stores';
 
 interface InputProps {
@@ -79,12 +79,13 @@ const inputLabel = computed(() => {
 });
 
 // Feature 2: Manage Input Menu
-const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } = useFloatingPanel({
-  placement: 'bottom',
-  strategy: 'absolute',
-  offsetValue: 15,
-  hasResize: true,
-});
+const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } =
+  useSbFloatingPanel({
+    placement: 'bottom',
+    strategy: 'absolute',
+    offsetValue: 15,
+    hasResize: true,
+  });
 
 const buttonMenuRef = ref();
 const isInputFocused = ref(false);
