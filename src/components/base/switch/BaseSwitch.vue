@@ -39,7 +39,7 @@ const styleStore = useStyleStore();
       </SwitchLabel>
       <Switch
         v-model="enabled"
-        tabindex="0"
+        :tabindex="0"
         :aria-label="props.ariaLabel"
         class="box-border relative inline-flex items-center transition-all duration-300 ease-in-out border-2 border-white rounded-full outline-none cursor-pointer shrink-0 hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm hover:shadow-white/80 focus-visible:shadow-white/80"
         :class="{

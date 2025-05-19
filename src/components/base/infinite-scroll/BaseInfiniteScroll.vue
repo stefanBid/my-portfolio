@@ -103,7 +103,7 @@ onMounted(() => {
   <div
     ref="containerRef"
     v-bind="$attrs"
-    class="relative flex flex-col w-full h-full overflow-y-auto transition-all duration-300 ease-in-out outline-none ring-0 focus-visible:ring-0 scrollbar-gutter-stable focus-visible:outline-none"
+    class="relative flex flex-col w-full h-full overflow-y-auto transition-all duration-300 ease-in-out outline-none ring-0 scrollbar-gutter-stable"
   >
     <!-- Items -->
     <div

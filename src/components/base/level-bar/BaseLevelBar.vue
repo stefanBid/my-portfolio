@@ -58,11 +58,7 @@ const getScore = computed(() => {
 </script>
 
 <template>
-  <div
-    v-bind="$attrs"
-    tabindex="0"
-    class="flex flex-col transition-all duration-300 ease-in-out border border-transparent rounded-md outline-none focus-visible:border-white ring-0 focus-visible:ring-0 focus-visible:outline-none"
-  >
+  <div v-bind="$attrs" class="flex flex-col transition-all duration-300 ease-in-out">
     <span v-if="props.label" :class="[styleStore.textSizeXS]" class="mb-0.5 text-white font-roboto">
       {{ props.label }}
     </span>

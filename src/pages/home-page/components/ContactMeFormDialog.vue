@@ -210,7 +210,7 @@ watch(
                     to="/privacy-policy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:text-sb-tertiary-200"
+                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'
@@ -223,7 +223,7 @@ watch(
                     to="/terms-and-conditions"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:ring-0 focus-visible:outline-none focus-visible:text-sb-tertiary-200"
+                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
                   >
                     {{
                       i18nStore.currentLanguage === 'en'

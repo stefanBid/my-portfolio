@@ -32,8 +32,8 @@ const styleStore = useStyleStore();
     :type="props.type"
     :disabled="props.disabled || props.loading"
     :aria-label="props.ariaLabel"
-    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out outline-none font-roboto ring-0 focus-visible:ring-0"
-    :tabindex="props.disabled || props.loading ? -1 : 0"
+    class="inline-flex items-center justify-center gap-2 transition-all duration-300 ease-in-out outline-none font-roboto ring-0"
+    :tabindex="props.disabled || props.loading ? undefined : 0"
     :class="[
       props.size === 'medium' ? styleStore.textSizeS : undefined,
       props.size === 'small' ? styleStore.textSizeXS : undefined,

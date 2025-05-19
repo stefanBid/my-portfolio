@@ -77,7 +77,7 @@ watch(
 <template>
   <div
     :id="props.skill.id"
-    :tabindex="1"
+    :tabindex="0"
     class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,

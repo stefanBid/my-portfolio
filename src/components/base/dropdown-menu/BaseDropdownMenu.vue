@@ -72,7 +72,7 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
       :reference-ref="context.reference"
       :on-click="() => context.toggle()"
       :aria-label="props.ariaLabel"
-      class="inline-flex items-center gap-2 transition-all duration-300 ease-in-out border-2 rounded-full outline-none focus-visible:outline-none ring-0 focus-visible:ring-0"
+      class="inline-flex items-center gap-2 transition-all duration-300 ease-in-out border-2 rounded-full outline-none ring-0"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           context.isOpen.value,
@@ -138,12 +138,12 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
           :class="[
             styleStore.elementTotalPaddingXS,
             {
-              'bg-sb-secondary-200': selectedOption === op.id,
+              'bg-sb-secondary-200 focus-visible:border-white': selectedOption === op.id,
               'hover:bg-sb-secondary-200/60 focus-visible:bg-sb-secondary-200/60':
                 selectedOption !== op.id,
             },
           ]"
-          class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
+          class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0"
           @keydown.enter="onSelectOption(op.id, op.onClick)"
           @click="onSelectOption(op.id, op.onClick)"
         >

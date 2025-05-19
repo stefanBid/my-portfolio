@@ -171,7 +171,7 @@ watch(
       <!-- Menu Mobile Section -->
       <div
         v-if="isMenuCollapsed"
-        tabindex="0"
+        :tabindex="0"
         class="transition-all duration-300 ease-in-out border border-transparent rounded-md outline-none w-fit h-fit focus-visible:border-white active:rotate-90 ring-0"
         :aria-label="`click for ${isMenuOpen ? 'close' : 'open'} menu`"
         @click.stop="onChangeMenuVisibility(!isMenuOpen)"

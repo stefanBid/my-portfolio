@@ -88,7 +88,7 @@ const i18nStore = useI18nStore();
             :key="social.id"
             :tabindex="0"
             :class="[styleStore.iconSizeS]"
-            class="text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0 focus-visible:ring-0 focus-visible:outline-none"
+            class="text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0"
             @click.stop="openLink(social.value)"
             @keydown.enter.stop="openLink(social.value)"
           />
@@ -122,8 +122,8 @@ const i18nStore = useI18nStore();
           v-for="(link, index) in i18nStore.footerI18nContent.quickLinks.links"
           :key="link.text"
           :to="link.link"
-          tabindex="0"
-          class="text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 focus-visible:ring-0 focus-visible:outline-none font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary"
+          :tabindex="0"
+          class="text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary"
           :class="[
             styleStore.textSizeXS,
             {
@@ -207,8 +207,8 @@ const i18nStore = useI18nStore();
           v-for="(link, index) in i18nStore.footerI18nContent.helpAndSupport.links"
           :key="link.text"
           :to="link.link"
-          tabindex="0"
-          class="text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 focus-visible:ring-0 focus-visible:outline-none font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary"
+          :tabindex="0"
+          class="text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary"
           :class="[
             styleStore.textSizeXS,
             {
@@ -242,8 +242,8 @@ const i18nStore = useI18nStore();
         Designed and Developed by
       </span>
       <div
-        tabindex="0"
-        class="inline-flex items-center text-white transition-all duration-300 ease-in-out cursor-pointer gap-x-1 outline-white outline-offset-0 ring-0 focus-visible:ring-0"
+        :tabindex="0"
+        class="inline-flex items-center text-white transition-all duration-300 ease-in-out cursor-pointer gap-x-1 outline-white ring-0"
         @click.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
         @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
       >

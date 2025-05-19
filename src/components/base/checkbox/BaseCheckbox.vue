@@ -94,18 +94,18 @@ const onCheckboxChange = (event: Event): void => {
       :name="checkboxName"
       type="checkbox"
       :aria-label="props.ariaLabel"
-      tabindex="0"
+      :tabindex="0"
       :class="{
         'opacity-50 cursor-not-allowed': isCheckDisabled,
         'size-[17px] checked:after:w-[11px] checked:after:h-[7px]':
           styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
         'size-4 checked:after:w-2.5 checked:after:h-1.5 ':
           styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-        'focus-visible:shadow-white focus-visible:ring-0 ring-0': !validation?.show,
+        'focus-visible:shadow-white ring-0': !validation?.show,
         'focus-visible:shadow-sb-error ring-sb-error ring-2': validation?.show,
       }"
       :style="{ transform: 'rotateY(180deg)' }"
-      class="bg-white relative border border-white outline-none focus-visible:outline-none focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
+      class="bg-white relative border border-white outline-none focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
       @change.stop.prevent="($event) => onCheckboxChange($event)"
     />
     <slot name="label-content"></slot>

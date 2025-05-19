@@ -25,8 +25,8 @@ const route = useRoute();
       v-for="(routeItem, index) in props.routes"
       :key="index"
       :to="routeItem.path"
-      tabindex="0"
-      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none min-w-24 font-roboto ring-0 focus-visible:ring-0"
+      :tabindex="0"
+      class="inline-flex items-center transition-all duration-300 ease-in-out outline-none min-w-24 font-roboto ring-0"
       :class="[
         styleStore.containerPadding,
         styleStore.textSizeS,
