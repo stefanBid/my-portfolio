@@ -1,8 +1,5 @@
 # Stefano Biddau's Portfolio
 
-[![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nd/4.0/)
-
-
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![YAML](https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515)
@@ -126,5 +123,9 @@ This portfolio includes a fully dynamic and reactive SEO setup using [`@unhead/v
 
 ---
 
-[CC BY-ND 4.0 License](https://creativecommons.org/licenses/by-nd/4.0/) © [Stefano Biddau](https://www.stefano-biddau.com/)
+## License
+
+© 2025 Stefano Biddau. All rights reserved.
+
+This project is not open source. See [LICENSE](./LICENSE) for details and usage restrictions.
 
