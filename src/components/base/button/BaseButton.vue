@@ -78,7 +78,7 @@ const styleStore = useStyleStore();
     </template>
     <component
       :is="props.loading ? ArrowPathIcon : props.icon"
-      class="shrink-0"
+      class="shrink-0 stroke-[2.5px]"
       :class="[
         props.size === 'medium' ? styleStore.iconSizeS : undefined,
         props.size === 'small' ? styleStore.iconSizeXS : undefined,

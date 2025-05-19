@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { ChevronDownIcon } from '@heroicons/vue/24/solid';
+import { ChevronDownIcon } from '@heroicons/vue/24/outline';
 import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
-import type { Component, FunctionalComponent } from 'vue';
-
-import { BaseButton } from '@/components';
-import { useSbFloatingPanel } from 'sb-floating-panel-vue';
+import { ref, type Component, type FunctionalComponent, type Ref } from 'vue';
+import { SbContainer, SbFloating, SbReference } from 'sb-floating-panel-vue';
 import { useStyleStore } from '@/stores';
 
 interface DropdownMenuProps {
+  options: {
+    id: string;
+    label: string;
+    icon?: FunctionalComponent | Component | string;
+    onClick: () => void;
+  }[];
+  defaultStarterOption?: string;
   label?: string;
   icon?: FunctionalComponent | Component | string;
   zIndex?: 'z-sb-base-5' | 'z-sb-dropdown';
@@ -21,6 +26,7 @@ interface DropdownMenuProps {
 }
 
 const props = withDefaults(defineProps<DropdownMenuProps>(), {
+  defaultStarterOption: undefined,
   label: undefined,
   icon: undefined,
   zIndex: 'z-sb-dropdown',
@@ -36,56 +42,56 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
 // Store Declarations
 const styleStore = useStyleStore();
 
-// Feature 1: Manage Open <--> Close State
-const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } =
-  useSbFloatingPanel({
-    placement: 'bottom-start',
-    strategy: props.menuStrategy,
-    offsetValue: 15,
-  });
-
-const handleClick = (): void => {
-  changeFloatingVisibility(isOpen.value ? false : true);
+const createOnIntersectionObserver = (isOpen: Ref<boolean>, close: () => void) => {
+  return ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+    if (!isIntersecting && isOpen.value) {
+      close();
+    }
+  };
 };
 
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (!isIntersecting && isOpen.value) {
-    changeFloatingVisibility(false);
-  }
+const selectedOption = ref<string | undefined>(props.defaultStarterOption);
+
+const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
+  selectedOption.value = optionId;
+  optionOnClick();
 };
 </script>
 
 <template>
-  <div class="w-fit">
-    <BaseButton
-      v-bind="$attrs"
-      ref="reference"
+  <SbContainer :strategy="props.menuStrategy" v-slot="context">
+    <SbReference
       v-intersection-observer="[
-        onIntersectionObserver,
+        createOnIntersectionObserver(context.isOpen, context.close),
         {
           root: props.intersectionObserverSettings.rootElement,
           threshold: props.intersectionObserverSettings.threshold,
           rootMargin: props.intersectionObserverSettings.rootMargin,
         },
       ]"
+      :reference-ref="context.reference"
+      :on-click="() => context.toggle()"
       :aria-label="props.ariaLabel"
-      size="small"
-      variant="custom"
-      class="border-2 rounded-full"
+      class="inline-flex items-center gap-2 transition-all duration-300 ease-in-out border-2 rounded-full outline-none focus-visible:outline-none ring-0 focus-visible:ring-0"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
-          isOpen,
+          context.isOpen.value,
         ' hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
-          !isOpen,
+          !context.isOpen.value,
+        'px-4 py-2':
+          styleStore.activeBreakpoint !== 'md' &&
+          styleStore.activeBreakpoint !== 'sm' &&
+          styleStore.activeBreakpoint !== 'xs',
+        'px-3 py-1.5': styleStore.activeBreakpoint === 'md',
+        'px-2.5 py-1': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
       }"
-      @click.stop="handleClick"
     >
       <span
         v-if="props.label"
         class="transition-all duration-300 ease-in-out"
         :class="{
-          'text-black': isOpen,
-          'text-white ': !isOpen,
+          'text-black': context.isOpen.value,
+          'text-white ': !context.isOpen.value,
         }"
       >
         {{ props.label }}
@@ -93,46 +99,60 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
       <component
         :is="props.icon"
         v-if="props.icon"
-        class="transition-all duration-300 ease-in-out shrink-0"
+        class="transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
         :class="[
           styleStore.iconSizeXS,
           {
-            'text-black': isOpen,
-            'text-white ': !isOpen,
+            'text-black': context.isOpen.value,
+            'text-white ': !context.isOpen.value,
           },
         ]"
       />
       <ChevronDownIcon
-        class="box-content ml-2 transition-all duration-300 ease-in-out border border-transparent shrink-0"
+        class="box-content ml-2 transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
         :class="[
           styleStore.iconSizeXS,
           {
-            'rotate-180 text-black': isOpen,
-            'rotate-0 text-white ': !isOpen,
+            'rotate-180 text-black': context.isOpen.value,
+            'rotate-0 text-white ': !context.isOpen.value,
           },
         ]"
       />
-    </BaseButton>
-    <teleport to="body">
-      <transition name="scale-and-fade-fast">
-        <div
-          v-if="isOpen"
-          ref="floating"
-          v-on-click-outside="[
-            (_: Event) => changeFloatingVisibility(false),
-            { ignore: [reference] },
+    </SbReference>
+    <SbFloating
+      :floating-ref="context.floating"
+      :is-open="context.isOpen.value"
+      :floating-placement="context.floatingPlacement.value"
+      :floating-style="context.floatingStyle.value"
+      :class="[props.zIndex]"
+      class="box-border border-2 rounded-lg shadow-2xl border-sb-secondary-100 bg-sb-secondary-100 shadow-black size-fit"
+    >
+      <div
+        v-on-click-outside="[(_: Event) => context.close(), { ignore: [context.reference] }]"
+        class="flex flex-col p-1.5 w-36 gap-1.5"
+      >
+        <span
+          v-for="op in props.options"
+          :key="op.id"
+          :tabindex="0"
+          :class="[
+            styleStore.elementTotalPaddingXS,
+            {
+              'bg-sb-secondary-200': selectedOption === op.id,
+              'hover:bg-sb-secondary-200/60 focus-visible:bg-sb-secondary-200/60':
+                selectedOption !== op.id,
+            },
           ]"
-          :style="floatingStyles"
-          :class="[props.zIndex]"
-          class="box-border border-2 rounded-lg shadow-2xl border-sb-secondary-100 bg-sb-secondary-100 shadow-black w-fit h-fit"
+          class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
+          @keydown.enter="onSelectOption(op.id, op.onClick)"
+          @click="onSelectOption(op.id, op.onClick)"
         >
-          <slot
-            name="dropdown-section-content"
-            :open-menu="() => changeFloatingVisibility(true)"
-            :close-menu="() => changeFloatingVisibility(false)"
-          ></slot>
-        </div>
-      </transition>
-    </teleport>
-  </div>
+          <component :is="op.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
+          <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
+            {{ op.label }}
+          </span>
+        </span>
+      </div>
+    </SbFloating>
+  </SbContainer>
 </template>

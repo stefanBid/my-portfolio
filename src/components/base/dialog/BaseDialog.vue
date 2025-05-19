@@ -121,7 +121,7 @@ const handleCloseModal = (): void => {
                   size="custom"
                   @click.stop="handleCloseModal"
                 >
-                  <XMarkIcon :class="[styleStore.iconSizeS]" />
+                  <XMarkIcon :class="[styleStore.iconSizeS]" class="stroke-[2.5px]" />
                 </BaseButton>
               </div>
               <slot name="modal-content"></slot>

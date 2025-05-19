@@ -1,17 +1,17 @@
+/* eslint-disable no-console */
 import { HomeIcon } from '@heroicons/vue/24/outline';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseDropdownMenu } from '@/components';
-import { h } from 'vue';
 
 const meta = {
   title: 'Components/Base/DropdownMenu',
   component: BaseDropdownMenu,
   tags: ['autodocs'],
   argTypes: {
-    'dropdown-section-content': {
-      description: 'The default slot content',
+    options: {
+      description: 'The dropdownMenu options',
       control: {
-        type: 'text',
+        type: 'object',
       },
     },
     label: {
@@ -49,12 +49,24 @@ const meta = {
   },
   args: {
     label: 'Menu',
+    options: [
+      {
+        id: 'option1',
+        label: 'Option 1',
+        onClick: () => console.log('Option 1 clicked'),
+      },
+      {
+        id: 'option2',
+        label: 'Option 2',
+        onClick: () => console.log('Option 2 clicked'),
+      },
+      {
+        id: 'option3',
+        label: 'Option 3',
+        onClick: () => console.log('Option 3 clicked'),
+      },
+    ],
     ariaLabel: 'dropdown-button',
-    'dropdown-section-content': h(
-      'div',
-      { class: 'p-2 text-roboto text-white text-sb-sm' },
-      'Dropdown content',
-    ),
   },
 } satisfies Meta<typeof BaseDropdownMenu>;
 
@@ -93,19 +105,5 @@ export const FixedDropdownMenu: Story = {
   args: {
     ...meta.args,
     menuStrategy: 'fixed',
-  },
-};
-
-export const ZIndexDropdownMenu: Story = {
-  args: {
-    ...meta.args,
-    zIndex: 'z-sb-dropdown',
-  },
-};
-
-export const ZIndexBaseDropdownMenu: Story = {
-  args: {
-    ...meta.args,
-    zIndex: 'z-sb-base-5',
   },
 };

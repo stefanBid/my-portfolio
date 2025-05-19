@@ -79,13 +79,12 @@ const inputLabel = computed(() => {
 });
 
 // Feature 2: Manage Input Menu
-const { isOpen, reference, floating, floatingStyles, changeFloatingVisibility } =
-  useSbFloatingPanel({
-    placement: 'bottom',
-    strategy: 'absolute',
-    offsetValue: 15,
-    hasResize: true,
-  });
+const { isOpen, reference, floating, floatingStyle, toggle, close } = useSbFloatingPanel({
+  placement: 'bottom',
+  strategy: 'absolute',
+  offsetValue: 15,
+  hasResize: true,
+});
 
 const buttonMenuRef = ref();
 const isInputFocused = ref(false);
@@ -94,19 +93,19 @@ const handleClick = (): void => {
   if (!props.withMenu) {
     return;
   }
-  changeFloatingVisibility(isOpen.value ? false : true);
+  toggle();
 };
 
 const handleFocusBlur = (focused: boolean): void => {
   isInputFocused.value = focused;
   if (props.withMenu && focused && isOpen.value) {
-    changeFloatingVisibility(false);
+    close();
   }
 };
 
 const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
   if (!isIntersecting && isOpen.value && props.withMenu) {
-    changeFloatingVisibility(false);
+    close();
   }
 };
 </script>
@@ -177,7 +176,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               styleStore.activeBreakpoint !== 'md',
             'pl-2.5 pr-10':
               props.withMenu && props.type === 'search' && styleStore.activeBreakpoint === 'md',
-            'pl-2 pr-9':
+            'pl-2 pr-8':
               props.withMenu &&
               (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
             'py-2.5':
@@ -200,28 +199,26 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         variant="custom"
         size="custom"
         :class="[
-          isInputFocused ? 'text-black border-l-black' : 'text-white',
           {
-            'border-white text-white':
-              !isInputFocused && inputValue.length === 0 && !validation?.show,
-            'border-sb-secondary-100 text-white':
-              !isInputFocused && inputValue.length > 0 && !validation?.show,
-            'border-black text-black': isInputFocused && !validation?.show,
-            'border-sb-error text-white': validation?.show,
-            'px-2':
+            'px-3':
               styleStore.activeBreakpoint !== 'xs' &&
               styleStore.activeBreakpoint !== 'sm' &&
               styleStore.activeBreakpoint !== 'md',
-            'px-1.5': styleStore.activeBreakpoint === 'md',
-            'px-1': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+            'px-2.5': styleStore.activeBreakpoint === 'md',
+            'px-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+            'bg-white text-black border-white': !isInputFocused && isOpen,
+            'bg-transparent text-white hover:bg-white hover:text-black hover:border-white':
+              !isInputFocused && !isOpen,
+            'text-black bg-transparent border-transparent hover:bg-black hover:text-white':
+              isInputFocused,
           },
         ]"
-        class="absolute right-0 h-full -translate-y-1/2 border-2 rounded-r-lg rounded-y-lg focus-visible:border-sb-tertiary-100 w-fit top-1/2"
+        class="absolute right-0 h-full -translate-y-1/2 border rounded-r-lg rounded-y-lg top-1/2 focus-visible:bg-white focus-visible:text-black focus-visible:border-white"
         @click.stop="handleClick"
       >
         <ChevronDownIcon
-          class="transition-all duration-300 ease-in-out"
-          :class="[styleStore.iconSizeS, isOpen ? 'rotate-180' : 'rotate-0']"
+          class="transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
+          :class="[styleStore.iconSizeXS, isOpen ? 'rotate-180' : 'rotate-0']"
         />
       </BaseButton>
     </div>
@@ -230,11 +227,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         <div
           v-if="isOpen"
           ref="floating"
-          v-on-click-outside="[
-            (_: Event) => changeFloatingVisibility(false),
-            { ignore: [reference, buttonMenuRef] },
-          ]"
-          :style="floatingStyles"
+          v-on-click-outside="[(_: Event) => close(), { ignore: [reference, buttonMenuRef] }]"
+          :style="floatingStyle"
           class="absolute border-2 rounded-lg shadow-2xl z-sb-dropdown border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
         >
           <slot name="input-menu-box"></slot>

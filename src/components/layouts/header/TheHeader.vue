@@ -17,16 +17,22 @@ const route = useRoute();
 // Feature 1: Manage Language Options
 const languageOptions = [
   {
-    name: 'it' as Locale,
+    id: 'it' as Locale,
     label: 'Italiano',
     icon: ICONS.ItalyIcon,
+    onClick: () => i18nStore.changeLanguage('it'),
   },
   {
-    name: 'en' as Locale,
+    id: 'en' as Locale,
     label: 'English',
     icon: ICONS.UkIcon,
+    onClick: () => i18nStore.changeLanguage('en'),
   },
 ];
+
+const selectedLanguageIcon = computed(() => {
+  return i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon;
+});
 
 // Feature 2: Manage Header Style
 const isMenuOpen = ref(false);
@@ -150,52 +156,16 @@ watch(
           <!-- Menu -->
           <BaseDropdownMenu
             id="changeLanguageButton"
+            :options="languageOptions"
+            :default-starter-option="i18nStore.currentLanguage"
             menu-strategy="fixed"
             :intersection-observer-settings="{
               rootElement: null,
               threshold: 0.05,
             }"
             aria-label="change Language with this button"
-            :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
-          >
-            <template #dropdown-section-content="{ closeMenu }">
-              <div
-                :class="[styleStore.elementTotalGapXS]"
-                class="flex flex-col break-words whitespace-normal transition-all duration-300 ease-in-out w-36 p-1.5"
-              >
-                <span
-                  v-for="lang in languageOptions"
-                  :key="lang.name"
-                  :tabindex="0"
-                  :class="[
-                    {
-                      'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
-                      'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
-                        i18nStore.currentLanguage !== lang.name,
-                    },
-                  ]"
-                  class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
-                  @keydown.enter="
-                    () => {
-                      i18nStore.changeLanguage(lang.name);
-                      closeMenu();
-                    }
-                  "
-                  @click="
-                    () => {
-                      i18nStore.changeLanguage(lang.name);
-                      closeMenu();
-                    }
-                  "
-                >
-                  <component :is="lang.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
-                  <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
-                    {{ lang.label }}
-                  </span>
-                </span>
-              </div>
-            </template>
-          </BaseDropdownMenu>
+            :icon="selectedLanguageIcon"
+          />
         </div>
       </transition>
       <!-- Menu Mobile Section -->
@@ -238,53 +208,16 @@ watch(
         {{ i18nStore.currentLanguage === 'it' ? 'Cambia lingua' : 'Change Language' }}
         <BaseDropdownMenu
           id="changeLanguageButton"
+          :options="languageOptions"
+          :default-starter-option="i18nStore.currentLanguage"
           menu-strategy="fixed"
           :intersection-observer-settings="{
             rootElement: null,
             threshold: 0.05,
           }"
           aria-label="change Language with this button"
-          :icon="i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon"
-        >
-          <template #dropdown-section-content="{ closeMenu }">
-            <div
-              :class="[styleStore.elementTotalGapXS]"
-              class="flex flex-col break-words whitespace-normal transition-all duration-300 ease-in-out w-36 p-1.5"
-            >
-              <span
-                v-for="lang in languageOptions"
-                :key="lang.name"
-                :tabindex="0"
-                :class="[
-                  styleStore.elementTotalPaddingXS,
-                  {
-                    'bg-sb-secondary-200': i18nStore.currentLanguage === lang.name,
-                    'hover:bg-sb-secondary-200 focus-visible:bg-sb-secondary-200':
-                      i18nStore.currentLanguage !== lang.name,
-                  },
-                ]"
-                class="flex items-center gap-2 p-1.5 transition-all duration-300 ease-in-out border border-transparent rounded-lg cursor-pointer outline-none group ring-0 focus-visible:border-white"
-                @keydown.enter="
-                  () => {
-                    i18nStore.changeLanguage(lang.name);
-                    closeMenu();
-                  }
-                "
-                @click="
-                  () => {
-                    i18nStore.changeLanguage(lang.name);
-                    closeMenu();
-                  }
-                "
-              >
-                <component :is="lang.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
-                <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
-                  {{ lang.label }}
-                </span>
-              </span>
-            </div>
-          </template>
-        </BaseDropdownMenu>
+          :icon="selectedLanguageIcon"
+        />
       </div>
     </div>
   </transition>

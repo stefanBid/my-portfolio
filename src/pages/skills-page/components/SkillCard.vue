@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { PhotoIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
-import { XMarkIcon } from '@heroicons/vue/24/solid';
+import { PhotoIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { computed, ref, watch } from 'vue';
-
 import { SKILL_ICONS } from '@/constants';
 import { BaseLevelBar, BaseButton } from '@/components';
 import type { SkillInfo } from '@/types';
@@ -79,6 +77,7 @@ watch(
 <template>
   <div
     :id="props.skill.id"
+    :tabindex="1"
     class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,
@@ -155,7 +154,7 @@ watch(
           :aria-label="`close ${props.skill.name} details panel`"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
         >
-          <XMarkIcon :class="[styleStore.iconSizeS]" />
+          <XMarkIcon :class="[styleStore.iconSizeXS]" class="stroke-[2.5px]" />
         </BaseButton>
         <div
           :class="[styleStore.elementTotalGapS]"

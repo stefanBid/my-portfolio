@@ -136,7 +136,10 @@ watch(
         }"
         class="inline-flex items-center justify-center w-full gap-2 text-white transition-all duration-300 ease-in-out animate-pulse"
       >
-        <ClipboardDocumentListIcon :class="[styleStore.iconSizeXS]" class="shrink-0" />
+        <ClipboardDocumentListIcon
+          :class="[styleStore.iconSizeXS]"
+          class="shrink-0 stroke-[2.5px]"
+        />
         <span
           :class="[styleStore.textSizeXS]"
           class="text-justify transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"

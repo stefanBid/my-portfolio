@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/vue3';
 import { setup } from '@storybook/vue3';
+import 'sb-floating-panel-vue/style.css';
 import '../src/style/index.css';
 
 import { createPinia } from 'pinia';
