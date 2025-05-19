@@ -18,6 +18,7 @@ type IconName =
   | 'JavaIcon'
   | 'LinkedinIcon'
   | 'MysqlIcon'
+  | 'NpmIcon'
   | 'PythonIcon'
   | 'ReactIcon'
   | 'RocketIcon'
@@ -33,7 +34,8 @@ type ImageName =
   | 'project1Img'
   | 'project2Img'
   | 'project3Img'
-  | 'project4Img';
+  | 'project4Img'
+  | 'project5Img';
 
 type DocName = 'cvDoc';
 type VideoName = 'backgroundCoverVideo';

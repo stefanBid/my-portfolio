@@ -13,6 +13,8 @@ import project3Jpg from '@/assets/images/project3.jpg';
 import project3Webp from '@/assets/images/project3.webp';
 import project4Jpg from '@/assets/images/project4.jpg';
 import project4Webp from '@/assets/images/project4.webp';
+import project5Jpg from '@/assets/images/project5.jpg';
+import project5Webp from '@/assets/images/project5.webp';
 
 import backgroundCover from '@/assets/videos/background-cover.mp4';
 import cv from '@/assets/docs/Stefano-Biddau-CV.pdf';
@@ -27,6 +29,7 @@ export const IMAGES: Record<ImageName, { jpg: string; webp?: string }> = {
   project2Img: { jpg: project2Jpg, webp: project2Webp },
   project3Img: { jpg: project3Jpg, webp: project3Webp },
   project4Img: { jpg: project4Jpg, webp: project4Webp },
+  project5Img: { jpg: project5Jpg, webp: project5Webp },
 };
 
 export const DOCS: Record<DocName, string> = {

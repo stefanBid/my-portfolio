@@ -470,6 +470,13 @@
         "platformIcon": "GithubIcon",
         "codeLink": "https://github.com/stefanBid/Pig-Game",
         "demoLink": "https://stefanbid.github.io/Pig-Game/"
+      },
+      {
+        "id": "5",
+        "title": "(npm library) sb-floating-panel-vue",
+        "imagePath": "project5Img",
+        "platformIcon": "NpmIcon",
+        "codeLink": "https://www.npmjs.com/package/sb-floating-panel-vue"
       }
     ]
   },

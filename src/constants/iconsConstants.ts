@@ -13,6 +13,7 @@ import Js from '@/assets/icons/java-script.svg?component';
 import Java from '@/assets/icons/java.svg?component';
 import Linkedin from '@/assets/icons/linkedin.svg?component';
 import Mysql from '@/assets/icons/mysql.svg?component';
+import Npm from '@/assets/icons/npm.svg?component';
 import Python from '@/assets/icons/python.svg?component';
 import React from '@/assets/icons/react.svg?component';
 import Rocket from '@/assets/icons/rocket.svg?component';
@@ -36,6 +37,7 @@ export const ICONS: Record<IconName, FunctionalComponent> = {
   JavaIcon: Java,
   LinkedinIcon: Linkedin,
   MysqlIcon: Mysql,
+  NpmIcon: Npm,
   PythonIcon: Python,
   ReactIcon: React,
   RocketIcon: Rocket,
