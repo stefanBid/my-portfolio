@@ -1,8 +1,6 @@
 # Stefano Biddau's Portfolio
 
-![Project Logo](https://media.licdn.com/dms/image/v2/D4D16AQGSaW-znd_xGg/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1727295477084?e=1746057600&v=beta&t=HIrH-2Sc7XAME6Zx42DcPttqxP7CjAoI94YyKvlgO18)
-
-Current version: `5.3.36`
+[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
@@ -124,3 +122,7 @@ This portfolio includes a fully dynamic and reactive SEO setup using [`@unhead/v
 - Ready for future Twitter Card and JSON-LD structured data integration.
 
 > The entire SEO system was designed by [Martina Eulogio](https://www.linkedin.com/in/martina-eulogio-/), using a reactive and modular approach deeply integrated with Vue.
+
+---
+
+[CC BY-NC-ND 4.0 License](https://creativecommons.org/licenses/by-nc-nd/4.0/) © [Stefano Biddau](https://www.stefano-biddau.com/)
