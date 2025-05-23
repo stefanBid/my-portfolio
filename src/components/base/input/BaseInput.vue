@@ -206,19 +206,24 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
               styleStore.activeBreakpoint !== 'md',
             'px-2.5': styleStore.activeBreakpoint === 'md',
             'px-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-            'bg-white text-black border-white': !isInputFocused && isOpen,
-            'bg-transparent text-white hover:bg-white hover:text-black hover:border-white':
-              !isInputFocused && !isOpen,
-            'text-black bg-transparent border-transparent hover:bg-black hover:text-white':
-              isInputFocused,
+            'bg-sb-secondary-200': isOpen,
+            'bg-white focus-visible:bg-sb-secondary-100 focus-visible:border-white hover:bg-sb-secondary-100':
+              !isOpen,
           },
         ]"
-        class="absolute right-0 h-full -translate-y-1/2 border rounded-r-lg rounded-y-lg top-1/2 focus-visible:bg-white focus-visible:text-black focus-visible:border-white"
+        class="absolute right-0 h-full -translate-y-1/2 border border-white rounded-r-lg group rounded-y-lg top-1/2"
         @click.stop="handleClick"
       >
         <ChevronDownIcon
           class="transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
-          :class="[styleStore.iconSizeXS, isOpen ? 'rotate-180' : 'rotate-0']"
+          :class="[
+            styleStore.iconSizeXS,
+            isOpen ? 'rotate-180' : 'rotate-0',
+            {
+              'text-white': isOpen,
+              'group-focus-visible:text-white group-hover:text-white text-black': !isOpen,
+            },
+          ]"
         />
       </BaseButton>
     </div>
