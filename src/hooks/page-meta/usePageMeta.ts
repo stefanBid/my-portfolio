@@ -10,8 +10,6 @@ interface UsePageMetaOptions {
 }
 
 export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOptions): void {
-  const defaultAuthor = 'Stefano Biddau';
-  const defaultRobots = 'index, follow';
   const defaultUrl = 'https://www.stefano-biddau.com';
   const defaultImage =
     'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4';
@@ -24,8 +22,8 @@ export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOption
       meta.value.keywords?.length
         ? { name: 'keywords', content: meta.value.keywords.join(', ') }
         : undefined,
-      { name: 'author', content: meta.value.author || defaultAuthor },
-      { name: 'robots', content: meta.value.robots || defaultRobots },
+      { name: 'author', content: meta.value.author },
+      { name: 'robots', content: meta.value.robots },
       meta.value.copyright !== undefined
         ? { name: 'copyright', content: meta.value.copyright }
         : undefined,

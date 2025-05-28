@@ -71,10 +71,10 @@ interface Rating {
 
 interface MetaDescription {
   title: string;
+  author: string;
+  robots: string;
   description?: string;
   keywords?: string[];
-  author?: string;
-  robots?: string;
   copyright?: string;
 }
 
