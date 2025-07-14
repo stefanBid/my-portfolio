@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HomeIcon, WindowIcon } from '@heroicons/vue/24/outline';
+import MdiHomeFlood from '~icons/mdi/home-flood';
 import { useRouter } from 'vue-router';
 
 import { BaseButton } from '@/components';
@@ -38,16 +38,12 @@ usePageMeta({
     >
       {{ i18nStore.notFoundPageI18nContent.secondHeading }}
     </p>
-    <WindowIcon
-      class="transition-all duration-300 ease-in-out text-sb-tertiary-100"
-      :class="[styleStore.iconSizeXXL]"
-    />
 
     <BaseButton
       id="goHomeButton"
       name="go_home_button"
       aria-label="click to go to the home page"
-      :icon="HomeIcon"
+      :icon="MdiHomeFlood"
       @click.stop="() => router.push({ name: i18nStore.notFoundPageI18nContent.goHomeButton.link })"
     >
       {{ i18nStore.notFoundPageI18nContent.goHomeButton.text }}

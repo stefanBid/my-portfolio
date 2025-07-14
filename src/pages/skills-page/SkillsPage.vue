@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { MagnifyingGlassIcon } from '@heroicons/vue/24/outline';
+import MdiRocketLaunch from '~icons/mdi/rocket-launch';
+import MdiClipboardTextSearch from '~icons/mdi/clipboard-text-search';
 import { computed, ref } from 'vue';
-import { ICONS, SKILL_ICONS } from '@/constants';
 import { ThePageContainer, TheDivider, BaseButton, BaseSection } from '@/components';
 import { usePageMeta, useStarEffect } from '@/hooks';
 import { useI18nStore, useStyleStore } from '@/stores';
@@ -25,11 +25,12 @@ usePageMeta({
 });
 
 // Feature 1: Manage Skills for Solar System Component
+
 const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
 const feIcons = computed(() =>
   skillsList.value
     .filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
-    .map((skill) => SKILL_ICONS[skill.icon]),
+    .map((skill) => skill.icon),
 );
 
 const beIcons = computed(() =>
@@ -38,7 +39,7 @@ const beIcons = computed(() =>
       (skill) =>
         skill.type === 'beLanguage' || skill.type === 'beFramework' || skill.type === 'beDb',
     )
-    .map((skill) => SKILL_ICONS[skill.icon]),
+    .map((skill) => skill.icon),
 );
 
 // Feature 2: Manage Modal State
@@ -74,9 +75,8 @@ const changeVisibility = (newVisibility: boolean): void => {
         >
           {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
-        <component
-          :is="ICONS.RocketIcon"
-          class="transition-all duration-300 ease-in-out z-sb-base-1"
+        <MdiRocketLaunch
+          class="transition-all duration-300 ease-in-out z-sb-base-1 text-sb-tertiary-100"
           :class="[
             styleStore.iconSizeXXL,
             {
@@ -95,7 +95,7 @@ const changeVisibility = (newVisibility: boolean): void => {
           name="explore_skills_button"
           aria-label="click to explore skills"
           class="z-sb-base-1 w-fit"
-          :icon="MagnifyingGlassIcon"
+          :icon="MdiClipboardTextSearch"
           @click="changeVisibility(!isModalOpen)"
         >
           {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}

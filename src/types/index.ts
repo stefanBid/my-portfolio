@@ -4,41 +4,6 @@
 type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type NotificationCategory = 'info' | 'success' | 'error';
 type Locale = 'en' | 'it';
-type IconName =
-  | 'AngularIcon'
-  | 'CSharpIcon'
-  | 'CssIcon'
-  | 'GithubIcon'
-  | 'GraphqlIcon'
-  | 'HibernateIcon'
-  | 'HtmlIcon'
-  | 'InstagramIcon'
-  | 'ItalyIcon'
-  | 'JsIcon'
-  | 'JavaIcon'
-  | 'LinkedinIcon'
-  | 'MysqlIcon'
-  | 'NpmIcon'
-  | 'PythonIcon'
-  | 'ReactIcon'
-  | 'RocketIcon'
-  | 'SpringIcon'
-  | 'TsIcon'
-  | 'UkIcon'
-  | 'VueIcon';
-
-type ImageName =
-  | 'logoImg'
-  | 'graduationImg'
-  | 'workstationImg'
-  | 'project1Img'
-  | 'project2Img'
-  | 'project3Img'
-  | 'project4Img'
-  | 'project5Img';
-
-type DocName = 'cvDoc';
-type VideoName = 'backgroundCoverVideo';
 
 interface Notification {
   id: string;
@@ -56,11 +21,17 @@ interface Button {
   text: string;
   link?: string;
 }
+
+interface Image {
+  webp?: string;
+  jpg: string;
+}
+
 interface Section {
   titleHeading: string;
   subTitleHeading: string;
   contentParagraph: string;
-  imagePath?: ImageName;
+  image?: Image;
   imageDescription?: string;
 }
 
@@ -92,8 +63,8 @@ interface FooterContent {
     title: string;
     description: string;
     socials: {
-      id: string;
-      value: string;
+      icon: string;
+      link: string;
     }[];
   };
   quickLinks: {
@@ -106,7 +77,7 @@ interface FooterContent {
   contacts: {
     title: string;
     channels: {
-      id: string;
+      icon: string;
       value: string;
     }[];
   };
@@ -189,7 +160,7 @@ interface Overall {
 interface SkillInfo {
   id: string;
   name: string;
-  icon: IconName;
+  icon: string;
   type: SkillType;
   overAllRating: Overall;
 }
@@ -218,8 +189,8 @@ interface ProjectsPageContent {
   projects: {
     id: string;
     title: string;
-    imagePath: ImageName;
-    platformIcon: IconName;
+    projectCover: Image;
+    platformIcon?: string;
     codeLink: string;
     demoLink?: string;
   }[];
@@ -320,10 +291,7 @@ interface NotFoundPageContent {
 export type {
   Breakpoint,
   Locale,
-  IconName,
-  ImageName,
-  DocName,
-  VideoName,
+  Image,
   Notification,
   NotificationCategory,
   MetaDescription,

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { HomeIcon } from '@heroicons/vue/24/outline';
+
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseDropdownMenu } from '@/components';
 
@@ -82,14 +82,14 @@ export const DefaultDropdownMenu: Story = {
 export const DropdownMenuWithIcon: Story = {
   args: {
     ...meta.args,
-    icon: HomeIcon,
+    icon: 'circle-flags:it',
   },
 };
 
 export const DropdownMenuWithIconAndWithoutLabel: Story = {
   args: {
     ...meta.args,
-    icon: HomeIcon,
+    icon: 'circle-flags:it',
     label: undefined,
   },
 };

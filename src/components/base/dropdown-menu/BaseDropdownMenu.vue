@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+import MdiKeyboardArrowDown from '~icons/mdi/keyboard-arrow-down';
 import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
-import { ref, type Component, type FunctionalComponent, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import { SbContainer, SbFloating, SbReference } from 'sb-floating-panel-vue';
 import { useStyleStore } from '@/stores';
+import { BaseIcon } from '@/components';
 
 interface DropdownMenuProps {
   options: {
     id: string;
     label: string;
-    icon?: FunctionalComponent | Component | string;
+    icon?: string;
     onClick: () => void;
   }[];
   defaultStarterOption?: string;
   label?: string;
-  icon?: FunctionalComponent | Component | string;
+  icon?: string;
   zIndex?: 'z-sb-base-5' | 'z-sb-dropdown';
   menuStrategy?: 'absolute' | 'fixed';
   intersectionObserverSettings?: {
@@ -72,18 +73,18 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
       :reference-ref="context.reference"
       :on-click="() => context.toggle()"
       :aria-label="props.ariaLabel"
-      class="inline-flex items-center gap-2 transition-all duration-300 ease-in-out border-2 rounded-full outline-none ring-0"
+      class="inline-flex items-center gap-2 py-1 transition-all duration-300 ease-in-out border-2 rounded-full outline-none ring-0"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           context.isOpen.value,
         ' hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
           !context.isOpen.value,
-        'px-4 py-2':
+        'px-4':
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-3 py-1.5': styleStore.activeBreakpoint === 'md',
-        'px-2.5 py-1': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+        'px-3': styleStore.activeBreakpoint === 'md',
+        'px-2.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
       }"
     >
       <span
@@ -96,9 +97,9 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
       >
         {{ props.label }}
       </span>
-      <component
-        :is="props.icon"
+      <BaseIcon
         v-if="props.icon"
+        :icon="props.icon"
         class="transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
         :class="[
           styleStore.iconSizeXS,
@@ -108,10 +109,10 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
           },
         ]"
       />
-      <ChevronDownIcon
-        class="box-content ml-2 transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
+      <MdiKeyboardArrowDown
+        class="ml-2 transition-all duration-300 ease-in-out shrink-0"
         :class="[
-          styleStore.iconSizeXS,
+          styleStore.iconSizeS,
           {
             'rotate-180 text-black': context.isOpen.value,
             'rotate-0 text-white ': !context.isOpen.value,
@@ -147,7 +148,12 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
           @keydown.enter="onSelectOption(op.id, op.onClick)"
           @click="onSelectOption(op.id, op.onClick)"
         >
-          <component :is="op.icon" :class="[styleStore.iconSizeXS]" class="shrink-0" />
+          <BaseIcon
+            v-if="op.icon"
+            :icon="op.icon"
+            :class="[styleStore.iconSizeXS]"
+            class="shrink-0"
+          />
           <span :class="[styleStore.textSizeXS]" class="flex-1 text-white text-roboto">
             {{ op.label }}
           </span>

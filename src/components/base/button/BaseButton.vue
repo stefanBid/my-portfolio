@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Component, type FunctionalComponent } from 'vue';
-import { ArrowPathIcon } from '@heroicons/vue/24/outline';
+import SvgSpinnersBlocksShuffle3 from '~icons/svg-spinners/blocks-shuffle-3';
 import { useStyleStore } from '@/stores';
 
 interface BaseButtonProps {
@@ -77,14 +77,11 @@ const styleStore = useStyleStore();
       <slot></slot>
     </template>
     <component
-      :is="props.loading ? ArrowPathIcon : props.icon"
+      :is="props.loading ? SvgSpinnersBlocksShuffle3 : props.icon"
       class="shrink-0 stroke-[2.5px]"
       :class="[
         props.size === 'medium' ? styleStore.iconSizeS : undefined,
         props.size === 'small' ? styleStore.iconSizeXS : undefined,
-        {
-          'animate-spin': props.loading,
-        },
       ]"
     />
   </button>

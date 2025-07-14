@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { IMAGES } from '@/constants';
 import { ThePageContainer, TheDivider, BaseSection } from '@/components';
 import { useI18nStore } from '@/stores';
 import { usePageMeta } from '@/hooks';
@@ -36,8 +35,8 @@ usePageMeta({
           >
             <template #extra-content>
               <VintagePicture
-                v-if="section.imagePath"
-                :image-url="IMAGES[section.imagePath]"
+                v-if="section.image"
+                :image-path="section.image"
                 :text="section.imageDescription"
                 :is-visible="isVisible"
                 :class="{

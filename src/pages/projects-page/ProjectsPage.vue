@@ -4,7 +4,6 @@ import { useI18nStore, useStyleStore } from '@/stores';
 import { computed } from 'vue';
 
 import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
-import { ICONS, IMAGES } from '@/constants';
 import { usePageMeta } from '@/hooks';
 
 // Store Declarations
@@ -66,11 +65,9 @@ usePageMeta({
           >
             <ProjectCard
               :title="project.title"
-              :image-url="IMAGES[project.imagePath]"
-              :code-button-link="{
-                iconCode: ICONS[project.platformIcon],
-                link: project.codeLink,
-              }"
+              :image-path="project.projectCover"
+              :platform-icon="project.platformIcon"
+              :code-button-link="project.codeLink"
               :play-button-link="project.demoLink"
             />
           </TheDivider>

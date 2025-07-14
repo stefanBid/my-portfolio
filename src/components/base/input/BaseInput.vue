@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronDownIcon } from '@heroicons/vue/24/outline';
+import MdiKeyboardArrowDown from '~icons/mdi/keyboard-arrow-down';
 import { vOnClickOutside, vIntersectionObserver } from '@vueuse/components';
 import { computed, ref } from 'vue';
 import { nanoid } from 'nanoid';
@@ -200,24 +200,18 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         size="custom"
         :class="[
           {
-            'px-3':
-              styleStore.activeBreakpoint !== 'xs' &&
-              styleStore.activeBreakpoint !== 'sm' &&
-              styleStore.activeBreakpoint !== 'md',
-            'px-2.5': styleStore.activeBreakpoint === 'md',
-            'px-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
             'bg-sb-secondary-200': isOpen,
             'bg-white focus-visible:bg-sb-secondary-100 focus-visible:border-white hover:bg-sb-secondary-100':
               !isOpen,
           },
         ]"
-        class="absolute right-0 h-full -translate-y-1/2 border border-white rounded-r-lg group rounded-y-lg top-1/2"
+        class="absolute right-0 h-full px-2 border border-white rounded-e-lg group"
         @click.stop="handleClick"
       >
-        <ChevronDownIcon
+        <MdiKeyboardArrowDown
           class="transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
           :class="[
-            styleStore.iconSizeXS,
+            styleStore.iconSizeS,
             isOpen ? 'rotate-180' : 'rotate-0',
             {
               'text-white': isOpen,

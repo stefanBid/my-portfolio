@@ -5,7 +5,7 @@ import { BaseDialog, BaseInput, BaseButton, BaseTextArea, BaseCheckbox } from '@
 import { useContactMeFormValidation } from '@/hooks';
 import { stringPurifier } from '@/utils';
 import { computed, ref, watch } from 'vue';
-import { ClipboardDocumentListIcon } from '@heroicons/vue/24/outline';
+import MdiInformationSlabCircle from '~icons/mdi/information-slab-circle';
 import emailjs from '@emailjs/browser';
 
 interface ContactMeFormDialogProps {
@@ -134,9 +134,9 @@ watch(
             styleStore.activeBreakpoint !== 'sm' &&
             styleStore.activeBreakpoint !== 'md',
         }"
-        class="inline-flex items-center justify-center w-full gap-2 text-white transition-all duration-300 ease-in-out animate-pulse"
+        class="inline-flex items-center justify-center w-full gap-1 text-white transition-all duration-300 ease-in-out animate-pulse"
       >
-        <ClipboardDocumentListIcon
+        <MdiInformationSlabCircle
           :class="[styleStore.iconSizeXS]"
           class="shrink-0 stroke-[2.5px]"
         />

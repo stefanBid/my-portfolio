@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { XMarkIcon, Bars3Icon } from '@heroicons/vue/24/outline';
+import MdiClose from '~icons/mdi/close';
+import MdiHamburgerMenu from '~icons/mdi/hamburger-menu';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { IMAGES, ICONS } from '@/constants';
 import { BaseDropdownMenu, TheSideNavbar, TheInlineNavbar } from '@/components';
 import { useI18nStore, useStyleStore } from '@/stores';
 import type { Locale } from '@/types';
@@ -19,19 +19,19 @@ const languageOptions = [
   {
     id: 'it' as Locale,
     label: 'Italiano',
-    icon: ICONS.ItalyIcon,
+    icon: 'circle-flags:it',
     onClick: () => i18nStore.changeLanguage('it'),
   },
   {
     id: 'en' as Locale,
     label: 'English',
-    icon: ICONS.UkIcon,
+    icon: 'circle-flags:gb',
     onClick: () => i18nStore.changeLanguage('en'),
   },
 ];
 
 const selectedLanguageIcon = computed(() => {
-  return i18nStore.currentLanguage === 'it' ? ICONS.ItalyIcon : ICONS.UkIcon;
+  return i18nStore.currentLanguage === 'it' ? 'circle-flags:it' : 'circle-flags:gb';
 });
 
 // Feature 2: Manage Header Style
@@ -110,7 +110,7 @@ watch(
           @click="onChangeMenuVisibility(false)"
         >
           <img
-            :src="IMAGES.logoImg.jpg"
+            src="/images/logo.png"
             loading="lazy"
             decoding="async"
             alt="logo"
@@ -178,7 +178,7 @@ watch(
         @keydown.enter="onChangeMenuVisibility(!isMenuOpen)"
       >
         <component
-          :is="isMenuOpen ? XMarkIcon : Bars3Icon"
+          :is="isMenuOpen ? MdiClose : MdiHamburgerMenu"
           class="flex-none text-white transition-all duration-300 ease-in-out cursor-pointer"
           :class="[styleStore.iconSizeM]"
         />

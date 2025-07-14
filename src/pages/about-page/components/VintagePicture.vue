@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
+import type { Image } from '@/types';
 
 interface VintagePictureProps {
-  imageUrl: {
-    jpg: string;
-    webp?: string;
-  };
+  imagePath: Image;
   text?: string;
   isVisible?: boolean;
 }
@@ -18,9 +16,6 @@ const props = withDefaults(defineProps<VintagePictureProps>(), {
 
 // Store Declarations
 const styleStore = useStyleStore();
-
-const imageRef = ref<HTMLImageElement | null>(null);
-const isImageLoaded = ref(false);
 
 const getFrameDimension = computed(() => {
   if (styleStore.activeBreakpoint === 'xs') {
@@ -87,14 +82,6 @@ watch(
     }
   },
 );
-
-onMounted(() => {
-  if (imageRef.value) {
-    imageRef.value.onload = () => {
-      isImageLoaded.value = true;
-    };
-  }
-});
 </script>
 
 <template>
@@ -113,17 +100,11 @@ onMounted(() => {
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
-      <picture
-        :class="{ 'opacity-0': !isImageLoaded, 'opacity-100': isImageLoaded }"
-        class="transition-all duration-300 ease-in-out"
-      >
-        <source :srcset="props.imageUrl.webp || undefined" type="image/webp" />
+      <picture class="transition-all duration-300 ease-in-out">
+        <source :srcset="props.imagePath.webp || undefined" type="image/webp" />
         <img
           v-show="!delayedFlip"
-          ref="imageRef"
-          :src="props.imageUrl.jpg"
-          loading="lazy"
-          decoding="async"
+          :src="props.imagePath.jpg"
           :alt="`${props.text} picture`"
           :class="[getPictureDimension]"
           class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"

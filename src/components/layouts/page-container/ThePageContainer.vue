@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronDoubleDownIcon } from '@heroicons/vue/24/solid';
+import MdiChevronDoubleDown from '~icons/mdi/chevron-double-down';
 import { onMounted, ref } from 'vue';
 import { useStyleStore } from '@/stores';
 
@@ -35,21 +35,10 @@ onMounted(() => {
         </h1>
       </transition>
       <transition name="shutter">
-        <ChevronDoubleDownIcon
+        <MdiChevronDoubleDown
           v-if="show"
-          :class="[
-            styleStore.iconSizeL,
-            {
-              'mt-4':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md',
-              'mt-3': styleStore.activeBreakpoint === 'md',
-              'mt-2.5':
-                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-            },
-          ]"
-          class="text-sb-tertiary-100 animate-pulse"
+          :class="[styleStore.iconSizeXXL]"
+          class="transition-all duration-300 ease-in-out text-sb-tertiary-100 animate-pulse"
         />
       </transition>
     </div>

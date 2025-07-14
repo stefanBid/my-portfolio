@@ -1,15 +1,28 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import svgLoader from 'vite-svg-loader';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import Icons from 'unplugin-icons/vite';
+
 import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader()],
+  plugins: [
+    vue(),
+    ViteImageOptimizer({
+      jpeg: { quality: 75 },
+      png: { quality: 80 },
+      webp: { quality: 75 },
+      svg: { multipass: true },
+    }),
+    Icons({
+      compiler: 'vue3',
+      autoInstall: false,
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-  assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png', '**/*.svg', '**/*.pdf', '**/*.mp4'],
+  assetsInclude: ['**/*.svg'],
 });

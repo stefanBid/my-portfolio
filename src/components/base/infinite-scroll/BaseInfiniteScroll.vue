@@ -3,7 +3,7 @@ import { type Component, type FunctionalComponent, computed, onMounted, ref, wat
 import { nanoid } from 'nanoid';
 import { useInfiniteScroll } from '@vueuse/core';
 import { useStyleStore } from '@/stores';
-import { ArchiveBoxXMarkIcon } from '@heroicons/vue/24/outline';
+import MdiArchiveSearch from '~icons/mdi/archive-search';
 
 interface InfiniteScrollProps {
   items: {
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<InfiniteScrollProps>(), {
   elementsLayoutOrganizations: 'flex-wrap',
   noDataSettings: () => ({
     message: 'No data found',
-    icon: ArchiveBoxXMarkIcon,
+    icon: MdiArchiveSearch,
   }),
 });
 

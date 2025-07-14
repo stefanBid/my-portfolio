@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { DocumentArrowDownIcon, EnvelopeIcon } from '@heroicons/vue/24/solid';
+import backgroundCover from '@/assets/videos/background-cover.mp4';
+import MdiCloudDownload from '~icons/mdi/cloud-download';
+import MdiEmailEdit from '~icons/mdi/email-edit';
 import { computed, onMounted, ref } from 'vue';
 import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
-import { DOCS, VIDEOS } from '@/constants';
 import { BaseButton } from '@/components';
 import { useTypingText, usePageMeta } from '@/hooks';
 import { useI18nStore, useStyleStore } from '@/stores';
@@ -48,7 +49,7 @@ const changeVisibility = (falsyValue: boolean): void => {
   <div class="relative w-full h-screen overflow-x-hidden bg-sb-main">
     <!-- Background -->
     <video
-      :src="VIDEOS.backgroundCoverVideo"
+      :src="backgroundCover"
       class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none"
       autoplay
       loop
@@ -148,7 +149,7 @@ const changeVisibility = (falsyValue: boolean): void => {
             name="contact_me_button"
             aria-label="click to open contact me form"
             class="w-full"
-            :icon="EnvelopeIcon"
+            :icon="MdiEmailEdit"
             @click.stop="openContactMeFormDialog"
           >
             {{ i18nStore.homePageI18nContent.contactMeButton.text }}
@@ -166,8 +167,17 @@ const changeVisibility = (falsyValue: boolean): void => {
             name="download_cv_button"
             aria-label="click to download cv"
             class="w-full"
-            :icon="DocumentArrowDownIcon"
-            @click.stop="downloadCv(DOCS.cvDoc, 'CV-Stefano-Biddau.pdf')"
+            :disabled="!i18nStore.homePageI18nContent.downloadCvButton.link"
+            :icon="MdiCloudDownload"
+            @click.stop="
+              () =>
+                i18nStore.homePageI18nContent.downloadCvButton.link
+                  ? downloadCv(
+                      i18nStore.homePageI18nContent.downloadCvButton.link,
+                      'CV-Stefano-Biddau.pdf',
+                    )
+                  : undefined
+            "
           >
             {{ i18nStore.homePageI18nContent.downloadCvButton.text }}
           </BaseButton>

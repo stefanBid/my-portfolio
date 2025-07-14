@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
-import { XMarkIcon } from '@heroicons/vue/24/outline';
+import MdiCloseThick from '~icons/mdi/close-thick';
 
 import { BaseButton } from '@/components';
 import { useStyleStore } from '@/stores';
@@ -121,7 +121,7 @@ const handleCloseModal = (): void => {
                   size="custom"
                   @click.stop="handleCloseModal"
                 >
-                  <XMarkIcon :class="[styleStore.iconSizeS]" class="stroke-[2.5px]" />
+                  <MdiCloseThick :class="[styleStore.iconSizeS]" class="stroke-[2.5px]" />
                 </BaseButton>
               </div>
               <slot name="modal-content"></slot>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useStyleStore } from '@/stores';
 import type { Notification } from '@/types';
-import { InformationCircleIcon, FaceFrownIcon, FaceSmileIcon } from '@heroicons/vue/24/solid';
+import MdiSmileyCool from '~icons/mdi/smiley-cool';
+import MdiSmileyDead from '~icons/mdi/smiley-dead';
+import MdiInformationSlabCircle from '~icons/mdi/information-slab-circle';
+
 import {
   type Component,
   computed,
@@ -24,13 +27,13 @@ const styleStore = useStyleStore();
 const notificationIcon = computed<FunctionalComponent | Component | string>(() => {
   switch (props.notification.type) {
     case 'success':
-      return FaceSmileIcon;
+      return MdiSmileyCool;
     case 'error':
-      return FaceFrownIcon;
+      return MdiSmileyDead;
     case 'info':
-      return InformationCircleIcon;
+      return MdiInformationSlabCircle;
     default:
-      return InformationCircleIcon;
+      return MdiInformationSlabCircle;
   }
 });
 

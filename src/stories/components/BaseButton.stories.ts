@@ -1,4 +1,4 @@
-import { HomeIcon } from '@heroicons/vue/24/outline';
+import MdiAbTesting from '~icons/mdi/ab-testing';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { BaseButton } from '@/components';
 
@@ -106,7 +106,7 @@ export const LoadingButton: Story = {
 export const IconButton: Story = {
   args: {
     ...meta.args,
-    icon: HomeIcon,
+    icon: MdiAbTesting,
   },
 };
 

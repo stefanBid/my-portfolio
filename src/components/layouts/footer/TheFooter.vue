@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CONTACT_CHANNEL_ICONS, IMAGES } from '@/constants';
+import { BaseIcon } from '@/components';
 import { useStyleStore, useI18nStore } from '@/stores';
 import { openLink } from '@/utils';
 
@@ -47,7 +47,7 @@ const i18nStore = useI18nStore();
         <!--Logo-->
         <div id="logo" class="flex items-center gap-2 text-white">
           <img
-            :src="IMAGES.logoImg.jpg"
+            src="/images/logo.png"
             :class="{
               'w-8 h-[38px]':
                 styleStore.activeBreakpoint !== 'xs' &&
@@ -82,15 +82,15 @@ const i18nStore = useI18nStore();
         </p>
         <!--Social Media-->
         <div id="social-media" class="flex gap-4">
-          <component
-            :is="CONTACT_CHANNEL_ICONS[social.id]"
-            v-for="social in i18nStore.footerI18nContent.intro.socials"
-            :key="social.id"
+          <BaseIcon
+            v-for="(social, index) in i18nStore.footerI18nContent.intro.socials"
+            :key="index"
+            :icon="social.icon"
             :tabindex="0"
             :class="[styleStore.iconSizeS]"
             class="text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0"
-            @click.stop="openLink(social.value)"
-            @keydown.enter.stop="openLink(social.value)"
+            @click.stop="openLink(social.link)"
+            @keydown.enter.stop="openLink(social.link)"
           />
         </div>
       </div>
@@ -161,7 +161,7 @@ const i18nStore = useI18nStore();
         <!--Contact Info-->
         <span
           v-for="(channel, index) in i18nStore.footerI18nContent.contacts.channels"
-          :key="channel.id"
+          :key="index"
           :class="[
             styleStore.textSizeXS,
             {
@@ -172,8 +172,8 @@ const i18nStore = useI18nStore();
           ]"
           class="inline-flex items-center text-white transition-all duration-300 ease-in-out font-roboto gap-x-2"
         >
-          <component
-            :is="CONTACT_CHANNEL_ICONS[channel.id]"
+          <BaseIcon
+            :icon="channel.icon"
             :class="[styleStore.iconSizeXS]"
             class="transition-all duration-300 ease-in-out shrink-0"
           />
@@ -248,7 +248,7 @@ const i18nStore = useI18nStore();
         @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
       >
         <img
-          :src="IMAGES.logoImg.jpg"
+          src="/images/logo.png"
           :class="{
             'w-4 h-[19px]':
               styleStore.activeBreakpoint !== 'xs' &&

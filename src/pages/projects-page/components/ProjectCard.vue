@@ -1,25 +1,22 @@
 <script setup lang="ts">
+import { h } from 'vue';
 import { useStyleStore, useI18nStore } from '@/stores';
 import { openLink } from '@/utils';
-import { PlayIcon } from '@heroicons/vue/24/solid';
-import { BaseButton } from '@/components';
-import type { Component, FunctionalComponent } from 'vue';
+import MdiPlayCircle from '~icons/mdi/play-circle';
+import { BaseButton, BaseIcon } from '@/components';
+import type { Image } from '@/types';
 
 interface ProjectCardProps {
   title: string;
-  imageUrl: {
-    jpg: string;
-    webp?: string;
-  };
+  imagePath: Image;
+  platformIcon?: string;
   playButtonLink?: string;
-  codeButtonLink: {
-    iconCode: FunctionalComponent | Component | string;
-    link: string;
-  };
+  codeButtonLink: string;
 }
 
 const props = withDefaults(defineProps<ProjectCardProps>(), {
   playButtonLink: undefined,
+  platformIcon: undefined,
 });
 
 // Store Declarations
@@ -33,16 +30,14 @@ const i18nStore = useI18nStore();
     class="box-border relative flex flex-col items-center justify-center w-full overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none h-72 border-sb-secondary-200 group ring-0 hover:scale-105 focus-visible:scale-105"
   >
     <!--Black Filter-->
-    <div class="absolute inset-0 rounded-md bg-black/40 z-sb-base-2"></div>
+    <div class="absolute inset-0 rounded-md bg-black/60 z-sb-base-2"></div>
     <!--Image-->
     <picture>
-      <source :srcset="props.imageUrl.webp || undefined" type="image/webp" />
+      <source :srcset="props.imagePath.webp || undefined" type="image/webp" />
       <img
-        loading="lazy"
-        decoding="async"
         :alt="`${props.title} project image`"
         class="absolute inset-0 object-cover transition-all duration-300 ease-in-out rounded-md size-full z-sb-base-1 grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0"
-        :src="props.imageUrl.jpg"
+        :src="props.imagePath.jpg"
       />
     </picture>
 
@@ -84,16 +79,17 @@ const i18nStore = useI18nStore();
     >
       <BaseButton
         v-if="props.playButtonLink"
-        size="small"
-        :icon="PlayIcon"
         variant="white"
+        size="small"
+        :icon="MdiPlayCircle"
         @click="() => (props.playButtonLink ? openLink(props.playButtonLink) : null)"
       />
+
       <BaseButton
-        size="small"
-        :icon="props.codeButtonLink.iconCode"
         variant="white"
-        @click="openLink(props.codeButtonLink.link)"
+        size="small"
+        :icon="() => (props.platformIcon ? h(BaseIcon, { icon: props.platformIcon }) : undefined)"
+        @click="openLink(props.codeButtonLink)"
       >
         {{ i18nStore.currentLanguage === 'en' ? 'View Code' : 'Vedi Codice' }}
       </BaseButton>

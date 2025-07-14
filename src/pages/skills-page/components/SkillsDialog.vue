@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CursorArrowRaysIcon } from '@heroicons/vue/24/outline';
+import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
 import { computed, ref, watch } from 'vue';
 
 import {
@@ -167,8 +167,8 @@ watch(
             </template>
           </BaseInput>
         </div>
-        <div class="inline-flex items-center justify-center w-full gap-2 text-white animate-pulse">
-          <CursorArrowRaysIcon :class="[styleStore.iconSizeXS]" class="shrink-0 stroke-[2.5px]" />
+        <div class="inline-flex items-center justify-center w-full gap-1 text-white animate-pulse">
+          <MdiCursorDefaultClick :class="[styleStore.iconSizeXS]" class="shrink-0 stroke-[2.5px]" />
           <span
             :class="[styleStore.textSizeXS]"
             class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"

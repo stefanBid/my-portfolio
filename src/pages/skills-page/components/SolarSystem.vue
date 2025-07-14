@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, markRaw, computed } from 'vue';
-import type { Component, FunctionalComponent } from 'vue';
-
+import { BaseIcon } from '@/components';
 import { useStyleStore } from '@/stores';
 
 interface SkillSolarSystemProps {
   starName: string;
-  planetsIcons: Component[] | FunctionalComponent[] | string[];
+  planetsIcons: string[];
 }
 
 interface Orbits {
@@ -16,7 +15,7 @@ interface Orbits {
   orbitWidth: number;
   orbitSpeed: number;
   planetName: string;
-  planetIcon: Component | FunctionalComponent | string;
+  planetIcon: string;
 }
 
 const props = withDefaults(defineProps<SkillSolarSystemProps>(), {
@@ -50,7 +49,7 @@ const scaleMargin = computed(() => {
 const maxNumberOfPlanets = 6;
 const orbits = ref<Orbits[]>([]);
 
-const createStarSistem = (planets: Component[] | FunctionalComponent[] | string[]): void => {
+const createStarSistem = (planets: string[]): void => {
   const baseSpeed = 12;
   const baseOrbitSize = 100;
   planets.forEach((icon, index) => {
@@ -73,10 +72,7 @@ const createStarSistem = (planets: Component[] | FunctionalComponent[] | string[
 };
 
 onMounted(() => {
-  const icons: Component[] | FunctionalComponent[] | string[] = [...props.planetsIcons] as
-    | Component[]
-    | FunctionalComponent[]
-    | string[];
+  const icons: string[] = [...props.planetsIcons] as string[];
   const randomIcons = icons.sort(() => Math.random() - 0.5).slice(0, maxNumberOfPlanets);
   createStarSistem(randomIcons);
 });
@@ -110,7 +106,7 @@ onMounted(() => {
       <div
         class="absolute top-0 flex items-center justify-center p-1 transform -translate-x-1/2 -translate-y-1/2 left-1/2"
       >
-        <component :is="orbit.planetIcon" class="size-8" />
+        <BaseIcon :icon="orbit.planetIcon" class="size-8" />
       </div>
     </div>
   </div>

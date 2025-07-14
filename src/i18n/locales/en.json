@@ -26,16 +26,16 @@
       "description": "Turning ideas into digital experiences, one line of code at a time.",
       "socials": [
         {
-          "id": "GithubIcon",
-          "value": "https://github.com/stefanBid"
+          "icon": "fa6-brands:github",
+          "link": "https://github.com/stefanBid"
         },
         {
-          "id": "LinkedinIcon",
-          "value": "https://www.linkedin.com/in/stefano-biddau/"
+          "icon": "fa6-brands:linkedin",
+          "link": "https://www.linkedin.com/in/stefano-biddau/"
         },
         {
-          "id": "InstagramIcon",
-          "value": "https://www.instagram.com/stefano_bid/"
+          "icon": "fa6-brands:instagram",
+          "link": "https://www.instagram.com/stefano_bid/"
         }
       ]
     },
@@ -64,11 +64,11 @@
       "title": "Contacts",
       "channels": [
         {
-          "id": "MobileIcon",
+          "icon": "mdi:phone",
           "value": "+39 329 724 7711"
         },
         {
-          "id": "EmailIcon",
+          "icon": "mdi:email",
           "value": "biddau.stefano99@gmail.com"
         }
       ]
@@ -112,7 +112,8 @@
       "text": "Contact me"
     },
     "downloadCvButton": {
-      "text": "Download CV"
+      "text": "Download CV",
+      "link": "/docs/Stefano_Biddau_CV.pdf"
     },
     "contactMeForm": {
       "title": "Contact me",
@@ -162,7 +163,10 @@
         "titleHeading": "From Foundations to Frontier",
         "subTitleHeading": "My Journey in Computer Science",
         "contentParagraph": "My passion for <strong>computer science</strong> and <strong>development</strong> found solid roots during my educational years, starting with my studies at the <strong>P.E. Imbriani State High School</strong> in Avellino, Italy, where I graduated in <strong>July 2018</strong>. Opting for <em>Applied Sciences</em> was a pivotal decision, as it allowed me to deeply explore <strong>mathematics</strong>, <strong>physics</strong>, and <strong>biology</strong>—subjects that honed my analytical thinking and problem-solving abilities. This preparation laid the groundwork for my subsequent university experience at the <strong>University of Salerno</strong> in Fisciano, where I earned a <strong>Bachelor’s Degree in Computer Science</strong> in <strong>December 2022</strong>. During my university journey, I had the opportunity to fully immerse myself in the field of <strong>computer science</strong>, tackling in-depth studies on <strong>programming</strong>, <strong>algorithms</strong>, <strong>operating systems</strong>, and <strong>artificial intelligence</strong>. These studies not only reinforced my passion but also broadened my perspective on the capabilities of <strong>software development</strong> and how <strong>technology</strong> can be used to improve everyday life. The combination of <em>theory and practice</em>, through <em>projects and laboratories</em>, was crucial in developing my <strong>technical skills</strong> and the ability to practically apply the knowledge acquired. Choosing to pursue this career was a natural evolution of my <em>interest</em> and <em>curiosity</em> towards the digital world, pushing me to continuously <strong>explore</strong> and <strong>innovate</strong> in this dynamic and ever-evolving field.",
-        "imagePath": "graduationImg",
+        "image": {
+          "webp": "/images/about-me-images/graduation.webp",
+          "jpg": "/images/about-me-images/graduation.jpg"
+        },
         "imageDescription": "During the exposition of my graduation thesis (December 15, 2023)"
       },
 
@@ -170,7 +174,10 @@
         "titleHeading": "Navigating between Stack",
         "subTitleHeading": "From Internship to Full-Stack Development",
         "contentParagraph": "My professional journey in <strong>computer science</strong> began with an internship at <strong>SI2001</strong> in <strong>Battipaglia, Campania</strong>, which lasted from <strong>November 2022</strong> to <strong>February 2023</strong>. During this period, I acquired skills in developing <strong>distributed applications</strong>, mastering both <strong>back-end</strong> and <strong>front-end</strong> technologies. This experience allowed me to utilize modern and highly demanded technologies in the market, refining my <strong>technical abilities</strong> in a stimulating and dynamic environment. Upon completing my internship, I was hired as a <strong>Full-Stack Developer</strong> by the same company in <strong>March 2023</strong>, a role I continue to hold today. Transitioning from an intern to a full member of the <strong>development team</strong> gave me the opportunity to further deepen my knowledge and <strong>technical skills</strong>, working on more complex and challenging projects. Although the role of a <strong>full-stack developer</strong> requires good versatility across different technologies and frameworks, my passion and main goal remain focused on <strong>front-end development</strong>. I am continually seeking opportunities to excel in this area, convinced that the <em>user interface</em> is not just a matter of <em>aesthetics</em> but a crucial point of contact that defines the <strong>end-user experience</strong>. My aspiration is to become a reference point in the field of <strong>front-end</strong>, bringing continuous <strong>innovation</strong> and <strong>improvements</strong> to the projects I work on. In this journey, my passion for <strong>computer science</strong> continues to guide me towards new <strong>challenges</strong> and <strong>achievements</strong>, with the goal of excelling in every aspect of my work while maintaining a clear focus on the specialization that most excites me.",
-        "imagePath": "workstationImg",
+        "image": {
+          "webp": "/images/about-me-images/workstation.webp",
+          "jpg": "/images/about-me-images/workstation.jpg"
+        },
         "imageDescription": "My remote workstation (2023)"
       }
     ]
@@ -230,7 +237,7 @@
       {
         "id": "1",
         "name": "JavaScript",
-        "icon": "JsIcon",
+        "icon": "devicon:javascript",
         "type": "feLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 9 },
@@ -243,7 +250,7 @@
       {
         "id": "2",
         "name": "TypeScript",
-        "icon": "TsIcon",
+        "icon": "devicon:typescript",
         "type": "feLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8.5 },
@@ -256,7 +263,7 @@
       {
         "id": "3",
         "name": "HTML",
-        "icon": "HtmlIcon",
+        "icon": "devicon:html5",
         "type": "feLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 9 },
@@ -269,7 +276,7 @@
       {
         "id": "4",
         "name": "CSS",
-        "icon": "CssIcon",
+        "icon": "devicon:css3",
         "type": "feLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8.5 },
@@ -282,7 +289,7 @@
       {
         "id": "5",
         "name": "Vue.js",
-        "icon": "VueIcon",
+        "icon": "devicon:vuejs",
         "type": "feFramework",
         "overAllRating": {
           "architectureAndStructure": { "name": "Architecture and Structure", "value": 8.5 },
@@ -295,7 +302,7 @@
       {
         "id": "6",
         "name": "React",
-        "icon": "ReactIcon",
+        "icon": "devicon:react",
         "type": "feFramework",
         "overAllRating": {
           "architectureAndStructure": { "name": "Architecture and Structure", "value": 8 },
@@ -308,7 +315,7 @@
       {
         "id": "7",
         "name": "Angular",
-        "icon": "AngularIcon",
+        "icon": "devicon:angular",
         "type": "feFramework",
         "overAllRating": {
           "architectureAndStructure": { "name": "Architecture and Structure", "value": 7.5 },
@@ -321,7 +328,7 @@
       {
         "id": "8",
         "name": "Java",
-        "icon": "JavaIcon",
+        "icon": "devicon:java",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 7.5 },
@@ -337,7 +344,7 @@
       {
         "id": "9",
         "name": "Python",
-        "icon": "PythonIcon",
+        "icon": "devicon:python",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8 },
@@ -353,7 +360,7 @@
       {
         "id": "10",
         "name": "C#",
-        "icon": "CSharpIcon",
+        "icon": "devicon:csharp",
         "type": "beLanguage",
         "overAllRating": {
           "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 6.5 },
@@ -369,7 +376,7 @@
       {
         "id": "11",
         "name": "Spring",
-        "icon": "SpringIcon",
+        "icon": "devicon:spring",
         "type": "beFramework",
         "overAllRating": {
           "architectureAndStructure": { "name": "Architecture and Structure", "value": 7 },
@@ -382,7 +389,7 @@
       {
         "id": "12",
         "name": "Hibernate",
-        "icon": "HibernateIcon",
+        "icon": "devicon:hibernate",
         "type": "beFramework",
         "overAllRating": {
           "architectureAndStructure": { "name": "Architecture and Structure", "value": 7 },
@@ -395,7 +402,7 @@
       {
         "id": "13",
         "name": "GraphQL",
-        "icon": "GraphqlIcon",
+        "icon": "devicon:apollographql",
         "type": "beDb",
         "overAllRating": {
           "querySkills": { "name": "Query Skills", "value": 7.5 },
@@ -408,7 +415,7 @@
       {
         "id": "14",
         "name": "MySQL",
-        "icon": "MysqlIcon",
+        "icon": "devicon:mysql",
         "type": "beDb",
         "overAllRating": {
           "querySkills": { "name": "Query Skills", "value": 7.5 },
@@ -445,39 +452,54 @@
       {
         "id": "1",
         "title": "Classificazione di Immagini",
-        "imagePath": "project1Img",
-        "platformIcon": "GithubIcon",
+        "projectCover": {
+          "webp": "/images/projects-covers/project1.webp",
+          "jpg": "/images/projects-covers/project1.jpg"
+        },
+        "platformIcon": "fa6-brands:github",
         "codeLink": "https://github.com/stefanBid/Classificazione-Immagini"
       },
       {
         "id": "2",
         "title": "Studio Legale Romano - Website",
-        "imagePath": "project2Img",
-        "platformIcon": "GithubIcon",
+        "projectCover": {
+          "webp": "/images/projects-covers/project2.webp",
+          "jpg": "/images/projects-covers/project2.jpg"
+        },
+        "platformIcon": "fa6-brands:github",
         "codeLink": "https://github.com/stefanBid/studio-legale-romano-website",
         "demoLink": "https://studio-legale-romano.onrender.com"
       },
       {
         "id": "3",
         "title": "Guess my Number",
-        "imagePath": "project3Img",
-        "platformIcon": "GithubIcon",
+        "projectCover": {
+          "webp": "/images/projects-covers/project3.webp",
+          "jpg": "/images/projects-covers/project3.jpg"
+        },
+        "platformIcon": "fa6-brands:github",
         "codeLink": "https://github.com/stefanBid/Guess-My-Number",
         "demoLink": "https://stefanbid.github.io/Guess-My-Number/"
       },
       {
         "id": "4",
         "title": "Pig Game",
-        "imagePath": "project4Img",
-        "platformIcon": "GithubIcon",
+        "projectCover": {
+          "webp": "/images/projects-covers/project4.webp",
+          "jpg": "/images/projects-covers/project4.jpg"
+        },
+        "platformIcon": "fa6-brands:github",
         "codeLink": "https://github.com/stefanBid/Pig-Game",
         "demoLink": "https://stefanbid.github.io/Pig-Game/"
       },
       {
         "id": "5",
         "title": "(npm library) sb-floating-panel-vue",
-        "imagePath": "project5Img",
-        "platformIcon": "NpmIcon",
+        "projectCover": {
+          "webp": "/images/projects-covers/project5.webp",
+          "jpg": "/images/projects-covers/project5.jpg"
+        },
+        "platformIcon": "fa6-brands:npm",
         "codeLink": "https://www.npmjs.com/package/sb-floating-panel-vue"
       }
     ]

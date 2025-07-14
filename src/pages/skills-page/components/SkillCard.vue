@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { PhotoIcon, ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import MdiCloseThick from '~icons/mdi/close-thick';
+import MdiKeyboardArrowRight from '~icons/mdi/keyboard-arrow-right';
+import MdiKeyboardArrowLeft from '~icons/mdi/keyboard-arrow-left';
 import { computed, ref, watch } from 'vue';
-import { SKILL_ICONS } from '@/constants';
-import { BaseLevelBar, BaseButton } from '@/components';
+import { BaseLevelBar, BaseButton, BaseIcon } from '@/components';
 import type { SkillInfo } from '@/types';
 import { useI18nStore, useStyleStore } from '@/stores';
 
@@ -101,8 +102,9 @@ watch(
     >
       {{ props.skill.name }}
     </h4>
-    <component
-      :is="props.skill.icon ? SKILL_ICONS[props.skill.icon] : PhotoIcon"
+    <BaseIcon
+      v-if="props.skill.icon"
+      :icon="props.skill.icon"
       :class="[
         styleStore.iconSizeXL,
         {
@@ -140,12 +142,12 @@ watch(
       >
         <BaseButton
           :class="{
-            'top-4 right-4':
+            'top-5 right-4':
               styleStore.activeBreakpoint !== 'xs' &&
               styleStore.activeBreakpoint !== 'sm' &&
               styleStore.activeBreakpoint !== 'md',
-            'top-3 right-3': styleStore.activeBreakpoint === 'md',
-            'top-2.5 right-2.5':
+            'top-4 right-3': styleStore.activeBreakpoint === 'md',
+            'top-3.5 right-2.5':
               styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
           }"
           class="absolute text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
@@ -154,7 +156,7 @@ watch(
           :aria-label="`close ${props.skill.name} details panel`"
           @click.stop="changeVisibilityOfDetailsPanel(false)"
         >
-          <XMarkIcon :class="[styleStore.iconSizeXS]" class="stroke-[2.5px]" />
+          <MdiCloseThick :class="[styleStore.iconSizeXS]" class="stroke-[2.5px]" />
         </BaseButton>
         <div
           :class="[styleStore.elementTotalGapS]"
@@ -177,7 +179,7 @@ watch(
             variant="white"
             size="small"
             :disabled="paginationIndex === 0"
-            :icon="ChevronLeftIcon"
+            :icon="MdiKeyboardArrowLeft"
             @click.stop="goPrevious"
           />
           <BaseButton
@@ -189,7 +191,7 @@ watch(
                 paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||
               (styleStore.activeBreakpoint === 'xs' && paginationIndex === ratingsKeys.length - 1)
             "
-            :icon="ChevronRightIcon"
+            :icon="MdiKeyboardArrowRight"
             @click.stop="goNext"
           />
         </div>
