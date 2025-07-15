@@ -73,27 +73,30 @@ const onSelectOption = (optionId: string, optionOnClick: () => void): void => {
       :reference-ref="context.reference"
       :on-click="() => context.toggle()"
       :aria-label="props.ariaLabel"
-      class="inline-flex items-center gap-2 py-1 transition-all duration-300 ease-in-out border-2 rounded-full outline-none ring-0"
+      class="inline-flex items-center gap-2 transition-all duration-300 ease-in-out border-2 rounded-full outline-none ring-0"
       :class="{
         'border-sb-tertiary-100 bg-sb-tertiary-100 shadow-sb-ring-sm shadow-sb-tertiary-100/80 ':
           context.isOpen.value,
         ' hover:bg-sb-tertiary-200 hover:border-sb-tertiary-200 bg-sb-secondary-300  border-sb-secondary-200 focus-visible:bg-sb-tertiary-200 focus-visible:border-sb-tertiary-200':
           !context.isOpen.value,
-        'px-4':
+        'px-4 h-8':
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-3': styleStore.activeBreakpoint === 'md',
-        'px-2.5': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+        'px-3 h-7': styleStore.activeBreakpoint === 'md',
+        'px-2.5 h-7': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
       }"
     >
       <span
         v-if="props.label"
-        class="transition-all duration-300 ease-in-out"
-        :class="{
-          'text-black': context.isOpen.value,
-          'text-white ': !context.isOpen.value,
-        }"
+        class="transition-all duration-300 ease-in-out font-roboto"
+        :class="[
+          styleStore.textSizeXS,
+          {
+            'text-black': context.isOpen.value,
+            'text-white ': !context.isOpen.value,
+          },
+        ]"
       >
         {{ props.label }}
       </span>
