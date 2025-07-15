@@ -79,7 +79,7 @@ watch(
   <div
     :id="props.skill.id"
     :tabindex="0"
-    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer bg-sb-secondary-300 border-sb-secondary-200 ring-0"
+    class="relative flex flex-col items-center justify-between overflow-hidden transition-all duration-300 ease-in-out border-2 rounded-lg outline-none cursor-pointer group bg-sb-secondary-300 border-sb-secondary-200 ring-0"
     :class="[
       styleStore.elementTotalPaddingS,
       {
@@ -108,6 +108,9 @@ watch(
       :class="[
         styleStore.iconSizeXL,
         {
+          'grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0 group-active:grayscale-0':
+            !detailsPanelIsOpen,
+          'grayscale-0': detailsPanelIsOpen,
           'text-white': !props.skill.icon,
           'my-4':
             styleStore.activeBreakpoint !== 'xs' &&
@@ -138,7 +141,7 @@ watch(
           'px-2.5 pb-2.5 pt-[43px]':
             styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         }"
-        class="absolute top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-sb-base-2 bg-sb-secondary-200"
+        class="absolute top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-sb-base-2 bg-sb-secondary-300"
       >
         <BaseButton
           :class="{

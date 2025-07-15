@@ -99,7 +99,7 @@ watch(
 <template>
   <header
     :class="[styleStore.containerPadding, getBackgroundByRoute]"
-    class="fixed left-0 w-screen h-20 z-sb-header"
+    class="fixed left-0 w-full h-20 overflow-hidden z-sb-header"
   >
     <div class="flex items-center h-20 p-sb-side gap-x-4">
       <!-- Logo Section-->

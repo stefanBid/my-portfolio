@@ -39,31 +39,31 @@ const styleStore = useStyleStore();
       props.size === 'small' ? styleStore.textSizeXS : undefined,
       {
         'rounded-full': props.variant !== 'custom',
-        'px-6 py-4':
+        'px-6 h-14':
           props.size === 'medium' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-5 py-3': props.size === 'medium' && styleStore.activeBreakpoint === 'md',
-        'px-4 py-2.5':
+        'px-5 h-14': props.size === 'medium' && styleStore.activeBreakpoint === 'md',
+        'px-4 h-12':
           props.size === 'medium' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
-        'px-4 py-2':
+        'px-4 h-8':
           props.size === 'small' &&
           styleStore.activeBreakpoint !== 'md' &&
           styleStore.activeBreakpoint !== 'sm' &&
           styleStore.activeBreakpoint !== 'xs',
-        'px-3 py-1.5': props.size === 'small' && styleStore.activeBreakpoint === 'md',
-        'px-2.5 py-1':
+        'px-3 h-7': props.size === 'small' && styleStore.activeBreakpoint === 'md',
+        'px-2.5 h-7':
           props.size === 'small' &&
           (styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs'),
       },
       {
         'text-white hover:text-black active:text-black focus-visible:text-black bg-sb-secondary-300 border-2 border-sb-secondary-200 hover:bg-sb-tertiary-100 hover:border-sb-tertiary-100  hover:shadow-sb-tertiary-100/80  active:bg-sb-tertiary-200 active:border-sb-tertiary-200 active:shadow-sb-tertiary-200/80 focus-visible:bg-sb-tertiary-100 focus-visible:border-sb-tertiary-100  focus-visible:shadow-sb-tertiary-100/80':
           props.variant === 'tertiary',
-        'text-black hover:text-white active:text-white focus-visible:text-white bg-white border-2 border-white  hover:bg-sb-secondary-100 hover:border-sb-secondary-100  hover:shadow-sb-secondary-100/80  active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80  focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
+        'text-sb-secondary-300 hover:text-white active:text-white focus-visible:text-white bg-white border-2 border-sb-secondary-100 hover:bg-sb-secondary-100 hover:border-sb-secondary-100 hover:shadow-sb-secondary-100/80 active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80 focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80':
           props.variant === 'white',
         'hover:shadow-sb-ring-sm focus-visible:shadow-sb-ring-sm active:shadow-sb-ring-sm':
           props.variant !== 'custom' && props.size === 'small',
