@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SvgSpinnersBlocksShuffle3 from '~icons/svg-spinners/blocks-shuffle-3';
+import SvgSpinnersRingResize from '~icons/svg-spinners/ring-resize';
 </script>
 
 <template>
@@ -8,6 +8,6 @@ import SvgSpinnersBlocksShuffle3 from '~icons/svg-spinners/blocks-shuffle-3';
     role="alert"
     aria-live="assertive"
   >
-    <SvgSpinnersBlocksShuffle3 class="w-32 h-32 text-sb-tertiary-100 animate-pulse" />
+    <SvgSpinnersRingResize class="w-32 h-32 text-sb-tertiary-100 animate-pulse" />
   </div>
 </template>

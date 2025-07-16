@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Component, type FunctionalComponent } from 'vue';
-import SvgSpinnersBlocksShuffle3 from '~icons/svg-spinners/blocks-shuffle-3';
+import SvgSpinnersRingResize from '~icons/svg-spinners/ring-resize';
 import { useStyleStore } from '@/stores';
 
 interface BaseButtonProps {
@@ -77,7 +77,7 @@ const styleStore = useStyleStore();
       <slot></slot>
     </template>
     <component
-      :is="props.loading ? SvgSpinnersBlocksShuffle3 : props.icon"
+      :is="props.loading ? SvgSpinnersRingResize : props.icon"
       class="shrink-0 stroke-[2.5px]"
       :class="[
         props.size === 'medium' ? styleStore.iconSizeS : undefined,
