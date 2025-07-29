@@ -115,18 +115,14 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
     <label
       v-if="props.label"
       :for="inputId"
-      :tabindex="0"
       :class="[
         styleStore.textSizeXS,
         {
-          'text-white hover:text-shadow-luminous focus-visible:text-shadow-luminous':
-            !props.validation?.show,
-          'text-sb-error hover:text-shadow-luminous-error focus-visible:text-shadow-luminous-error':
-            props.validation?.show,
+          'text-white hover:text-shadow-luminous': !props.validation?.show,
+          'text-sb-error hover:text-shadow-luminous-error ': props.validation?.show,
         },
       ]"
-      class="mb-1 font-medium transition-all duration-300 ease-in-out outline-none cursor-pointer font-roboto w-fit ring-0"
-      @keydown.enter.stop.prevent="() => reference?.focus()"
+      class="mb-1 font-medium transition-all duration-300 ease-in-out cursor-pointer font-roboto w-fit"
       @click.stop.prevent="() => reference?.focus()"
     >
       {{ inputLabel }}
