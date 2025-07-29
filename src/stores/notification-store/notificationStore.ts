@@ -6,8 +6,14 @@ import { nanoid } from 'nanoid';
 export const useNotificationStore = defineStore('notification', () => {
   // Reactive state for notification
   const notifications = ref<Notification[]>([]);
+  const timeoutIds = new Map<string, ReturnType<typeof setTimeout>>();
 
   const removeNotification = (notificationId: string): void => {
+    const timeout = timeoutIds.get(notificationId);
+    if (timeout) {
+      clearTimeout(timeout);
+      timeoutIds.delete(notificationId);
+    }
     notifications.value = notifications.value.filter((n) => n.id !== notificationId);
   };
   const pushNotification = (
@@ -24,9 +30,11 @@ export const useNotificationStore = defineStore('notification', () => {
       visibilityDuration: duration,
     });
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       removeNotification(notificationId);
     }, duration);
+
+    timeoutIds.set(notificationId, timeout);
   };
 
   return {

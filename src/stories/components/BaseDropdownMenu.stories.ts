@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { BaseDropdownMenu } from '@/components';
 
 const meta = {

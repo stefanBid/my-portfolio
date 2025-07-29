@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
-import { computed, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 
 import {
   TheDivider,
@@ -86,15 +86,23 @@ watch(
   },
 );
 
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 watch(
   () => searchSkillKey.value,
   (newValue) => {
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       debouncedSearchSkillKey.value = newValue;
     }, 300);
   },
   {},
 );
+
+onUnmounted(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+});
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import { useStyleStore } from '@/stores';
 import type { Image } from '@/types';
 
@@ -59,16 +59,21 @@ const stackStyles = computed(() => {
 
 const flip = ref(false);
 const delayedFlip = ref(false);
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 const flipPicture = (): void => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+
   if (!flip.value) {
     flip.value = true;
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       delayedFlip.value = true;
     }, 100);
   } else {
     flip.value = false;
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       delayedFlip.value = false;
     }, 100);
   }
@@ -82,6 +87,12 @@ watch(
     }
   },
 );
+
+onUnmounted(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+});
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 // useTypingText.ts
 
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type { Ref } from 'vue';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -8,6 +8,7 @@ export function useTypingText(listOfWord: Ref<string[]>) {
   const currentTxt = ref('');
   const currentTextIndex = ref(0);
   const addingText = ref(true);
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
   // Functon to create a typing effect
   const typeWriterEffect = (): void => {
@@ -18,11 +19,11 @@ export function useTypingText(listOfWord: Ref<string[]>) {
           0,
           currentTxt.value.length + 1,
         );
-        setTimeout(typeWriterEffect, 70);
+        timeoutId = setTimeout(typeWriterEffect, 70);
       } else {
         // If we have finished adding text
         addingText.value = false;
-        setTimeout(typeWriterEffect, 700);
+        timeoutId = setTimeout(typeWriterEffect, 700);
       }
     } else {
       // If we are removing text
@@ -31,18 +32,24 @@ export function useTypingText(listOfWord: Ref<string[]>) {
           0,
           currentTxt.value.length - 1,
         );
-        setTimeout(typeWriterEffect, 70);
+        timeoutId = setTimeout(typeWriterEffect, 70);
       } else {
         // If we have finished removing text
         addingText.value = true;
         currentTextIndex.value = (currentTextIndex.value + 1) % listOfWord.value.length;
-        setTimeout(typeWriterEffect, 300);
+        timeoutId = setTimeout(typeWriterEffect, 300);
       }
     }
   };
 
   onMounted(() => {
     typeWriterEffect();
+  });
+
+  onUnmounted(() => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
   });
 
   return { currentTxt };

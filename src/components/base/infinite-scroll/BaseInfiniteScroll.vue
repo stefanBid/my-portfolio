@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { type Component, type FunctionalComponent, computed, onMounted, ref, watch } from 'vue';
+import {
+  type Component,
+  type FunctionalComponent,
+  computed,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue';
 import { nanoid } from 'nanoid';
 import { useInfiniteScroll } from '@vueuse/core';
 import { useStyleStore } from '@/stores';
@@ -42,6 +50,8 @@ const visibleItems = ref<{ id: string; item: any }[]>([]);
 const containerRef = ref<HTMLElement | null>(null);
 const isLoading = ref(false);
 
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 const showLoader = computed(() => {
   return isLoading.value && visibleItems.value.length !== props.items.length;
 });
@@ -51,9 +61,13 @@ const loadMoreItems = (): void => {
     return; // Stop se già in caricamento o tutti gli elementi sono stati caricati
   }
 
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+
   isLoading.value = true;
 
-  setTimeout(() => {
+  timeoutId = setTimeout(() => {
     const currentLength = visibleItems.value.length;
     const nextItems = props.items
       .slice(currentLength, currentLength + props.batchSize)
@@ -95,6 +109,12 @@ onMounted(() => {
       id: nanoid(),
       item,
     }));
+  }
+});
+
+onUnmounted(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
   }
 });
 </script>
