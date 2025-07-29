@@ -24,5 +24,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
   assetsInclude: ['**/*.svg'],
 });
