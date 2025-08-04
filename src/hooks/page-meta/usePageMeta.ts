@@ -10,7 +10,7 @@ interface UsePageMetaOptions {
 }
 
 export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOptions): void {
-  const defaultUrl = 'https://www.stefano-biddau.com';
+  const defaultUrl = 'https://stefanobiddau.com/';
   const defaultImage =
     'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4';
 

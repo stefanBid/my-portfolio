@@ -19,7 +19,7 @@ const { stars, starsContainerStyle } = useStarEffect(150);
 usePageMeta({
   meta: computed(() => i18nStore.skillsPageI18nContent.metaDescription),
   currentLang: computed(() => i18nStore.currentLanguage),
-  url: 'https://www.stefano-biddau.com',
+  url: 'https://stefanobiddau.com/skills',
   image:
     'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
 });

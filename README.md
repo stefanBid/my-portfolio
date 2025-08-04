@@ -15,7 +15,7 @@
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
 ![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
 
-Visit the live site [here](https://www.stefano-biddau.com/)
+Visit the live site [here](https://stefanobiddau.com/)
 
 Visit the live storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
 
