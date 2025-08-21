@@ -1,19 +1,10 @@
 <script setup lang="ts">
-import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
+import type { SkillInfo } from '@/types';
 import { computed, onUnmounted, ref, watch } from 'vue';
-
-import {
-  TheDivider,
-  BaseDialog,
-  BaseInput,
-  BaseSwitch,
-  BaseInfiniteScroll,
-  SkillCardSkeleton,
-} from '@/components';
-import { useI18nStore, useStyleStore } from '@/stores';
-import type { SkillInfo, SkillType } from '@/types';
-
+import { TheDivider, BaseDialog, BaseInput, BaseSwitch } from '@/components';
 import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
+import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
+import { useI18nStore, useStyleStore } from '@/stores';
 
 interface SkillsModalProps {
   isModalOpen: boolean;
@@ -21,6 +12,7 @@ interface SkillsModalProps {
 }
 
 const props = defineProps<SkillsModalProps>();
+const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Store Declarations
 const styleStore = useStyleStore();
@@ -30,7 +22,7 @@ const i18nStore = useI18nStore();
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
 
-const filters = ref<Record<SkillType, boolean>>({
+const filters = ref<Record<string, boolean>>({
   feLanguage: true,
   beLanguage: true,
   feFramework: true,
@@ -38,7 +30,7 @@ const filters = ref<Record<SkillType, boolean>>({
   beDb: true,
 });
 
-const getFiltersLabel = computed<Record<SkillType, string>>(() => {
+const getFiltersLabel = computed<Record<string, string>>(() => {
   if (i18nStore.currentLanguage === 'en') {
     return {
       feLanguage: 'Show Frontend Language',
@@ -184,18 +176,32 @@ onUnmounted(() => {
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
         </div>
-        <BaseInfiniteScroll
-          :items="filteredSkillsList"
-          :initial-count="6"
-          :batch-size="3"
-          :no-data-message="
-            i18nStore.currentLanguage === 'en'
-              ? 'No skills found !'
-              : 'Nessuna competenza trovata !'
-          "
+        <div
+          ref="skillContainerRef"
+          class="relative flex flex-col w-full h-full overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
         >
-          <template #default="{ item: skill, containerRootRef: skillContainerRef }">
+          <div
+            v-if="filteredSkillsList.length > 0"
+            class="grid transition-all duration-300 ease-in-out"
+            :class="[
+              styleStore.elementTotalPaddingM,
+              styleStore.elementTotalGapM,
+              {
+                'grid-cols-1':
+                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                'grid-cols-2':
+                  styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
+                'grid-cols-3':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md' &&
+                  styleStore.activeBreakpoint !== 'lg',
+              },
+            ]"
+          >
             <TheDivider
+              v-for="skill in filteredSkillsList"
+              :key="skill.id"
               :intersection-observer-settings="{
                 rootElement: skillContainerRef,
                 threshold: 0.25,
@@ -204,29 +210,34 @@ onUnmounted(() => {
             >
               <SkillCard :skill="skill" />
             </TheDivider>
-          </template>
-          <template #loading-section>
-            <div
-              :class="[
-                styleStore.elementTotalGapM,
-                {
-                  'grid-cols-1':
-                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                  'grid-cols-2':
-                    styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
-                  'grid-cols-3':
-                    styleStore.activeBreakpoint !== 'xs' &&
-                    styleStore.activeBreakpoint !== 'sm' &&
-                    styleStore.activeBreakpoint !== 'md' &&
-                    styleStore.activeBreakpoint !== 'lg',
-                },
-              ]"
-              class="grid"
-            >
-              <SkillCardSkeleton v-for="_ in 3" />
-            </div>
-          </template>
-        </BaseInfiniteScroll>
+          </div>
+          <span
+            v-else
+            :class="[
+              styleStore.textSizeL,
+              {
+                'mt-4':
+                  styleStore.activeBreakpoint !== 'xs' &&
+                  styleStore.activeBreakpoint !== 'sm' &&
+                  styleStore.activeBreakpoint !== 'md',
+                'mt-3': styleStore.activeBreakpoint === 'md',
+                'mt-2.5':
+                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
+              },
+            ]"
+            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas"
+          >
+            {{
+              i18nStore.currentLanguage === 'en'
+                ? 'No skills found for "'
+                : 'Nessuna competenza trovata per "'
+            }}
+            <span :class="[styleStore.textSizeL]" class="underline text-sb-tertiary-200">
+              {{ debouncedSearchSkillKey }}
+            </span>
+            "
+          </span>
+        </div>
       </div>
     </template>
   </BaseDialog>

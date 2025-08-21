@@ -9,11 +9,11 @@ interface Range {
 
 interface BaseLevelBarProps {
   level: number;
-  scale?: 'decimal' | 'percentage';
+  scale?: '5-base' | '10-base' | 'percentage';
   label?: string;
 }
 const props = withDefaults(defineProps<BaseLevelBarProps>(), {
-  scale: 'decimal',
+  scale: '5-base',
   label: undefined,
 });
 
@@ -27,9 +27,13 @@ const RANGE_MAP: Record<string, Range> = {
     min: 0,
     max: 100,
   },
-  decimal: {
+  '10-base': {
     min: 0,
     max: 10,
+  },
+  '5-base': {
+    min: 0,
+    max: 5,
   },
 };
 

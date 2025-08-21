@@ -3,11 +3,13 @@ import CircleFlagsGb from '~icons/circle-flags/gb';
 
 import DeviconJavascript from '~icons/devicon/javascript';
 import DeviconTypescript from '~icons/devicon/typescript';
+import DeviconDart from '~icons/devicon/dart';
 import DeviconHtml5 from '~icons/devicon/html5';
 import DeviconCss3 from '~icons/devicon/css3';
 import DeviconVuejs from '~icons/devicon/vuejs';
 import DeviconReact from '~icons/devicon/react';
 import DeviconAngular from '~icons/devicon/angular';
+import DeviconFlutter from '~icons/devicon/flutter';
 import DeviconJava from '~icons/devicon/java';
 import DeviconPython from '~icons/devicon/python';
 import DeviconCsharp from '~icons/devicon/csharp';
@@ -31,11 +33,14 @@ export const ICONS_MAP = {
   // Language icons
   'devicon:javascript': DeviconJavascript,
   'devicon:typescript': DeviconTypescript,
+  'devicon:dart': DeviconDart,
   'devicon:html5': DeviconHtml5,
   'devicon:css3': DeviconCss3,
   'devicon:vuejs': DeviconVuejs,
   'devicon:react': DeviconReact,
   'devicon:angular': DeviconAngular,
+  'devicon:flutter': DeviconFlutter,
+
   'devicon:java': DeviconJava,
   'devicon:python': DeviconPython,
   'devicon:csharp': DeviconCsharp,

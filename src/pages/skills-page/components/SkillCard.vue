@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue';
 import MdiCloseThick from '~icons/mdi/close-thick';
+import FluentEmojiFlatSportsMedal from '~icons/fluent-emoji-flat/sports-medal';
 import MdiKeyboardArrowRight from '~icons/mdi/keyboard-arrow-right';
 import MdiKeyboardArrowLeft from '~icons/mdi/keyboard-arrow-left';
-import { computed, ref, watch } from 'vue';
+import SkillDots from '@/pages/skills-page/components/SkillDots.vue';
 import { BaseLevelBar, BaseButton, BaseIcon } from '@/components';
 import type { SkillInfo } from '@/types';
 import { useI18nStore, useStyleStore } from '@/stores';
@@ -18,9 +20,7 @@ const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 const detailsPanelIsOpen = ref(false);
-const ratingsKeys = ref(
-  Object.keys(props.skill.overAllRating) as Array<keyof typeof props.skill.overAllRating>,
-);
+
 const paginationIndex = ref(0);
 
 const changeVisibilityOfDetailsPanel = (newVisibility: boolean): void => {
@@ -32,26 +32,25 @@ const changeVisibilityOfDetailsPanel = (newVisibility: boolean): void => {
 };
 
 const getSkillValutationAverage = computed(() => {
-  const total = ratingsKeys.value.reduce((acc, key) => {
-    const ratingValue = props.skill.overAllRating[key]?.value ?? 0;
-    return acc + ratingValue;
+  const total = props.skill.stats.reduce((acc, stat) => {
+    return acc + (stat.value ?? 0);
   }, 0);
-  const average = total / 5;
-  return average.toFixed(1);
+  const average = total / props.skill.stats.length;
+  return Number(average.toFixed(1));
 });
 
 const getPaginatedSkillRating = computed(() => {
   if (styleStore.activeBreakpoint === 'xs') {
-    return ratingsKeys.value.slice(paginationIndex.value, paginationIndex.value + 1);
+    return props.skill.stats.slice(paginationIndex.value, paginationIndex.value + 1);
   }
-  return ratingsKeys.value.slice(paginationIndex.value * 2, (paginationIndex.value + 1) * 2);
+  return props.skill.stats.slice(paginationIndex.value * 2, (paginationIndex.value + 1) * 2);
 });
 
 const goNext = (): void => {
   if (
     (styleStore.activeBreakpoint !== 'xs' &&
-      paginationIndex.value === Math.ceil(ratingsKeys.value.length / 2) - 1) ||
-    (styleStore.activeBreakpoint === 'xs' && paginationIndex.value === ratingsKeys.value.length - 1)
+      paginationIndex.value === Math.ceil(props.skill.stats.length / 2) - 1) ||
+    (styleStore.activeBreakpoint === 'xs' && paginationIndex.value === props.skill.stats.length - 1)
   ) {
     return;
   }
@@ -96,6 +95,22 @@ watch(
     @keydown.enter="changeVisibilityOfDetailsPanel(true)"
     @click="changeVisibilityOfDetailsPanel(true)"
   >
+    <FluentEmojiFlatSportsMedal
+      v-if="props.skill.mastered"
+      :class="[
+        styleStore.iconSizeM,
+        {
+          '-top-[12px] -left-[16px]':
+            styleStore.activeBreakpoint !== 'xs' &&
+            styleStore.activeBreakpoint !== 'sm' &&
+            styleStore.activeBreakpoint !== 'md',
+          '-top-[10px] -left-[13px]': styleStore.activeBreakpoint === 'md',
+          '-top-[8px] -left-[9px]':
+            styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+        },
+      ]"
+      class="fixed text-sb-tertiary-200 z-sb-base-3 -rotate-12"
+    />
     <h4
       :class="[styleStore.textSizeM]"
       class="font-medium text-white transition-all duration-300 ease-in-out z-sb-base-3 font-roboto"
@@ -108,9 +123,6 @@ watch(
       :class="[
         styleStore.iconSizeXL,
         {
-          'grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0 group-active:grayscale-0':
-            !detailsPanelIsOpen,
-          'grayscale-0': detailsPanelIsOpen,
           'text-white': !props.skill.icon,
           'my-4':
             styleStore.activeBreakpoint !== 'xs' &&
@@ -122,12 +134,13 @@ watch(
       ]"
       class="transition-all duration-300 ease-in-out shrink-0"
     />
-    <span :class="[styleStore.textSizeS]" class="text-center text-white font-roboto">
-      {{ i18nStore.currentLanguage === 'en' ? 'Skill level: ' : 'Livello di competenza: ' }}
-      <span :class="[styleStore.textSizeM]" class="font-medium">{{
-        getSkillValutationAverage
-      }}</span>
-    </span>
+    <div
+      :class="[styleStore.textSizeS]"
+      class="flex flex-col gap-1.5 text-white font-roboto items-center"
+    >
+      {{ i18nStore.currentLanguage === 'en' ? 'Skill level' : 'Livello di competenza' }}
+      <SkillDots :value="getSkillValutationAverage" />
+    </div>
 
     <transition name="slide-fade">
       <div
@@ -167,10 +180,10 @@ watch(
         >
           <BaseLevelBar
             v-for="rating in getPaginatedSkillRating"
-            :key="rating"
-            scale="decimal"
-            :label="props.skill.overAllRating[rating]?.name ?? ''"
-            :level="props.skill.overAllRating[rating]?.value ?? 0"
+            :key="rating.name"
+            scale="5-base"
+            :label="rating.name ?? ''"
+            :level="rating.value ?? 0"
           />
         </div>
         <div
@@ -191,8 +204,9 @@ watch(
             size="small"
             :disabled="
               (styleStore.activeBreakpoint !== 'xs' &&
-                paginationIndex === Math.ceil(ratingsKeys.length / 2) - 1) ||
-              (styleStore.activeBreakpoint === 'xs' && paginationIndex === ratingsKeys.length - 1)
+                paginationIndex === Math.ceil(props.skill.stats.length / 2) - 1) ||
+              (styleStore.activeBreakpoint === 'xs' &&
+                paginationIndex === props.skill.stats.length - 1)
             "
             :icon="MdiKeyboardArrowRight"
             @click.stop="goNext"

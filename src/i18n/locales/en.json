@@ -235,195 +235,376 @@
     },
     "skillsList": [
       {
-        "id": "1",
+        "id": "a903c9ec-99bb-4463-9469-461a53276c12",
         "name": "JavaScript",
         "icon": "devicon:javascript",
         "type": "feLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 9 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 8.5 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 8 },
-          "renderingAndInteractivity": { "name": "Rendering and Interactivity", "value": 8.5 },
-          "practicalExperience": { "name": "Practical Experience", "value": 9 }
-        }
+        "stats": [
+          { "name": "Syntax and Fundamentals (ES6+)", "value": 4 },
+          { "name": "DOM Manipulation", "value": 4.5 },
+          { "name": "Asynchronous Functions (Promises/Async-Await)", "value": 4.5 },
+          { "name": "Error Handling", "value": 4.5 },
+          { "name": "Patterns and Best Practices", "value": 5 },
+          { "name": "Functional Programming", "value": 4 },
+          { "name": "Object-Oriented Programming (Prototype/Classes)", "value": 4.5 },
+          { "name": "Tooling (npm, bundler, transpiler)", "value": 5 },
+          { "name": "Testing (Jest, Vitest, Mocha)", "value": 5 },
+          { "name": "Performance and Optimization", "value": 5 },
+          { "name": "Security (XSS, CSRF, Injection)", "value": 5 },
+          { "name": "Cross-Browser Compatibility", "value": 4.5 },
+          { "name": "Ecosystem and Libraries (React, Vue, etc.)", "value": 5 }
+        ]
       },
       {
-        "id": "2",
+        "id": "40df0205-9812-497e-b054-e6316b03d79b",
         "name": "TypeScript",
         "icon": "devicon:typescript",
         "type": "feLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8.5 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 8 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 7.5 },
-          "renderingAndInteractivity": { "name": "Rendering and Interactivity", "value": 8 },
-          "practicalExperience": { "name": "Practical Experience", "value": 8 }
-        }
+        "mastered": true,
+        "stats": [
+          { "name": "Basic Typing", "value": 5 },
+          { "name": "Advanced Interfaces and Types", "value": 5 },
+          { "name": "Classes and Object-Oriented Programming", "value": 5 },
+          { "name": "Generics", "value": 4.5 },
+          { "name": "Union, Intersection and Conditional Types", "value": 4.5 },
+          { "name": "Utility Types (Partial, Pick, etc.)", "value": 5 },
+          { "name": "Type Narrowing (type guards, instanceof, in)", "value": 4.5 },
+          { "name": "Decorators", "value": 5 },
+          { "name": "Modules and Namespaces Management", "value": 5 },
+          { "name": "tsconfig Configuration", "value": 4.5 },
+          { "name": "Integration with JavaScript Libraries", "value": 5 },
+          { "name": "Debugging and Tooling", "value": 5 },
+          { "name": "Best Practices and Code Maintainability", "value": 5 }
+        ]
       },
       {
-        "id": "3",
+        "id": "524af268-3fda-44a9-9d22-13108f0cee4b",
+        "name": "Dart",
+        "icon": "devicon:dart",
+        "type": "feLanguage",
+        "stats": [
+          { "name": "Syntax and Fundamentals (variables, types, operators)", "value": 3 },
+          { "name": "Data Structures (lists, maps, sets)", "value": 3 },
+          { "name": "Functions and Scope", "value": 3 },
+          { "name": "Object-Oriented Programming (classes, inheritance, interfaces)", "value": 3 },
+          { "name": "Mixins and Extensions", "value": 3 },
+          { "name": "Exception Handling", "value": 3 },
+          { "name": "Generics", "value": 3 },
+          { "name": "Asynchronous Programming (Future, async/await, Stream)", "value": 3 },
+          { "name": "Null Safety", "value": 3 },
+          { "name": "Packages and Pub.dev", "value": 3 },
+          { "name": "Testing (unit, widget, integration)", "value": 3 },
+          { "name": "Performance and Optimization", "value": 3 },
+          { "name": "Best Practices and Architecture", "value": 3 }
+        ]
+      },
+      {
+        "id": "91502d30-962b-46b7-bbd3-7b8dc0a4c0cc",
         "name": "HTML",
         "icon": "devicon:html5",
         "type": "feLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 9 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 7 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 7.5 },
-          "renderingAndInteractivity": { "name": "Rendering and Interactivity", "value": 8 },
-          "practicalExperience": { "name": "Practical Experience", "value": 9 }
-        }
+        "mastered": true,
+        "stats": [
+          { "name": "Basic Structure (tags, attributes, semantics)", "value": 5 },
+          { "name": "Text Formatting and Lists", "value": 5 },
+          { "name": "Links and Navigation (link, anchor)", "value": 5 },
+          { "name": "Images, Audio and Video", "value": 5 },
+          { "name": "Forms and Inputs", "value": 5 },
+          { "name": "Tables", "value": 4.5 },
+          { "name": "Semantic Elements (header, main, article, footer, etc.)", "value": 5 },
+          { "name": "Global Attributes (id, class, style, data-*)", "value": 4.5 },
+          { "name": "Accessibility (ARIA, alt, label)", "value": 4.5 },
+          { "name": "Basic SEO (meta tags, title, heading)", "value": 5 },
+          { "name": "Canvas and SVG", "value": 5 },
+          { "name": "Performance and Best Practices", "value": 5 }
+        ]
       },
       {
-        "id": "4",
+        "id": "91654338-edeb-48b3-acba-fbe1f2be3e5d",
         "name": "CSS",
         "icon": "devicon:css3",
         "type": "feLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8.5 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 7.5 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 7 },
-          "renderingAndInteractivity": { "name": "Rendering and Interactivity", "value": 8.5 },
-          "practicalExperience": { "name": "Practical Experience", "value": 8.5 }
-        }
+        "mastered": true,
+        "stats": [
+          { "name": "Selectors and Specificity", "value": 5 },
+          { "name": "Box Model (margin, padding, border)", "value": 5 },
+          { "name": "Colors and Backgrounds", "value": 5 },
+          { "name": "Typography (font, text, line-height)", "value": 5 },
+          { "name": "Positioning (relative, absolute, fixed, sticky)", "value": 5 },
+          { "name": "Flexbox", "value": 5 },
+          { "name": "CSS Grid", "value": 4.5 },
+          { "name": "Pseudo-classes and Pseudo-elements", "value": 4.5 },
+          { "name": "Transitions and Animations", "value": 4.5 },
+          { "name": "Media Queries and Responsive Design", "value": 4.5 },
+          { "name": "CSS Variables (custom properties)", "value": 5 },
+          { "name": "Architecture and Best Practices (BEM, utility-first, etc.)", "value": 5 },
+          { "name": "Performance and Optimization", "value": 5 }
+        ]
       },
       {
-        "id": "5",
+        "id": "b87d29e9-9eb6-4fb5-8778-6d61f411d2ca",
         "name": "Vue.js",
         "icon": "devicon:vuejs",
         "type": "feFramework",
-        "overAllRating": {
-          "architectureAndStructure": { "name": "Architecture and Structure", "value": 8.5 },
-          "integrationAndConfiguration": { "name": "Integration and Configuration", "value": 9 },
-          "extensibility": { "name": "Extensibility", "value": 8.5 },
-          "toolingAndAutomation": { "name": "Tooling and Automation", "value": 8.5 },
-          "communityAndSupport": { "name": "Community and Support", "value": 8.5 }
-        }
+        "mastered": true,
+        "stats": [
+          { "name": "Fundamentals (components, props, events)", "value": 5 },
+          { "name": "Reactivity and Reactive System", "value": 5 },
+          { "name": "Composition API", "value": 5 },
+          { "name": "Options API", "value": 5 },
+          { "name": "Core Directives (v-if, v-for, v-model, v-bind, etc.)", "value": 5 },
+          { "name": "Lifecycle Hooks", "value": 5 },
+          { "name": "State Management (Pinia, Vuex)", "value": 5 },
+          { "name": "Routing (Vue Router)", "value": 5 },
+          { "name": "Component Communication (props, emit, provide/inject)", "value": 5 },
+          { "name": "Slots and Reusable Components", "value": 5 },
+          { "name": "Transitions and Animations", "value": 4.5 },
+          { "name": "Testing (Vue Test Utils, Vitest/Jest)", "value": 4 },
+          { "name": "Performance and Optimization", "value": 5 },
+          { "name": "Tooling and Ecosystem (Vite, Vue CLI, Devtools)", "value": 5 }
+        ]
       },
       {
-        "id": "6",
+        "id": "d481c56c-4163-43ee-bf61-7314176abb6c",
         "name": "React",
         "icon": "devicon:react",
         "type": "feFramework",
-        "overAllRating": {
-          "architectureAndStructure": { "name": "Architecture and Structure", "value": 8 },
-          "integrationAndConfiguration": { "name": "Integration and Configuration", "value": 8.5 },
-          "extensibility": { "name": "Extensibility", "value": 7.5 },
-          "toolingAndAutomation": { "name": "Tooling and Automation", "value": 8 },
-          "communityAndSupport": { "name": "Community and Support", "value": 8 }
-        }
+        "stats": [
+          { "name": "Fundamentals (JSX, components, props, state)", "value": 3 },
+          { "name": "Basic Hooks (useState, useEffect)", "value": 3 },
+          {
+            "name": "Advanced Hooks (useContext, useReducer, useMemo, useCallback, etc.)",
+            "value": 3
+          },
+          { "name": "Event Handling", "value": 3 },
+          { "name": "State Management (Context API, Redux, Zustand, etc.)", "value": 3 },
+          { "name": "Routing (React Router)", "value": 3 },
+          { "name": "Forms and Input Handling", "value": 3 },
+          { "name": "Styling (CSS Modules, Styled Components, Tailwind, etc.)", "value": 3 },
+          { "name": "Conditional Rendering and Lists", "value": 3 },
+          { "name": "Portals and Fragments", "value": 3 },
+          { "name": "Testing (React Testing Library, Jest, Vitest)", "value": 3 },
+          { "name": "Performance and Optimization (memo, Suspense, lazy loading)", "value": 3 },
+          { "name": "Server-Side Rendering and Next.js", "value": 3 },
+          { "name": "Tooling and Ecosystem (CRA, Vite, DevTools)", "value": 3 }
+        ]
       },
       {
-        "id": "7",
+        "id": "5afd8504-57e3-4c00-b81e-484727828a6f",
         "name": "Angular",
         "icon": "devicon:angular",
         "type": "feFramework",
-        "overAllRating": {
-          "architectureAndStructure": { "name": "Architecture and Structure", "value": 7.5 },
-          "integrationAndConfiguration": { "name": "Integration and Configuration", "value": 8 },
-          "extensibility": { "name": "Extensibility", "value": 7 },
-          "toolingAndAutomation": { "name": "Tooling and Automation", "value": 7.5 },
-          "communityAndSupport": { "name": "Community and Support", "value": 7.5 }
-        }
+        "mastered": true,
+        "stats": [
+          { "name": "Fundamentals (components, templates, modules)", "value": 4.5 },
+          { "name": "Data Binding (interpolation, property, event, two-way)", "value": 5 },
+          { "name": "Core Directives (ngIf, ngFor, ngSwitch, etc.)", "value": 5 },
+          { "name": "Services and Dependency Injection", "value": 5 },
+          { "name": "Routing and Navigation", "value": 4.5 },
+          { "name": "Forms (Template-driven and Reactive Forms)", "value": 5 },
+          { "name": "Pipes (built-in and custom)", "value": 4.5 },
+          { "name": "State Management (RxJS, NgRx)", "value": 4 },
+          { "name": "Lifecycle Hooks", "value": 4.5 },
+          { "name": "HttpClient and API Communication", "value": 4 },
+          { "name": "Testing (Jasmine, Karma, TestBed)", "value": 3 },
+          {
+            "name": "Performance and Optimization (Change Detection, OnPush, Lazy Loading)",
+            "value": 4
+          },
+          { "name": "Modularity and Scalability", "value": 4 },
+          { "name": "Tooling and Ecosystem (Angular CLI, DevTools)", "value": 5 }
+        ]
       },
       {
-        "id": "8",
+        "id": "df0879f9-b423-42d6-969c-e1ffd8e89e46",
+        "name": "Flutter",
+        "icon": "devicon:flutter",
+        "type": "feFramework",
+        "stats": [
+          { "name": "Flutter Fundamentals (Widget, MaterialApp, Scaffold)", "value": 3 },
+          { "name": "Basic Widgets (Text, Image, Button, etc.)", "value": 3 },
+          { "name": "Stateful vs Stateless Widget", "value": 3 },
+          { "name": "Layout (Row, Column, Stack, ListView, GridView)", "value": 3 },
+          { "name": "Navigation and Routing", "value": 3 },
+          { "name": "State Management (setState, Provider, Riverpod, BLoC, Redux)", "value": 3 },
+          { "name": "Event Handling and User Input", "value": 3 },
+          { "name": "Styling and Theming (Material, Cupertino, Custom Theme)", "value": 3 },
+          { "name": "Animations (Implicit, Explicit, Hero)", "value": 3 },
+          { "name": "External Services Access (HTTP, REST, GraphQL, gRPC)", "value": 3 },
+          { "name": "Local Database Management (Sqflite, Hive, ObjectBox)", "value": 3 },
+          { "name": "Testing (unit, widget, integration test)", "value": 3 },
+          { "name": "Pub.dev and Package Ecosystem", "value": 3 },
+          { "name": "Cross-Platform Deployment (Android, iOS, Web, Desktop)", "value": 3 },
+          { "name": "Performance and Optimization", "value": 3 }
+        ]
+      },
+      {
+        "id": "b75aa4af-1884-437b-ba15-62ffb528daa0",
         "name": "Java",
         "icon": "devicon:java",
         "type": "beLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 7.5 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 7 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 7 },
-          "bestPracticesAndDesignPatterns": {
-            "name": "Best Practices and Design Patterns",
-            "value": 7
+        "stats": [
+          { "name": "Syntax and Fundamentals (variables, types, operators)", "value": 3 },
+          {
+            "name": "Object-Oriented Programming (classes, inheritance, polymorphism)",
+            "value": 3
           },
-          "practicalExperience": { "name": "Practical Experience", "value": 7.5 }
-        }
+          { "name": "Collections and Generics", "value": 2 },
+          { "name": "Exception Handling", "value": 3 },
+          { "name": "Stream API and Lambda", "value": 3 },
+          { "name": "Concurrent Programming (Thread, Executor, CompletableFuture)", "value": 2.5 },
+          { "name": "Input/Output (File, Serialization, NIO)", "value": 2.5 },
+          { "name": "JVM and Garbage Collector", "value": 2 },
+          { "name": "Memory Management and Performance", "value": 2 },
+          { "name": "Testing (JUnit, Mockito)", "value": 2 },
+          { "name": "Modularity (packages, module system)", "value": 3 },
+          { "name": "Libraries and Ecosystem (Maven, Gradle, Lombok, etc.)", "value": 3 },
+          { "name": "Enterprise Frameworks (Spring, Hibernate, Jakarta EE)", "value": 3 },
+          { "name": "Best Practices and Design Patterns", "value": 3 }
+        ]
       },
       {
-        "id": "9",
+        "id": "93f208c1-3d26-4d55-af4f-baf133ed5b6a",
         "name": "Python",
         "icon": "devicon:python",
         "type": "beLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 8 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 7.5 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 8 },
-          "bestPracticesAndDesignPatterns": {
-            "name": "Best Practices and Design Patterns",
-            "value": 7.5
+        "stats": [
+          { "name": "Syntax and Fundamentals (variables, types, operators)", "value": 2 },
+          { "name": "Data Structures (lists, tuples, dictionaries, sets)", "value": 2 },
+          { "name": "Functions and Scope", "value": 2 },
+          { "name": "Object-Oriented Programming (classes, inheritance)", "value": 2 },
+          { "name": "Exception Handling", "value": 2 },
+          { "name": "Modules and Packages", "value": 2 },
+          { "name": "Decorators and Advanced Functions", "value": 2 },
+          { "name": "Generators and Iterators", "value": 2 },
+          { "name": "File Handling and I/O", "value": 2 },
+          { "name": "Functional Programming (lambda, map, filter, reduce)", "value": 2 },
+          { "name": "Asynchronous Programming (async/await)", "value": 2 },
+          { "name": "Testing (unittest, pytest)", "value": 2 },
+          { "name": "Virtualenv and Dependency Management (pip, poetry, conda)", "value": 2 },
+          {
+            "name": "Frameworks and Libraries (Django, Flask, FastAPI, Pandas, NumPy)",
+            "value": 2
           },
-          "practicalExperience": { "name": "Practical Experience", "value": 8 }
-        }
+          { "name": "Best Practices and PEP8", "value": 2 }
+        ]
       },
       {
-        "id": "10",
+        "id": "0c7eef7d-53f3-41de-8c01-d7a8f2edcdd4",
         "name": "C#",
         "icon": "devicon:csharp",
         "type": "beLanguage",
-        "overAllRating": {
-          "syntaxAndSemantics": { "name": "Syntax and Semantics", "value": 6.5 },
-          "librariesAndFrameworks": { "name": "Libraries and Frameworks", "value": 6 },
-          "debuggingAndProblemSolving": { "name": "Debugging and Problem Solving", "value": 6 },
-          "bestPracticesAndDesignPatterns": {
-            "name": "Best Practices and Design Patterns",
-            "value": 6
+        "stats": [
+          { "name": "Syntax and Fundamentals (variables, types, operators)", "value": 2 },
+          {
+            "name": "Object-Oriented Programming (classes, inheritance, polymorphism)",
+            "value": 2
           },
-          "practicalExperience": { "name": "Practical Experience", "value": 6.5 }
-        }
+          { "name": "Data Structures (arrays, lists, dictionaries, collections)", "value": 1.5 },
+          { "name": "LINQ (Language Integrated Query)", "value": 1.5 },
+          { "name": "Async/Await and Asynchronous Programming", "value": 1.5 },
+          { "name": "Exception Handling", "value": 1.5 },
+          { "name": "Events and Delegates", "value": 1.5 },
+          { "name": "Generics", "value": 1.5 },
+          { "name": "Interfaces and Abstract Classes", "value": 1.5 },
+          { "name": "Functional Programming (lambdas, expressions)", "value": 1.5 },
+          { "name": "Entity Framework and Data Access", "value": 1.5 },
+          { "name": "ASP.NET Core and Web Development", "value": 1.5 },
+          { "name": "Testing (xUnit, NUnit, MSTest)", "value": 1 },
+          { "name": "Tooling and Ecosystem (.NET CLI, NuGet, Visual Studio)", "value": 3 },
+          { "name": "Best Practices and Design Patterns", "value": 1.5 }
+        ]
       },
       {
-        "id": "11",
+        "id": "64118b0b-9e20-4078-8119-836788bc40af",
         "name": "Spring",
         "icon": "devicon:spring",
         "type": "beFramework",
-        "overAllRating": {
-          "architectureAndStructure": { "name": "Architecture and Structure", "value": 7 },
-          "integrationAndConfiguration": { "name": "Integration and Configuration", "value": 7.5 },
-          "extensibility": { "name": "Extensibility", "value": 7 },
-          "toolingAndAutomation": { "name": "Tooling and Automation", "value": 7 },
-          "communityAndSupport": { "name": "Community and Support", "value": 7.5 }
-        }
+        "stats": [
+          { "name": "Spring Fundamentals (IoC, Bean, ApplicationContext)", "value": 3 },
+          { "name": "Spring Core and Dependency Injection", "value": 3.5 },
+          { "name": "Spring MVC (Controller, View, DispatcherServlet)", "value": 3.5 },
+          { "name": "Configuration Management (Java Config, XML, Annotations)", "value": 3.5 },
+          { "name": "Spring Boot (Auto-configuration, Starter, Actuator)", "value": 3.5 },
+          { "name": "Data Access (Spring Data JPA, JDBC Template)", "value": 3.5 },
+          { "name": "Integration with Hibernate", "value": 3.5 },
+          { "name": "Transaction Management", "value": 3.5 },
+          { "name": "Security (Spring Security)", "value": 2 },
+          { "name": "REST APIs with Spring Web", "value": 3.5 },
+          { "name": "Testing (MockMvc, @SpringBootTest, TestContext)", "value": 1 },
+          { "name": "Spring AOP (Aspect Oriented Programming)", "value": 3.5 },
+          { "name": "Spring Cloud and Microservices", "value": 1 },
+          { "name": "Monitoring and Performance", "value": 3.5 },
+          { "name": "Best Practices and Architecture", "value": 3.5 }
+        ]
       },
       {
-        "id": "12",
+        "id": "96b705db-2924-4c58-9d21-2880873976b8",
         "name": "Hibernate",
         "icon": "devicon:hibernate",
         "type": "beFramework",
-        "overAllRating": {
-          "architectureAndStructure": { "name": "Architecture and Structure", "value": 7 },
-          "integrationAndConfiguration": { "name": "Integration and Configuration", "value": 7 },
-          "extensibility": { "name": "Extensibility", "value": 7 },
-          "toolingAndAutomation": { "name": "Tooling and Automation", "value": 7 },
-          "communityAndSupport": { "name": "Community and Support", "value": 7 }
-        }
+        "stats": [
+          { "name": "ORM and JPA Fundamentals", "value": 3 },
+          { "name": "Hibernate Configuration (XML, Annotations, Spring Boot)", "value": 3 },
+          { "name": "Entity Mapping (OneToOne, OneToMany, ManyToMany)", "value": 3 },
+          { "name": "Inheritance and Polymorphism with Entities", "value": 3 },
+          { "name": "Hibernate Query Language (HQL)", "value": 3 },
+          { "name": "Criteria API", "value": 3 },
+          { "name": "Transaction Management", "value": 3 },
+          { "name": "Caching (First Level, Second Level, Query Cache)", "value": 3 },
+          { "name": "Performance and Optimization (fetching, batch, lazy vs eager)", "value": 2 },
+          { "name": "Relationship and Join Management", "value": 3 },
+          { "name": "Validation (Bean Validation, JSR 380)", "value": 3 },
+          { "name": "Testing with Hibernate", "value": 1 },
+          { "name": "Integration with Spring and Spring Data JPA", "value": 3 },
+          { "name": "Database Migration and Versioning (Flyway, Liquibase)", "value": 1 },
+          { "name": "Best Practices and Architecture", "value": 3 }
+        ]
       },
       {
-        "id": "13",
+        "id": "65b2ac89-add3-4ee9-b57d-17f5b609a851",
         "name": "GraphQL",
         "icon": "devicon:apollographql",
         "type": "beDb",
-        "overAllRating": {
-          "querySkills": { "name": "Query Skills", "value": 7.5 },
-          "performanceOptimization": { "name": "Performance Optimization", "value": 7 },
-          "dataModeling": { "name": "Data Modeling", "value": 7 },
-          "securityAndIntegrity": { "name": "Security and Integrity", "value": 7 },
-          "practicalExperience": { "name": "Practical Experience", "value": 7.5 }
-        }
+        "stats": [
+          { "name": "GraphQL Fundamentals (schema, query, mutation)", "value": 4 },
+          { "name": "Schema Definition (SDL)", "value": 3 },
+          { "name": "Queries and Fragments", "value": 4 },
+          { "name": "Mutations and State Management", "value": 5 },
+          { "name": "Subscriptions (real-time)", "value": 4 },
+          { "name": "Resolvers and Data Fetching", "value": 4.5 },
+          { "name": "Typing (scalar, enum, input, union, interface)", "value": 4 },
+          { "name": "Error Handling", "value": 4 },
+          { "name": "Performance and Optimization (batching, caching, pagination)", "value": 4 },
+          { "name": "Authentication and Authorization", "value": 3 },
+          { "name": "Testing (schema, resolver, integration)", "value": 1 },
+          { "name": "Tooling and Ecosystem (Apollo, GraphQL Yoga, Relay)", "value": 4 },
+          { "name": "Integration with Databases and REST APIs", "value": 4 },
+          { "name": "Best Practices and Architecture", "value": 4 }
+        ]
       },
       {
-        "id": "14",
+        "id": "b60f6c8e-7f3b-4f92-8ec8-5f96277fdf56",
         "name": "MySQL",
         "icon": "devicon:mysql",
         "type": "beDb",
-        "overAllRating": {
-          "querySkills": { "name": "Query Skills", "value": 7.5 },
-          "performanceOptimization": { "name": "Performance Optimization", "value": 7 },
-          "dataModeling": { "name": "Data Modeling", "value": 7 },
-          "securityAndIntegrity": { "name": "Security and Integrity", "value": 7 },
-          "practicalExperience": { "name": "Practical Experience", "value": 7.5 }
-        }
+        "stats": [
+          { "name": "SQL Basics (SELECT, INSERT, UPDATE, DELETE)", "value": 3.5 },
+          { "name": "Table Definition and Management (DDL)", "value": 3.5 },
+          { "name": "Primary and Foreign Keys", "value": 3 },
+          { "name": "Joins (INNER, LEFT, RIGHT, FULL)", "value": 3 },
+          { "name": "Aggregate Functions (COUNT, SUM, AVG, MAX, MIN)", "value": 3 },
+          { "name": "Indexing and Query Optimization", "value": 3 },
+          { "name": "Stored Procedures and Functions", "value": 3 },
+          { "name": "Triggers and Events", "value": 3 },
+          { "name": "Views and Materialized Views", "value": 2 },
+          { "name": "Transaction Management (COMMIT, ROLLBACK)", "value": 2 },
+          { "name": "Security (users, permissions, GRANT/REVOKE)", "value": 2 },
+          { "name": "Backup and Restore", "value": 2 },
+          { "name": "Replication and Scalability", "value": 2 },
+          { "name": "Integration with Applications (JDBC, ORM, etc.)", "value": 3.5 },
+          { "name": "Best Practices and Data Modeling", "value": 2 }
+        ]
       }
     ]
   },

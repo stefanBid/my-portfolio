@@ -31,11 +31,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DecimalLevelBar: Story = {
+export const TenBaseLevelBar: Story = {
+  args: {
+    level: 10,
+    scale: '10-base',
+    label: 'Ten Base Level Bar',
+  },
+};
+
+export const FiveBaseLevelBar: Story = {
   args: {
     level: 5,
-    scale: 'decimal',
-    label: 'Decimal Level Bar',
+    scale: '10-base',
+    label: 'Five Base Level Bar',
   },
 };
 
