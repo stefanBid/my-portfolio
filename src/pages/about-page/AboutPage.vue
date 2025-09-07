@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ThePageContainer, TheDivider, BaseSection } from '@/components';
+import { computed } from 'vue';
+
 import { useI18nStore } from '@/stores';
 import { usePageMeta } from '@/hooks';
+
+import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
+import AppDivider from '@/components/layouts/divider/AppDivider.vue';
+import BaseSection from '@/components/base/section/BaseSection.vue';
 import VintagePicture from '@/pages/about-page/components/VintagePicture.vue';
-import { computed } from 'vue';
 
 // Store Declarations
 const i18nStore = useI18nStore();
@@ -19,9 +23,9 @@ usePageMeta({
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="i18nStore.aboutMePageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="i18nStore.aboutMePageI18nContent.pageHeading">
     <template #page-content>
-      <TheDivider
+      <AppDivider
         v-for="(section, index) in i18nStore.aboutMePageI18nContent.bioSections"
         :key="index"
         animation="scaleAndFade"
@@ -48,7 +52,7 @@ usePageMeta({
             </template>
           </BaseSection>
         </template>
-      </TheDivider>
+      </AppDivider>
     </template>
-  </ThePageContainer>
+  </AppPageContainer>
 </template>

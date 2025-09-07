@@ -1,0 +1,63 @@
+/* ====== Theme ====== */
+@theme {
+  /* 1) Reset Defaults */
+  --color-*: initial;
+  --font-*: initial;
+
+  /* 2) Colors */
+  --color-sb-main: #0F0F20;
+  --color-sb-error: #d32f2f;
+
+  --color-sb-secondary-100: #707890;
+  --color-sb-secondary-200: #424a6e;
+  --color-sb-secondary-300: #011e41;
+
+  --color-sb-tertiary-100: #e95905;
+  --color-sb-tertiary-200: #a33503;
+
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* Fonts */
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+
+  /* Font Sizes */
+  --text-sb-xs: 0.75rem;
+  --text-sb-sm: 0.875rem;
+  --text-sb-base: 1rem;
+  --text-sb-lg: 1.125rem;
+  --text-sb-xl: 1.25rem;
+  --text-sb-2xl: 1.5rem;
+  --text-sb-3xl: 1.875rem;
+  --text-sb-4xl: 2.5rem;
+  --text-sb-5xl: 3.5rem;
+  --text-sb-6xl: 4.5rem;
+  --text-sb-7xl: 5.5rem;
+
+  /* Shadows */
+  --shadow-sb-ring-sm: 0 0 10px 3px var(--tw-shadow-color);
+  --shadow-sb-ring:    0 0 15px 5px var(--tw-shadow-color);
+  --shadow-sb-ring-lg: 0 0 20px 7px var(--tw-shadow-color);
+}
+
+/* ====== Custom Utilities s====== */
+@utility text-shadow-luminous {
+  text-shadow:
+    0 0 10px rgba(156,163,175,0.7),
+    0 0 20px rgba(156,163,175,0.6),
+    0 0 30px rgba(156,163,175,0.5);
+}
+@utility text-shadow-luminous-error {
+  text-shadow:
+    0 0 10px rgba(211,47,47,0.7),
+    0 0 20px rgba(211,47,47,0.6),
+    0 0 30px rgba(211,47,47,0.5);
+}
+@utility text-shadow-luminous-tertiary {
+  text-shadow:
+    0 0 10px rgba(233,89,5,0.7),
+    0 0 20px rgba(233,89,5,0.6),
+    0 0 30px rgba(233,89,5,0.5);
+}
+@utility scrollbar-gutter-stable { scrollbar-gutter: stable; }

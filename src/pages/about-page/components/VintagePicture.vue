@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue';
-import { useStyleStore } from '@/stores';
 import type { Image } from '@/types';
 
 interface VintagePictureProps {
@@ -12,31 +11,6 @@ interface VintagePictureProps {
 const props = withDefaults(defineProps<VintagePictureProps>(), {
   text: undefined,
   isVisible: undefined,
-});
-
-// Store Declarations
-const styleStore = useStyleStore();
-
-const getFrameDimension = computed(() => {
-  if (styleStore.activeBreakpoint === 'xs') {
-    return 'w-[280px] h-[340px] px-[15px] pt-[15px]';
-  } else if (styleStore.activeBreakpoint === 'sm') {
-    return 'w-[320px] h-[388px] px-[20px] pt-[20px]';
-  } else if (styleStore.activeBreakpoint === 'md') {
-    return 'w-[360px] h-[436px] px-[24px] pt-[24px]';
-  }
-  return 'w-[400px] h-[484px] px-[28px] pt-[28px]';
-});
-
-const getPictureDimension = computed(() => {
-  if (styleStore.activeBreakpoint === 'xs') {
-    return 'h-[236px]';
-  } else if (styleStore.activeBreakpoint === 'sm') {
-    return 'h-[284px]';
-  } else if (styleStore.activeBreakpoint === 'md') {
-    return 'h-[332px]';
-  }
-  return 'h-[380px]';
 });
 
 const stackSize = 5;
@@ -101,13 +75,11 @@ onUnmounted(() => {
       v-for="(style, index) in stackStyles"
       :key="index"
       :style="style"
-      :class="[getFrameDimension]"
-      class="absolute w-full h-full bg-white rounded shadow-md shadow-black"
+      class="absolute transition-all duration-300 ease-in-out bg-white rounded shadow-md shadow-black w-[280px] h-[340px] px-[15px] pt-[14px] pb-[28px] sm:w-[360px] sm:h-[436px] sm:px-[24px] sm:pt-[18px] sm:pb-[32px] md:w-[360px] md:h-[436px] md:px-[24px] md:pt-[18px] md:pb-[32px] lg:w-[400px] lg:h-[484px] lg:px-[28px] lg:pt-[20px] lg:pb-[36px]"
     ></div>
     <div
       v-bind="$attrs"
-      :class="[getFrameDimension]"
-      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white rounded shadow-md cursor-pointer shadow-black gap-y-2"
+      class="relative flex flex-col overflow-hidden transition-all duration-300 ease-in-out bg-white rounded shadow-md cursor-pointer shadow-black gap-y-2 w-[280px] h-[340px] px-[15px] pt-[14px] pb-[28px] sm:w-[360px] sm:h-[436px] sm:px-[24px] sm:pt-[18px] sm:pb-[32px] md:w-[360px] md:h-[436px] md:px-[24px] md:pt-[18px] md:pb-[32px] lg:w-[400px] lg:h-[484px] lg:px-[28px] lg:pt-[20px] lg:pb-[36px]"
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
@@ -117,18 +89,16 @@ onUnmounted(() => {
           v-show="!delayedFlip"
           :src="props.imagePath.jpg"
           :alt="`${props.text} picture`"
-          :class="[getPictureDimension]"
-          class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded"
+          class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded h-[236px] sm:h-[332px] md:h-[332px] lg:h-[380px]"
           :style="{ transform: 'rotateY(0deg)' }"
         />
       </picture>
       <div
         v-show="delayedFlip"
-        :class="[getPictureDimension]"
-        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100"
+        class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100 h-[236px] sm:h-[332px] md:h-[332px] lg:h-[380px]"
         :style="{ transform: 'rotateY(180deg)' }"
       >
-        <p class="text-center text-white font-roboto" :class="[styleStore.textSizeS]">
+        <p class="text-center text-white font-roboto text-size-s">
           {{ props.text }}
         </p>
       </div>

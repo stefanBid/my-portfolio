@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import backgroundCover from '@/assets/videos/background-cover.mp4';
-import MdiCloudDownload from '~icons/mdi/cloud-download';
-import MdiEmailEdit from '~icons/mdi/email-edit';
 import { computed, onMounted, ref } from 'vue';
-import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
-import { BaseButton } from '@/components';
+
 import { useTypingText, usePageMeta } from '@/hooks';
-import { useI18nStore, useStyleStore } from '@/stores';
+import { useI18nStore } from '@/stores';
 import { downloadCv } from '@/utils';
 
+import BaseButton from '@/components/base/button/BaseButton.vue';
+import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialog.vue';
+
+import backgroundCover from '@/assets/videos/background-cover.mp4';
+
+import MdiCloudDownload from '~icons/mdi/cloud-download';
+import MdiEmailEdit from '~icons/mdi/email-edit';
+
 // Store Declarations
-const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // SEO Feature Manage Meta Tags
@@ -50,6 +53,7 @@ const changeVisibility = (falsyValue: boolean): void => {
     <!-- Background -->
     <video
       :src="backgroundCover"
+      poster="../../assets/videos/poster_video.png"
       class="absolute inset-0 object-cover object-center w-full h-full pointer-events-none"
       autoplay
       loop
@@ -58,42 +62,17 @@ const changeVisibility = (falsyValue: boolean): void => {
     ></video>
 
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-black z-sb-base-1 opacity-30"></div>
-
-    <div
-      :class="[
-        styleStore.containerPadding,
-        {
-          'flex-col gap-y-12 justify-center items-center':
-            styleStore.activeBreakpoint === 'xs' ||
-            styleStore.activeBreakpoint === 'sm' ||
-            styleStore.activeBreakpoint === 'md',
-          'items-center justify-between':
-            styleStore.activeBreakpoint !== 'xs' &&
-            styleStore.activeBreakpoint !== 'sm' &&
-            styleStore.activeBreakpoint !== 'md',
-        },
-      ]"
-      class="absolute inset-0 flex w-full h-full pt-20 z-sb-base-2"
-    >
-      <transition name="scale-and-fade-slow">
+    <div class="absolute inset-0 bg-black z-[100] opacity-30"></div>
+    <transition name="scale-and-fade-slow">
+      <div
+        v-if="show"
+        class="absolute inset-0 flex w-full h-full flex-col gap-y-12 justify-center items-center lg:flex-row lg:items-center lg:justify-between pt-14 sm:pt-[3.75rem] md:pt-16 lg:pt-20 z-[200] container-p"
+      >
         <div
-          v-if="show"
-          class="flex flex-col justify-center w-full transition-all duration-300 ease-in-out border-white gap-y-4 font-bebas"
-          :class="{
-            'h-full':
-              styleStore.activeBreakpoint !== 'xs' &&
-              styleStore.activeBreakpoint !== 'sm' &&
-              styleStore.activeBreakpoint !== 'md',
-            'text-center items-center':
-              styleStore.activeBreakpoint === 'xs' ||
-              styleStore.activeBreakpoint === 'sm' ||
-              styleStore.activeBreakpoint === 'md',
-          }"
+          class="flex flex-col justify-center text-center items-center lg:h-full lg:text-left lg:items-start w-full transition-all duration-300 ease-in-out border-white gap-y-4 font-bebas"
         >
           <h2
-            class="text-white whitespace-normal transition-all duration-300 ease-in-out"
-            :class="[styleStore.textSizeXL]"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out text-size-xl"
           >
             {{ i18nStore.homePageI18nContent.firstHeading }}
           </h2>
@@ -101,48 +80,20 @@ const changeVisibility = (falsyValue: boolean): void => {
             class="rounded-xl rotate-3 bg-white inline-flex items-center justify-center p-0.5 w-fit h-fit"
           >
             <h1
-              class="leading-none text-black whitespace-normal transition-all duration-300 ease-in-out"
-              :class="[
-                styleStore.textSizeXXL,
-                {
-                  'px-2.5 py-0.5':
-                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                  'px-3 py-1': styleStore.activeBreakpoint === 'md',
-                  'mx-auto':
-                    styleStore.activeBreakpoint === 'xs' ||
-                    styleStore.activeBreakpoint === 'sm' ||
-                    styleStore.activeBreakpoint === 'md',
-                  'px-4 py-2':
-                    styleStore.activeBreakpoint !== 'xs' &&
-                    styleStore.activeBreakpoint !== 'sm' &&
-                    styleStore.activeBreakpoint !== 'md',
-                },
-              ]"
+              class="leading-none text-black whitespace-normal transition-all duration-300 ease-in-out text-sb-4xl sm:text-sb-5xl md:text-sb-6xl lg:text-sb-7xl leading-tight; px-2.5 py-0.5 mx-auto sm:px-3 sm:py-1 md:px-3 md:py-1 lg:px-4 lg:py-2 lg:mx-0"
             >
               {{ i18nStore.homePageI18nContent.secondHeading }}
             </h1>
           </div>
           <h2
-            class="text-white whitespace-normal transition-all duration-300 ease-in-out"
-            :class="[styleStore.textSizeXL]"
+            class="text-white whitespace-normal transition-all duration-300 ease-in-out text-size-xl"
           >
             {{ i18nStore.currentLanguage === 'en' ? `And I'm a` : `E sono uno` }} {{ currentTxt }}_
           </h2>
         </div>
-      </transition>
-      <transition name="scale-and-fade-slow">
+
         <div
-          v-if="show"
-          class="flex flex-col items-center justify-center transition-all duration-300 ease-in-out shrink-0 w-fit"
-          :class="[
-            styleStore.elementTotalGapS,
-            {
-              'h-full':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md',
-            },
-          ]"
+          class="flex flex-col items-center justify-center transition-all duration-300 ease-in-out shrink-0 w-fit h-fit lg:h-full"
         >
           <BaseButton
             id="contactMeButton"
@@ -156,8 +107,7 @@ const changeVisibility = (falsyValue: boolean): void => {
           </BaseButton>
 
           <span
-            class="block text-white transition-all duration-300 ease-in-out font-bebas"
-            :class="[styleStore.textSizeXL]"
+            class="block text-white transition-all duration-300 ease-in-out font-bebas text-size-xl py-2 sm:py-4 md:py-4 lg:py-6"
           >
             {{ i18nStore.currentLanguage === 'en' ? 'Or' : 'Oppure' }}
           </span>
@@ -182,8 +132,8 @@ const changeVisibility = (falsyValue: boolean): void => {
             {{ i18nStore.homePageI18nContent.downloadCvButton.text }}
           </BaseButton>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
   <ContactMeFormDialog
     :is-modal-open="isModalOpen"

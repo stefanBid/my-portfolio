@@ -2,7 +2,7 @@
 import { vIntersectionObserver } from '@vueuse/components';
 import { computed, ref } from 'vue';
 
-interface TheDividerProps {
+interface AppDividerProps {
   intersectionObserverSettings?: {
     rootElement: HTMLElement | null;
     rootMargin?: string;
@@ -11,7 +11,7 @@ interface TheDividerProps {
   animation?: 'fade' | 'scaleAndFade' | 'none';
 }
 
-const props = withDefaults(defineProps<TheDividerProps>(), {
+const props = withDefaults(defineProps<AppDividerProps>(), {
   intersectionObserverSettings: () => ({
     rootElement: null,
     rootMargin: '-80px 0px 0px 0px',
@@ -22,9 +22,14 @@ const props = withDefaults(defineProps<TheDividerProps>(), {
 
 const isVisible = ref(false);
 
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (isIntersecting !== isVisible.value) {
-    isVisible.value = isIntersecting;
+const onIntersectionObserver = (
+  entries: IntersectionObserverEntry[],
+  observer: IntersectionObserver,
+): void => {
+  const [{ isIntersecting }] = entries;
+  if (isIntersecting !== isVisible.value && !isVisible.value) {
+    isVisible.value = true;
+    observer?.disconnect();
   }
 };
 
@@ -37,8 +42,10 @@ const getAnimationClasses = computed(() => {
       };
     case 'scaleAndFade':
       return {
-        'opacity-0 scale-90': !isVisible.value,
-        'opacity-100 scale-100': isVisible.value,
+        'opacity-0': !isVisible.value,
+        'scale-90': !isVisible.value,
+        'opacity-100': isVisible.value,
+        'scale-100': isVisible.value,
       };
     default:
       return {};

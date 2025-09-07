@@ -1,6 +1,8 @@
 import { ref } from 'vue';
 import type { Meta, StoryFn } from '@storybook/vue3-vite';
-import { BaseDialog, BaseButton } from '@/components';
+
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue';
+import BaseButton from '@/components/base/button/BaseButton.vue';
 
 export default {
   title: 'Components/Base/Dialog',

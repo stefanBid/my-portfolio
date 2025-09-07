@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import MdiRocketLaunch from '~icons/mdi/rocket-launch';
-import MdiClipboardTextSearch from '~icons/mdi/clipboard-text-search';
 import { computed, ref } from 'vue';
-import { ThePageContainer, TheDivider, BaseButton, BaseSection } from '@/components';
+
 import { usePageMeta, useStarEffect } from '@/hooks';
-import { useI18nStore, useStyleStore } from '@/stores';
+import { useI18nStore } from '@/stores';
+
+import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
+import AppDivider from '@/components/layouts/divider/AppDivider.vue';
+import BaseButton from '@/components/base/button/BaseButton.vue';
+import BaseSection from '@/components/base/section/BaseSection.vue';
+
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
+import MdiRocketLaunch from '~icons/mdi/rocket-launch';
+import MdiClipboardTextSearch from '~icons/mdi/clipboard-text-search';
+
 // Store Declarations
-const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // Hooks Declarations
@@ -53,55 +59,40 @@ const changeVisibility = (newVisibility: boolean): void => {
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
     <template #page-content>
-      <TheDivider
+      <AppDivider
         animation="scaleAndFade"
-        class="relative flex flex-col items-center justify-center w-full border-2 border-dashed rounded-lg border-sb-secondary-200"
-        :class="[styleStore.elementTotalPaddingM]"
+        class="relative flex flex-col items-center justify-center w-full border-2 border-dashed rounded-lg border-sb-secondary-200 tot-pad-m"
       >
         <div :style="starsContainerStyle">
           <div v-for="(star, index) in stars" :key="index" :style="star"></div>
         </div>
         <span
-          :class="[styleStore.textSizeXL]"
-          class="text-center transition-all duration-300 ease-in-out z-sb-base-1 font-bebas text-sb-tertiary-100"
+          class="text-center transition-all duration-300 ease-in-out z-[100] font-bebas text-sb-tertiary-100 text-size-xl"
         >
           {{ i18nStore.skillsPageI18nContent.callToActionFirstHeading }}
         </span>
         <span
-          :class="[styleStore.textSizeL]"
-          class="text-center text-white transition-all duration-300 ease-in-out z-sb-base-1 font-bebas"
+          class="text-center text-white transition-all duration-300 ease-in-out z-[100] font-bebas text-size-l"
         >
           {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
         </span>
         <MdiRocketLaunch
-          class="transition-all duration-300 ease-in-out z-sb-base-1 text-sb-tertiary-100"
-          :class="[
-            styleStore.iconSizeXXL,
-            {
-              'my-4':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md',
-              'my-3': styleStore.activeBreakpoint === 'md',
-              'my-2.5':
-                styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-            },
-          ]"
+          class="transition-all duration-300 ease-in-out z-[100] text-sb-tertiary-100 icon-size-xxl my-2.5 sm:my-3 md:my-3 lg:my-4"
         />
         <BaseButton
           id="exploreSkillsButton"
           name="explore_skills_button"
           aria-label="click to explore skills"
-          class="z-sb-base-1 w-fit"
+          class="z-[100] w-fit"
           :icon="MdiClipboardTextSearch"
           @click="changeVisibility(!isModalOpen)"
         >
           {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}
         </BaseButton>
-      </TheDivider>
-      <TheDivider
+      </AppDivider>
+      <AppDivider
         v-for="(section, index) in i18nStore.skillsPageI18nContent.skillsSections"
         :key="index"
         animation="scaleAndFade"
@@ -120,9 +111,9 @@ const changeVisibility = (newVisibility: boolean): void => {
             />
           </template>
         </BaseSection>
-      </TheDivider>
+      </AppDivider>
     </template>
-  </ThePageContainer>
+  </AppPageContainer>
   <SkillsDialog
     :is-modal-open="isModalOpen"
     :handle-close-modal="(falsyValue) => changeVisibility(falsyValue)"

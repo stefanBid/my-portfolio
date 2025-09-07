@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseSwitch } from '@/components';
+
+import BaseSwitch from '@/components/base/switch/BaseSwitch.vue';
 
 const meta = {
   title: 'Components/Base/Switch',

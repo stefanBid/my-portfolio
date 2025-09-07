@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseInput } from '@/components';
 import { h } from 'vue';
+
+import BaseInput from '@/components/base/input/BaseInput.vue';
 
 const meta = {
   title: 'Components/Base/Input',

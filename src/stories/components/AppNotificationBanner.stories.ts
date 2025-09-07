@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { TheNotificationBanner } from '@/components';
+import AppNotificationBanner from '@/components/layouts/notification-container/notification-banner/AppNotificationBanner.vue';
 
 const meta = {
   title: 'Components/Layout/NotificationBanner',
-  component: TheNotificationBanner,
+  component: AppNotificationBanner,
   tags: ['autodocs'],
   argTypes: {
     notification: {
@@ -14,7 +14,7 @@ const meta = {
     },
   },
   args: {},
-} satisfies Meta<typeof TheNotificationBanner>;
+} satisfies Meta<typeof AppNotificationBanner>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

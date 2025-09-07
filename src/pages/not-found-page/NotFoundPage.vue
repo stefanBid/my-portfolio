@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import MdiHomeFlood from '~icons/mdi/home-flood';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton } from '@/components';
-import { useI18nStore, useStyleStore } from '@/stores';
+import { useI18nStore } from '@/stores';
 import { usePageMeta } from '@/hooks';
-import { computed } from 'vue';
+
+import BaseButton from '@/components/base/button/BaseButton.vue';
+
+import MdiHomeFlood from '~icons/mdi/home-flood';
 
 // Stores declarations
-const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // Hooks declarations
@@ -23,18 +24,13 @@ usePageMeta({
 
 <template>
   <div
-    :class="[styleStore.containerPadding, styleStore.elementTotalGapS]"
-    class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white transition-all duration-300 ease-in-out"
+    class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white transition-all duration-300 ease-in-out container-p"
   >
-    <h1
-      :class="[styleStore.textSizeXXL]"
-      class="whitespace-normal transition-all duration-300 ease-in-out font-bebas"
-    >
+    <h1 class="whitespace-normal transition-all duration-300 ease-in-out font-bebas text-size-xxl">
       {{ i18nStore.notFoundPageI18nContent.firstHeading }}
     </h1>
     <p
-      :class="[styleStore.textSizeM]"
-      class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+      class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto text-size-m mb-3 sm:mb-4 md:mb-5 lg:mb-6"
     >
       {{ i18nStore.notFoundPageI18nContent.secondHeading }}
     </p>

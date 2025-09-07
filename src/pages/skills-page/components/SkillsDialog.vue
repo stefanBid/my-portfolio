@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import type { SkillInfo } from '@/types';
 import { computed, onUnmounted, ref, watch } from 'vue';
-import { TheDivider, BaseDialog, BaseInput, BaseSwitch } from '@/components';
+
+import { useI18nStore } from '@/stores';
+import type { SkillInfo } from '@/types';
+
+import AppDivider from '@/components/layouts/divider/AppDivider.vue';
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue';
+import BaseInput from '@/components/base/input/BaseInput.vue';
+import BaseSwitch from '@/components/base/switch/BaseSwitch.vue';
+
 import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
+
 import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
-import { useI18nStore, useStyleStore } from '@/stores';
 
 interface SkillsModalProps {
   isModalOpen: boolean;
@@ -15,7 +22,6 @@ const props = defineProps<SkillsModalProps>();
 const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Store Declarations
-const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // Feature 1: Manage Skills Filters
@@ -107,30 +113,9 @@ onUnmounted(() => {
   >
     <template #modal-content>
       <div
-        :class="[
-          styleStore.elementTotalGapM,
-          {
-            'pt-2.5': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-            'pt-3': styleStore.activeBreakpoint === 'md',
-            'pt-4':
-              styleStore.activeBreakpoint !== 'xs' &&
-              styleStore.activeBreakpoint !== 'sm' &&
-              styleStore.activeBreakpoint !== 'md',
-          },
-        ]"
-        class="flex flex-col items-center w-full h-full overflow-hidden"
+        class="flex flex-col items-center w-full h-full overflow-hidden tot-gap-m pt-2.5 sm:pt-3 md:pt-3 lg:pt-4 transition-all duration-300 ease-in-out"
       >
-        <div
-          :class="{
-            'w-4/6':
-              styleStore.activeBreakpoint !== 'xs' &&
-              styleStore.activeBreakpoint !== 'sm' &&
-              styleStore.activeBreakpoint !== 'md',
-            'w-5/6': styleStore.activeBreakpoint === 'md',
-            'w-full': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-          }"
-          class="px-2"
-        >
+        <div class="px-2 w-full sm:w-5/6 md:w-5/6 lg:w-4/6 transition-all duration-300 ease-in-out">
           <BaseInput
             id="searchSkillKey"
             v-model:input-value="searchSkillKey"
@@ -143,15 +128,7 @@ onUnmounted(() => {
           >
             <template #input-menu-box>
               <div
-                class="grid h-fit"
-                :class="[
-                  styleStore.elementTotalGapS,
-                  styleStore.elementTotalPaddingS,
-                  {
-                    'grid-cols-2': styleStore.activeBreakpoint !== 'xs',
-                    'grid-cols-1': styleStore.activeBreakpoint === 'xs',
-                  },
-                ]"
+                class="grid h-fit tot-gap-s tot-pad-s grid-cols-1 sm:grid-cols-2 transition-all duration-300 ease-in-out"
               >
                 <div
                   v-for="(_, filterKey) in filters"
@@ -168,10 +145,9 @@ onUnmounted(() => {
           </BaseInput>
         </div>
         <div class="inline-flex items-center justify-center w-full gap-1 text-white animate-pulse">
-          <MdiCursorDefaultClick :class="[styleStore.iconSizeXS]" class="shrink-0 stroke-[2.5px]" />
+          <MdiCursorDefaultClick class="shrink-0 stroke-[2.5px] icon-size-xs" />
           <span
-            :class="[styleStore.textSizeXS]"
-            class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"
+            class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-shadow-luminous text-size-xs"
           >
             {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
           </span>
@@ -182,24 +158,9 @@ onUnmounted(() => {
         >
           <div
             v-if="filteredSkillsList.length > 0"
-            class="grid transition-all duration-300 ease-in-out"
-            :class="[
-              styleStore.elementTotalPaddingM,
-              styleStore.elementTotalGapM,
-              {
-                'grid-cols-1':
-                  styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-                'grid-cols-2':
-                  styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
-                'grid-cols-3':
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm' &&
-                  styleStore.activeBreakpoint !== 'md' &&
-                  styleStore.activeBreakpoint !== 'lg',
-              },
-            ]"
+            class="grid transition-all duration-300 ease-in-out tot-gap-m tot-pad-m grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           >
-            <TheDivider
+            <AppDivider
               v-for="skill in filteredSkillsList"
               :key="skill.id"
               :intersection-observer-settings="{
@@ -209,30 +170,18 @@ onUnmounted(() => {
               animation="scaleAndFade"
             >
               <SkillCard :skill="skill" />
-            </TheDivider>
+            </AppDivider>
           </div>
           <span
             v-else
-            :class="[
-              styleStore.textSizeL,
-              {
-                'mt-4':
-                  styleStore.activeBreakpoint !== 'xs' &&
-                  styleStore.activeBreakpoint !== 'sm' &&
-                  styleStore.activeBreakpoint !== 'md',
-                'mt-3': styleStore.activeBreakpoint === 'md',
-                'mt-2.5':
-                  styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-              },
-            ]"
-            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas"
+            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas text-size-l mt-2.5 sm:mt-3 md:mt-3 lg:mt-4"
           >
             {{
               i18nStore.currentLanguage === 'en'
                 ? 'No skills found for "'
                 : 'Nessuna competenza trovata per "'
             }}
-            <span :class="[styleStore.textSizeL]" class="underline text-sb-tertiary-200">
+            <span class="underline text-sb-tertiary-200 text-size-l">
               {{ debouncedSearchSkillKey }}
             </span>
             "

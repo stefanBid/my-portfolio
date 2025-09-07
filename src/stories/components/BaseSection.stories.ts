@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseSection } from '@/components';
+
+import BaseSection from '@/components/base/section/BaseSection.vue';
 
 const meta = {
   title: 'Components/Base/Section',

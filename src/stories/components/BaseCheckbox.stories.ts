@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseCheckbox } from '@/components';
+
+import BaseCheckbox from '@/components/base/checkbox/BaseCheckbox.vue';
 
 const meta = {
   title: 'Components/Base/Checkbox',

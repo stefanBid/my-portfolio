@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue';
 import { RouterLink } from 'vue-router';
-import { useNotificationStore, useI18nStore, useStyleStore } from '@/stores';
-import { BaseDialog, BaseInput, BaseButton, BaseTextArea, BaseCheckbox } from '@/components';
+import emailjs from '@emailjs/browser';
+
+import { useNotificationStore, useI18nStore } from '@/stores';
 import { useContactMeFormValidation } from '@/hooks';
 import { stringPurifier } from '@/utils';
-import { computed, ref, watch } from 'vue';
+
+import BaseDialog from '@/components/base/dialog/BaseDialog.vue';
+import BaseInput from '@/components/base/input/BaseInput.vue';
+import BaseTextArea from '@/components/base/text-area/BaseTextArea.vue';
+import BaseCheckbox from '@/components/base/checkbox/BaseCheckbox.vue';
+import BaseButton from '@/components/base/button/BaseButton.vue';
+
 import MdiInformationSlabCircle from '~icons/mdi/information-slab-circle';
-import emailjs from '@emailjs/browser';
 
 interface ContactMeFormDialogProps {
   isModalOpen: boolean;
@@ -16,7 +23,6 @@ interface ContactMeFormDialogProps {
 const props = defineProps<ContactMeFormDialogProps>();
 
 // Store Declarations
-const styleStore = useStyleStore();
 const notificationStore = useNotificationStore();
 const i18nStore = useI18nStore();
 
@@ -126,23 +132,13 @@ watch(
   >
     <template #modal-content>
       <div
-        :class="{
-          'py-2.5': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-          'py-3': styleStore.activeBreakpoint === 'md',
-          'py-4':
-            styleStore.activeBreakpoint !== 'xs' &&
-            styleStore.activeBreakpoint !== 'sm' &&
-            styleStore.activeBreakpoint !== 'md',
-        }"
-        class="inline-flex items-center justify-center w-full gap-1 text-white transition-all duration-300 ease-in-out animate-pulse"
+        class="inline-flex items-center justify-center w-full gap-1 text-white transition-all duration-300 ease-in-out animate-pulse py-2.5 sm:py-3 md:py-3 lg:py-4"
       >
         <MdiInformationSlabCircle
-          :class="[styleStore.iconSizeXS]"
-          class="shrink-0 stroke-[2.5px]"
+          class="shrink-0 stroke-[2.5px] icon-size-xs transition-all duration-300 ease-in-out"
         />
         <span
-          :class="[styleStore.textSizeXS]"
-          class="text-justify transition-all duration-300 ease-in-out font-roboto text-shadow-luminous"
+          class="text-justify transition-all duration-300 ease-in-out font-roboto text-shadow-luminous text-size-xs"
         >
           {{ i18nStore.homePageI18nContent.contactMeForm.info }}
         </span>
@@ -150,14 +146,12 @@ watch(
       <form
         id="contactForm"
         name="contact_form"
-        :class="[styleStore.elementTotalGapM]"
-        class="flex flex-col items-center w-full h-full overflow-hidden transition-all duration-300 ease-in-out"
+        class="flex flex-col items-center w-full h-full overflow-hidden transition-all duration-300 ease-in-out tot-gap-m"
         @submit.prevent="sendEmail()"
         @reset.prevent="resetForm()"
       >
         <div
-          :class="[styleStore.elementTotalGapM]"
-          class="flex flex-col flex-1 w-full px-3 overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
+          class="flex flex-col flex-1 w-full px-3 overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable tot-gap-m"
         >
           <BaseInput
             id="contactFullName"
@@ -200,8 +194,7 @@ watch(
           >
             <template #label-content>
               <span
-                :class="[styleStore.textSizeXS]"
-                class="text-justify text-white transition-all duration-300 ease-in-out font-roboto"
+                class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-size-xs"
               >
                 {{ i18nStore.homePageI18nContent.contactMeForm.agreeToTermsField }}
                 <span>
@@ -238,8 +231,7 @@ watch(
           </BaseCheckbox>
         </div>
         <div
-          :class="[styleStore.elementTotalGapM]"
-          class="flex items-center justify-end w-full px-3 pb-3 transition-all duration-300 ease-in-out"
+          class="flex items-center justify-end w-full px-3 pb-3 transition-all duration-300 ease-in-out tot-gap-m"
         >
           <BaseButton
             id="contactResetButton"

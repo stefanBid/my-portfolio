@@ -1,6 +1,8 @@
-import MdiAbTesting from '~icons/mdi/ab-testing';
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseButton } from '@/components';
+
+import BaseButton from '@/components/base/button/BaseButton.vue';
+
+import MdiAbTesting from '~icons/mdi/ab-testing';
 
 const meta = {
   title: 'Components/Base/Button',

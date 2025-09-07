@@ -23,7 +23,7 @@ export function usePageMeta({ meta, currentLang, url, image }: UsePageMetaOption
         ? { name: 'keywords', content: meta.value.keywords.join(', ') }
         : undefined,
       { name: 'author', content: meta.value.author },
-      { name: 'robots', content: meta.value.robots },
+      meta.value.robots ? { name: 'robots', content: meta.value.robots } : undefined,
       meta.value.copyright !== undefined
         ? { name: 'copyright', content: meta.value.copyright }
         : undefined,

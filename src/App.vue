@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { TheAppContainer } from '@/components';
+import AppContainer from '@/components/layouts/app-container/AppContainer.vue';
 </script>
 
 <template>
-  <TheAppContainer />
+  <AppContainer />
 </template>

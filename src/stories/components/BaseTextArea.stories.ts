@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseTextArea } from '@/components';
+
+import BaseTextArea from '@/components/base/text-area/BaseTextArea.vue';
 
 const meta = {
   title: 'Components/Base/TextArea',

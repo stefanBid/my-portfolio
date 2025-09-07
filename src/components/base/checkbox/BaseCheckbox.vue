@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useStyleStore } from '@/stores';
 import { nanoid } from 'nanoid';
 import { computed } from 'vue';
 
@@ -21,18 +20,15 @@ const props = withDefaults(defineProps<BaseCheckboxProps>(), {
 
 const checked = defineModel<string | string[] | boolean>('checked', { required: true });
 
-// Store Declarations
-const styleStore = useStyleStore();
-
 // Feature 1: Manage Checkbox Properties
 const uniqueId = nanoid();
 
-const checkboxId = computed(() => {
-  return props.id || `${uniqueId}-checkbox-id`;
-});
-
-const checkboxName = computed(() => {
-  return props.name || `${uniqueId}-checkbox-name`;
+const checkboxAttrs = computed(() => {
+  return {
+    id: props.id || `${uniqueId}-checkbox-id`,
+    name: props.name || `${uniqueId}-checkbox-name`,
+    'aria-label': props.ariaLabel,
+  };
 });
 
 //Feature 2: Manage Checkbox State
@@ -88,24 +84,20 @@ const onCheckboxChange = (event: Event): void => {
 <template>
   <div class="inline-flex items-center w-full gap-2">
     <input
-      :id="checkboxId"
+      :id="checkboxAttrs.id"
       :checked="isChecked"
       :value="props.value"
-      :name="checkboxName"
+      :name="checkboxAttrs.name"
       type="checkbox"
-      :aria-label="props.ariaLabel"
+      :aria-label="checkboxAttrs['aria-label']"
       :tabindex="0"
       :class="{
         'opacity-50 cursor-not-allowed': isCheckDisabled,
-        'size-[17px] checked:after:w-[11px] checked:after:h-[7px]':
-          styleStore.activeBreakpoint !== 'xs' && styleStore.activeBreakpoint !== 'sm',
-        'size-4 checked:after:w-2.5 checked:after:h-1.5 ':
-          styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
         'focus-visible:shadow-white ring-0': !validation?.show,
         'focus-visible:shadow-sb-error ring-sb-error ring-2': validation?.show,
       }"
       :style="{ transform: 'rotateY(180deg)' }"
-      class="bg-white relative border border-white outline-none focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5"
+      class="bg-white relative border border-white outline-none focus-visible:shadow-sb-ring-sm rounded appearance-none cursor-pointer shrink-0 checked:bg-sb-tertiary-100 checked:border-sb-tertiary-100 transition-all duration-300 ease-in-out checked:after:content-[''] checked:after:block checked:after:border-b-2 checked:after:border-r-2 checked:after:border-white checked:after:rotate-45 checked:after:absolute checked:after:left-0.5 checked:after:top-0.5 size-[17px] checked:after:w-[11px] checked:after:h-[7px] sm:size-4 sm:checked:after:w-2.5 sm:checked:after:h-1.5"
       @change.stop.prevent="($event) => onCheckboxChange($event)"
     />
     <slot name="label-content"></slot>

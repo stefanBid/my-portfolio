@@ -1,0 +1,93 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  
+}
+
+html {
+  font-size: 100%;
+  overflow-x: hidden;
+  scrollbar-gutter: stable both-edges;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: var(--color-sb-main, #0F0F20);
+  color: var(--color-white, #FFFFFF);
+}
+
+a {
+  text-decoration: none;
+}
+
+.no-scroll { overflow: hidden; padding-right: var(--sb-scrollbar, 0px); }
+
+
+/* Scrollbar */
+html { scrollbar-width: thin; scrollbar-color: #FFFFFF transparent; }
+/* WebKit */
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  /* bordo trasparente crea “air gap” senza schiacciare il thumb */
+  border: 3px solid transparent;
+}
+
+
+@media screen and (min-width: 2300px) {
+  html {
+    zoom:1.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+
+/* ====== Padding Utilities ====== */
+
+.container-p {
+  @apply px-4 sm:px-5 md:px-5 lg:px-8;
+}
+/* XS padding → very compact, good for badges or small UI elements */
+.tot-pad-xs { @apply p-1 sm:p-1.5 md:p-2 lg:p-2.5; }
+
+/* S padding → standard for buttons, compact cards */
+.tot-pad-s  { @apply p-2 sm:p-2.5 md:p-3 lg:p-4; }
+
+/* M padding → comfortable padding for cards, modals, sections */
+.tot-pad-m  { @apply p-3 sm:p-4 md:p-5 lg:p-6; }
+
+/* L padding → generous padding for larger containers */
+.tot-pad-l  { @apply p-4 sm:p-5 md:p-6 lg:p-8; }
+
+
+/* ====== Gap Utilities ====== */
+/* XS gap → very tight lists (chips, badges, icons) */
+.tot-gap-xs { @apply gap-1 sm:gap-1.5 md:gap-2 lg:gap-2.5; }
+
+/* S gap → default for stacked items (notifications, buttons, list items) */
+.tot-gap-s  { @apply gap-2 sm:gap-2.5 md:gap-3 lg:gap-4; }
+
+/* M gap → comfortable spacing for card groups or layouts */
+.tot-gap-m  { @apply gap-3 sm:gap-4 md:gap-5 lg:gap-6; }
+
+/* L gap → very spacious, good for large grids or layouts */
+.tot-gap-l  { @apply gap-4 sm:gap-5 md:gap-6 lg:gap-8; }
+
+
+
+

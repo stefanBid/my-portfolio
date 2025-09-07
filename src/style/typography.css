@@ -1,0 +1,55 @@
+/* ========================= */
+/*        TEXT SIZES         */
+/* ========================= */
+
+.text-size-xxl { @apply text-sb-5xl sm:text-sb-5xl md:text-sb-6xl lg:text-sb-7xl leading-tight; }
+.text-size-xl  { @apply text-sb-2xl sm:text-sb-3xl md:text-sb-4xl lg:text-sb-5xl leading-tight; }
+.text-size-l   { @apply text-sb-lg sm:text-sb-xl md:text-sb-2xl lg:text-sb-3xl leading-snug; }
+.text-size-m   { @apply text-sb-base sm:text-sb-lg md:text-sb-xl lg:text-sb-2xl leading-relaxed md:leading-snug; }
+.text-size-s   { @apply text-sb-sm sm:text-sb-base md:text-sb-lg lg:text-sb-xl leading-relaxed; }
+.text-size-xs  { @apply text-sb-xs sm:text-sb-xs md:text-sb-xs lg:text-sb-sm leading-relaxed; }
+
+/* Bebas Neue tweaks (very subtle letter-spacing) */
+.font-bebas.text-size-xxl { @apply tracking-[0.011em]; }
+.font-bebas.text-size-xl  { @apply tracking-[0.013em]; }
+.font-bebas.text-size-l   { @apply tracking-[0.015em]; }
+.font-bebas.text-size-m   { @apply tracking-[0.018em]; }
+.font-bebas.text-size-s   { @apply tracking-[0.021em]; }
+.font-bebas.text-size-xs  { @apply tracking-[0.023em]; }
+
+.font-bebas { font-kerning: normal; }
+
+
+/* ========================= */
+/*        ICON SIZES         */
+/* ========================= */
+
+/* XXL — Hero/empty-state illustrations */
+.icon-size-xxl { /* scales aggressively for impact */
+  @apply size-16 sm:size-20 md:size-24 lg:size-32;
+}
+
+/* XL — Prominent status icons in banners */
+.icon-size-xl {
+  @apply size-12 sm:size-14 md:size-16 lg:size-20;
+}
+
+/* L — Leading icons in cards/alerts */
+.icon-size-l {
+  @apply size-8 sm:size-10 md:size-12 lg:size-14;
+}
+
+/* M — Action icons (buttons), list items */
+.icon-size-m {
+  @apply size-5 sm:size-6 md:size-8 lg:size-10;
+}
+
+/* S — Small badges, inline indicators */
+.icon-size-s {
+  @apply size-4.5 sm:size-5 md:size-6 lg:size-6;
+}
+
+/* XS — Tiny adornments, separators */
+.icon-size-xs {
+  @apply size-3.5 sm:size-3.5 md:size-4 lg:size-5;
+}

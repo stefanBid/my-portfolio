@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useStyleStore } from '@/stores';
 
 interface SkillDotsProps {
   value: number;
 }
 
 const props = defineProps<SkillDotsProps>();
-
-const styleStore = useStyleStore();
 
 const MAX = 5;
 
@@ -27,17 +24,7 @@ const fillPercentFor = (n: number): string | number => {
     <div
       v-for="n in MAX"
       key="n"
-      :class="{
-        'size-4':
-          styleStore.activeBreakpoint !== 'xs' &&
-          styleStore.activeBreakpoint !== 'sm' &&
-          styleStore.activeBreakpoint !== 'md',
-        'size-3':
-          styleStore.activeBreakpoint === 'xs' ||
-          styleStore.activeBreakpoint === 'sm' ||
-          styleStore.activeBreakpoint === 'md',
-      }"
-      class="relative overflow-hidden transition-all duration-300 ease-in-out border rounded-full border-sb-tertiary-200 bg-sb-tertiary-200/50"
+      class="relative overflow-hidden transition-all duration-300 ease-in-out border rounded-full border-sb-tertiary-200 bg-sb-tertiary-200/50 size-3 sm:size-3.5 md:size-3.5 lg:size-4"
     >
       <div
         class="absolute inset-y-0 left-0 border-none bg-sb-tertiary-100"

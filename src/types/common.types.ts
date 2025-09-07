@@ -35,7 +35,7 @@ export interface Section {
 export interface MetaDescription {
   title: string;
   author: string;
-  robots: string;
+  robots?: string;
   description?: string;
   keywords?: string[];
   copyright?: string;

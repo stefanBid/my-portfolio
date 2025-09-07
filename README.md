@@ -15,7 +15,10 @@
 ![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
 ![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/55a2b1a4-7d4b-4a3e-8edd-444dbf85092a/deploy-status)](https://app.netlify.com/projects/stefanobiddau/deploys)
+
 Visit the live site [here](https://stefanobiddau.com/)
+
 
 Visit the live storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
 

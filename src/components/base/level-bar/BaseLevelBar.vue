@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useStyleStore } from '@/stores';
 
 interface Range {
   min: number;
@@ -16,9 +15,6 @@ const props = withDefaults(defineProps<BaseLevelBarProps>(), {
   scale: '5-base',
   label: undefined,
 });
-
-// Store Declarations
-const styleStore = useStyleStore();
 
 // Feature 1: Level Bar
 
@@ -62,28 +58,23 @@ const getScore = computed(() => {
 </script>
 
 <template>
-  <div v-bind="$attrs" class="flex flex-col transition-all duration-300 ease-in-out">
-    <span v-if="props.label" :class="[styleStore.textSizeXS]" class="mb-0.5 text-white font-roboto">
+  <div v-bind="$attrs" class="flex flex-col">
+    <span
+      v-if="props.label"
+      class="mb-0.5 text-white font-roboto text-size-xs transition-all duration-300 ease-in-out"
+    >
       {{ props.label }}
     </span>
     <div class="flex items-center">
       <div
-        :class="{
-          'h-3':
-            styleStore.activeBreakpoint !== 'xs' &&
-            styleStore.activeBreakpoint !== 'sm' &&
-            styleStore.activeBreakpoint !== 'md',
-          'h-2.5': styleStore.activeBreakpoint === 'md',
-          'h-2': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-        }"
-        class="relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200"
+        class="h-2 sm:h-2.5 md:h-2.5 lg:h-3 relative flex-1 overflow-hidden border-2 rounded-full bg-sb-tertiary-200 border-sb-tertiary-200 transition-all duration-300 ease-in-out"
       >
         <div
           class="absolute top-0 left-0 h-full bg-sb-tertiary-100"
           :style="{ width: getLevelBarWidth }"
         ></div>
       </div>
-      <span :class="[styleStore.textSizeXS]" class="ml-2 text-white font-roboto">
+      <span class="ml-2 text-white font-roboto text-size-xs">
         {{ getScore }}
       </span>
     </div>

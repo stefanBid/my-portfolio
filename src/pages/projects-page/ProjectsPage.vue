@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ThePageContainer, TheDivider, BaseSection } from '@/components';
-import { useI18nStore, useStyleStore } from '@/stores';
 import { computed } from 'vue';
 
-import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
+import { useI18nStore } from '@/stores';
 import { usePageMeta } from '@/hooks';
 
+import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
+import AppDivider from '@/components/layouts/divider/AppDivider.vue';
+import BaseSection from '@/components/base/section/BaseSection.vue';
+
+import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
+
 // Store Declarations
-const styleStore = useStyleStore();
 const i18nStore = useI18nStore();
 
 // SEO Feature Manage Meta Tags
@@ -21,44 +24,21 @@ usePageMeta({
 </script>
 
 <template>
-  <ThePageContainer :page-intro-text="i18nStore.projectsPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="i18nStore.projectsPageI18nContent.pageHeading">
     <template #page-content>
       <div
-        :class="{
-          'gap-8': styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-          'gap-9': styleStore.activeBreakpoint === 'md',
-          'gap-10':
-            styleStore.activeBreakpoint !== 'xs' &&
-            styleStore.activeBreakpoint !== 'sm' &&
-            styleStore.activeBreakpoint !== 'md',
-        }"
-        class="flex flex-col transition-all duration-300 ease-in-out"
+        class="flex flex-col transition-all duration-300 ease-in-out gap-8 sm:gap-9 md:gap-9 lg:gap-10"
       >
-        <TheDivider animation="scaleAndFade">
+        <AppDivider animation="scaleAndFade">
           <BaseSection
             :title="i18nStore.projectsPageI18nContent.firstHeading"
             :paragraph="i18nStore.projectsPageI18nContent.firstParagraph"
           />
-        </TheDivider>
+        </AppDivider>
         <div
-          class="grid transition-all duration-300 ease-in-out"
-          :class="[
-            styleStore.elementTotalPaddingM,
-            styleStore.elementTotalGapM,
-            {
-              'grid-cols-1':
-                styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
-              'grid-cols-2':
-                styleStore.activeBreakpoint === 'md' || styleStore.activeBreakpoint === 'lg',
-              'grid-cols-3':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md' &&
-                styleStore.activeBreakpoint !== 'lg',
-            },
-          ]"
+          class="grid transition-all duration-300 ease-in-out tot-pad-m tot-gap-m grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
         >
-          <TheDivider
+          <AppDivider
             v-for="project in i18nStore.projectsPageI18nContent.projects"
             :key="project.id"
             animation="scaleAndFade"
@@ -70,9 +50,9 @@ usePageMeta({
               :code-button-link="project.codeLink"
               :play-button-link="project.demoLink"
             />
-          </TheDivider>
+          </AppDivider>
         </div>
       </div>
     </template>
-  </ThePageContainer>
+  </AppPageContainer>
 </template>

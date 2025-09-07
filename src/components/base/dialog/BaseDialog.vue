@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
-import MdiCloseThick from '~icons/mdi/close-thick';
 
-import { BaseButton } from '@/components';
-import { useStyleStore } from '@/stores';
+import BaseButton from '@/components/base/button/BaseButton.vue';
+
+import MdiCloseThick from '~icons/mdi/close-thick';
 
 interface DialogProps {
   isOpen: boolean;
@@ -20,9 +20,6 @@ const props = withDefaults(defineProps<DialogProps>(), {
   dialogTitle: undefined,
   headerOrientation: 'left',
 });
-
-// Store Declarations
-const styleStore = useStyleStore();
 
 // Feature 1: Send Close Modal Event
 const handleCloseModal = (): void => {
@@ -42,23 +39,12 @@ const handleCloseModal = (): void => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black/95 z-sb-dialog-overlay"></div>
+        <div class="fixed inset-0 bg-black/95 z-[1050]"></div>
       </TransitionChild>
 
-      <div class="fixed inset-0 overflow-y-auto z-sb-dialog scrollbar-gutter-stable">
+      <div class="fixed inset-0 overflow-y-auto z-[1100]">
         <div
-          :class="[
-            styleStore.containerPadding,
-            {
-              'py-6':
-                styleStore.activeBreakpoint !== 'xs' &&
-                styleStore.activeBreakpoint !== 'sm' &&
-                styleStore.activeBreakpoint !== 'md',
-              'py-5': styleStore.activeBreakpoint === 'md',
-              'py-4': styleStore.activeBreakpoint === 'sm' || styleStore.activeBreakpoint === 'xs',
-            },
-          ]"
-          class="flex items-center justify-center h-screen"
+          class="flex items-center justify-center h-screen scrollbar-gutter-stable container-p py-4 sm:py-5 md:py-5 lg:py-6 transition-all duration-300 ease-in-out"
         >
           <TransitionChild
             as="template"
@@ -71,32 +57,18 @@ const handleCloseModal = (): void => {
           >
             <DialogPanel
               :class="[
-                styleStore.elementTotalPaddingM,
-                styleStore.elementTotalGapM,
                 {
-                  'w-[45%]':
-                    props.dialogSize === 'small' &&
-                    styleStore.activeBreakpoint !== 'xs' &&
-                    styleStore.activeBreakpoint !== 'sm',
-                  'w-[65%]':
-                    props.dialogSize === 'medium' &&
-                    styleStore.activeBreakpoint !== 'xs' &&
-                    styleStore.activeBreakpoint !== 'sm',
-                  'w-[85%]':
-                    props.dialogSize === 'large' &&
-                    styleStore.activeBreakpoint !== 'xs' &&
-                    styleStore.activeBreakpoint !== 'sm',
-                  'w-full':
-                    styleStore.activeBreakpoint === 'xs' || styleStore.activeBreakpoint === 'sm',
+                  'dialog-panel-small': props.dialogSize === 'small',
+                  'dialog-panel-medium': props.dialogSize === 'medium',
+                  'dialog-panel-large': props.dialogSize === 'large',
                   'h-fit max-h-full': !props.blockDialogHeight,
                   'h-full': props.blockDialogHeight,
                 },
               ]"
-              class="flex flex-col overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
+              class="tot-pad-m tot-gap-m flex flex-col overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
             >
               <div
-                :class="[styleStore.elementTotalGapM]"
-                class="flex justify-between overflow-hidden cursor-default shrink-0"
+                class="flex justify-between overflow-hidden cursor-default shrink-0 tot-gap-m transition-all duration-300 ease-in-out"
               >
                 <div
                   :class="{
@@ -108,8 +80,7 @@ const handleCloseModal = (): void => {
                   <h3
                     v-show="props.dialogTitle"
                     id="modal-title"
-                    :class="[styleStore.textSizeL]"
-                    class="font-medium text-white truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
+                    class="text-size-l font-medium text-white truncate whitespace-normal transition-all duration-300 ease-in-out font-roboto"
                   >
                     {{ props.dialogTitle }}
                   </h3>
@@ -121,7 +92,7 @@ const handleCloseModal = (): void => {
                   size="custom"
                   @click.stop="handleCloseModal"
                 >
-                  <MdiCloseThick :class="[styleStore.iconSizeS]" class="stroke-[2.5px]" />
+                  <MdiCloseThick class="stroke-[2.5px] icon-size-s" />
                 </BaseButton>
               </div>
               <slot name="modal-content"></slot>
@@ -132,3 +103,19 @@ const handleCloseModal = (): void => {
     </Dialog>
   </TransitionRoot>
 </template>
+
+<style scoped>
+@reference "@/style/index.css";
+
+.dialog-panel-small {
+  @apply w-full sm:w-[45%];
+}
+
+.dialog-panel-medium {
+  @apply w-full sm:w-[65%];
+}
+
+.dialog-panel-large {
+  @apply w-full sm:w-[85%];
+}
+</style>

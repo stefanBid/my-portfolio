@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseLevelBar } from '@/components';
+
+import BaseLevelBar from '@/components/base/level-bar/BaseLevelBar.vue';
 
 const meta = {
   title: 'Components/Base/LevelBar',

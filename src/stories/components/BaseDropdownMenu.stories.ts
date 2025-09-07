@@ -1,109 +1,63 @@
-/* eslint-disable no-console */
-
+// BaseDropdownMenu.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { BaseDropdownMenu } from '@/components';
+import BaseDropdownMenu from '@/components/base/dropdown-menu/BaseDropdownMenu.vue';
 
 const meta = {
   title: 'Components/Base/DropdownMenu',
   component: BaseDropdownMenu,
   tags: ['autodocs'],
   argTypes: {
-    options: {
-      description: 'The dropdownMenu options',
-      control: {
-        type: 'object',
-      },
-    },
-    label: {
-      description: 'The dropdownMenu label',
-      control: {
-        type: 'text',
-      },
+    text: {
+      description: 'Testo visibile nel bottone del dropdown',
+      control: { type: 'text' },
     },
     icon: {
-      description: 'The dropdownMenu icon',
-      control: {
-        type: 'object',
-      },
+      description:
+        'Icona del bottone (può essere componente Vue, FunctionalComponent o stringa icona)',
+      control: { type: 'object' },
     },
     zIndex: {
-      description: 'The dropdownMenu z-index',
-      control: {
-        type: 'select',
-      },
-      options: ['z-sb-base-5', 'z-sb-dropdown'],
+      description: 'z-index del pannello floating',
+      control: { type: 'number' },
     },
-    menuStrategy: {
-      description: 'The dropdownMenu menu strategy',
-      control: {
-        type: 'select',
-      },
-      options: ['absolute', 'fixed'],
+    intersectionObserverSettings: {
+      description:
+        'Impostazioni dell’IntersectionObserver usato per chiudere il menu quando rientra in viewport',
+      control: { type: 'object' },
     },
     ariaLabel: {
-      description: 'The dropdownMenu aria-label attribute',
-      control: {
-        type: 'text',
-      },
+      description: 'Attributo aria-label del bottone',
+      control: { type: 'text' },
     },
   },
   args: {
-    label: 'Menu',
-    options: [
-      {
-        id: 'option1',
-        label: 'Option 1',
-        onClick: () => console.log('Option 1 clicked'),
-      },
-      {
-        id: 'option2',
-        label: 'Option 2',
-        onClick: () => console.log('Option 2 clicked'),
-      },
-      {
-        id: 'option3',
-        label: 'Option 3',
-        onClick: () => console.log('Option 3 clicked'),
-      },
-    ],
-    ariaLabel: 'dropdown-button',
+    text: 'Menu',
+    ariaLabel: 'general dropdown menu',
+    zIndex: 500,
+    intersectionObserverSettings: {
+      rootElement: null,
+      rootMargin: '-80px 0px 0px 0px',
+      threshold: 0.05,
+    },
   },
 } satisfies Meta<typeof BaseDropdownMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const DefaultDropdownMenu: Story = {
-  args: {
-    ...meta.args,
-  },
-};
-
-export const DropdownMenuWithIcon: Story = {
-  args: {
-    ...meta.args,
-    icon: 'circle-flags:it',
-  },
-};
-
-export const DropdownMenuWithIconAndWithoutLabel: Story = {
-  args: {
-    ...meta.args,
-    icon: 'circle-flags:it',
-    label: undefined,
-  },
-};
-
-export const AbsoluteDropdownMenu: Story = {
-  args: {
-    ...meta.args,
-    menuStrategy: 'absolute',
-  },
-};
-
-export const FixedDropdownMenu: Story = {
-  args: {
-    ...meta.args,
-    menuStrategy: 'fixed',
-  },
+export const Basic: Story = {
+  render: (args) => ({
+    components: { BaseDropdownMenu },
+    setup: () => ({ args }),
+    template: `
+      <BaseDropdownMenu v-bind="args">
+        <template #options="{ closeMenu }">
+          <div class="w-40 p-2 gap-2 bg-sb-secondary-200 flex flex-col rounded-lg">
+            <button class="p-2 text-size-xs hover:bg-sb-secondary-100 rounded-lg" @click="closeMenu()">Opzione 1</button>
+            <button class="p-2 text-size-xs hover:bg-sb-secondary-100 rounded-lg" @click="closeMenu()">Opzione 2</button>
+          </div>
+        </template>
+      </BaseDropdownMenu>
+    `,
+  }),
 };
