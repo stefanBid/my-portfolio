@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
 const { reference, floating, floatingStyle, isOpen, toggle, close } = useSbFloatingPanel({
   placement: 'bottom-end',
   strategy: 'fixed',
-  offsetValue: 15,
+  offsetValue: 18,
 });
 
 const onIntersectionObserver = (entries: IntersectionObserverEntry[]): void => {
