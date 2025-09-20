@@ -23,6 +23,7 @@
     "@unhead/vue": "^2.0.14",
     "@vueuse/components": "^13.9.0",
     "@vueuse/core": "^13.9.0",
+    "axios": "^1.12.2",
     "dompurify": "^3.2.6",
     "nanoid": "^5.1.5",
     "pinia": "^3.0.3",

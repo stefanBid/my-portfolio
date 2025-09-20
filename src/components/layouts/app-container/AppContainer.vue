@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { RouterView } from 'vue-router';
 
@@ -10,6 +10,7 @@ import AppFooter from '@/components/layouts/footer/AppFooter.vue';
 import AppNotificationContainer from '@/components/layouts/notification-container/AppNotificationContainer.vue';
 
 import SvgSpinnersRingResize from '~icons/svg-spinners/ring-resize';
+import api from '@/lib/api';
 
 const route = useRoute();
 
@@ -17,6 +18,15 @@ const { isLoading } = useLoadingPageStore();
 
 const showRouterView = computed(() => {
   return route.name !== 'homePage' && route.name !== 'notFoundPage';
+});
+
+onMounted(async () => {
+  try {
+    const res = await api.get('/api/i18n/locales');
+    console.log('Locali Strapi:', res.data);
+  } catch (err) {
+    console.error('Errore nella chiamata:', err);
+  }
 });
 </script>
 

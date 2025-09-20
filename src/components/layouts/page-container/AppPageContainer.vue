@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container-p">
+  <div class="container-p transition-all duration-300 ease-in-out">
     <div
       class="flex h-screen flex-col items-center justify-center pt-14 sm:pt-[3.75rem] md:pt-16 lg:pt-20"
     >

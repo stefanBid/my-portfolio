@@ -143,7 +143,7 @@ const i18nStore = useI18nStore();
       class="px-4 pt-4 sm:px-5 sm:pt-5 md:px-5 md:pt-5 lg:px-6 lg:pt-6 inline-flex items-center justify-center w-full transition-all duration-300 ease-in-out border-t border-sb-tertiary-100 gap-x-1"
     >
       <span
-        class="text-size-xstext-center text-white transition-all duration-300 ease-in-out font-roboto"
+        class="text-size-xs text-center text-white transition-all duration-300 ease-in-out font-roboto"
       >
         Designed and Developed by
       </span>

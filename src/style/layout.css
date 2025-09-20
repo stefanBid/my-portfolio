@@ -60,7 +60,7 @@ html::-webkit-scrollbar-thumb {
 /* ====== Padding Utilities ====== */
 
 .container-p {
-  @apply px-4 sm:px-5 md:px-5 lg:px-8;
+  @apply px-5 sm:px-8 md:px-8 lg:px-12;
 }
 /* XS padding → very compact, good for badges or small UI elements */
 .tot-pad-xs { @apply p-1 sm:p-1.5 md:p-2 lg:p-2.5; }
