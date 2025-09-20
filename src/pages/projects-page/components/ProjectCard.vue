@@ -5,8 +5,9 @@ import type { Image } from '@/types';
 import { useI18nStore } from '@/stores';
 import { openLink } from '@/utils';
 
+import { Icon } from '@iconify/vue';
+
 import BaseButton from '@/components/base/button/BaseButton.vue';
-import BaseIcon from '@/components/base/icon/BaseIcon.vue';
 
 import MdiPlayCircle from '~icons/mdi/play-circle';
 
@@ -66,7 +67,7 @@ const i18nStore = useI18nStore();
       <BaseButton
         variant="white"
         size="small"
-        :icon="() => (props.platformIcon ? h(BaseIcon, { icon: props.platformIcon }) : undefined)"
+        :icon="() => (props.platformIcon ? h(Icon, { icon: props.platformIcon }) : undefined)"
         @click="openLink(props.codeButtonLink)"
       >
         {{ i18nStore.currentLanguage === 'en' ? 'View Code' : 'Vedi Codice' }}

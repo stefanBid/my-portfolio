@@ -2,7 +2,7 @@
 import { useI18nStore } from '@/stores';
 import { openLink } from '@/utils';
 
-import BaseIcon from '@/components/base/icon/BaseIcon.vue';
+import { Icon } from '@iconify/vue';
 
 //Store Declarations
 const i18nStore = useI18nStore();
@@ -41,7 +41,7 @@ const i18nStore = useI18nStore();
         </p>
         <!--Social Media-->
         <div id="social-media" class="flex gap-4">
-          <BaseIcon
+          <Icon
             v-for="(social, index) in i18nStore.footerI18nContent.intro.socials"
             :key="index"
             :icon="social.icon"
@@ -102,7 +102,7 @@ const i18nStore = useI18nStore();
           ]"
           class="text-size-xs inline-flex items-center text-white transition-all duration-300 ease-in-out font-roboto gap-x-2 text-center sm:text-left md:text-left"
         >
-          <BaseIcon
+          <Icon
             :icon="channel.icon"
             class="transition-all duration-300 ease-in-out shrink-0 icon-size-xs"
           />

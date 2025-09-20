@@ -4,8 +4,9 @@ import { computed, ref } from 'vue';
 import { useI18nStore } from '@/stores';
 import type { SkillInfo } from '@/types';
 
+import { Icon } from '@iconify/vue';
+
 import BaseButton from '@/components/base/button/BaseButton.vue';
-import BaseIcon from '@/components/base/icon/BaseIcon.vue';
 import BaseLevelBar from '@/components/base/level-bar/BaseLevelBar.vue';
 
 import SkillDots from '@/pages/skills-page/components/SkillDots.vue';
@@ -86,7 +87,7 @@ const goPrevious = (): void => {
     >
       {{ props.skill.name }}
     </h4>
-    <BaseIcon
+    <Icon
       v-if="props.skill.icon"
       :icon="props.skill.icon"
       class="transition-all duration-300 ease-in-out shrink-0 icon-size-xl my-2.5 sm:my-3 md:my-3 lg:my-4"

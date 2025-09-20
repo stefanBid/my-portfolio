@@ -5,8 +5,9 @@ import { useRoute } from 'vue-router';
 import { useI18nStore } from '@/stores';
 import type { Locale } from '@/types';
 
+import { Icon } from '@iconify/vue';
+
 import BaseDropdownMenu from '@/components/base/dropdown-menu/BaseDropdownMenu.vue';
-import BaseIcon from '@/components/base/icon/BaseIcon.vue';
 
 import MdiClose from '~icons/mdi/close';
 import MdiHamburgerMenu from '~icons/mdi/hamburger-menu';
@@ -163,7 +164,7 @@ onBeforeUnmount(() => {
                   }
                 "
               >
-                <BaseIcon
+                <Icon
                   :icon="lang.icon"
                   class="icon-size-xs transition-all duration-300 ease-in-out"
                 />
@@ -264,10 +265,7 @@ onBeforeUnmount(() => {
               }
             "
           >
-            <BaseIcon
-              :icon="lang.icon"
-              class="icon-size-xs transition-all duration-300 ease-in-out"
-            />
+            <Icon :icon="lang.icon" class="icon-size-xs transition-all duration-300 ease-in-out" />
             <span class="transition-all duration-300 ease-in-out text-size-xs">
               {{ lang.label }}
             </span>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, markRaw } from 'vue';
 
-import BaseIcon from '@/components/base/icon/BaseIcon.vue';
+import { Icon } from '@iconify/vue';
 
 interface SkillSolarSystemProps {
   starName: string;
@@ -77,7 +77,7 @@ onMounted(() => {
       <div
         class="absolute top-0 flex items-center justify-center p-1 transform -translate-x-1/2 -translate-y-1/2 left-1/2"
       >
-        <BaseIcon :icon="orbit.planetIcon" class="size-8" />
+        <Icon :icon="orbit.planetIcon" class="size-8" />
       </div>
     </div>
   </div>
