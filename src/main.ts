@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import './style/index.css';
 
 import App from './App.vue';
-import i18n from './i18n/index';
+import i18n from './i18n/i18n';
 import { router } from './router/router';
 
 // Create the Vue application instance

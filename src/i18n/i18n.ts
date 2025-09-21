@@ -16,4 +16,16 @@ const i18n = createI18n({
   messages,
 });
 
+/*
+export const i18n = createI18n({
+  legacy: false,
+  locale: 'it',
+  fallbackLocale: 'en',
+  messages: {
+    it: { ui: { retry: 'Riprova', offline: 'Contenuti offline' } },
+    en: { ui: { retry: 'Retry',  offline: 'Offline content' } },
+  },
+});
+*/
+
 export default i18n;
