@@ -1,47 +1,46 @@
 // router/index.ts (Router Configuration File)
 
 import { createRouter, createWebHistory } from 'vue-router';
-
-import { useLoadingPageStore } from '@/stores';
-
 import HomePage from '@/pages/home-page/HomePage.vue';
 
 // Root definition
 const routes = [
   {
     path: '/',
-    name: 'homePage',
+    name: 'home',
     component: HomePage,
+    meta: { hideFooter: true },
   },
   {
     path: '/about',
-    name: 'aboutPage',
+    name: 'about-me',
     component: () => import('@/pages/about-page/AboutPage.vue'),
   },
   {
     path: '/projects',
-    name: 'projectsPage',
+    name: 'my-projects',
     component: () => import('@/pages/projects-page/ProjectsPage.vue'),
   },
   {
     path: '/skills',
-    name: 'skillsPage',
+    name: 'my-skills',
     component: () => import('@/pages/skills-page/SkillsPage.vue'),
   },
   {
     path: '/privacy-policy',
-    name: 'privacyPolicyPage',
+    name: 'privacy-policy',
     component: () => import('@/pages/privacy-policy-page/PrivacyPolicyPage.vue'),
   },
   {
     path: '/terms-and-conditions',
-    name: 'termsAndConditionsPage',
+    name: 'terms-and-conditions',
     component: () => import('@/pages/terms-and-conditions-page/TermsAndConditionsPage.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'notFoundPage',
+    name: 'not-found-page',
     component: () => import('@/pages/not-found-page/NotFoundPage.vue'),
+    meta: { notFound: true, hideFooter: true, hideHeader: true },
   },
 ] as const;
 
@@ -64,21 +63,6 @@ const router = createRouter({
     // Altrimenti vai in cima
     return { left: 0, top: 0 };
   },
-});
-
-router.beforeEach(() => {
-  const lp = useLoadingPageStore();
-  lp.isLoading = true;
-});
-
-router.afterEach(() => {
-  const lp = useLoadingPageStore();
-  lp.isLoading = false;
-});
-
-router.onError(() => {
-  const lp = useLoadingPageStore();
-  lp.isLoading = false;
 });
 
 export { router };

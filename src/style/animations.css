@@ -1,3 +1,28 @@
+/* Big Scale and Fade (normal 0.3s) */
+.scale-and-fade-big-enter-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.scale-and-fade-big-enter-from {
+  opacity: 0;
+  transform: scale(0.1);
+}
+.scale-and-fade-big-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+.scale-and-fade-big-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.scale-and-fade-big-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+.scale-and-fade-big-leave-to {
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+
 /* Scale and Fade (fast 0.3s) */
 .scale-and-fade-fast-enter-active {
   transition: opacity 0.5s, transform 0.5s;
@@ -69,65 +94,6 @@
   transform: scale(0.95);
 }
 
-/* Shutter */
-.shutter-enter-active {
-  transition: transform 0.5s ease-out;
-}
-.shutter-enter-from {
-  transform: translateY(100%);
-}
-.shutter-enter-to {
-  transform: translateY(0);
-}
-.shutter-leave-active {
-  transition: transform 0.5s ease-in;
-}
-.shutter-leave-from {
-  transform: translateY(0);
-}
-.shutter-leave-to {
-  transform: translateY(-100%);
-}
-
-/* Stretch */
-.stretch-enter-active {
-  transition: transform 0.5s ease-out;
-}
-.stretch-enter-from {
-  transform: scale(0);
-}
-.stretch-enter-to {
-  transform: scale(1);
-}
-.stretch-leave-active {
-  transition: transform 0.5s ease-in;
-}
-.stretch-leave-from {
-  transform: scale(1);
-}
-.stretch-leave-to {
-  transform: scale(0);
-}
-
-/* Stretch fast */
-.stretch-fast-enter-active {
-  transition: transform 0.3s ease-out;
-}
-.stretch-fast-enter-from {
-  transform: scale(0);
-}
-.stretch-fast-enter-to {
-  transform: scale(1);
-}
-.stretch-fast-leave-active {
-  transition: transform 0.3s ease-in;
-}
-.stretch-fast-leave-from {
-  transform: scale(1);
-}
-.stretch-fast-leave-to {
-  transform: scale(0);
-}
 
 
 /* Slide Down */
@@ -150,4 +116,39 @@
   0% { transform: scale(1.5); opacity: 0.9; }
   50% { transform: scale(1); opacity: 0.1; }
   100% { transform: scale(1.5); opacity: 0.9; }
-}             
+}   
+
+
+/* Scale In  */
+@keyframes scale-in-small {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in-big {
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+}
+
+.animate-scale-in-small {
+  animation: scale-in-small 0.5s ease-out forwards;
+}
+
+.animate-scale-in-big {
+  animation: scale-in-big 0.5s ease-out forwards;
+}
+
+

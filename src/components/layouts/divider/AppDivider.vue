@@ -11,6 +11,7 @@ interface AppDividerProps {
   animation?: 'fade' | 'scaleAndFade' | 'none';
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<AppDividerProps>(), {
   intersectionObserverSettings: () => ({
     rootElement: null,
@@ -20,18 +21,8 @@ const props = withDefaults(defineProps<AppDividerProps>(), {
   animation: 'none',
 });
 
+// State
 const isVisible = ref(false);
-
-const onIntersectionObserver = (
-  entries: IntersectionObserverEntry[],
-  observer: IntersectionObserver,
-): void => {
-  const [{ isIntersecting }] = entries;
-  if (isIntersecting !== isVisible.value && !isVisible.value) {
-    isVisible.value = true;
-    observer?.disconnect();
-  }
-};
 
 const getAnimationClasses = computed(() => {
   switch (props.animation) {
@@ -51,6 +42,18 @@ const getAnimationClasses = computed(() => {
       return {};
   }
 });
+
+// Events
+const onIntersectionObserver = (
+  entries: IntersectionObserverEntry[],
+  observer: IntersectionObserver,
+): void => {
+  const [{ isIntersecting }] = entries;
+  if (isIntersecting !== isVisible.value && !isVisible.value) {
+    isVisible.value = true;
+    observer?.disconnect();
+  }
+};
 </script>
 
 <template>

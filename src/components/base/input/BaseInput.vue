@@ -24,6 +24,7 @@ interface InputProps {
   validation?: { show: boolean; message?: string };
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<InputProps>(), {
   ariaLabel: 'general input',
   label: undefined,
@@ -43,8 +44,18 @@ const props = withDefaults(defineProps<InputProps>(), {
 
 const inputValue = defineModel<string>('inputValue', { required: true });
 
-// Feature 1: Manage Input Properties
+// Dependencies
+const { isOpen, reference, floating, floatingStyle, toggle, close } = useSbFloatingPanel({
+  placement: 'bottom',
+  strategy: 'absolute',
+  offsetValue: 15,
+  hasResize: true,
+});
+
+// State
 const uniqueId = nanoid();
+const buttonMenuRef = ref();
+const isInputFocused = ref(false);
 
 const inputAttrs = computed(() => {
   return {
@@ -74,33 +85,23 @@ const inputLabel = computed(() => {
   } else return undefined;
 });
 
-// Feature 2: Manage Input Menu
-const { isOpen, reference, floating, floatingStyle, toggle, close } = useSbFloatingPanel({
-  placement: 'bottom',
-  strategy: 'absolute',
-  offsetValue: 15,
-  hasResize: true,
-});
+// Events
+const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
+  if (!isIntersecting && isOpen.value && props.withMenu) {
+    close();
+  }
+};
 
-const buttonMenuRef = ref();
-const isInputFocused = ref(false);
-
-const handleClick = (): void => {
+const onClick = (): void => {
   if (!props.withMenu) {
     return;
   }
   toggle();
 };
 
-const handleFocusBlur = (focused: boolean): void => {
+const onFocusBlur = (focused: boolean): void => {
   isInputFocused.value = focused;
   if (props.withMenu && focused && isOpen.value) {
-    close();
-  }
-};
-
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (!isIntersecting && isOpen.value && props.withMenu) {
     close();
   }
 };
@@ -155,8 +156,8 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         ]"
         class="text-size-xs w-full text-white truncate transition-all duration-300 ease-in-out border-2 rounded-lg outline-none focus:ring-offset-0 ring-0 ring-offset-0 focus:bg-white focus:shadow-sb-ring-sm focus:text-black py-1.5 sm:py-2 md:py-2 lg:py-2.5"
         :placeholder="inputPlaceholder"
-        @focus="handleFocusBlur(true)"
-        @blur="handleFocusBlur(false)"
+        @focus="onFocusBlur(true)"
+        @blur="onFocusBlur(false)"
       />
       <BaseButton
         v-if="props.withMenu"
@@ -164,24 +165,15 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
         aria-label="open input menu"
         variant="custom"
         size="custom"
-        :class="[
-          {
-            'bg-sb-secondary-200': isOpen,
-            'bg-white focus-visible:bg-sb-secondary-100 focus-visible:border-white hover:bg-sb-secondary-100':
-              !isOpen,
-          },
-        ]"
-        class="absolute right-0 h-full px-2 border border-white rounded-e-lg group"
-        @click.stop="handleClick"
+        :class="[]"
+        class="absolute right-0 h-full pr-2 rounded-e-lg"
+        @click.stop="onClick"
       >
         <MdiKeyboardArrowDown
           class="icon-size-s transition-all duration-300 ease-in-out shrink-0 stroke-[2.5px]"
           :class="[
             isOpen ? 'rotate-180' : 'rotate-0',
-            {
-              'text-white': isOpen,
-              'group-focus-visible:text-white group-hover:text-white text-black': !isOpen,
-            },
+            isInputFocused ? 'text-black' : 'text-white',
           ]"
         />
       </BaseButton>
@@ -210,7 +202,7 @@ const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[
 @reference "@/style/index.css";
 
 .input-spacing-with-menu {
-  @apply pl-2 pr-8 sm:pl-2.5 sm:pr-10 md:pl-2.5 md:pr-10 lg:pl-3 lg:pr-12;
+  @apply pl-2 pr-8 sm:pl-2.5 md:pl-2.5 lg:pl-3 lg:pr-10;
 }
 
 .input-spacing-no-menu {

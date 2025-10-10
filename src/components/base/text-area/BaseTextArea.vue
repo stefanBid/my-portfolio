@@ -13,6 +13,7 @@ interface TextAreaProps {
   validation?: { show: boolean; message?: string };
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<TextAreaProps>(), {
   id: undefined,
   name: undefined,
@@ -26,9 +27,8 @@ const props = withDefaults(defineProps<TextAreaProps>(), {
 
 const inputValue = defineModel<string>('inputValue', { required: true });
 
+// State
 const reference = ref();
-
-// Feature 1: Manage TextArea Properties
 const uniqueId = nanoid();
 
 const textAreaAttrs = computed(() => {

@@ -26,4 +26,4 @@ app.use(router);
 app.use(i18n);
 
 // Mount the app to the DOM
-router.isReady().then(() => app.mount('#app'));
+app.mount('#app');

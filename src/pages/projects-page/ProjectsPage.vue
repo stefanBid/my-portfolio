@@ -1,56 +1,92 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useHead } from '@unhead/vue';
 
-import { useI18nStore } from '@/stores';
-import { usePageMeta } from '@/hooks';
+import {
+  useNotificationStore,
+  useLocaleStore,
+  useProjectsStore,
+  usePortfolioStore,
+} from '@/stores';
 
 import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
 import AppDivider from '@/components/layouts/divider/AppDivider.vue';
 import BaseSection from '@/components/base/section/BaseSection.vue';
 
 import ProjectCard from '@/pages/projects-page/components/ProjectCard.vue';
+import ProjectCardSkeleton from '@/pages/projects-page/components/ProjectCardSkeleton.vue';
+import type { Lang } from '@/types';
 
-// Store Declarations
-const i18nStore = useI18nStore();
+// Dependencies
+const nStore = useNotificationStore();
+const { projectsData } = storeToRefs(usePortfolioStore());
+const { locale } = storeToRefs(useLocaleStore());
+const pStore = useProjectsStore();
+const { projects, isLoading, error } = storeToRefs(pStore);
 
-// SEO Feature Manage Meta Tags
-usePageMeta({
-  meta: computed(() => i18nStore.projectsPageI18nContent.metaDescription),
-  currentLang: computed(() => i18nStore.currentLanguage),
-  url: 'https://stefanobiddau.com/projects',
-  image:
-    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+// State
+useHead({
+  title: computed(() => projectsData.value.pageMeta.title),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: projectsData.value.pageMeta.description,
+    },
+  ]),
 });
+
+// Events
+
+onMounted(() => {
+  pStore.loadProjects(locale.value as Lang);
+});
+
+watch(
+  () => locale.value,
+  (newLang) => {
+    pStore.loadProjects(newLang as Lang);
+  },
+);
+
+watch(
+  () => error.value,
+  (newError) => {
+    if (newError) {
+      nStore.pushNotification(
+        'Projects are not available at the moment. Please try again later.',
+        'error',
+      );
+    }
+  },
+);
 </script>
 
 <template>
-  <AppPageContainer :page-intro-text="i18nStore.projectsPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="projectsData.startTitle">
     <template #page-content>
       <div
         class="flex flex-col transition-all duration-300 ease-in-out gap-8 sm:gap-9 md:gap-9 lg:gap-10"
       >
         <AppDivider animation="scaleAndFade">
           <BaseSection
-            :title="i18nStore.projectsPageI18nContent.firstHeading"
-            :paragraph="i18nStore.projectsPageI18nContent.firstParagraph"
+            :title="projectsData.presentation.title"
+            :paragraph="projectsData.presentation.paragraph || ''"
           />
         </AppDivider>
         <div
           class="grid transition-all duration-300 ease-in-out tot-pad-m tot-gap-m grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
         >
-          <AppDivider
-            v-for="project in i18nStore.projectsPageI18nContent.projects"
-            :key="project.id"
-            animation="scaleAndFade"
-          >
-            <ProjectCard
-              :title="project.title"
-              :image-path="project.projectCover"
-              :platform-icon="project.platformIcon"
-              :code-button-link="project.codeLink"
-              :play-button-link="project.demoLink"
-            />
-          </AppDivider>
+          <template v-if="!isLoading && !error">
+            <AppDivider v-for="p in projects" :key="p.id" animation="scaleAndFade">
+              <ProjectCard :project="p" />
+            </AppDivider>
+          </template>
+          <template v-else>
+            <AppDivider v-for="n in 6" :key="n" animation="scaleAndFade">
+              <ProjectCardSkeleton />
+            </AppDivider>
+          </template>
         </div>
       </div>
     </template>

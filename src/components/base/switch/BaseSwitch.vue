@@ -6,6 +6,7 @@ interface BaseSwitchProps {
   ariaLabel?: string;
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<BaseSwitchProps>(), {
   label: undefined,
   ariaLabel: 'general switch',

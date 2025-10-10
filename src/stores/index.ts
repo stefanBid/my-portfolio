@@ -1,5 +1,7 @@
 // stores/index.ts (Stores Barrel Export File)
 
-export * from '@/stores/notification-store/notificationStore';
-export * from '@/stores/i18n-store/useI18nStore';
-export * from '@/stores/loading-page-store/useLoadingPageStore';
+export * from '@/stores/notification-store/notification-store';
+export * from '@/stores/locale-store/locale-store';
+export * from '@/stores/portfolio-store/portfolio-store';
+export * from '@/stores/skills-store/skills-store';
+export * from '@/stores/projects-store/project-store';

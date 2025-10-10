@@ -11,9 +11,9 @@ interface DialogProps {
   dialogSize?: 'small' | 'medium' | 'large';
   blockDialogHeight?: boolean;
   dialogTitle?: string;
-  onCloseDialog: (falsyValue: false) => void;
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<DialogProps>(), {
   dialogSize: 'large',
   blockDialogHeight: false,
@@ -21,15 +21,19 @@ const props = withDefaults(defineProps<DialogProps>(), {
   headerOrientation: 'left',
 });
 
-// Feature 1: Send Close Modal Event
-const handleCloseModal = (): void => {
-  props.onCloseDialog(false);
+const emits = defineEmits<{
+  (e: 'close-dialog', falsyValue: false): void;
+}>();
+
+// Events
+const onCloseDialog = (): void => {
+  emits('close-dialog', false);
 };
 </script>
 
 <template>
   <TransitionRoot appear :show="props.isOpen" as="template">
-    <Dialog as="div" class="relative overflow-hidden" @close="handleCloseModal">
+    <Dialog as="div" class="relative overflow-hidden" @close="onCloseDialog">
       <TransitionChild
         as="template"
         enter="duration-300 ease-out"
@@ -44,7 +48,7 @@ const handleCloseModal = (): void => {
 
       <div class="fixed inset-0 overflow-y-auto z-[1100]">
         <div
-          class="flex items-center justify-center h-screen scrollbar-gutter-stable container-p py-4 sm:py-5 md:py-5 lg:py-6 transition-all duration-300 ease-in-out"
+          class="flex items-center justify-center h-dvh scrollbar-gutter-stable container-p py-4 sm:py-5 md:py-5 lg:py-6 transition-all duration-300 ease-in-out"
         >
           <TransitionChild
             as="template"
@@ -90,7 +94,7 @@ const handleCloseModal = (): void => {
                   :aria-label="`close ${props.dialogTitle} modal`"
                   variant="custom"
                   size="custom"
-                  @click.stop="handleCloseModal"
+                  @click.stop="onCloseDialog"
                 >
                   <MdiCloseThick class="stroke-[2.5px] icon-size-s" />
                 </BaseButton>

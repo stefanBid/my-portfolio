@@ -1,75 +1,75 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue';
+import { storeToRefs } from 'pinia';
 
-import { useI18nStore } from '@/stores';
-import type { SkillInfo } from '@/types';
+import { usePortfolioStore, useLocaleStore, useSkillsStore, useNotificationStore } from '@/stores';
+import type { Lang } from '@/types';
 
 import AppDivider from '@/components/layouts/divider/AppDivider.vue';
 import BaseDialog from '@/components/base/dialog/BaseDialog.vue';
 import BaseInput from '@/components/base/input/BaseInput.vue';
 import BaseSwitch from '@/components/base/switch/BaseSwitch.vue';
 
-import SkillCard from '@/pages/skills-page/components/SkillCard.vue';
+import SkillCard from '@/pages/skills-page/components/skill-card/SkillCard.vue';
+import SkillCardSkeleton from '@/pages/skills-page/components/skill-card/SkillCardSkeleton.vue';
 
-import MdiCursorDefaultClick from '~icons/mdi/cursor-default-click';
+import { Icon } from '@iconify/vue';
 
 interface SkillsModalProps {
   isModalOpen: boolean;
   handleCloseModal: (falsyValue: false) => void;
 }
 
+// Input / Output (Props / Emits)
 const props = defineProps<SkillsModalProps>();
 const skillContainerRef = ref<HTMLElement | null>(null);
 
-// Store Declarations
-const i18nStore = useI18nStore();
+// Dependencies
+const notificationStore = useNotificationStore();
+const { locale } = storeToRefs(useLocaleStore());
+const { skillsData } = storeToRefs(usePortfolioStore());
+const sStore = useSkillsStore();
+const { skills, isLoading, error } = storeToRefs(sStore);
+// State
 
-// Feature 1: Manage Skills Filters
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
-
 const filters = ref<Record<string, boolean>>({
   feLanguage: true,
   beLanguage: true,
   feFramework: true,
   beFramework: true,
-  beDb: true,
+  database: true,
+  tool: true,
+  other: true,
 });
 
-const getFiltersLabel = computed<Record<string, string>>(() => {
-  if (i18nStore.currentLanguage === 'en') {
-    return {
-      feLanguage: 'Show Frontend Language',
-      beLanguage: 'Show Backend Language',
-      feFramework: 'Show Frontend Framework',
-      beFramework: 'Show Backend Framework',
-      beDb: 'Show Backend Database',
-    };
+const getInfoMessages = computed<{ icon?: string; info: string }>(() => {
+  let infoMessage = '';
+
+  if (skills.value.length === 0) {
+    infoMessage =
+      locale.value === 'en'
+        ? `No skills found ${searchSkillKey.value ? 'for "' + searchSkillKey.value + '"' : ''}`
+        : `Nessuna competenza trovata ${
+            searchSkillKey.value ? 'per "' + searchSkillKey.value + '"' : ''
+          }`;
   } else {
-    return {
-      feLanguage: 'Visualizza Frontend Language',
-      beLanguage: 'Visualizza Backend Language',
-      feFramework: 'Visualizza Frontend Framework',
-      beFramework: 'Visualizza Backend Framework',
-      beDb: 'Visualizza Backend Database',
-    };
+    infoMessage = skillsData.value.skillsModal?.info || '';
   }
+
+  const infoIcon = skills.value.length ? skillsData.value.skillsModal?.icon : 'mdi:magnify-close';
+
+  return {
+    icon: infoIcon,
+    info: infoMessage,
+  };
 });
 
-const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
-
-const filteredSkillsList = computed<SkillInfo[]>(() => {
-  return skillsList.value.filter(
-    (skill) =>
-      (debouncedSearchSkillKey.value === '' ||
-        skill.name.toLowerCase().includes(debouncedSearchSkillKey.value.toLowerCase())) &&
-      filters.value[skill.type],
-  );
-});
-
+// Events
 watch(
   () => props.isModalOpen,
-  (newValue) => {
+  async (newValue) => {
     if (newValue) {
       searchSkillKey.value = '';
       debouncedSearchSkillKey.value = '';
@@ -78,8 +78,11 @@ watch(
         beLanguage: true,
         feFramework: true,
         beFramework: true,
-        beDb: true,
+        database: true,
+        tool: true,
+        other: true,
       };
+      await sStore.loadSkills(locale.value as Lang);
     }
   },
 );
@@ -88,12 +91,35 @@ let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
 watch(
   () => searchSkillKey.value,
-  (newValue) => {
+  (newValue, oldValue) => {
+    if (oldValue.length !== 1 && newValue.length === 0) {
+      sStore.setSearchKey('');
+      return;
+    }
     timeoutId = setTimeout(() => {
-      debouncedSearchSkillKey.value = newValue;
+      sStore.setSearchKey(newValue);
     }, 300);
   },
-  {},
+);
+
+watch(
+  () => filters.value,
+  (newValue) => {
+    sStore.setFilterType(newValue);
+  },
+  { deep: true },
+);
+
+watch(
+  () => error.value,
+  (err) => {
+    if (err) {
+      notificationStore.pushNotification(
+        'Skills are not available at the moment. Please try again later.',
+        'error',
+      );
+    }
+  },
 );
 
 onUnmounted(() => {
@@ -108,22 +134,25 @@ onUnmounted(() => {
     :is-open="isModalOpen"
     header-orientation="left"
     block-dialog-height
-    :dialog-title="i18nStore.skillsPageI18nContent.skillsDialog.title"
-    :on-close-dialog="(falsyValue) => props.handleCloseModal(falsyValue)"
+    :dialog-title="skillsData.skillsModal.title"
+    @close-dialog="(falsyValue) => props.handleCloseModal(falsyValue)"
   >
     <template #modal-content>
       <div
         class="flex flex-col items-center w-full h-full overflow-hidden tot-gap-m pt-2.5 sm:pt-3 md:pt-3 lg:pt-4 transition-all duration-300 ease-in-out"
       >
-        <div class="px-2 w-full sm:w-5/6 md:w-5/6 lg:w-4/6 transition-all duration-300 ease-in-out">
+        <div
+          v-if="skillsData.skillsModal.extra"
+          class="px-2 w-full sm:w-5/6 md:w-5/6 lg:w-4/6 transition-all duration-300 ease-in-out"
+        >
           <BaseInput
             id="searchSkillKey"
             v-model:input-value="searchSkillKey"
             name="search_skill_key"
             aria-label="search skill key"
             type="search"
-            :label="i18nStore.skillsPageI18nContent.skillsDialog.searchField.label"
-            :placeholder="i18nStore.skillsPageI18nContent.skillsDialog.searchField.placeholder"
+            :label="skillsData.skillsModal.extra.searchField.label"
+            :placeholder="skillsData.skillsModal.extra.searchField.placeholder"
             with-menu
           >
             <template #input-menu-box>
@@ -137,7 +166,7 @@ onUnmounted(() => {
                 >
                   <BaseSwitch
                     v-model:enabled="filters[filterKey]"
-                    :label="getFiltersLabel[filterKey]"
+                    :label="skillsData.skillsModal.extra?.filters[filterKey] || 'Option'"
                   />
                 </div>
               </div>
@@ -145,11 +174,15 @@ onUnmounted(() => {
           </BaseInput>
         </div>
         <div class="inline-flex items-center justify-center w-full gap-1 text-white animate-pulse">
-          <MdiCursorDefaultClick class="shrink-0 stroke-[2.5px] icon-size-xs" />
+          <Icon
+            v-if="getInfoMessages.icon"
+            :icon="getInfoMessages.icon"
+            class="shrink-0 stroke-[2.5px] icon-size-xs"
+          />
           <span
             class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-shadow-luminous text-size-xs"
           >
-            {{ i18nStore.skillsPageI18nContent.skillsDialog.info }}
+            {{ getInfoMessages.info }}
           </span>
         </div>
         <div
@@ -157,35 +190,25 @@ onUnmounted(() => {
           class="relative flex flex-col w-full h-full overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable"
         >
           <div
-            v-if="filteredSkillsList.length > 0"
             class="grid transition-all duration-300 ease-in-out tot-gap-m tot-pad-m grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
           >
-            <AppDivider
-              v-for="skill in filteredSkillsList"
-              :key="skill.id"
-              :intersection-observer-settings="{
-                rootElement: skillContainerRef,
-                threshold: 0.25,
-              }"
-              animation="scaleAndFade"
-            >
-              <SkillCard :skill="skill" />
-            </AppDivider>
+            <template v-if="!isLoading && !error">
+              <AppDivider
+                v-for="s in skills"
+                :key="s.id"
+                :intersection-observer-settings="{
+                  rootElement: skillContainerRef,
+                  threshold: 0.25,
+                }"
+                animation="scaleAndFade"
+              >
+                <SkillCard :skill="s" />
+              </AppDivider>
+            </template>
+            <template v-else>
+              <SkillCardSkeleton v-for="n in 6" :key="`skill-card-skeleton-${n}`" />
+            </template>
           </div>
-          <span
-            v-else
-            class="w-full text-center text-white truncate transition-all duration-300 ease-in-out font-bebas text-size-l mt-2.5 sm:mt-3 md:mt-3 lg:mt-4"
-          >
-            {{
-              i18nStore.currentLanguage === 'en'
-                ? 'No skills found for "'
-                : 'Nessuna competenza trovata per "'
-            }}
-            <span class="underline text-sb-tertiary-200 text-size-l">
-              {{ debouncedSearchSkillKey }}
-            </span>
-            "
-          </span>
         </div>
       </div>
     </template>

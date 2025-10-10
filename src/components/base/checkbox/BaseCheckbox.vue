@@ -7,9 +7,10 @@ interface BaseCheckboxProps {
   id?: string;
   name?: string;
   ariaLabel?: string;
-  validation?: { show: boolean };
+  validation?: { show: boolean; message?: string };
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<BaseCheckboxProps>(), {
   value: undefined,
   id: undefined,
@@ -20,7 +21,7 @@ const props = withDefaults(defineProps<BaseCheckboxProps>(), {
 
 const checked = defineModel<string | string[] | boolean>('checked', { required: true });
 
-// Feature 1: Manage Checkbox Properties
+// State
 const uniqueId = nanoid();
 
 const checkboxAttrs = computed(() => {
@@ -31,7 +32,6 @@ const checkboxAttrs = computed(() => {
   };
 });
 
-//Feature 2: Manage Checkbox State
 const isCheckDisabled = computed<boolean>(() => {
   return (typeof checked.value === 'string' || Array.isArray(checked.value)) && !props.value;
 });
@@ -51,6 +51,7 @@ const isChecked = computed<boolean>(() => {
   return false;
 });
 
+// Events
 const onCheckboxChange = (event: Event): void => {
   const target = event.target as HTMLInputElement;
   // Boolean case

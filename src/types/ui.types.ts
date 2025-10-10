@@ -1,36 +1,51 @@
-export interface UiButton {
+export type NotificationCategory = 'info' | 'success' | 'error';
+
+export interface UINotification {
+  id: string;
+  message: string;
+  type: NotificationCategory;
+  visibilityDuration: number;
+}
+
+export interface UIButton {
   text: string;
   icon?: string;
   link?: string;
-  size: 'small' | 'medium';
-  variant: 'white' | 'tertiary';
-  type: 'button' | 'submit' | 'reset';
+  size?: 'small' | 'medium';
+  variant?: 'white' | 'tertiary';
+  type?: 'button' | 'submit' | 'reset';
 }
 
-export interface UiCover {
-  url: string;
-  alternativeText?: string;
-  caption?: string;
-  width?: number;
-  height?: number;
+export interface UIContact {
+  value: string;
+  type: 'email' | 'number';
+  icon?: string;
 }
 
-export interface UiInputField {
+export interface UIInputField {
+  inputId: string;
+  type: 'text' | 'email' | 'textarea' | 'checkbox';
+  mandatory?: boolean;
+  regexValidation?: string;
   label?: string;
   placeholder?: string;
-  type: 'text' | 'email' | 'textarea' | 'checkbox';
   errors?: Record<string, string>;
 }
 
-export interface UiLink {
+export interface UILevelBar {
+  name: string;
+  level: number;
+}
+
+export interface UILink {
   label: string;
   href: string;
   isExternal?: boolean;
+  name?: string;
+  icon?: string;
 }
 
-export interface UiSection {
+export interface UIMetaTag {
   title: string;
-  subtitle?: string;
-  paragraph: string;
-  cover?: UiCover;
+  description?: string;
 }

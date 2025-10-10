@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue';
-import type { Image } from '@/types';
 
 interface VintagePictureProps {
-  imagePath: Image;
+  imagePath: string;
   text?: string;
   isVisible?: boolean;
 }
@@ -83,16 +82,13 @@ onUnmounted(() => {
       :style="flip ? 'transform: rotateY(180deg)' : 'transform: rotateY(0deg)'"
       @click.prevent="flipPicture"
     >
-      <picture class="transition-all duration-300 ease-in-out">
-        <source :srcset="props.imagePath.webp || undefined" type="image/webp" />
-        <img
-          v-show="!delayedFlip"
-          :src="props.imagePath.jpg"
-          :alt="`${props.text} picture`"
-          class="object-cover object-center w-full transition-all duration-300 ease-in-out rounded h-[236px] sm:h-[332px] md:h-[332px] lg:h-[380px]"
-          :style="{ transform: 'rotateY(0deg)' }"
-        />
-      </picture>
+      <img
+        v-show="!delayedFlip"
+        :src="props.imagePath"
+        :alt="`${props.text} picture`"
+        class="object-cover object-center w-full rounded h-[236px] sm:h-[332px] md:h-[332px] lg:h-[380px] transition-all duration-300 ease-in-out"
+        :style="{ transform: 'rotateY(0deg)' }"
+      />
       <div
         v-show="delayedFlip"
         class="flex items-center justify-center w-full p-2 transition-all duration-300 ease-in-out rounded bg-sb-secondary-100 h-[236px] sm:h-[332px] md:h-[332px] lg:h-[380px]"

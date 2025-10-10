@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { useI18nStore } from '@/stores';
+import type { BFooter } from '@/types';
 import { openLink } from '@/utils';
 
 import { Icon } from '@iconify/vue';
 
-//Store Declarations
-const i18nStore = useI18nStore();
+interface AppFooterProps {
+  content: BFooter;
+}
+
+// Input / Output (Props / Emits)
+const props = defineProps<AppFooterProps>();
 </script>
 
 <template>
@@ -23,13 +27,13 @@ const i18nStore = useI18nStore();
         <!--Logo-->
         <div id="logo" class="flex items-center gap-2 text-white">
           <img
-            src="/images/logo.png"
+            src="/logo.png"
             class="transition-all duration-300 ease-in-out shrink-0 w-4 h-[19px] sm:w-6 sm:h-[29px] md:w-6 md:h-[29px] lg:w-8 lg:h-[38px]"
           />
           <span
             class="flex-1 font-semibold transition-all duration-300 ease-in-out font-bebas text-size-m"
           >
-            {{ i18nStore.footerI18nContent.intro.title }}
+            {{ props.content.title }}
           </span>
         </div>
         <!--Description-->
@@ -37,23 +41,31 @@ const i18nStore = useI18nStore();
           id="description"
           class="text-white transition-all duration-300 ease-in-out font-roboto text-size-xs text-center sm:text-left md:text-left"
         >
-          {{ i18nStore.footerI18nContent.intro.description }}
+          {{ props.content.description }}
         </p>
         <!--Social Media-->
         <div id="social-media" class="flex gap-4">
-          <Icon
-            v-for="(social, index) in i18nStore.footerI18nContent.intro.socials"
+          <a
+            v-for="(social, index) in props.content.social"
             :key="index"
-            :icon="social.icon"
-            :tabindex="0"
-            class="text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0 icon-size-s"
-            @click.stop="openLink(social.link)"
-            @keydown.enter.stop="openLink(social.link)"
-          />
+            :href="social.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="social.label || `Open ${social.name || 'social link'}`"
+            class="inline-flex items-center justify-center text-white transition-all duration-300 ease-in-out outline-none cursor-pointer hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 ring-0"
+          >
+            <Icon
+              :icon="social.icon ?? ''"
+              aria-hidden="true"
+              tabindex="-1"
+              class="pointer-events-none icon-size-s"
+            />
+          </a>
         </div>
       </div>
-      <!--Quik Links-->
+      <!--Quick Links-->
       <div
+        v-if="props.content.quickLinks"
         id="quik-links"
         class="flex flex-col w-full transition-all duration-300 ease-in-out items-center sm:items-start md:items-start"
       >
@@ -61,27 +73,28 @@ const i18nStore = useI18nStore();
         <span
           class="mb-2.5 font-semibold transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-s text-center sm:text-left md:text-left"
         >
-          {{ i18nStore.footerI18nContent.quickLinks.title }}
+          {{ props.content.quickLinksTitle }}
         </span>
 
         <!--Links-->
         <router-link
-          v-for="(link, index) in i18nStore.footerI18nContent.quickLinks.links"
-          :key="link.text"
-          :to="link.link"
+          v-for="(ql, index) in props.content.quickLinks"
+          :key="index"
+          :to="ql.href"
           :tabindex="0"
           class="text-size-xs text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary text-center sm:text-left md:text-left"
           :class="[
             {
-              'mb-1': index !== i18nStore.footerI18nContent.quickLinks.links.length - 1,
+              'mb-1': index !== props.content.quickLinks.length - 1,
             },
           ]"
         >
-          {{ link.text }}
+          {{ ql.label }}
         </router-link>
       </div>
       <!--Contact and Info-->
       <div
+        v-if="props.content.contacts"
         id="contact"
         class="flex flex-col w-full transition-all duration-300 ease-in-out items-center sm:items-start md:items-start"
       >
@@ -89,21 +102,21 @@ const i18nStore = useI18nStore();
         <span
           class="text-size-s mb-2.5 font-semibold transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-center sm:text-left md:text-left"
         >
-          {{ i18nStore.footerI18nContent.contacts.title }}
+          {{ props.content.contactsTitle }}
         </span>
         <!--Contact Info-->
         <span
-          v-for="(channel, index) in i18nStore.footerI18nContent.contacts.channels"
+          v-for="(channel, index) in props.content.contacts"
           :key="index"
           :class="[
             {
-              'mb-1': index !== i18nStore.footerI18nContent.contacts.channels.length - 1,
+              'mb-1': index !== props.content.contacts.length - 1 || 0,
             },
           ]"
           class="text-size-xs inline-flex items-center text-white transition-all duration-300 ease-in-out font-roboto gap-x-2 text-center sm:text-left md:text-left"
         >
           <Icon
-            :icon="channel.icon"
+            :icon="channel.icon ?? ''"
             class="transition-all duration-300 ease-in-out shrink-0 icon-size-xs"
           />
           {{ channel.value }}
@@ -111,6 +124,7 @@ const i18nStore = useI18nStore();
       </div>
       <!--Help And Support-->
       <div
+        v-if="props.content.helpAndSupport"
         id="help-and-support"
         class="flex flex-col w-full transition-all duration-300 ease-in-out items-center sm:items-start md:items-start"
       >
@@ -118,49 +132,43 @@ const i18nStore = useI18nStore();
         <span
           class="text-size-s font-semibold transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas mb-2.5 text-center sm:text-left md:text-left"
         >
-          {{ i18nStore.footerI18nContent.helpAndSupport.title }}
+          {{ props.content.helpAndSupportTitle }}
         </span>
         <!--Links-->
         <router-link
-          v-for="(link, index) in i18nStore.footerI18nContent.helpAndSupport.links"
-          :key="link.text"
-          :to="link.link"
+          v-for="(hs, index) in props.content.helpAndSupport"
+          :key="index"
+          :to="hs.href"
           :tabindex="0"
           class="text-size-xs text-white transition-all duration-300 ease-in-out outline-none w-fit ring-0 font-roboto hover:text-sb-tertiary-100 focus-visible:text-sb-tertiary-100 hover:text-shadow-luminous-tertiary focus-visible:text-shadow-luminous-tertiary text-center sm:text-left md:text-left"
           :class="[
             {
-              'mb-1': index !== i18nStore.footerI18nContent.helpAndSupport.links.length - 1,
+              'mb-1': index !== props.content.helpAndSupport.length - 1,
             },
           ]"
         >
-          {{ link.text }}
+          {{ hs.label }}
         </router-link>
       </div>
     </div>
     <!--Easter Egg-->
     <div
       id="easter-egg"
-      class="px-4 pt-4 sm:px-5 sm:pt-5 md:px-5 md:pt-5 lg:px-6 lg:pt-6 inline-flex items-center justify-center w-full transition-all duration-300 ease-in-out border-t border-sb-tertiary-100 gap-x-1"
+      class="px-4 pt-4 sm:px-5 sm:pt-5 md:px-5 md:pt-5 lg:px-6 lg:pt-6 w-full transition-all duration-300 ease-in-out border-t border-sb-tertiary-100 gap-x-1"
     >
       <span
-        class="text-size-xs text-center text-white transition-all duration-300 ease-in-out font-roboto"
+        class="text-nowrap text-size-xs text-white transition-all duration-300 ease-in-out font-roboto inline-flex items-center gap-x-1 justify-center w-full"
       >
         Designed and Developed by
-      </span>
-      <div
-        :tabindex="0"
-        class="inline-flex items-center text-white transition-all duration-300 ease-in-out cursor-pointer gap-x-1 outline-white ring-0"
-        @click.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
-        @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
-      >
-        <img
-          src="/images/logo.png"
-          class="transition-all duration-300 ease-in-out shrink-0 w-3 h-[14px] md:w-4 md:h-[19px] lg:w-4 lg:h-[19px]"
-        />
-        <span class="flex-1 transition-all duration-300 ease-in-out font-roboto text-size-xs">
+
+        <button
+          class="text-white transition-all duration-300 ease-in-out cursor-pointer outline-white ring-0 space-x-2"
+          @click.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
+          @keydown.enter.stop="openLink('https://www.linkedin.com/in/stefano-biddau/')"
+        >
           Stefano Biddau
-        </span>
-      </div>
+        </button>
+      </span>
     </div>
   </footer>
 </template>

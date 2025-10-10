@@ -57,7 +57,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="relative flex items-center justify-center size-[600px] transition-all duration-300 ease-in-out scale-50 sm:scale-75 md:scale-75 lg:scale-90 my-[-160px] sm:my-[-96px] md:my-[-96px] lg:my-[-48px]"
+    class="relative flex items-center justify-center size-[570px] transition-all duration-300 ease-in-out scale-40 sm:scale-75 md:scale-75 lg:scale-90 my-[-180px] sm:my-[-70px] md:my-[-70px] lg:my-[-25px]"
   >
     <div class="absolute rounded-full size-[100px] sun z-40 flex justify-center items-center p-1">
       <span class="truncate font-bebas text-sb-2xl text-orange-950">{{ props.starName }}</span>

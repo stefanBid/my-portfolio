@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Notification } from '@/types';
-import MdiErrorOutline from '~icons/mdi/error-outline';
+import type { UINotification } from '@/types';
+import MdiSkull from '~icons/mdi/skull';
 import MdiSuccessBold from '~icons/mdi/success-bold';
 import MdiInformationSlabCircleOutline from '~icons/mdi/information-slab-circle-outline';
 
@@ -14,18 +14,21 @@ import {
 } from 'vue';
 
 interface AppNotificationBannerProps {
-  notification: Notification;
+  notification: UINotification;
 }
-
+// Input / Output (Props / Emits)
 const props = defineProps<AppNotificationBannerProps>();
 
-// Feature 1: Manage Nofitification Icon
+// State
+const countdown = ref(Math.ceil(props.notification.visibilityDuration / 1000));
+let interval: ReturnType<typeof setInterval> | null = null;
+
 const notificationIcon = computed<FunctionalComponent | Component | string>(() => {
   switch (props.notification.type) {
     case 'success':
       return MdiSuccessBold;
     case 'error':
-      return MdiErrorOutline;
+      return MdiSkull;
     case 'info':
       return MdiInformationSlabCircleOutline;
     default:
@@ -33,10 +36,7 @@ const notificationIcon = computed<FunctionalComponent | Component | string>(() =
   }
 });
 
-// Feature 2: Manage Countdown
-const countdown = ref(Math.ceil(props.notification.visibilityDuration / 1000));
-let interval: ReturnType<typeof setInterval> | null = null;
-
+// Events
 onMounted(() => {
   interval = setInterval(() => {
     if (countdown.value > 0) {
@@ -54,11 +54,18 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="tot-gap-m flex items-end justify-between border-2 rounded-lg shadow-xl shadow-black bg-sb-secondary-100 border-sb-secondary-100 py-1.5 px-2 sm:px-2.5 md:px-3 w-72 sm:w-80 md:w-96 transition-all duration-300 ease-in-out"
+    :class="{
+      'bg-sb-secondary-100/60 border-sb-secondary-100': props.notification.type === 'info',
+      'bg-sb-success border-sb-success-light': props.notification.type === 'success',
+      'bg-sb-error border-sb-error-light': props.notification.type === 'error',
+    }"
+    class="tot-gap-m flex items-center justify-between border-l-8 rounded-lg shadow-xl shadow-black min-h-12 md:min-h-14 lg:min-h-16 py-1.5 px-2 sm:px-2.5 md:px-3 w-72 md:w-80 lg:w-96 transition-all duration-300 ease-in-out"
   >
     <div class="inline-flex items-center flex-1 gap-2">
-      <component :is="notificationIcon" class="text-sb-secondary-300 shrink-0 icon-size-m" />
-      <span class="text-left text-white text-sb-base font-roboto text-size-xs">
+      <component :is="notificationIcon" class="shrink-0 icon-size-m text-white" />
+      <span
+        class="text-left text-white text-sb-base font-roboto text-size-xs transition-all duration-300 ease-in-out"
+      >
         {{ props.notification.message }}
       </span>
     </div>

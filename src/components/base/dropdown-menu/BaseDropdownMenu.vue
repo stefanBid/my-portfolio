@@ -16,6 +16,7 @@ interface DropdownMenuProps {
   ariaLabel?: string;
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<DropdownMenuProps>(), {
   text: undefined,
   icon: undefined,
@@ -28,12 +29,14 @@ const props = withDefaults(defineProps<DropdownMenuProps>(), {
   ariaLabel: 'general dropdown menu',
 });
 
+// Dependencies
 const { reference, floating, floatingStyle, isOpen, toggle, close } = useSbFloatingPanel({
   placement: 'bottom-end',
   strategy: 'fixed',
   offsetValue: 18,
 });
 
+// Events
 const onIntersectionObserver = (entries: IntersectionObserverEntry[]): void => {
   const [{ isIntersecting }] = entries;
   if (isIntersecting && isOpen.value) {

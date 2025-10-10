@@ -9,10 +9,11 @@ html, body {
   
 }
 
-html {
+html { 
   font-size: 100%;
+  color-scheme: dark;
   overflow-x: hidden;
-  scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   text-rendering: optimizeLegibility;
   background-color: var(--color-sb-main, #0F0F20);
   color: var(--color-white, #FFFFFF);
+
 }
 
 a {
@@ -32,7 +34,7 @@ a {
 /* Scrollbar */
 html { scrollbar-width: thin; scrollbar-color: #FFFFFF transparent; }
 /* WebKit */
-html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar { width: 10px;  }
 html::-webkit-scrollbar-track { background: transparent; }
 html::-webkit-scrollbar-thumb {
   background-color: #FFFFFF;
@@ -60,7 +62,11 @@ html::-webkit-scrollbar-thumb {
 /* ====== Padding Utilities ====== */
 
 .container-p {
-  @apply px-5 sm:px-8 md:px-8 lg:px-12;
+  @apply px-5 sm:px-6 md:px-8 lg:px-12;
+}
+
+.container-tot-p {
+  @apply p-5 sm:p-6 md:p-8 lg:p-12;
 }
 /* XS padding → very compact, good for badges or small UI elements */
 .tot-pad-xs { @apply p-1 sm:p-1.5 md:p-2 lg:p-2.5; }
@@ -87,6 +93,9 @@ html::-webkit-scrollbar-thumb {
 
 /* L gap → very spacious, good for large grids or layouts */
 .tot-gap-l  { @apply gap-4 sm:gap-5 md:gap-6 lg:gap-8; }
+
+/* XL gap → extra spacious, for major sections or full-page layouts */
+.tot-gap-xl { @apply gap-8 sm:gap-10 md:gap-12 lg:gap-16; }
 
 
 

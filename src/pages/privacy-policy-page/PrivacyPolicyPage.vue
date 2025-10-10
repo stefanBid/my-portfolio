@@ -1,24 +1,34 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useHead } from '@unhead/vue';
 
-import { usePageMeta } from '@/hooks';
-import { useI18nStore } from '@/stores';
+import { usePortfolioStore } from '@/stores';
 
 import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
 import AppDivider from '@/components/layouts/divider/AppDivider.vue';
 
-// Store Declarations
-const i18nStore = useI18nStore();
+// Dependencies
+const { privacyPolicyData } = storeToRefs(usePortfolioStore());
 
-// SEO Feature Manage Meta Tags
-usePageMeta({
-  meta: computed(() => i18nStore.privacyPolicyPageI18nContent.metaDescription),
-  currentLang: computed(() => i18nStore.currentLanguage),
+// State
+useHead({
+  title: computed(() => privacyPolicyData.value.pageMeta.title),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: privacyPolicyData.value.pageMeta.description,
+    },
+  ]),
+});
+
+const getPolicy = computed(() => {
+  return privacyPolicyData.value.policy;
 });
 </script>
 
 <template>
-  <AppPageContainer :page-intro-text="i18nStore.privacyPolicyPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="privacyPolicyData.startTitle">
     <template #page-content>
       <AppDivider
         :intersection-observer-settings="{ rootElement: null, threshold: 0.1 }"
@@ -32,17 +42,17 @@ usePageMeta({
             <h2
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-xl el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.title }}
+              {{ privacyPolicyData.title }}
             </h2>
 
             <span class="italic text-size-s transition-all duration-300 ease-in-out">
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.lastUpdate }}
+              {{ privacyPolicyData.lastUpdate }}
             </span>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.description }}
+              {{ privacyPolicyData.description }}
             </p>
           </div>
 
@@ -51,13 +61,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataController.title }}
+              {{ getPolicy.dataController.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataController.content }}
+              {{ getPolicy.dataController.content }}
             </p>
           </div>
 
@@ -66,18 +76,17 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.title }}
+              {{ getPolicy.dataCollected.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.description }}
+              {{ getPolicy.dataCollected.description }}
             </p>
             <ul class="ml-8 list-disc">
               <li
-                v-for="(data, index) in i18nStore.privacyPolicyPageI18nContent.privacyPolicy
-                  .dataCollected.points"
+                v-for="(data, index) in getPolicy.dataCollected.points"
                 :key="index"
                 class="mt-2 text-size-s transition-all duration-300 ease-in-out"
               >
@@ -87,7 +96,7 @@ usePageMeta({
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataCollected.note }}
+              {{ getPolicy.dataCollected.note }}
             </p>
           </div>
 
@@ -96,26 +105,20 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.title }}
+              {{ getPolicy.thirdPartyServices.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.description
-              }}
+              {{ getPolicy.thirdPartyServices.description }}
               <a
-                :href="
-                  i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.linkUrl
-                "
+                :href="getPolicy.thirdPartyServices.linkUrl"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 focus-visible:text-sb-tertiary-200 ring-0"
               >
-                {{
-                  i18nStore.privacyPolicyPageI18nContent.privacyPolicy.thirdPartyServices.linkText
-                }}
+                {{ getPolicy.thirdPartyServices.linkText }}
               </a>
             </p>
           </div>
@@ -125,13 +128,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataSharing.title }}
+              {{ getPolicy.dataSharing.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.dataSharing.content }}
+              {{ getPolicy.dataSharing.content }}
             </p>
           </div>
 
@@ -140,18 +143,17 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.title }}
+              {{ getPolicy.userRights.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.description }}
+              {{ getPolicy.userRights.description }}
             </p>
             <ul class="ml-8 list-disc">
               <li
-                v-for="(data, index) in i18nStore.privacyPolicyPageI18nContent.privacyPolicy
-                  .userRights.rights"
+                v-for="(data, index) in getPolicy.userRights.rights"
                 :key="index"
                 class="mt-2 text-size-s transition-all duration-300 ease-in-out"
               >
@@ -162,7 +164,7 @@ usePageMeta({
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.userRights.note }}
+              {{ getPolicy.userRights.note }}
             </p>
           </div>
 
@@ -171,13 +173,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.legalBasis.title }}
+              {{ getPolicy.legalBasis.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.privacyPolicyPageI18nContent.privacyPolicy.legalBasis.content }}
+              {{ getPolicy.legalBasis.content }}
             </p>
           </div>
         </div>

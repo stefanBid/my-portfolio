@@ -12,6 +12,7 @@ interface BaseButtonProps {
   ariaLabel?: string;
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<BaseButtonProps>(), {
   type: 'button',
   variant: 'tertiary',
@@ -93,6 +94,6 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
 }
 
 .button-white {
-  @apply text-sb-secondary-300 hover:text-white active:text-white focus-visible:text-white bg-white border-2 border-sb-secondary-100 hover:bg-sb-secondary-100 hover:border-sb-secondary-100 hover:shadow-sb-secondary-100/80 active:bg-sb-secondary-200 active:border-sb-secondary-200 active:shadow-sb-secondary-200/80 focus-visible:bg-sb-secondary-100 focus-visible:border-sb-secondary-100 focus-visible:shadow-sb-secondary-100/80;
+  @apply text-white hover:text-black active:text-black focus-visible:text-black bg-sb-secondary-100 border-2 border-sb-secondary-200 hover:bg-white hover:border-white hover:shadow-white/80 active:bg-white active:border-white active:shadow-white focus-visible:bg-white focus-visible:border-white focus-visible:shadow-white/80;
 }
 </style>

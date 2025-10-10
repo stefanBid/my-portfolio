@@ -6,7 +6,12 @@
 
   /* 2) Colors */
   --color-sb-main: #0F0F20;
+
   --color-sb-error: #d32f2f;
+  --color-sb-error-light: #ef6a6a;
+
+  --color-sb-success: #2fd35f;
+  --color-sb-success-light: #8cf0aa;
 
   --color-sb-secondary-100: #707890;
   --color-sb-secondary-200: #424a6e;

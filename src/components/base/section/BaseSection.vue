@@ -8,6 +8,7 @@ interface BaseSectionProps {
   inverted?: boolean;
 }
 
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<BaseSectionProps>(), {
   subtitle: '',
   paragraph: '',

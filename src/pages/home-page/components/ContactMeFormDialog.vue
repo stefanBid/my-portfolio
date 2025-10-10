@@ -1,69 +1,89 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, type Component, reactive, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import emailjs from '@emailjs/browser';
+import { storeToRefs } from 'pinia';
 
-import { useNotificationStore, useI18nStore } from '@/stores';
-import { useContactMeFormValidation } from '@/hooks';
+import type { UIInputField } from '@/types';
+
+import { useLocaleStore, useNotificationStore, usePortfolioStore } from '@/stores';
 import { stringPurifier } from '@/utils';
 
+import { Icon } from '@iconify/vue';
 import BaseDialog from '@/components/base/dialog/BaseDialog.vue';
 import BaseInput from '@/components/base/input/BaseInput.vue';
 import BaseTextArea from '@/components/base/text-area/BaseTextArea.vue';
 import BaseCheckbox from '@/components/base/checkbox/BaseCheckbox.vue';
 import BaseButton from '@/components/base/button/BaseButton.vue';
 
-import MdiInformationSlabCircle from '~icons/mdi/information-slab-circle';
-
 interface ContactMeFormDialogProps {
   isModalOpen: boolean;
   handleCloseModal: (falsyValue: false) => void;
 }
 
+// Input / Output (Props / Emits)
 const props = defineProps<ContactMeFormDialogProps>();
 
-// Store Declarations
+// Dependencies
 const notificationStore = useNotificationStore();
-const i18nStore = useI18nStore();
+const { homeData } = storeToRefs(usePortfolioStore());
+const { locale } = storeToRefs(useLocaleStore());
 
-// Feature 1: Manage Contact Me Form
-const contactObject = ref({
-  name: '',
-  email: '',
-  message: '',
-  agreeToTerms: false,
-});
+// State
+const form = reactive<Record<string, string | boolean>>({});
 
-const disableResetButton = computed(() => {
-  return !Boolean(
-    contactObject.value.name !== '' ||
-      contactObject.value.email !== '' ||
-      contactObject.value.message !== '' ||
-      contactObject.value.agreeToTerms,
+//Example: { 'name-field': { show: true, message: 'Test test' }, }
+const errors = ref<{ [key: string]: { show: boolean; message?: string } } | null>();
+const sendingEmail = ref(false);
+
+const formSettings = computed(() => homeData.value.contactForm);
+const fields = computed<UIInputField[]>(() => homeData.value.contactForm.fields || []);
+
+const isDisabled = computed(() => {
+  return (
+    Object.values(form).every((value) => (typeof value === 'boolean' ? !value : value === '')) &&
+    !errors.value
   );
 });
 
-//Feature 1.1: Manage Form Validation
+// Events
+const onResetForm = (): void => {
+  Object.keys(form).forEach((key) => {
+    if (typeof form[key] === 'boolean') {
+      form[key] = false;
+    } else {
+      form[key] = '';
+    }
+  });
+  // Reset validation states
+  errors.value = null;
+};
 
-const getLanguage = computed(() => {
-  return i18nStore.currentLanguage as 'it' | 'en';
-});
+const onCloseModal = (): void => {
+  props.handleCloseModal(false);
+  const timeout = setTimeout(() => {
+    onResetForm();
+    clearTimeout(timeout);
+  }, 300);
+};
 
-const { validationObject, validateForm, resetValidation } = useContactMeFormValidation(getLanguage);
-
-const sendingEmail = ref(false);
-const sendEmail = async (): Promise<void> => {
-  if (!validateForm(contactObject.value)) {
-    return;
-  } else {
-    resetValidation();
-  }
+const onSendEmail = async (): Promise<void> => {
+  // Validation Step
+  const isValid = validateForm();
+  if (!isValid) return;
   sendingEmail.value = true;
 
+  // Prepare contact object
+  const contactObject = {
+    name: (form['name-field'] as string) || '',
+    email: (form['email-field'] as string) || '',
+    message: (form['message-field'] as string) || '',
+    agreeToTerms: (form['agree-field'] as boolean) || false,
+  };
   const templateParams = {
-    from_name: contactObject.value.name,
-    from_email: contactObject.value.email,
-    message: stringPurifier(contactObject.value.message),
+    from_name: contactObject.name,
+    from_email: contactObject.email,
+    message: stringPurifier(contactObject.message),
     agree_time: new Date().toLocaleString(),
   };
 
@@ -78,48 +98,101 @@ const sendEmail = async (): Promise<void> => {
     );
 
     notificationMsg =
-      i18nStore.currentLanguage === 'en'
-        ? `Email sent successfully!`
-        : `Email inviata con successo!`;
+      locale.value === 'en' ? `Email sent successfully!` : `Email inviata con successo!`;
     notificationStore.pushNotification(notificationMsg, 'success');
-
-    contactObject.value.name = '';
-    contactObject.value.email = '';
-    contactObject.value.message = '';
   } catch {
-    notificationMsg = i18nStore.currentLanguage === 'en' ? 'Email not sent!' : 'Email non inviata!';
+    notificationMsg = locale.value === 'en' ? 'Email not sent!' : 'Email non inviata!';
     notificationStore.pushNotification(notificationMsg, 'error');
   } finally {
     sendingEmail.value = false;
-    props.handleCloseModal(false);
+    onCloseModal();
   }
 };
 
-const resetForm = (): void => {
-  contactObject.value = {
-    name: '',
-    email: '',
-    message: '',
-    agreeToTerms: false,
-  };
-};
-
-// Manage Modal State
+// Lifecycle
 watch(
   () => props.isModalOpen,
-  (newValue) => {
-    if (newValue) {
-      contactObject.value = {
-        name: '',
-        email: '',
-        message: '',
-        agreeToTerms: false,
-      };
-      sendingEmail.value = false;
-      resetValidation();
+  (newVal) => {
+    if (newVal) {
+      initForm();
     }
   },
+  { immediate: true },
 );
+
+watch(fields, () => initForm(), { deep: true });
+
+// Helpers
+
+function initForm(): void {
+  fields.value.forEach((field) => {
+    if (typeof form[field.inputId] === 'undefined') {
+      form[field.inputId] = field.type === 'checkbox' ? false : '';
+    }
+  });
+  errors.value = null;
+}
+
+function validateForm(): boolean {
+  let isValid = true;
+  const nextErrors: Record<string, { show: boolean; message?: string }> = {};
+
+  fields.value.forEach((field) => {
+    const id = field.inputId;
+    const raw = form[id];
+    const val = typeof raw === 'string' ? raw.trim() : raw;
+
+    // Consider empty only: '', null, undefined.
+    // For booleans (e.g., required checkbox), false counts as empty. 0 is valid.
+    const isEmptyString = typeof val === 'string' && val === '';
+    const isMissing = val === null || val === undefined || isEmptyString;
+    const isUncheckedBool = typeof val === 'boolean' && val === false;
+
+    // 1) REQUIRED — if it fails, set the error ONCE and skip regex.
+    if (field.mandatory && (isMissing || isUncheckedBool)) {
+      if (!nextErrors[id]) {
+        nextErrors[id] = {
+          show: true,
+          message: field.errors?.required || undefined,
+        };
+      }
+      isValid = false;
+      return; // skip regex for this field
+    }
+
+    // 2) REGEX — only if there is a non-empty string AND no prior error set for this field.
+    if (field.regexValidation && typeof val === 'string' && val !== '' && !nextErrors[id]) {
+      const rx = new RegExp(field.regexValidation); // regexValidation is the pattern string
+      if (!rx.test(val)) {
+        if (!nextErrors[id]) {
+          nextErrors[id] = {
+            show: true,
+            message: field.errors?.invalid || 'Invalid format.',
+          };
+        }
+        isValid = false;
+        return;
+      }
+    }
+
+    // 3) CLEAN STATE — if no error has been set so far for this field, mark it as clean once.
+    if (!nextErrors[id]) {
+      nextErrors[id] = { show: false, message: '' };
+    }
+  });
+
+  // Single reactive assignment
+  errors.value = nextErrors;
+  return isValid;
+}
+
+// Data for template
+const FIELDS_MAP: Record<string, Component> = {
+  text: BaseInput,
+  email: BaseInput,
+  textarea: BaseTextArea,
+  checkbox: BaseCheckbox,
+};
 </script>
 
 <template>
@@ -127,132 +200,112 @@ watch(
     :is-open="isModalOpen"
     header-orientation="left"
     dialog-size="medium"
-    :dialog-title="i18nStore.homePageI18nContent.contactMeForm.title"
-    :on-close-dialog="(falsyValue) => props.handleCloseModal(falsyValue)"
+    :dialog-title="formSettings.title"
+    @close-dialog="onCloseModal()"
   >
     <template #modal-content>
       <div
         class="inline-flex items-center justify-center w-full gap-1 text-white transition-all duration-300 ease-in-out animate-pulse py-2.5 sm:py-3 md:py-3 lg:py-4"
       >
-        <MdiInformationSlabCircle
+        <Icon
+          :icon="formSettings.icon || ''"
           class="shrink-0 stroke-[2.5px] icon-size-xs transition-all duration-300 ease-in-out"
         />
         <span
           class="text-justify transition-all duration-300 ease-in-out font-roboto text-shadow-luminous text-size-xs"
         >
-          {{ i18nStore.homePageI18nContent.contactMeForm.info }}
+          {{ formSettings.info }}
         </span>
       </div>
       <form
         id="contactForm"
         name="contact_form"
         class="flex flex-col items-center w-full h-full overflow-hidden transition-all duration-300 ease-in-out tot-gap-m"
-        @submit.prevent="sendEmail()"
-        @reset.prevent="resetForm()"
+        @submit.prevent="onSendEmail()"
+        @reset.prevent="onResetForm()"
       >
         <div
           class="flex flex-col flex-1 w-full px-3 overflow-y-auto transition-all duration-300 ease-in-out scrollbar-gutter-stable tot-gap-m"
         >
-          <BaseInput
-            id="contactFullName"
-            v-model:input-value="contactObject.name"
-            name="contact_full_name"
-            aria-label="full name of the contact person"
-            :label="i18nStore.homePageI18nContent.contactMeForm.fullNameField.label"
-            :placeholder="i18nStore.homePageI18nContent.contactMeForm.fullNameField.placeholder"
-            mandatory
-            :validation="validationObject.name"
-          />
+          <template v-for="field in fields">
+            <component
+              :is="FIELDS_MAP[field.type]"
+              v-if="field.type !== 'checkbox'"
+              :id="field.inputId"
+              :key="field.inputId"
+              v-model:input-value="form[field.inputId]"
+              :mandatory="field.mandatory"
+              :label="field.label"
+              :placeholder="field.placeholder"
+              :validation="errors?.[field.inputId] ? errors[field.inputId] : undefined"
+            />
 
-          <BaseInput
-            id="contactEmail"
-            v-model:input-value="contactObject.email"
-            name="contact-email"
-            aria-label="email of the contact person"
-            type="email"
-            :label="i18nStore.homePageI18nContent.contactMeForm.emailField.label"
-            :placeholder="i18nStore.homePageI18nContent.contactMeForm.emailField.placeholder"
-            mandatory
-            :validation="validationObject.email"
-          />
-          <BaseTextArea
-            id="contactMessage"
-            v-model:input-value="contactObject.message"
-            name="contact-message"
-            aria-label="message to be sent"
-            :label="i18nStore.homePageI18nContent.contactMeForm.messageField.label"
-            :placeholder="i18nStore.homePageI18nContent.contactMeForm.messageField.placeholder"
-            mandatory
-            :validation="validationObject.message"
-          />
-          <BaseCheckbox
-            id="contactAgreeToTerms"
-            v-model:checked="contactObject.agreeToTerms"
-            name="contact_agree_to_terms"
-            aria-label="agree to terms and conditions"
-            :validation="validationObject.agreeToTerms"
-          >
-            <template #label-content>
-              <span
-                class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-size-xs"
-              >
-                {{ i18nStore.homePageI18nContent.contactMeForm.agreeToTermsField }}
-                <span>
-                  {{ i18nStore.currentLanguage === 'en' ? 'Read' : 'Leggi' }}
-                  <RouterLink
-                    to="/privacy-policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
-                  >
-                    {{
-                      i18nStore.currentLanguage === 'en'
-                        ? 'Privacy Policy'
-                        : 'Politica sulla riservatezza'
-                    }}
-                  </RouterLink>
-                  {{ i18nStore.currentLanguage === 'en' ? 'and' : 'e' }}
-                  <RouterLink
-                    to="/terms-and-conditions"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
-                  >
-                    {{
-                      i18nStore.currentLanguage === 'en'
-                        ? 'Terms and Conditions'
-                        : 'Termini e condizioni'
-                    }}
-                  </RouterLink>
-                  .
+            <component
+              :is="FIELDS_MAP[field.type]"
+              v-else
+              :id="field.inputId"
+              :key="field.inputId + '-cb'"
+              v-model:checked="form[field.inputId]"
+              :label="field.label"
+              :validation="errors?.[field.inputId] ? errors[field.inputId] : undefined"
+            >
+              <template #label-content>
+                <span
+                  class="text-justify text-white transition-all duration-300 ease-in-out font-roboto text-size-xs"
+                >
+                  {{ field.label }}
+                  <span>
+                    {{ locale === 'en' ? 'Read' : 'Leggi' }}
+                    <RouterLink
+                      to="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
+                    >
+                      {{ locale === 'en' ? 'Privacy Policy' : 'Politica sulla riservatezza' }}
+                    </RouterLink>
+                    {{ locale === 'en' ? 'and' : 'e' }}
+                    <RouterLink
+                      to="/terms-and-conditions"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
+                    >
+                      {{ locale === 'en' ? 'Terms and Conditions' : 'Termini e condizioni' }}
+                    </RouterLink>
+                    .
+                  </span>
                 </span>
-              </span>
-            </template>
-          </BaseCheckbox>
+              </template>
+            </component>
+          </template>
         </div>
         <div
           class="flex items-center justify-end w-full px-3 pb-3 transition-all duration-300 ease-in-out tot-gap-m"
         >
           <BaseButton
+            v-if="formSettings.resetBtn"
             id="contactResetButton"
             name="contact-reset-button"
             aria-label="click for reset contact form"
-            type="reset"
-            size="small"
-            variant="white"
-            :disabled="disableResetButton"
+            :type="formSettings.resetBtn.type"
+            :size="formSettings.resetBtn.size"
+            :variant="formSettings.resetBtn.variant"
+            :disabled="isDisabled"
           >
-            {{ i18nStore.homePageI18nContent.contactMeForm.resetButton.text }}
+            {{ formSettings.resetBtn.text }}
           </BaseButton>
           <BaseButton
+            v-if="formSettings.submitBtn"
             id="contactSendButton"
             name="contact-send-button"
             aria-label="click to send email"
-            type="submit"
-            size="small"
+            :type="formSettings.submitBtn.type"
+            :size="formSettings.submitBtn.size"
+            :variant="formSettings.submitBtn.variant"
             :loading="sendingEmail"
           >
-            {{ i18nStore.homePageI18nContent.contactMeForm.submitButton.text }}
+            {{ formSettings.submitBtn.text }}
           </BaseButton>
         </div>
       </form>

@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, h } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useHead } from '@unhead/vue';
 
-import { usePageMeta, useStarEffect } from '@/hooks';
-import { useI18nStore } from '@/stores';
+import { useStarEffect } from '@/hooks';
+import { usePortfolioStore } from '@/stores';
+
+import { Icon } from '@iconify/vue';
 
 import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
 import AppDivider from '@/components/layouts/divider/AppDivider.vue';
@@ -12,42 +16,47 @@ import BaseSection from '@/components/base/section/BaseSection.vue';
 import SkillsDialog from '@/pages/skills-page/components/SkillsDialog.vue';
 import SolarSystem from '@/pages/skills-page/components/SolarSystem.vue';
 
-import MdiRocketLaunch from '~icons/mdi/rocket-launch';
-import MdiClipboardTextSearch from '~icons/mdi/clipboard-text-search';
-
-// Store Declarations
-const i18nStore = useI18nStore();
-
-// Hooks Declarations
+// Dependencies
+const { skillsData } = storeToRefs(usePortfolioStore());
 const { stars, starsContainerStyle } = useStarEffect(150);
 
-// SEO Feature Manage Meta Tags
-usePageMeta({
-  meta: computed(() => i18nStore.skillsPageI18nContent.metaDescription),
-  currentLang: computed(() => i18nStore.currentLanguage),
-  url: 'https://stefanobiddau.com/skills',
-  image:
-    'https://media.licdn.com/dms/image/v2/D4D03AQGvfHWN3w4Vyw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1674322166521?e=1749081600&v=beta&t=LGlVPU_6C_nOJY5QkpcWvebJvEZSdCihzcHWz-IpSb4',
+// State
+useHead({
+  title: computed(() => skillsData.value.pageMeta.title),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: skillsData.value.pageMeta.description,
+    },
+  ]),
 });
 
-// Feature 1: Manage Skills for Solar System Component
+const getInfoPanelExtraInfoButton = computed(() => {
+  if (
+    !skillsData.value.skillsInfoPanel.extraInfo ||
+    !skillsData.value.skillsInfoPanel.extraInfo['button']
+  )
+    return undefined;
 
-const skillsList = computed(() => i18nStore.skillsPageI18nContent.skillsList);
-const feIcons = computed(() =>
-  skillsList.value
-    .filter((skill) => skill.type === 'feLanguage' || skill.type === 'feFramework')
-    .map((skill) => skill.icon),
-);
+  return skillsData.value.skillsInfoPanel.extraInfo['button'] as { text: string; icon: string };
+});
 
-const beIcons = computed(() =>
-  skillsList.value
-    .filter(
-      (skill) =>
-        skill.type === 'beLanguage' || skill.type === 'beFramework' || skill.type === 'beDb',
-    )
-    .map((skill) => skill.icon),
-);
+const getInfoPanelExtraInfoIcon = computed(() => {
+  if (
+    !skillsData.value.skillsInfoPanel.extraInfo ||
+    !skillsData.value.skillsInfoPanel.extraInfo['icon']
+  )
+    return undefined;
 
+  return skillsData.value.skillsInfoPanel.extraInfo['icon'] as string;
+});
+
+const getSkillBio = computed(() => [
+  ...skillsData.value.skillsBio.map((section) => ({
+    ...section,
+    extraInfo: section.extraInfo as { sunTitle: string; bestSkillsIcons: string[] } | null,
+  })),
+]);
 // Feature 2: Manage Modal State
 const isModalOpen = ref(false);
 const changeVisibility = (newVisibility: boolean): void => {
@@ -59,7 +68,7 @@ const changeVisibility = (newVisibility: boolean): void => {
 </script>
 
 <template>
-  <AppPageContainer :page-intro-text="i18nStore.skillsPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="skillsData.startTitle">
     <template #page-content>
       <AppDivider
         animation="scaleAndFade"
@@ -71,43 +80,42 @@ const changeVisibility = (newVisibility: boolean): void => {
         <span
           class="text-center transition-all duration-300 ease-in-out z-[100] font-bebas text-sb-tertiary-100 text-size-xl"
         >
-          {{ i18nStore.skillsPageI18nContent.callToActionFirstHeading }}
+          {{ skillsData.skillsInfoPanel.title }}
         </span>
         <span
           class="text-center text-white transition-all duration-300 ease-in-out z-[100] font-bebas text-size-l"
         >
-          {{ i18nStore.skillsPageI18nContent.callToActionSecondHeading }}
+          {{ skillsData.skillsInfoPanel.subtitle }}
         </span>
-        <MdiRocketLaunch
+        <Icon
+          v-if="getInfoPanelExtraInfoIcon"
+          :icon="getInfoPanelExtraInfoIcon"
           class="transition-all duration-300 ease-in-out z-[100] text-sb-tertiary-100 icon-size-xxl my-2.5 sm:my-3 md:my-3 lg:my-4"
         />
         <BaseButton
+          v-if="getInfoPanelExtraInfoButton"
           id="exploreSkillsButton"
           name="explore_skills_button"
           aria-label="click to explore skills"
           class="z-[100] w-fit"
-          :icon="MdiClipboardTextSearch"
+          :icon="h(Icon, { icon: getInfoPanelExtraInfoButton.icon || '' })"
           @click="changeVisibility(!isModalOpen)"
         >
-          {{ i18nStore.skillsPageI18nContent.exploreSkillsButton.text }}
+          {{ getInfoPanelExtraInfoButton.text }}
         </BaseButton>
       </AppDivider>
-      <AppDivider
-        v-for="(section, index) in i18nStore.skillsPageI18nContent.skillsSections"
-        :key="index"
-        animation="scaleAndFade"
-      >
+      <AppDivider v-for="(section, index) in getSkillBio" :key="index" animation="scaleAndFade">
         <BaseSection
           :inverted="index % 2 === 0 ? false : true"
-          :title="section.titleHeading"
-          :subtitle="section.subTitleHeading"
-          :paragraph="section.contentParagraph"
+          :title="section.title"
+          :subtitle="section.subtitle"
+          :paragraph="section.paragraph || ''"
         >
           <template #extra-content>
             <SolarSystem
-              v-if="index !== 2"
-              :planets-icons="index === 0 ? feIcons : beIcons"
-              :star-name="index === 0 ? 'Frontend' : 'Backend'"
+              v-if="section.extraInfo"
+              :planets-icons="section.extraInfo.bestSkillsIcons"
+              :star-name="section.extraInfo.sunTitle"
             />
           </template>
         </BaseSection>

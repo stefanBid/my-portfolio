@@ -1,24 +1,34 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useHead } from '@unhead/vue';
 
-import { usePageMeta } from '@/hooks';
-import { useI18nStore } from '@/stores';
+import { usePortfolioStore } from '@/stores';
 
 import AppPageContainer from '@/components/layouts/page-container/AppPageContainer.vue';
 import AppDivider from '@/components/layouts/divider/AppDivider.vue';
 
-// Store Declarations
-const i18nStore = useI18nStore();
+// Dependencies
+const { termsAndConditionsData } = storeToRefs(usePortfolioStore());
 
-// SEO Feature Manage Meta Tags
-usePageMeta({
-  meta: computed(() => i18nStore.termsAndConditionsPageI18nContent.metaDescription),
-  currentLang: computed(() => i18nStore.currentLanguage),
+// State
+useHead({
+  title: computed(() => termsAndConditionsData.value.pageMeta.title),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: termsAndConditionsData.value.pageMeta.description,
+    },
+  ]),
+});
+
+const getTerms = computed(() => {
+  return termsAndConditionsData.value.terms;
 });
 </script>
 
 <template>
-  <AppPageContainer :page-intro-text="i18nStore.termsAndConditionsPageI18nContent.pageHeading">
+  <AppPageContainer :page-intro-text="termsAndConditionsData.startTitle">
     <template #page-content>
       <AppDivider
         :intersection-observer-settings="{ rootElement: null, threshold: 0.1 }"
@@ -32,17 +42,17 @@ usePageMeta({
             <h2
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-xl el-text-orientation"
             >
-              {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.title }}
+              {{ termsAndConditionsData.title }}
             </h2>
 
             <span class="italic text-size-s transition-all duration-300 ease-in-out">
-              {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.lastUpdate }}
+              {{ termsAndConditionsData.lastUpdate }}
             </span>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.description }}
+              {{ termsAndConditionsData.description }}
             </p>
           </div>
 
@@ -51,19 +61,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.serviceDescription
-                  .title
-              }}
+              {{ getTerms.serviceDescription.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.serviceDescription
-                  .content
-              }}
+              {{ getTerms.serviceDescription.content }}
             </p>
           </div>
 
@@ -72,23 +76,17 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.userObligations.title
-              }}
+              {{ getTerms.userObligations.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.userObligations
-                  .description
-              }}
+              {{ getTerms.userObligations.description }}
             </p>
             <ul class="ml-8 list-disc">
               <li
-                v-for="(data, index) in i18nStore.termsAndConditionsPageI18nContent
-                  .termsAndConditions.userObligations.points"
+                v-for="(data, index) in getTerms.userObligations.points"
                 :key="index"
                 class="mt-2 text-size-s transition-all duration-300 ease-in-out"
               >
@@ -98,9 +96,7 @@ usePageMeta({
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.userObligations.note
-              }}
+              {{ getTerms.userObligations.note }}
             </p>
           </div>
 
@@ -109,24 +105,17 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.liabilityLimitations
-                  .title
-              }}
+              {{ getTerms.liabilityLimitations.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.liabilityLimitations
-                  .description
-              }}
+              {{ getTerms.liabilityLimitations.description }}
             </p>
             <ul class="ml-8 list-disc">
               <li
-                v-for="(data, index) in i18nStore.termsAndConditionsPageI18nContent
-                  .termsAndConditions.liabilityLimitations.points"
+                v-for="(data, index) in getTerms.liabilityLimitations.points"
                 :key="index"
                 class="mt-2 text-size-s transition-all duration-300 ease-in-out"
               >
@@ -140,19 +129,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.intellectualProperty
-                  .title
-              }}
+              {{ getTerms.intellectualProperty.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.intellectualProperty
-                  .content
-              }}
+              {{ getTerms.intellectualProperty.content }}
             </p>
           </div>
 
@@ -161,18 +144,17 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.legal.title }}
+              {{ getTerms.legal.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{ i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.legal.description }}
+              {{ getTerms.legal.description }}
             </p>
             <ul class="ml-8 list-disc">
               <li
-                v-for="(data, index) in i18nStore.termsAndConditionsPageI18nContent
-                  .termsAndConditions.legal.points"
+                v-for="(data, index) in getTerms.legal.points"
                 :key="index"
                 class="mt-2 text-size-s transition-all duration-300 ease-in-out"
               >
@@ -186,17 +168,13 @@ usePageMeta({
             <h3
               class="whitespace-normal transition-all duration-300 ease-in-out text-sb-tertiary-100 font-bebas text-size-l el-text-orientation"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.modifications.title
-              }}
+              {{ getTerms.modifications.title }}
             </h3>
 
             <p
               class="text-justify whitespace-normal text-size-s el-margin-top transition-all duration-300 ease-in-out"
             >
-              {{
-                i18nStore.termsAndConditionsPageI18nContent.termsAndConditions.modifications.content
-              }}
+              {{ getTerms.modifications.content }}
             </p>
           </div>
         </div>

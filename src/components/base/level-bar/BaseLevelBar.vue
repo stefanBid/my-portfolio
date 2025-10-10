@@ -11,27 +11,14 @@ interface BaseLevelBarProps {
   scale?: '5-base' | '10-base' | 'percentage';
   label?: string;
 }
+
+// Input / Output (Props / Emits)
 const props = withDefaults(defineProps<BaseLevelBarProps>(), {
   scale: '5-base',
   label: undefined,
 });
 
-// Feature 1: Level Bar
-
-const RANGE_MAP: Record<string, Range> = {
-  percentage: {
-    min: 0,
-    max: 100,
-  },
-  '10-base': {
-    min: 0,
-    max: 10,
-  },
-  '5-base': {
-    min: 0,
-    max: 5,
-  },
-};
+// State
 
 const getLevelBarWidth = computed(() => {
   const r = RANGE_MAP[props.scale];
@@ -55,6 +42,22 @@ const getScore = computed(() => {
     return `${level.toFixed(1)} / ${r.max}`;
   }
 });
+
+// Template Data
+const RANGE_MAP: Record<string, Range> = {
+  percentage: {
+    min: 0,
+    max: 100,
+  },
+  '10-base': {
+    min: 0,
+    max: 10,
+  },
+  '5-base': {
+    min: 0,
+    max: 5,
+  },
+} as const;
 </script>
 
 <template>
