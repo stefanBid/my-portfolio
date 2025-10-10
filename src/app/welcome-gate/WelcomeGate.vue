@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia';
 
 import { useLocaleStore } from '@/stores';
 import { useTypingText } from '@/hooks';
-import { openLink } from '@/utils';
+import { openLink, stringPurifier } from '@/utils';
 
 import { Icon } from '@iconify/vue';
 import BaseButton from '@/components/base/button/BaseButton.vue';
@@ -65,7 +65,7 @@ onMounted(() => {
           <div class="flex-1 overflow-auto pb-8">
             <p
               class="leading-relaxed text-size-s font-roboto animate-scale-in-small transition-all duration-300 ease-in-out"
-              v-html="currentHtml"
+              v-html="stringPurifier(currentHtml)"
             ></p>
 
             <!-- Socials -->
