@@ -9,7 +9,7 @@ import { Icon } from '@iconify/vue';
 import BaseButton from '@/components/base/button/BaseButton.vue';
 import MdiRocket from '~icons/mdi/rocket';
 import MdiSkull from '~icons/mdi/skull';
-import welcomeCover from '@/assets/welcome.png';
+import avatar from '@/assets/my-avatar.png';
 
 // Input / Output (Props / Emits)
 const props = withDefaults(
@@ -69,14 +69,14 @@ const SOCIAL_BADGE_LINKS = [
 
     <!-- Content -->
     <main
-      class="flex grow flex-col lg:flex-row lg:items-start tot-gap-xl transition-all duration-300 ease-in-out"
+      class="flex grow flex-col lg:flex-row lg:items-start tot-gap-l transition-all duration-300 ease-in-out"
     >
       <!-- Text + Social + Button -->
       <section class="order-2 lg:order-1 w-full lg:flex-1 h-full">
         <div class="mx-auto flex h-full w-full">
           <div class="flex-1 overflow-auto pb-8">
             <p
-              class="leading-relaxed text-size-s font-roboto animate-scale-in-small transition-all duration-300 ease-in-out"
+              class="leading-relaxed text-center lg:text-left text-size-s font-roboto animate-scale-in-small transition-all duration-300 ease-in-out"
               v-html="currentHtml"
             ></p>
 
@@ -127,12 +127,12 @@ const SOCIAL_BADGE_LINKS = [
 
       <!-- Photo -->
       <section
-        class="order-1 lg:order-2 flex justify-center w-full lg:w-fit animate-scale-in-small"
+        class="order-1 lg:order-2 flex justify-center w-full lg:w-fit animate-scale-in-small transition-all duration-300 ease-in-out"
       >
         <img
-          :src="welcomeCover"
+          :src="avatar"
           alt="Welcome Cover"
-          class="block mx-auto rounded-full h-auto w-auto max-h-[60vh] max-w-[80vw] sm:max-h-[65vh] lg:max-h-[70vh] lg:max-w-[420px] object-contain"
+          class="block mx-auto h-auto w-auto max-w-[80vw] max-h-[50vh] lg:max-h-[70vh] lg:max-w-[420px] object-contain transition-all duration-300 ease-in-out"
         />
       </section>
     </main>
