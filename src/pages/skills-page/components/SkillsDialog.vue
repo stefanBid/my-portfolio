@@ -26,6 +26,7 @@ const skillContainerRef = ref<HTMLElement | null>(null);
 
 // Dependencies
 const notificationStore = useNotificationStore();
+const lStore = useLocaleStore();
 const { locale } = storeToRefs(useLocaleStore());
 const { skillsData } = storeToRefs(usePortfolioStore());
 const sStore = useSkillsStore();
@@ -47,13 +48,10 @@ const filters = ref<Record<string, boolean>>({
 const getInfoMessages = computed<{ icon?: string; info: string }>(() => {
   let infoMessage = '';
 
-  if (skills.value.length === 0) {
-    infoMessage =
-      locale.value === 'en'
-        ? `No skills found ${searchSkillKey.value ? 'for "' + searchSkillKey.value + '"' : ''}`
-        : `Nessuna competenza trovata ${
-            searchSkillKey.value ? 'per "' + searchSkillKey.value + '"' : ''
-          }`;
+  if (skills.value.length === 0 && !isLoading.value) {
+    infoMessage = searchSkillKey.value
+      ? lStore.t('skillsPage.infoMessages.noResults', { searchKey: searchSkillKey.value })
+      : lStore.t('skillsPage.infoMessages.noSkills');
   } else {
     infoMessage = skillsData.value.skillsModal?.info || '';
   }
@@ -114,10 +112,7 @@ watch(
   () => error.value,
   (err) => {
     if (err) {
-      notificationStore.pushNotification(
-        'Skills are not available at the moment. Please try again later.',
-        'error',
-      );
+      notificationStore.pushNotification(lStore.t('skillsPage.errorLoadingSkills'), 'error');
     }
   },
 );

@@ -14,7 +14,7 @@ import ContactMeFormDialog from '@/pages/home-page/components/ContactMeFormDialo
 
 // Dependencies
 const { homeData } = storeToRefs(usePortfolioStore());
-const { locale } = storeToRefs(useLocaleStore());
+const lStore = useLocaleStore();
 
 // State
 const texts = computed(() => homeData.value.thirdHeading || []);
@@ -84,7 +84,7 @@ onMounted(() => {
         <h2
           class="text-white whitespace-normal transition-all duration-300 ease-in-out text-size-xl"
         >
-          {{ locale === 'en' ? `And I'm a` : `E sono uno` }} {{ currentTxt }}_
+          {{ lStore.t('homePage.presentationTitle') }} {{ currentTxt }}_
         </h2>
       </div>
 
@@ -105,7 +105,7 @@ onMounted(() => {
         <span
           class="block text-white transition-all duration-300 ease-in-out font-bebas text-size-xl py-2 sm:py-4 md:py-4 lg:py-6"
         >
-          {{ locale === 'en' ? 'Or' : 'Oppure' }}
+          {{ lStore.t('homePage.buttonsDivider') }}
         </span>
 
         <BaseButton

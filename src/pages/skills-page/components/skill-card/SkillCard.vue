@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { storeToRefs } from 'pinia';
 
 import { useLocaleStore } from '@/stores';
 import type { Skill } from '@/types';
@@ -24,7 +23,7 @@ interface SkillCardProps {
 const props = defineProps<SkillCardProps>();
 
 // Store Declarations
-const { locale } = storeToRefs(useLocaleStore());
+const lStore = useLocaleStore();
 
 const detailsPanelIsOpen = ref(false);
 
@@ -93,7 +92,7 @@ const goPrevious = (): void => {
       class="transition-all duration-300 ease-in-out shrink-0 icon-size-xl my-2.5 sm:my-3 md:my-3 lg:my-4"
     />
     <div class="flex flex-col gap-1.5 text-white font-roboto items-center text-size-s">
-      {{ locale === 'en' ? 'Skill level' : 'Livello di competenza' }}
+      {{ lStore.t('skillsPage.skillCard') }}
       <SkillDots :value="getSkillValutationAverage" />
     </div>
 

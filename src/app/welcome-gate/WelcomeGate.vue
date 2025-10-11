@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, toRef } from 'vue';
-import { storeToRefs } from 'pinia';
 
 import { useLocaleStore } from '@/stores';
 import { useTypingText } from '@/hooks';
@@ -10,7 +9,7 @@ import { Icon } from '@iconify/vue';
 import BaseButton from '@/components/base/button/BaseButton.vue';
 import MdiRocket from '~icons/mdi/rocket';
 import MdiSkull from '~icons/mdi/skull';
-import { SOCIAL_BADGE_LINKS, WELCOME_GATE_MODEL, PROFILE_IMAGE_LINK } from './welcome-gate.model';
+import welcomeCover from '@/assets/welcome.png';
 
 // Input / Output (Props / Emits)
 const props = withDefaults(
@@ -24,10 +23,10 @@ const props = withDefaults(
   },
 );
 
-const { locale } = storeToRefs(useLocaleStore());
+const lStore = useLocaleStore();
 
 const { start, currentHtml, endTyping } = useTypingText(
-  toRef(WELCOME_GATE_MODEL.intro[locale.value]),
+  toRef(stringPurifier(lStore.t('welcomeGate.description'))),
 );
 
 const emit = defineEmits<{
@@ -39,6 +38,19 @@ onMounted(() => {
     typeSpeed: 10,
   });
 });
+
+// Template Data
+const SOCIAL_BADGE_LINKS = [
+  { icon: 'mdi:github', link: 'https://github.com/stefanBid' },
+  {
+    icon: 'fa6-brands:linkedin',
+    link: 'https://www.linkedin.com/in/stefano-biddau/',
+  },
+  {
+    icon: 'fa6-brands:instagram',
+    link: 'https://www.instagram.com/stefano_bid/',
+  },
+];
 </script>
 
 <template>
@@ -51,7 +63,7 @@ onMounted(() => {
       <h1
         class="mx-auto max-w-6xl p-4 text-center font-bebas text-size-xl animate-scale-in-small transition-all duration-300 ease-in-out"
       >
-        {{ WELCOME_GATE_MODEL.title[locale] }}
+        {{ lStore.t('welcomeGate.title') }}
       </h1>
     </header>
 
@@ -65,7 +77,7 @@ onMounted(() => {
           <div class="flex-1 overflow-auto pb-8">
             <p
               class="leading-relaxed text-size-s font-roboto animate-scale-in-small transition-all duration-300 ease-in-out"
-              v-html="stringPurifier(currentHtml)"
+              v-html="currentHtml"
             ></p>
 
             <!-- Socials -->
@@ -105,7 +117,7 @@ onMounted(() => {
                   :icon="props.error ? MdiSkull : MdiRocket"
                   @click="emit('change')"
                 >
-                  {{ props.error ? '' : 'Explore' }}
+                  {{ props.error ? '' : lStore.t('welcomeGate.cta') }}
                 </BaseButton>
               </div>
             </transition>
@@ -118,7 +130,7 @@ onMounted(() => {
         class="order-1 lg:order-2 flex justify-center w-full lg:w-fit animate-scale-in-small"
       >
         <img
-          :src="PROFILE_IMAGE_LINK"
+          :src="welcomeCover"
           alt="Welcome Cover"
           class="block mx-auto rounded-full h-auto w-auto max-h-[60vh] max-w-[80vw] sm:max-h-[65vh] lg:max-h-[70vh] lg:max-w-[420px] object-contain"
         />

@@ -1,0 +1,30 @@
+{
+  "welcomeGate": {
+    "title": "👋🏼 Benvenuto nel mio portfolio!",
+    "description": "Mi chiamo <strong>Stefano Biddau</strong> e sono uno <strong>sviluppatore web</strong> appassionato di <strong>design</strong> e <strong>tecnologia</strong>. Credo che un sito debba essere al tempo stesso <strong>bello</strong> e <strong>funzionale</strong>, offrendo un’<strong>esperienza fluida e accessibile</strong> a tutti.<br><br>Unisco la precisione del <strong>front-end</strong> alla solidità dell’<strong>integrazione back-end</strong> per creare soluzioni curate e affidabili.<br><br>Ogni progetto è l’occasione per <strong>ascoltare</strong>, <strong>comprendere</strong> e <strong>trasformare un’idea in realtà</strong> — con <strong>creatività</strong>, <strong>dedizione</strong> e voglia di costruire qualcosa che ispiri davvero.",
+    "cta": "Esplora il mio lavoro",
+    "errorLoadingPortfolio": "Impossibile visitare completamente il portfolio. Ricarica la pagina o riprova più tardi!"
+  },
+  "homePage": {
+    "presentationTitle": "E sono uno",
+    "buttonsDivider": "oppure",
+    "contactForm": {
+      "checkbox": ["Leggi", "Politica sulla riservatezza", "e", "Termini e condizioni"],
+      "successMessage": "Email inviata con successo! Risponderò il prima possibile.",
+      "errorMessage": "Si è verificato un errore durante l'invio dell'email! Riprova più tardi."
+    }
+  },
+  "skillsPage": {
+    "infoMessages": {
+      "noSkills": "Nessuna competenza trovata.",
+      "noResults": "Nessun competenza trovata per \"{searchKey}\"."
+    },
+    "skillCard": "Livello di competenza",
+    "errorLoadingSkills": "Si è verificato un errore durante il caricamento delle competenze. Riprova più tardi."
+  },
+  "notFoundPage": {
+    "title": "404 - Pagina non trovata",
+    "description": "Spiacente, la pagina che stai cercando non esiste o è stata spostata.",
+    "cta": "Torna alla home"
+  }
+}

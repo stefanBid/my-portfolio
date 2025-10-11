@@ -26,8 +26,8 @@ const props = defineProps<ContactMeFormDialogProps>();
 
 // Dependencies
 const notificationStore = useNotificationStore();
+const lStore = useLocaleStore();
 const { homeData } = storeToRefs(usePortfolioStore());
-const { locale } = storeToRefs(useLocaleStore());
 
 // State
 const form = reactive<Record<string, string | boolean>>({});
@@ -97,11 +97,10 @@ const onSendEmail = async (): Promise<void> => {
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     );
 
-    notificationMsg =
-      locale.value === 'en' ? `Email sent successfully!` : `Email inviata con successo!`;
+    notificationMsg = lStore.t('homePage.contactForm.successMessage');
     notificationStore.pushNotification(notificationMsg, 'success');
   } catch {
-    notificationMsg = locale.value === 'en' ? 'Email not sent!' : 'Email non inviata!';
+    notificationMsg = lStore.t('homePage.contactForm.errorMessage');
     notificationStore.pushNotification(notificationMsg, 'error');
   } finally {
     sendingEmail.value = false;
@@ -255,25 +254,24 @@ const FIELDS_MAP: Record<string, Component> = {
                 >
                   {{ field.label }}
                   <span>
-                    {{ locale === 'en' ? 'Read' : 'Leggi' }}
+                    {{ lStore.t('homePage.contactForm.checkbox.0') }}
                     <RouterLink
                       to="/privacy-policy"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
                     >
-                      {{ locale === 'en' ? 'Privacy Policy' : 'Politica sulla riservatezza' }}
+                      {{ lStore.t('homePage.contactForm.checkbox.1') }}
                     </RouterLink>
-                    {{ locale === 'en' ? 'and' : 'e' }}
+                    {{ lStore.t('homePage.contactForm.checkbox.2') }}
                     <RouterLink
                       to="/terms-and-conditions"
                       target="_blank"
                       rel="noopener noreferrer"
                       class="underline transition-all duration-300 ease-in-out outline-none cursor-pointer text-sb-tertiary-100 hover:text-sb-tertiary-200 ring-0 focus-visible:text-sb-tertiary-200"
                     >
-                      {{ locale === 'en' ? 'Terms and Conditions' : 'Termini e condizioni' }}
+                      {{ lStore.t('homePage.contactForm.checkbox.3') }}
                     </RouterLink>
-                    .
                   </span>
                 </span>
               </template>

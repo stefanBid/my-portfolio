@@ -1,0 +1,30 @@
+{
+  "welcomeGate": {
+    "title": "👋🏼 Welcome to my portfolio!",
+    "description": "My name is <strong>Stefano Biddau</strong>, a <strong>web developer</strong> driven by a passion for <strong>design</strong> and <strong>technology</strong>. I believe a website should be both <strong>beautiful</strong> and <strong>functional</strong>, offering a <strong>seamless, accessible experience</strong> to every user.<br><br>With experience in <strong>front-end</strong> precision and <strong>back-end</strong> integration, I create solutions that are elegant on the outside and solid underneath.<br><br>Each project is a chance to <strong>listen</strong>, <strong>understand</strong>, and <strong>turn ideas into reality</strong> — with <strong>creativity</strong>, <strong>dedication</strong>, and a drive to craft something that truly works and inspires.",
+    "cta": "Explore my work",
+    "errorLoadingPortfolio": "Unable to visit portfolio completely. Refresh page or try later!"
+  },
+  "homePage": {
+    "presentationTitle": "And I'm a",
+    "buttonsDivider": "or",
+    "contactForm": {
+      "checkbox": ["Read", "Privacy Policy", "and", "Terms and Conditions"],
+      "successMessage": "Email sent successfully! I will respond as soon as possible.",
+      "errorMessage": "An error occurred while sending the email! Please try again later."
+    }
+  },
+  "skillsPage": {
+    "infoMessages": {
+      "noSkills": "No skills found.",
+      "noResults": "No skills found for \"{searchKey}\"."
+    },
+    "skillCard": "Skill level",
+    "errorLoadingSkills": "An error occurred while loading skills. Please try again later."
+  },
+  "notFoundPage": {
+    "title": "404 - Page not found",
+    "description": "Sorry, the page you are looking for does not exist or has been moved.",
+    "cta": "Back to home"
+  }
+}

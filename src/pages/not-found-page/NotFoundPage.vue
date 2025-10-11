@@ -1,18 +1,27 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
+import { useHead } from '@unhead/vue';
+import { computed } from 'vue';
 
 import { useLocaleStore } from '@/stores';
 
 import BaseButton from '@/components/base/button/BaseButton.vue';
-
 import MdiHomeFlood from '~icons/mdi/home-flood';
 
-// Stores declarations
-const { locale } = storeToRefs(useLocaleStore());
-
-// Hooks declarations
+// Dependencies
+const lStore = useLocaleStore();
 const router = useRouter();
+
+// State
+useHead({
+  title: computed(() => lStore.t('notFoundPage.title')),
+  meta: computed(() => [
+    {
+      name: 'description',
+      content: lStore.t('notFoundPage.description'),
+    },
+  ]),
+});
 </script>
 
 <template>
@@ -20,16 +29,12 @@ const router = useRouter();
     class="flex flex-col items-center justify-center h-screen pt-20 text-center text-white transition-all duration-300 ease-in-out container-p"
   >
     <h1 class="whitespace-normal transition-all duration-300 ease-in-out font-bebas text-size-xxl">
-      {{ locale === 'en' ? '404 - Page Not Found' : '404 - Pagina Non Trovata' }}
+      {{ lStore.t('notFoundPage.title') }}
     </h1>
     <p
       class="font-medium whitespace-normal transition-all duration-300 ease-in-out font-roboto text-size-m mb-3 sm:mb-4 md:mb-5 lg:mb-6"
     >
-      {{
-        locale === 'en'
-          ? 'Sorry, the page you are looking for does not exist.'
-          : 'Spiacente, la pagina che stai cercando non esiste.'
-      }}
+      {{ lStore.t('notFoundPage.description') }}
     </p>
 
     <BaseButton
@@ -39,7 +44,7 @@ const router = useRouter();
       :icon="MdiHomeFlood"
       @click.stop="() => router.push({ name: 'home' })"
     >
-      {{ locale === 'en' ? 'Go to Home' : 'Vai alla Home' }}
+      {{ lStore.t('notFoundPage.cta') }}
     </BaseButton>
   </div>
 </template>

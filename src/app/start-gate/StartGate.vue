@@ -65,10 +65,7 @@ watch(
   () => [portfolioError.value, localeError.value],
   (err) => {
     if (err.find((e) => e !== null)) {
-      notificationStore.pushNotification(
-        'Unable to visit portfolio completely. Refresh page or try later!',
-        'error',
-      );
+      notificationStore.pushNotification(lStore.t('welcomeGate.errorLoadingPortfolio'), 'error');
     }
   },
 );

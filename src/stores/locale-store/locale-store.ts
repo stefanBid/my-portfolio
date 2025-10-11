@@ -8,7 +8,7 @@ import { getLocales } from '@/services';
 
 export const useLocaleStore = defineStore('locale', () => {
   // Dependencies
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
 
   // State
 
@@ -61,5 +61,6 @@ export const useLocaleStore = defineStore('locale', () => {
     setLocale,
     loadLocales,
     hasLocalesInCache,
+    t,
   };
 });
