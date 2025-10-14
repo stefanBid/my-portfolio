@@ -85,7 +85,7 @@ const SOCIAL_BADGE_LINKS = [
               <div
                 v-if="endTyping"
                 id="social-media"
-                class="flex w-full justify-center lg:justify-end tot-gap-s mt-6 pr-4"
+                class="flex w-full justify-center lg:justify-end tot-gap-s mt-6 lg:pr-4"
               >
                 <BaseButton
                   v-for="(social, index) in SOCIAL_BADGE_LINKS"
