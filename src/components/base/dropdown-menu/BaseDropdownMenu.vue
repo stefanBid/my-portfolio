@@ -38,8 +38,8 @@ const { reference, floating, floatingStyle, isOpen, toggle, close } = useSbFloat
 
 // Events
 const onIntersectionObserver = (entries: IntersectionObserverEntry[]): void => {
-  const [{ isIntersecting }] = entries;
-  if (isIntersecting && isOpen.value) {
+  const [entry] = entries;
+  if (entry?.isIntersecting && isOpen.value) {
     close();
   }
 };

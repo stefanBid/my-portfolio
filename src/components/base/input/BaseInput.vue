@@ -86,8 +86,9 @@ const inputLabel = computed(() => {
 });
 
 // Events
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (!isIntersecting && isOpen.value && props.withMenu) {
+const onIntersectionObserver = (entries: IntersectionObserverEntry[]): void => {
+  const [entry] = entries;
+  if (!entry?.isIntersecting && isOpen.value && props.withMenu) {
     close();
   }
 };
