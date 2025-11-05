@@ -72,14 +72,14 @@ const onCloseDialog = (): void => {
               class="tot-pad-m tot-gap-m flex flex-col overflow-hidden transition-all duration-300 ease-in-out transform border-2 rounded-lg shadow-lg shadow-sb-secondary-200 border-sb-secondary-200 bg-sb-main"
             >
               <div
-                class="flex justify-between overflow-hidden cursor-default shrink-0 tot-gap-m transition-all duration-300 ease-in-out"
+                class="flex justify-between cursor-default shrink-0 tot-gap-m transition-all duration-300 ease-in-out"
               >
                 <div
                   :class="{
                     'text-left': props.headerOrientation === 'left',
                     'text-center': props.headerOrientation === 'center',
                   }"
-                  class="flex-1 overflow-x-hidden"
+                  class="flex-1"
                 >
                   <h3
                     v-show="props.dialogTitle"
@@ -90,7 +90,7 @@ const onCloseDialog = (): void => {
                   </h3>
                 </div>
                 <BaseButton
-                  class="text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
+                  class="text-white border border-white rounded-md w-fit h-fit hover:rotate-90 focus-visible:ring-2 ring-white p-1"
                   :aria-label="`close ${props.dialogTitle} modal`"
                   variant="custom"
                   size="custom"

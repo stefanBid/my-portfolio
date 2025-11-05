@@ -102,7 +102,7 @@ const goPrevious = (): void => {
         class="absolute p-2.5 sm:p-3 md:p-3 lg:p-4 top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-[200] bg-sb-secondary-300"
       >
         <BaseButton
-          class="absolute top-3.5 right-2.5 sm:top-4 sm:right-3 md:top-4 md:rigt-3 lg:top-5 lg:right-4 text-white border border-transparent rounded-md w-fit h-fit hover:rotate-90 focus-visible:border-white"
+          class="absolute top-3.5 right-2.5 sm:top-4 sm:right-3 md:top-4 md:right-3 lg:top-5 lg:right-4 text-white border border-white rounded-md w-fit h-fit hover:rotate-90 focus-visible:ring-2 ring-white p-1"
           size="custom"
           variant="custom"
           :aria-label="`close ${props.skill.name} details panel`"

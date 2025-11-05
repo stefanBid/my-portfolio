@@ -199,7 +199,7 @@ const handleMQ = (e: MediaQueryListEvent): void => {
         <!-- Mobile toggle button (visible < lg) -->
         <button
           type="button"
-          class="lg:hidden inline-flex items-center justify-center rounded-md cursor-pointer"
+          class="lg:hidden inline-flex items-center justify-center rounded-md cursor-pointer p-1"
           aria-controls="mobile-nav"
           aria-expanded="false"
           aria-label="Toggle navigation"
