@@ -19,9 +19,9 @@ import type { Lang } from '@/types';
 const route = useRoute();
 const notificationStore = useNotificationStore();
 const pStore = usePortfolioStore();
-const { portfolio, error: portfolioError, isLoading } = storeToRefs(pStore);
+const { portfolio, error: portfolioError, isLoading: isPortfolioLoading } = storeToRefs(pStore);
 const lStore = useLocaleStore();
-const { locale, locales, error: localeError } = storeToRefs(lStore);
+const { locale, locales, error: localeError, isLoading: isLocaleLoading } = storeToRefs(lStore);
 
 // globals
 const WELCOME_KEY = makeGeneralCacheKey('welcome-seen');
@@ -38,6 +38,9 @@ const showWelcome = computed(() => !isNotFound.value && !welcomeSeen.value);
 const isHeaderVisible = computed(() => !hideHeader.value && !showWelcome.value);
 const isFooterVisible = computed(() => !hideFooter.value && !showWelcome.value);
 const isPortfolioVisible = computed(() => isNotFound.value || !showWelcome.value);
+
+const areDataFetched = computed(() => !isPortfolioLoading.value && !isLocaleLoading.value);
+const thereAreErrors = computed(() => portfolioError.value !== null || localeError.value !== null);
 
 // events
 const onSwitchToMainView = (): void => {
@@ -92,8 +95,8 @@ watch(
   <transition name="fade">
     <WelcomeGate
       v-if="showWelcome"
-      :error="portfolioError || localeError"
-      :data-fetched="!isLoading"
+      :there-are-errors="thereAreErrors"
+      :are-data-fetched="areDataFetched"
       @change="onSwitchToMainView"
     />
   </transition>
