@@ -98,7 +98,7 @@ const handleMQ = (e: MediaQueryListEvent): void => {
 
 <template>
   <header
-    class="fixed inset-x-0 top-0 h-14 sm:h-[3.75rem] md:h-16 lg:h-20 z-[1000] border-b text-white transition-all duration-300 ease-in-out"
+    class="fixed inset-x-0 top-0 h-14 sm:h-15 md:h-16 lg:h-20 z-1000 border-b text-white transition-all duration-300 ease-in-out"
     :class="{
       'bg-sb-main border-transparent': !routesAreVisible,
       'bg-transparent border-transparent': routesAreVisible && route.path === '/' && !isMenuOpen,
@@ -217,7 +217,7 @@ const handleMQ = (e: MediaQueryListEvent): void => {
   <!-- MOBILE MENU OUTSIDE HEADER -->
   <div
     v-if="routesAreVisible"
-    class="lg:hidden fixed inset-x-0 top-14 md:top-16 bottom-0 z-[950] bg-sb-main transform-gpu transition-transform duration-300 ease-in-out overflow-y-auto pr-4 pl-8 sm:pr-5 sm:pl-9 md:pr-5 md:pl-9"
+    class="lg:hidden fixed inset-x-0 top-14 md:top-16 bottom-0 z-950 bg-sb-main transform-gpu transition-transform duration-300 ease-in-out overflow-y-auto pr-4 pl-8 sm:pr-5 sm:pl-9 md:pr-5 md:pl-9"
     :class="
       isMenuOpen ? 'translate-x-0 pointer-events-auto' : '-translate-x-full pointer-events-none'
     "

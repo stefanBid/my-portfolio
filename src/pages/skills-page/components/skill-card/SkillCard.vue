@@ -79,10 +79,10 @@ const goPrevious = (): void => {
   >
     <FluentEmojiFlatSportsMedal
       v-if="props.skill.isGod"
-      class="fixed text-sb-tertiary-200 z-[300] -rotate-12 icon-size-m -top-[8px] -left-[9px] sm:-top-[10px] sm:-left-[13px] md:-top-[10px] md:-left-[13px] lg:-top-[12px] lg:-left-[16px]"
+      class="fixed text-sb-tertiary-200 z-300 -rotate-12 icon-size-m -top-2 -left-[9px] sm:-top-2.5 sm:-left-[13px] md:-top-2.5 md:-left-[13px] lg:-top-3 lg:-left-4"
     />
     <h4
-      class="font-medium text-white transition-all duration-300 ease-in-out z-[300] font-roboto text-size-m"
+      class="font-medium text-white transition-all duration-300 ease-in-out z-300 font-roboto text-size-m"
     >
       {{ props.skill.name }}
     </h4>
@@ -99,7 +99,7 @@ const goPrevious = (): void => {
     <transition name="slide-fade">
       <div
         v-if="detailsPanelIsOpen"
-        class="absolute p-2.5 sm:p-3 md:p-3 lg:p-4 top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-[200] bg-sb-secondary-300"
+        class="absolute p-2.5 sm:p-3 md:p-3 lg:p-4 top-0 flex flex-col w-full h-full transition-all duration-300 ease-in-out z-200 bg-sb-secondary-300"
       >
         <BaseButton
           class="absolute top-3.5 right-2.5 sm:top-4 sm:right-3 md:top-4 md:right-3 lg:top-5 lg:right-4 text-white border border-white rounded-md w-fit h-fit hover:rotate-90 focus-visible:ring-2 ring-white p-1"

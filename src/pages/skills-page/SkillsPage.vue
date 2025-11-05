@@ -80,26 +80,26 @@ const onChangeVisibility = (newVisibility: boolean): void => {
           <div v-for="(star, index) in stars" :key="index" :style="star"></div>
         </div>
         <span
-          class="text-center transition-all duration-300 ease-in-out z-[100] font-bebas text-sb-tertiary-100 text-size-xl"
+          class="text-center transition-all duration-300 ease-in-out z-100 font-bebas text-sb-tertiary-100 text-size-xl"
         >
           {{ skillsData.skillsInfoPanel.title }}
         </span>
         <span
-          class="text-center text-white transition-all duration-300 ease-in-out z-[100] font-bebas text-size-l"
+          class="text-center text-white transition-all duration-300 ease-in-out z-100 font-bebas text-size-l"
         >
           {{ skillsData.skillsInfoPanel.subtitle }}
         </span>
         <Icon
           v-if="getInfoPanelExtraInfoIcon"
           :icon="getInfoPanelExtraInfoIcon"
-          class="transition-all duration-300 ease-in-out z-[100] text-sb-tertiary-100 icon-size-xxl my-2.5 sm:my-3 md:my-3 lg:my-4"
+          class="transition-all duration-300 ease-in-out z-100 text-sb-tertiary-100 icon-size-xxl my-2.5 sm:my-3 md:my-3 lg:my-4"
         />
         <BaseButton
           v-if="getInfoPanelExtraInfoButton"
           id="exploreSkillsButton"
           name="explore_skills_button"
           aria-label="click to explore skills"
-          class="z-[100] w-fit"
+          class="z-100 w-fit"
           :icon="h(Icon, { icon: getInfoPanelExtraInfoButton.icon || '' })"
           @click="onChangeVisibility(!isModalOpen)"
         >

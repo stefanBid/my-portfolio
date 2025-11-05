@@ -43,10 +43,10 @@ const onCloseDialog = (): void => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black/95 z-[1050]"></div>
+        <div class="fixed inset-0 bg-black/95 z-1050"></div>
       </TransitionChild>
 
-      <div class="fixed inset-0 overflow-y-auto z-[1100]">
+      <div class="fixed inset-0 overflow-y-auto z-1100">
         <div
           class="flex items-center justify-center h-dvh scrollbar-gutter-stable container-p py-4 sm:py-5 md:py-5 lg:py-6 transition-all duration-300 ease-in-out"
         >
