@@ -7,7 +7,7 @@
 
 ![Vite 7.2.0](https://img.shields.io/badge/Vite-7.2.0-646cff?logo=vite)
 ![Tailwind CSS 4.1.16](https://img.shields.io/badge/TailwindCSS-4.1.16-38bdf8?logo=tailwindcss)
-![TypeScript 5.8.3](https://img.shields.io/badge/TypeScript-5.8.3-3178c6?logo=typescript)
+![TypeScript 5.9.3](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)
 ![ESLint 9.39.1](https://img.shields.io/badge/ESLint-9.39.1-4B32C3?logo=eslint)
 ![Prettier 3.6.2](https://img.shields.io/badge/Prettier-3.6.2-F7B93E?logo=prettier)
 
