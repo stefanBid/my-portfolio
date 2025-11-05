@@ -19,7 +19,7 @@ axiosRetry(api, {
     const status = error?.response?.status;
     const isNetwork = axiosRetry.isNetworkOrIdempotentRequestError(error);
 
-    console.warn('[DEBUG] Retry condition → status:', status, 'isNetwork:', isNetwork);
+    //console.warn('[DEBUG] Retry condition → status:', status, 'isNetwork:', isNetwork);
 
     return isNetwork || status === 502 || status === 503 || status === 504;
   },
