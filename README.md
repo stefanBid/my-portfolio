@@ -1,51 +1,68 @@
 # Stefano Biddau's Portfolio
 
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
-![YAML](https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515)
-![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)
-![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
+![Vue 3.5.22](https://img.shields.io/badge/Vue-3.5.22-42b883?logo=vue.js)
+![Pinia 3.0.4](https://img.shields.io/badge/Pinia-3.0.4-yellow?logo=pinia)
+![Vue Router 4.6.3](https://img.shields.io/badge/Vue_Router-4.6.3-4FC08D?logo=vue.js)
+![Vue I18n 11.1.12](https://img.shields.io/badge/Vue_I18n-11.1.12-blue?logo=translate)
+
+![Vite 7.2.0](https://img.shields.io/badge/Vite-7.2.0-646cff?logo=vite)
+![Tailwind CSS 4.1.16](https://img.shields.io/badge/TailwindCSS-4.1.16-38bdf8?logo=tailwindcss)
+![TypeScript 5.9.3](https://img.shields.io/badge/TypeScript-5.9.3-3178c6?logo=typescript)
+![ESLint 9.39.1](https://img.shields.io/badge/ESLint-9.39.1-4B32C3?logo=eslint)
+![Prettier 3.6.2](https://img.shields.io/badge/Prettier-3.6.2-F7B93E?logo=prettier)
+
+![Axios 1.13.2](https://img.shields.io/badge/Axios-1.13.2-5A29E4?logo=axios)
+![Axios Retry 4.5.0](https://img.shields.io/badge/Axios--Retry-4.5.0-blueviolet)
+
+![Storybook 10.0.4](https://img.shields.io/badge/Storybook-10.0.4-ff4785?logo=storybook)
+![Chromatic 13.3.3](https://img.shields.io/badge/Chromatic-13.3.3-0066FF?logo=chromatic)
+
+![SVGO 4.0.0](https://img.shields.io/badge/SVGO-4.0.0-green?logo=svg)
+![Sharp 0.34.4](https://img.shields.io/badge/Sharp-0.34.4-gray)
+
+![Node 22.15.0](https://img.shields.io/badge/Node-22.15.0-339933?logo=node.js)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/55a2b1a4-7d4b-4a3e-8edd-444dbf85092a/deploy-status)](https://app.netlify.com/projects/stefanobiddau/deploys)
 
-Visit the live site [here](https://stefanobiddau.com/)
-
-
-Visit the live storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
-
---- 
-
-
-## Description
-This is my portfolio. It contains information about me, my projects, and how to contact me.
-
->**Note**: This project is under constant development. If you have any suggestions or feedback, please let me know.
+🔗 Visit the live site [here](https://stefanobiddau.com/)  
+📚 View the live Storybook [here](https://www.chromatic.com/library?appId=67bc3a6769b2d75d3ca76e57)
 
 ---
 
-## System Requirements
+## 📑 Table of Contents
 
-Before starting, ensure your system meets the following requirements:
-
-- **Node.js**: Version **22.15.0** (LTS) or newer. [Download Node.js](https://nodejs.org/)
-- **npm**: Bundled with Node.js (use `npm install -g npm@latest` to update if needed).
-- **Modern Browser**: Ensure compatibility with recent versions of Chrome, Firefox, or Edge.
-- **pnpm (optional)**: For efficient package management, you can use `pnpm` instead of `npm`. [Learn more about pnpm](https://pnpm.io/)
+- [Description](#description)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Scripts Overview](#scripts-overview)
+- [Features](#features)
+- [SEO Optimization](#seo-optimization)
+- [License](#license)
 
 ---
 
-## Installation
+## 📌 Description
 
-Follow these steps to set up the project:
+This is my personal portfolio. It contains information about me, my projects, and how to contact me.
+
+>**Note**: This project is under continuous development. Suggestions and feedback are always welcome!
+
+---
+
+## ⚙️ System Requirements
+
+Make sure your environment meets the following:
+
+- **Node.js**: Version **22.15.0** (LTS or newer).  
+  👉 [Download Node.js](https://nodejs.org/)
+- **npm**: Comes with Node.js (use `npm install -g npm@latest` to update).
+- **Modern Browser**: Chrome, Firefox, Edge (latest versions recommended).
+- **pnpm (optional)**: Faster and leaner alternative to npm.  
+  👉 [Learn more about pnpm](https://pnpm.io/)
+
+---
+
+## 🚀 Installation
 
 1. **Clone the Repository**:
    ```bash
@@ -69,11 +86,11 @@ Follow these steps to set up the project:
    ```
 
 5. **Lint and Fix Code**:
-   - Check for linting errors:
+   - Check for issues:
      ```bash
      npm run lint
      ```
-   - Automatically fix issues:
+   - Auto-fix:
      ```bash
      npm run lint:fix
      ```
@@ -85,50 +102,51 @@ Follow these steps to set up the project:
 
 ---
 
-## Scripts Overview
+## 📜 Scripts Overview
 
-| Script               | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| `npm run dev`        | Starts the development server with Vite.                                   |
-| `npm run build`      | Builds the project for production, including type-checking with `vue-tsc`. |
-| `npm run preview`    | Serves the built project for preview.                                      |
-| `npm run visualize`  | Builds the project with visualization mode enabled.                       |
-| `npm run lint`       | Runs ESLint to check for code quality issues.                              |
-| `npm run lint:fix`   | Runs ESLint with auto-fix enabled.                                         |
-| `npm run optimize-svg` | Optimizes SVG files in `src/assets/icons` using SVGO.                    |
-
----
-
-## Features
-
-This project uses the following technologies:
-
-- **Vue 3**: Reactive and component-based UI framework.
-- **Vite**: High-performance development and build tool.
-- **TypeScript**: Strongly typed programming language for modern JavaScript.
-- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
-- **ESLint**: Linting for code quality.
+| Script                | Description                                                                 |
+|-----------------------|-----------------------------------------------------------------------------|
+| `npm run dev`         | Starts the development server using Vite.                                  |
+| `npm run build`       | Builds the project for production and type-checks with `vue-tsc`.          |
+| `npm run preview`     | Serves the built project locally.                                           |
+| `npm run visualize`   | Builds the app with bundle visualizer enabled.                             |
+| `npm run lint`        | Runs ESLint to find code quality issues.                                   |
+| `npm run lint:fix`    | Fixes common ESLint issues automatically.                                  |
+| `npm run optimize-svg`| Optimizes SVGs in `src/assets/icons` using SVGO.                           |
 
 ---
 
-## SEO Optimization
+## 🧪 Features
 
-This portfolio includes a fully dynamic and reactive SEO setup using [`@unhead/vue`](https://unhead.unjs.io/), enabling real-time updates of `<head>` content based on page data and selected language.
+This project integrates a rich set of modern technologies:
 
-### Key Features:
-- Dynamic management of `<title>`, `<meta name="description">`, `<meta name="keywords">`, and Open Graph tags.
-- Locale-aware Open Graph support via `og:locale` and `og:locale:alternate`.
-- Computed, reactive meta tags that automatically update with route or data changes.
-- Inclusion of `robots`, `canonical`, and `author` meta tags.
-- Ready for future Twitter Card and JSON-LD structured data integration.
-
-> The entire SEO system was designed by [Martina Eulogio](https://www.linkedin.com/in/martina-eulogio-/), using a reactive and modular approach deeply integrated with Vue.
+- **Vue 3**: Modern, reactive UI framework
+- **Vite**: Fast build tool with excellent DX
+- **TypeScript**: Typed JavaScript for better safety
+- **Tailwind CSS**: Utility-first CSS framework
+- **Pinia**: State management for Vue
+- **Vue Router**: Navigation system for SPAs
+- **Vue I18n**: Localization with dynamic locale support
+- **ESLint + Prettier**: Code quality and formatting
 
 ---
 
-## License
+## 🔍 SEO Optimization
 
-© 2025 Stefano Biddau. All rights reserved.
+SEO is powered by [`@unhead/vue`](https://unhead.unjs.io/), which enables dynamic head/meta management:
 
-This project is not open source. See [LICENSE](./LICENSE) for details and usage restrictions.
+### Highlights:
+- **Reactive SEO meta** based on route and data
+- **Open Graph support** including `og:locale` and alternates
+- **Meta fallback and canonical/robots tags**
+- **Ready for Twitter Card and structured data**
 
+> This system was designed by [Martina Eulogio](https://www.linkedin.com/in/martina-eulogio-/) with a modular and reactive architecture fully integrated with Vue.
+
+---
+
+## 📝 License
+
+© 2025 **Stefano Biddau**. All rights reserved.
+
+This project is **not open-source**. See [LICENSE](./LICENSE) for more information and usage terms.

@@ -35,7 +35,12 @@ const { skills, isLoading, error } = storeToRefs(sStore);
 
 const searchSkillKey = ref('');
 const debouncedSearchSkillKey = ref('');
-const filters = ref<Record<string, boolean>>({
+const filters = ref<
+  Record<
+    'feLanguage' | 'beLanguage' | 'feFramework' | 'beFramework' | 'database' | 'tool' | 'other',
+    boolean
+  >
+>({
   feLanguage: true,
   beLanguage: true,
   feFramework: true,

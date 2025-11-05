@@ -44,19 +44,10 @@ const getScore = computed(() => {
 });
 
 // Template Data
-const RANGE_MAP: Record<string, Range> = {
-  percentage: {
-    min: 0,
-    max: 100,
-  },
-  '10-base': {
-    min: 0,
-    max: 10,
-  },
-  '5-base': {
-    min: 0,
-    max: 5,
-  },
+const RANGE_MAP: Record<'5-base' | '10-base' | 'percentage', Range> = {
+  percentage: { min: 0, max: 100 },
+  '10-base': { min: 0, max: 10 },
+  '5-base': { min: 0, max: 5 },
 } as const;
 </script>
 

@@ -8,7 +8,7 @@ const notificationStore = useNotificationStore();
 
 <template>
   <div
-    class="fixed z-[1400] w-fit tot-gap-m flex flex-col items-center transition-all duration-300 ease-in-out left-1/2 -translate-x-1/2 bottom-4 sm:left-auto sm:translate-x-0 sm:right-4 md:right-5 md:bottom-5 lg:right-8 lg:bottom-8"
+    class="fixed z-1400 w-fit tot-gap-m flex flex-col items-center transition-all duration-300 ease-in-out left-1/2 -translate-x-1/2 bottom-4 sm:left-auto sm:translate-x-0 sm:right-4 md:right-5 md:bottom-5 lg:right-8 lg:bottom-8"
   >
     <transition-group name="scale-and-fade-big">
       <AppNotificationContainer

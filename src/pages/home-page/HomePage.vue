@@ -60,9 +60,9 @@ onMounted(() => {
     ></video>
 
     <!-- Overlay -->
-    <div class="absolute inset-0 bg-black z-[100] opacity-30"></div>
+    <div class="absolute inset-0 bg-black z-100 opacity-30"></div>
     <div
-      class="absolute inset-0 flex w-full h-full flex-col gap-y-12 justify-center items-center lg:flex-row lg:items-center lg:justify-between pt-14 sm:pt-[3.75rem] md:pt-16 lg:pt-20 z-[200] container-p animate-scale-in-small"
+      class="absolute inset-0 flex w-full h-full flex-col gap-y-12 justify-center items-center lg:flex-row lg:items-center lg:justify-between pt-14 sm:pt-15 md:pt-16 lg:pt-20 z-200 container-p animate-scale-in-small"
     >
       <div
         class="flex flex-col justify-center text-center items-center lg:h-full lg:text-left lg:items-start w-full transition-all duration-300 ease-in-out border-white gap-y-4 font-bebas"

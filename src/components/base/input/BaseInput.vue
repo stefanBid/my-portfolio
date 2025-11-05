@@ -86,8 +86,9 @@ const inputLabel = computed(() => {
 });
 
 // Events
-const onIntersectionObserver = ([{ isIntersecting }]: IntersectionObserverEntry[]): void => {
-  if (!isIntersecting && isOpen.value && props.withMenu) {
+const onIntersectionObserver = (entries: IntersectionObserverEntry[]): void => {
+  const [entry] = entries;
+  if (!entry?.isIntersecting && isOpen.value && props.withMenu) {
     close();
   }
 };
@@ -184,7 +185,7 @@ const onFocusBlur = (focused: boolean): void => {
         ref="floating"
         v-on-click-outside="[(_: Event) => close(), { ignore: [reference, buttonMenuRef] }]"
         :style="floatingStyle"
-        class="absolute border-2 rounded-lg shadow-2xl z-[1200] border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
+        class="absolute border-2 rounded-lg shadow-2xl z-1200 border-sb-secondary-100 bg-sb-secondary-100 shadow-sb-secondary-300 h-fit"
       >
         <slot name="input-menu-box"></slot>
       </div>

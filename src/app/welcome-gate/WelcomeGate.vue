@@ -56,7 +56,7 @@ const SOCIAL_BADGE_LINKS = [
 <template>
   <!-- Layout Fullscreen FIXED -->
   <div
-    class="fixed inset-0 z-[1300] flex h-dvh flex-col tot-gap-l bg-sb-main text-white container-tot-p overflow-y-auto"
+    class="fixed inset-0 z-1300 flex h-dvh flex-col tot-gap-l bg-sb-main text-white container-tot-p overflow-y-auto"
   >
     <!-- Titolo -->
     <header class="shrink-0">

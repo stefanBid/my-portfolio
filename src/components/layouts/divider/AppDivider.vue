@@ -48,8 +48,8 @@ const onIntersectionObserver = (
   entries: IntersectionObserverEntry[],
   observer: IntersectionObserver,
 ): void => {
-  const [{ isIntersecting }] = entries;
-  if (isIntersecting !== isVisible.value && !isVisible.value) {
+  const [entry] = entries;
+  if (entry?.isIntersecting !== isVisible.value && !isVisible.value) {
     isVisible.value = true;
     observer?.disconnect();
   }
