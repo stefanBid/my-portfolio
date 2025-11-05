@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import type { StrapiLocale } from '@/types';
+import { ApiError } from '@/lib/api-error';
 import { CACHE_CMS, makeCacheKey } from '@/lib/cache/cache-helpers';
 import { TTL } from '@/config/cache.config';
 import { getLocales } from '@/services';
@@ -14,7 +15,7 @@ export const useLocaleStore = defineStore('locale', () => {
 
   const locales = ref<StrapiLocale[]>([]);
   const isLoading = ref(false);
-  const error = ref<string | null>(null);
+  const error = ref<ApiError | null>(null);
 
   const setLocale = (newLocale: string): void => {
     locale.value = newLocale;
@@ -40,8 +41,12 @@ export const useLocaleStore = defineStore('locale', () => {
       CACHE_CMS.set(cacheKey, data, TTL.locale);
       locales.value = [...data];
     } catch (err) {
-      error.value = (err as Error).message;
-      throw new Error(`LocaleStore: loadLocales failed: ${error.value}`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = (err as any)?.response?.status ?? 0;
+      const message = (err as Error).message ?? 'Unexpected error';
+
+      error.value = new ApiError(status, message, err);
+      throw error.value;
     } finally {
       isLoading.value = false;
     }

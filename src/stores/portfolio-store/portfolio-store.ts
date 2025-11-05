@@ -14,6 +14,8 @@ import type {
   StrapiV5Single,
 } from '@/types';
 
+import { ApiError } from '@/lib/api-error';
+
 import { getPortfolio, buildPortfolioParams } from '@/services';
 import { CACHE_CMS, makeCacheKey } from '@/lib/cache/cache-helpers';
 import { TTL } from '@/config/cache.config';
@@ -33,7 +35,7 @@ export const usePortfolioStore = defineStore('portfolio', () => {
   const portfolio = ref<Portfolio>(PORTFOLIO_SAFE_MOCK);
   const isLoading = ref(false);
   const isDataCached = ref(false);
-  const error = ref<string | null>(null);
+  const error = ref<ApiError | null>(null);
 
   // Getters
   const pages = computed(() => portfolio.value.pages ?? []);
@@ -102,8 +104,13 @@ export const usePortfolioStore = defineStore('portfolio', () => {
       const data = await getPortfolio(lang);
       CACHE_CMS.set(cacheKey, data, TTL.portfolio);
       _fillFromResponse(data);
-    } catch (e: Error | unknown) {
-      error.value = (e as Error)?.message ?? 'Unable to fetch portfolio data';
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = (err as any)?.response?.status ?? 0;
+      const message = (err as Error).message ?? 'Unexpected error';
+
+      error.value = new ApiError(status, message, err);
+      throw error.value;
     } finally {
       isLoading.value = false;
     }

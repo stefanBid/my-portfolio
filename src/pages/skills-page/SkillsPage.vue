@@ -31,6 +31,8 @@ useHead({
   ]),
 });
 
+const isModalOpen = ref(false);
+
 const getInfoPanelExtraInfoButton = computed(() => {
   if (
     !skillsData.value.skillsInfoPanel.extraInfo ||
@@ -57,9 +59,9 @@ const getSkillBio = computed(() => [
     extraInfo: section.extraInfo as { sunTitle: string; bestSkillsIcons: string[] } | null,
   })),
 ]);
-// Feature 2: Manage Modal State
-const isModalOpen = ref(false);
-const changeVisibility = (newVisibility: boolean): void => {
+
+// Events
+const onChangeVisibility = (newVisibility: boolean): void => {
   if (newVisibility === isModalOpen.value) {
     return;
   }
@@ -99,7 +101,7 @@ const changeVisibility = (newVisibility: boolean): void => {
           aria-label="click to explore skills"
           class="z-[100] w-fit"
           :icon="h(Icon, { icon: getInfoPanelExtraInfoButton.icon || '' })"
-          @click="changeVisibility(!isModalOpen)"
+          @click="onChangeVisibility(!isModalOpen)"
         >
           {{ getInfoPanelExtraInfoButton.text }}
         </BaseButton>
@@ -124,6 +126,6 @@ const changeVisibility = (newVisibility: boolean): void => {
   </AppPageContainer>
   <SkillsDialog
     :is-modal-open="isModalOpen"
-    :handle-close-modal="(falsyValue) => changeVisibility(falsyValue)"
+    :handle-close-modal="(falsyValue) => onChangeVisibility(falsyValue)"
   />
 </template>

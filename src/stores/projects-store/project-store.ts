@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 import type { Lang, Project, StrapiV5Collection } from '@/types';
-
+import { ApiError } from '@/lib/api-error';
 import { CACHE_CMS, makeCacheKey } from '@/lib/cache/cache-helpers';
 import { TTL } from '@/config/cache.config';
 import { buildProjectParams, getProjects } from '@/services';
@@ -11,7 +11,7 @@ export const useProjectsStore = defineStore('projects', () => {
   // State
   const _projects = ref<Project[]>([]);
   const isLoading = ref(false);
-  const error = ref<string | null>(null);
+  const error = ref<ApiError | null>(null);
 
   const projects = computed(() => {
     let filteredProjects = _projects.value;
@@ -40,8 +40,13 @@ export const useProjectsStore = defineStore('projects', () => {
       const data = await getProjects(lang);
       CACHE_CMS.set(cacheKey, data, TTL.projects);
       _fillFromResponse(data);
-    } catch (e: Error | unknown) {
-      error.value = (e as Error)?.message ?? 'Unable to fetch projects data';
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = (err as any)?.response?.status ?? 0;
+      const message = (err as Error).message ?? 'Unexpected error';
+
+      error.value = new ApiError(status, message, err);
+      throw error.value;
     } finally {
       isLoading.value = false;
     }

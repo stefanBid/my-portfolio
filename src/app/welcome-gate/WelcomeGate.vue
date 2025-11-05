@@ -14,12 +14,12 @@ import avatar from '@/assets/my-avatar.png';
 // Input / Output (Props / Emits)
 const props = withDefaults(
   defineProps<{
-    dataFetched: boolean;
-    error: string | null;
+    areDataFetched: boolean;
+    thereAreErrors: boolean;
   }>(),
   {
-    dataFetched: false,
-    error: null,
+    areDataFetched: false,
+    thereAreErrors: false,
   },
 );
 
@@ -112,12 +112,12 @@ const SOCIAL_BADGE_LINKS = [
               >
                 <BaseButton
                   variant="white"
-                  :disabled="props.error ? true : false"
-                  :is-loading="!props.dataFetched"
-                  :icon="props.error ? MdiSkull : MdiRocket"
+                  :disabled="props.thereAreErrors"
+                  :is-loading="!props.areDataFetched"
+                  :icon="props.thereAreErrors ? MdiSkull : MdiRocket"
                   @click="emit('change')"
                 >
-                  {{ props.error ? '' : lStore.t('welcomeGate.cta') }}
+                  {{ props.thereAreErrors ? '' : lStore.t('welcomeGate.cta') }}
                 </BaseButton>
               </div>
             </transition>
