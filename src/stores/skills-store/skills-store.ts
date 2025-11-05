@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 
 import type { Lang, Skill, SkillType, StrapiV5Collection } from '@/types';
 
+import { ApiError } from '@/lib/api-error';
 import { CACHE_CMS, makeCacheKey } from '@/lib/cache/cache-helpers';
 import { TTL } from '@/config/cache.config';
 import { buildSkillParams, getSkills } from '@/services';
@@ -21,7 +22,7 @@ export const useSkillsStore = defineStore('skills', () => {
   });
   const _skills = ref<Skill[]>([]);
   const isLoading = ref(false);
-  const error = ref<string | null>(null);
+  const error = ref<ApiError | null>(null);
 
   const skills = computed(() => {
     let filteredSkills = _skills.value;
@@ -68,8 +69,13 @@ export const useSkillsStore = defineStore('skills', () => {
       const data = await getSkills(lang);
       CACHE_CMS.set(cacheKey, data, TTL.skills);
       _fillFromResponse(data);
-    } catch (e: Error | unknown) {
-      error.value = (e as Error)?.message ?? 'Unable to fetch skills data';
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const status = (err as any)?.response?.status ?? 0;
+      const message = (err as Error).message ?? 'Unexpected error';
+
+      error.value = new ApiError(status, message, err);
+      throw error.value;
     } finally {
       isLoading.value = false;
     }

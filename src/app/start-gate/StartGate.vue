@@ -66,10 +66,10 @@ onMounted(async () => {
 
 watch(
   () => [portfolioError.value, localeError.value],
-  (err) => {
-    if (err.find((e) => e !== null)) {
-      notificationStore.pushNotification(lStore.t('welcomeGate.errorLoadingPortfolio'), 'error');
-    }
+  ([portfolioErr, localeErr]) => {
+    const activeError = portfolioErr || localeErr;
+    if (!activeError) return;
+    notificationStore.pushNotification(lStore.t('welcomeGate.errorLoadingPortfolio'), 'error');
   },
 );
 

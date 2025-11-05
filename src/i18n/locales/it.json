@@ -22,6 +22,9 @@
     "skillCard": "Livello di competenza",
     "errorLoadingSkills": "Si è verificato un errore durante il caricamento delle competenze. Riprova più tardi."
   },
+  "projectsPage": {
+    "errorLoadingProjects": "Si è verificato un errore durante il caricamento dei progetti. Riprova più tardi."
+  },
   "notFoundPage": {
     "title": "404 - Pagina non trovata",
     "description": "Spiacente, la pagina che stai cercando non esiste o è stata spostata.",

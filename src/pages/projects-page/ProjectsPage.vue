@@ -19,9 +19,10 @@ import ProjectCardSkeleton from '@/pages/projects-page/components/ProjectCardSke
 import type { Lang } from '@/types';
 
 // Dependencies
-const nStore = useNotificationStore();
+const notificationStore = useNotificationStore();
 const { projectsData } = storeToRefs(usePortfolioStore());
-const { locale } = storeToRefs(useLocaleStore());
+const lStore = useLocaleStore();
+const { locale } = storeToRefs(lStore);
 const pStore = useProjectsStore();
 const { projects, isLoading, error } = storeToRefs(pStore);
 
@@ -52,12 +53,8 @@ watch(
 watch(
   () => error.value,
   (newError) => {
-    if (newError) {
-      nStore.pushNotification(
-        'Projects are not available at the moment. Please try again later.',
-        'error',
-      );
-    }
+    if (!newError) return;
+    notificationStore.pushNotification(lStore.t('projectsPage.errorLoadingProjects'), 'error');
   },
 );
 </script>

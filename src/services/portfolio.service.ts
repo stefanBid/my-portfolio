@@ -92,5 +92,29 @@ export function buildPortfolioParams(locale: Lang): Record<string, unknown> {
 export async function getPortfolio(locale: Lang): Promise<StrapiV5Single<Portfolio>> {
   const params = buildPortfolioParams(locale);
   const { data } = await api.get<StrapiV5Single<Portfolio>>('/portfolio', { params });
+
+  /**
+   const { data } = await api.get('/portfolio', {
+    params,
+    adapter: async () => {
+      const fakeError: Partial<AxiosError> = {
+        isAxiosError: true,
+        response: {
+          status: 503,
+          data: {
+            error: { message: 'Fake 503' },
+          },
+          statusText: 'Service Unavailable',
+          headers: {},
+          config: {},
+        },
+        config: {},
+        message: 'Simulated 503 error',
+      };
+
+      return Promise.reject(fakeError);
+    },
+  });
+  */
   return data;
 }

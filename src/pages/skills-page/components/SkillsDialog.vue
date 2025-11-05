@@ -110,10 +110,9 @@ watch(
 
 watch(
   () => error.value,
-  (err) => {
-    if (err) {
-      notificationStore.pushNotification(lStore.t('skillsPage.errorLoadingSkills'), 'error');
-    }
+  (newError) => {
+    if (!newError) return;
+    notificationStore.pushNotification(lStore.t('skillsPage.errorLoadingSkills'), 'error');
   },
 );
 
